@@ -45,14 +45,28 @@
         (ptr)->speed_rpm = (uint16_t)((rx_message)->Data[4] << 8 | (rx_message)->Data[5]);     \
         (ptr)->temperate = (rx_message)->Data[6];                                              \
     }
+    
+    
+#define get_tx2_data(ptr,rx_massage)                                                            \
+    {                                                                                           \
+      (ptr)->last_vertical_value=(ptr)->vertical_value;                                         \
+      (ptr)->last_horizontal_value=(ptr)->horizontal_value;                                     \
+      (ptr)->vertical_value=(uint16_t)((rx_message)->Data[0] << 8 | (rx_message)->Data[1]);     \
+      (ptr)->horizontal_value=(uint16_t)((rx_message)->Data[2] << 8 | (rx_message)->Data[3]);   \
+    }
 
 //统一处理can接收函数
 static void CAN_hook(CanRxMsg *rx_message);
 //声明电机变量
 static motor_measure_t motor_yaw, motor_pit, motor_trigger, motor_chassis[4];
+    
+//TX2 declaration
+static tx2_data_t tx2;
 
 static CanTxMsg GIMBAL_TxMessage;
-
+    //Send to TX2
+//static CanTxMsg TX2_TxMessage;
+    
 #if GIMBAL_MOTOR_6020_CAN_LOSE_SLOVE
 static uint8_t delay_time = 100;
 #endif
@@ -168,6 +182,22 @@ void CAN_CMD_CHASSIS(int16_t motor1, int16_t motor2, int16_t motor3, int16_t mot
     CAN_Transmit(CHASSIS_CAN, &TxMessage);
 }
 
+void CAN_CMD_TX2(int16_t next_target,int16_t valid_check){
+  CanTxMsg TxMessage;
+  TxMessage.StdId= CAN_TX2_ID;
+  TxMessage.RTR=CAN_RTR_DATA;
+  TxMessage.DLC=0x08;
+  TxMessage.Data[0]=next_target>>8;
+  TxMessage.Data[1]=next_target;
+  TxMessage.Data[2]=valid_check>>8;
+  TxMessage.Data[3]=valid_check;
+  TxMessage.Data[4]=0;
+  TxMessage.Data[5]=0;
+  TxMessage.Data[6]=0;
+  TxMessage.Data[7]=0;
+  CAN_Transmit(TX2_CAN, &TxMessage);
+}
+
 //返回yaw电机变量地址，通过指针方式获取原始数据
 const motor_measure_t *get_Yaw_Gimbal_Motor_Measure_Point(void)
 {
@@ -187,6 +217,11 @@ const motor_measure_t *get_Trigger_Motor_Measure_Point(void)
 const motor_measure_t *get_Chassis_Motor_Measure_Point(uint8_t i)
 {
     return &motor_chassis[(i & 0x03)];
+}
+
+const tx2_data_t *get_TX2_Data(void)
+{
+    return &tx2;
 }
 
 //统一处理can中断函数，并且记录发送数据的时间，作为离线判断依据
@@ -217,6 +252,13 @@ static void CAN_hook(CanRxMsg *rx_message)
         DetectHook(TriggerMotorTOE);
         break;
     }
+    
+    case CAN_TX2_ID:
+    {
+      get_tx2_data(&tx2,rx_message);
+      break;
+    }
+    
     case CAN_3508_M1_ID:
     case CAN_3508_M2_ID:
     case CAN_3508_M3_ID:

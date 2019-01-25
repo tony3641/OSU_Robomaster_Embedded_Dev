@@ -27,6 +27,7 @@
 #include "INS_Task.h"
 #include "Chassis_Task.h"
 #include "Gimbal_Task.h"
+//#include "Receive_Task.h"
 
 #define INS_TASK_PRIO 20
 #define INS_TASK_SIZE 512
@@ -55,6 +56,10 @@ static TaskHandle_t CalibrateTask_Handler;
 #define Detect_TASK_PRIO 10
 #define Detect_STK_SIZE 512
 static TaskHandle_t DetectTask_Handler;
+
+#define RECEIVE_TASK_PRIO 9
+#define Receive_STK_SIZE 512
+static TaskHandle_t ReceiveTask_Handler;
 
 void start_task(void *pvParameters)
 {
@@ -101,6 +106,7 @@ void start_task(void *pvParameters)
                 (void *)NULL,
                 (UBaseType_t)Detect_TASK_PRIO,
                 (TaskHandle_t *)&DetectTask_Handler);
+                
 
     vTaskDelete(StartTask_Handler); //删除开始任务
     taskEXIT_CRITICAL();            //退出临界区
