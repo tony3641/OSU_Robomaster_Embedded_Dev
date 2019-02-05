@@ -1,0 +1,14 @@
+.\objects\receive_task.o: receive_task.c
+.\objects\receive_task.o: Receive_Task.h
+.\objects\receive_task.o: ..\User\main.h
+.\objects\receive_task.o: ..\User\FreeRTOS\include\FreeRTOSConfig.h
+.\objects\receive_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\receive_task.o: ..\User\FreeRTOS\include\FreeRTOS.h
+.\objects\receive_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects\receive_task.o: ..\User\FreeRTOS\include\projdefs.h
+.\objects\receive_task.o: ..\User\FreeRTOS\include\portable.h
+.\objects\receive_task.o: ..\User\FreeRTOS\include\deprecated_definitions.h
+.\objects\receive_task.o: ..\User\FreeRTOS\portable\RVDS\ARM_CM4F\portmacro.h
+.\objects\receive_task.o: ..\User\FreeRTOS\include\mpu_wrappers.h
+.\objects\receive_task.o: ..\User\FreeRTOS\include\task.h
+.\objects\receive_task.o: ..\User\FreeRTOS\include\list.h
