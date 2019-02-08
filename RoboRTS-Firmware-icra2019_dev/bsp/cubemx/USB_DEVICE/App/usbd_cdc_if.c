@@ -62,6 +62,7 @@
 /* Private variables ---------------------------------------------------------*/
 #define USB_REC_MAX_NUM 5
 static usb_vcp_call_back_f usb_vcp_call_back[USB_REC_MAX_NUM];
+char receive_data[64];
 /* USER CODE END PV */
 
 /** @addtogroup STM32_USB_OTG_DEVICE_LIBRARY
@@ -298,6 +299,10 @@ static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
     {
         (*usb_vcp_call_back[i])(Buf, *Len);
     }
+  }
+  
+  for(uint32_t i=0;i<*Len;i++){
+  	receive_data[i]=Buf[i];
   }
   
   USBD_CDC_SetRxBuffer(&hUsbDeviceFS, &Buf[0]);

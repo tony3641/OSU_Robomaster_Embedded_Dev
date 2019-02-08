@@ -27,12 +27,33 @@
 #include "infantry_cmd.h"
 #include "referee_system.h"
 #include "protocol.h"
-
+#include "dma.h"
+#include "stm32f4xx_hal.h"
+#include "usart.h"
+#include "gpio.h"
+#include "usb_device.h"
+#include <string.h>
 static int32_t can2_send_data(uint32_t std_id, uint8_t *p_data, uint32_t len);
 static void protocol_send_success_callback(void);
 static int32_t usb_interface_send(uint8_t *p_data, uint32_t len);
+extern char data_receive[64];
 
 extern osThreadId communicate_task_t;
+
+extern uint8_t UART_RxBuffer[2048];
+extern char receive_data[64];
+
+
+uint8_t To_TX2_Buf[64]="test \r\n";
+
+void TX2_Communication_Transmit(uint8_t* Buf){
+	CDC_Transmit_FS(Buf,strlen((char *)Buf));
+}
+
+
+char *TX2_Communication_Receive(){
+	return receive_data;
+}
 
 int32_t uwb_rcv_callback(CAN_RxHeaderTypeDef *header, uint8_t *rx_data)
 {
@@ -88,9 +109,9 @@ int32_t gimbal_adjust(void)
 
 void communicate_task(void const *argument)
 {
+	HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
   uint8_t app;
   app = get_sys_cfg();
-
   if (app == CHASSIS_APP)
   {
     protocol_local_init(CHASSIS_ADDRESS);
@@ -115,6 +136,7 @@ void communicate_task(void const *argument)
 
   while (1)
   {
+		HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
     osEvent event;
 
     event = osSignalWait(SEND_PROTOCOL_SIGNAL | RECV_PROTOCOL_SIGNAL | REFEREE_SIGNAL, osWaitForever);
@@ -136,6 +158,7 @@ void communicate_task(void const *argument)
         referee_unpack_fifo_data();
       }
     }
+		TX2_Communication_Transmit(To_TX2_Buf);
   }
 }
 
@@ -154,3 +177,5 @@ static void protocol_send_success_callback(void)
 {
   osSignalSet(communicate_task_t, SEND_PROTOCOL_SIGNAL);
 }
+
+
