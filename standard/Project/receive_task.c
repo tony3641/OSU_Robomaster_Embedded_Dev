@@ -8,13 +8,4 @@
 
 
 
-void ReceiveTask(void *pvParameters){
-	USART_TypeDef UART_TX2;
-  USART_DeInit(UART_TX2);
-	
-	RCC_APB2PeriphResetCmd(RCC_APB1Periph_USART7);
-  
-  
-}
-
 

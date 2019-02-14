@@ -44,6 +44,9 @@ static void gimbal_state_init(gimbal_t pgimbal);
 uint8_t auto_adjust_f;
 uint8_t auto_init_f;
 
+extern int16_t Visual_Horizontal_Pixel;
+extern int16_t Visual_Vertical_Pixel;
+
 /* control ramp parameter */
 static ramp_t yaw_ramp = RAMP_GEN_DAFAULT;
 static ramp_t pitch_ramp = RAMP_GEN_DAFAULT;
@@ -94,8 +97,8 @@ void gimbal_task(void const *argument)
     if (rc_device_get_state(prc_dev, RC_S2_UP) == RM_OK)
     {
       gimbal_set_yaw_mode(pgimbal, GYRO_MODE);
-      pit_delta = -(float)prc_info->ch4 * 0.0007f;
-      yaw_delta = -(float)prc_info->ch3 * 0.0007f;
+      pit_delta = -(float)prc_info->ch4 * 0.0007f -(float)Visual_Vertical_Pixel * 0.0007f;
+      yaw_delta = -(float)prc_info->ch3 * 0.0007f -(float)Visual_Horizontal_Pixel * 0.0007f;
       gimbal_set_pitch_delta(pgimbal, pit_delta);
       gimbal_set_yaw_delta(pgimbal, yaw_delta);
     }

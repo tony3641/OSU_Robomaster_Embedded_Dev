@@ -36,24 +36,39 @@
 static int32_t can2_send_data(uint32_t std_id, uint8_t *p_data, uint32_t len);
 static void protocol_send_success_callback(void);
 static int32_t usb_interface_send(uint8_t *p_data, uint32_t len);
-extern char data_receive[64];
 
 extern osThreadId communicate_task_t;
 
 extern uint8_t UART_RxBuffer[2048];
-extern char receive_data[64];
+extern uint8_t receive_data[64];
 
-
+int16_t Visual_Horizontal_Pixel=0;
+int16_t Visual_Vertical_Pixel=0;
 uint8_t To_TX2_Buf[64]="test \r\n";
+uint8_t* From_TX2_data[64];
 
 void TX2_Communication_Transmit(uint8_t* Buf){
 	CDC_Transmit_FS(Buf,strlen((char *)Buf));
 }
 
 
-char *TX2_Communication_Receive(){
+uint8_t *TX2_Communication_Receive(){
 	return receive_data;
 }
+
+int16_t TX2_get_horizontal_pixel(uint8_t* data){
+	char horizontal_str[4];
+	for(int i=0;i<4;i++) {horizontal_str[i]=data[i];}
+	return (int)horizontal_str;
+}
+
+int16_t TX2_get_vertical_pixel(uint8_t* data){
+	char vertical_str[4];
+	for(int i=0;i<4;i++) {vertical_str[i]=data[i+4];}
+	return (int)vertical_str;
+}
+
+
 
 int32_t uwb_rcv_callback(CAN_RxHeaderTypeDef *header, uint8_t *rx_data)
 {
@@ -158,7 +173,12 @@ void communicate_task(void const *argument)
         referee_unpack_fifo_data();
       }
     }
+		
+		
 		TX2_Communication_Transmit(To_TX2_Buf);
+		Visual_Horizontal_Pixel=TX2_get_horizontal_pixel(receive_data);
+		Visual_Vertical_Pixel=TX2_get_vertical_pixel(receive_data);
+		
   }
 }
 

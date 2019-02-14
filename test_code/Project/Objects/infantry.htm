@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\infantry.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\infantry.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Fri Feb 01 21:09:54 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Fri Feb 08 21:53:30 2019
 <BR><P>
 <H3>Maximum Stack Usage =        280 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -704,8 +704,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[86]"></a>_sys_exit</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, sys_exit.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sig_exit
-<LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit_exit
+<BR><BR>[Called By]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit_exit
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sig_exit
 </UL>
 
 <P><STRONG><a name="[98]"></a>__default_signal_display</STRONG> (Thumb, 50 bytes, Stack size 16 bytes, defsig_general.o(.text), UNUSED)
@@ -1879,12 +1879,12 @@ Global Symbols
 <P><STRONG><a name="[15e]"></a>chassis_behaviour_control_set</STRONG> (Thumb, 156 bytes, Stack size 24 bytes, chassis_behaviour.o(i.chassis_behaviour_control_set))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = chassis_behaviour_control_set &rArr; chassis_no_follow_yaw_control &rArr; chassis_rc_to_control_vector
 </UL>
-<BR>[Calls]<UL><LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_zero_force_control
-<LI><a href="#[164]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_open_set_control
+<BR>[Calls]<UL><LI><a href="#[164]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_open_set_control
 <LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_no_move_control
 <LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_no_follow_yaw_control
 <LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_infantry_follow_gimbal_yaw_control
 <LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_engineer_follow_chassis_yaw_control
+<LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_zero_force_control
 </UL>
 <BR>[Called By]<UL><LI><a href="#[174]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_set_contorl
 </UL>
@@ -2057,9 +2057,9 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[ed]"></a>get_INS_angle_point</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, ins_task.o(i.get_INS_angle_point))
-<BR><BR>[Called By]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UserTask
-<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_Init
+<BR><BR>[Called By]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_Init
 <LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_init
+<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UserTask
 </UL>
 
 <P><STRONG><a name="[ee]"></a>get_MPU6500_Gyro_Data_Point</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, ins_task.o(i.get_MPU6500_Gyro_Data_Point))
@@ -2603,10 +2603,10 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[fe]"></a>toe_is_error</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, detect_task.o(i.toe_is_error))
-<BR><BR>[Called By]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UserTask
-<LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_task
+<BR><BR>[Called By]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_task
 <LI><a href="#[195]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_behavour_set
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_task
+<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UserTask
 </UL>
 
 <P><STRONG><a name="[110]"></a>ulTaskNotifyTake</STRONG> (Thumb, 108 bytes, Stack size 16 bytes, tasks.o(i.ulTaskNotifyTake))
@@ -2640,11 +2640,11 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[1ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvTaskCheckFreeStackSpace
 </UL>
 <BR>[Called By]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calibrate_task
-<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UserTask
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;INSTask
 <LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_task
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DetectTask
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_task
+<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UserTask
 </UL>
 
 <P><STRONG><a name="[1bb]"></a>vListInitialise</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, list.o(i.vListInitialise))
@@ -2763,11 +2763,11 @@ Global Symbols
 <LI><a href="#[1b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAddCurrentTaskToDelayedList
 </UL>
 <BR>[Called By]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calibrate_task
-<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UserTask
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;INSTask
 <LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_task
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DetectTask
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_task
+<LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UserTask
 </UL>
 
 <P><STRONG><a name="[1e5]"></a>vTaskDelete</STRONG> (Thumb, 202 bytes, Stack size 16 bytes, tasks.o(i.vTaskDelete))
