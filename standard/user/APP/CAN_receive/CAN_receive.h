@@ -6,7 +6,7 @@
   * @history
   *  Version    Date            Author          Modification
   *  V1.0.0     Dec-26-2018     RM              1. 完成
-  *
+  *  V1.0.1     Feb-17-2019     Tony-OSU        Add tx2 can bus config
   @verbatim
   ==============================================================================
 
@@ -21,7 +21,6 @@
 
 #define CHASSIS_CAN CAN2
 #define GIMBAL_CAN CAN1
-#define TX2_CAN CAN2
 
 /* CAN send and receive ID */
 typedef enum
@@ -36,7 +35,8 @@ typedef enum
     CAN_PIT_MOTOR_ID = 0x206,
     CAN_TRIGGER_MOTOR_ID = 0x207,
     CAN_GIMBAL_ALL_ID = 0x1FF,
-    CAN_TX2_ID=0x20F,
+
+    CAN_TX2_ID=0x208, //TX2 
 } can_msg_id_e;
 
 //rm电机统一数据结构体
@@ -49,14 +49,36 @@ typedef struct
     int16_t last_ecd;
 } motor_measure_t;
 
+typedef enum{
+	pitch_package,
+	yaw_package,
+	aim_package,
+} tx2_package_type_e;
 
 typedef struct{
-    int16_t vertical_value;
-    int16_t horizontal_value;
-    int16_t last_vertical_value;
-    int16_t last_horizontal_value;
-  
-} tx2_data_t;
+	uint8_t kp;
+	uint8_t ki;
+	uint8_t kd;
+	uint16_t error;
+	uint16_t err_last;
+	uint16_t power;
+} tx2_gimbal_package_t;
+
+typedef struct{
+	uint16_t horizontal_pixel_buffer;
+	uint16_t vertical_pixel_buffer;
+	int32_t horizontal_pixel;
+	int32_t vertical_pixel;
+} tx2_aim_package_t;
+
+//TX2 data receive struct
+typedef struct
+{
+	uint16_t package_type;
+  tx2_gimbal_package_t yaw_pid_package;
+	tx2_gimbal_package_t pitch_pid_package;
+	tx2_aim_package_t aim_data_package;
+} tx2_measure_t;
 
 extern void CAN_CMD_CHASSIS_RESET_ID(void);
 
@@ -72,8 +94,6 @@ extern const motor_measure_t *get_Pitch_Gimbal_Motor_Measure_Point(void);
 extern const motor_measure_t *get_Trigger_Motor_Measure_Point(void);
 //返回底盘电机变量地址，通过指针方式获取原始数据,i的范围是0-3，对应0x201-0x204,
 extern const motor_measure_t *get_Chassis_Motor_Measure_Point(uint8_t i);
-
-extern const tx2_data_t *get_TX2_Data(void);
 
 #if GIMBAL_MOTOR_6020_CAN_LOSE_SLOVE
 extern void GIMBAL_lose_slove(void);
