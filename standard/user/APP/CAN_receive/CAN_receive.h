@@ -22,7 +22,8 @@
 #define CHASSIS_CAN CAN2
 #define GIMBAL_CAN CAN1
 
-/* CAN send and receive ID */
+/* Enumerate CAN send and receive ID */
+/* 枚举声明CAN收发ID*/
 typedef enum
 {
     CAN_CHASSIS_ALL_ID = 0x200,
@@ -36,25 +37,30 @@ typedef enum
     CAN_TRIGGER_MOTOR_ID = 0x207,
     CAN_GIMBAL_ALL_ID = 0x1FF,
 
-    CAN_TX2_ID=0x208, //TX2 
+    CAN_TX2_ID=0x208, //TX2 ID
 } can_msg_id_e;
 
-//rm电机统一数据结构体
+//RM electrical motor unified data struct
+//RM电机统一数据结构体
 typedef struct
 {
-    uint16_t ecd;
-    int16_t speed_rpm;
+    uint16_t ecd;//encoder
+    int16_t speed_rpm;//round per minute
     int16_t given_current;
     uint8_t temperate;
     int16_t last_ecd;
 } motor_measure_t;
 
+//Enumerate TX2 data package type
+//枚举声明TX2通信数据包类型
 typedef enum{
 	pitch_package,
 	yaw_package,
 	aim_package,
 } tx2_package_type_e;
 
+//TX2 to Gimbal Motor PID data package
+//TX2到云台电机PID数据包
 typedef struct{
 	uint8_t kp;
 	uint8_t ki;
@@ -64,6 +70,8 @@ typedef struct{
 	uint16_t power;
 } tx2_gimbal_package_t;
 
+//TX2 to Gimbal Motor aim coordinate location data package
+//TX2到云台电机瞄准坐标数据包
 typedef struct{
 	uint16_t horizontal_pixel_buffer;
 	uint16_t vertical_pixel_buffer;
@@ -72,6 +80,7 @@ typedef struct{
 } tx2_aim_package_t;
 
 //TX2 data receive struct
+//TX2数据接收结构体
 typedef struct
 {
 	uint16_t package_type;
@@ -80,6 +89,7 @@ typedef struct
 	tx2_aim_package_t aim_data_package;
 } tx2_measure_t;
 
+//发送重设底盘电机ID命令
 extern void CAN_CMD_CHASSIS_RESET_ID(void);
 
 //发送云台控制命令，其中rev为保留字节

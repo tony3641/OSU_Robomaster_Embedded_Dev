@@ -28,6 +28,8 @@
 
 //Read Chassis Motor data
 //底盘电机数据读取
+//"ecd" represents "encoder"
+//Left shift first 8-bit message by 8 bits, then add(by Bitwise Or) second 8-bit message together to generate an entire 16-bit message   
 #define get_motor_measure(ptr, rx_message)                                                 \
 {                                                                                          \
 		(ptr)->last_ecd = (ptr)->ecd;                                                          \
@@ -49,7 +51,8 @@
 }
 
 //TX2 Data Receive
-//TX2通信数据读取
+//TX2数据读取
+//Data[0] is used to determine the type of package, pitch_package & yaw_package are used to adjust PID, aim_package is used to transmit the pixel coordinates
 #define get_tx2_measure(ptr,rx_message)                                                        												\
 {																																																											\
 		(ptr)->package_type=(uint16_t)(rx_message->Data[0]);																	 														\
@@ -94,11 +97,17 @@ static motor_measure_t motor_yaw, motor_pit, motor_trigger, motor_chassis[4];
 //Declare TX2 variables struct
 //声明TX2变量结构体
 tx2_measure_t tx2;
-    
-static CanTxMsg GIMBAL_TxMessage;    
+
+//Declare Gimbal Sending Message
+//声明云台的发送信息
+static CanTxMsg GIMBAL_TxMessage;
+
+//If Gimbal Motor fails to send CAN message, initially define delay_time as 100 ms
+//如果云台电机发送CAN失败，初始定义delay_time为100ms
 #if GIMBAL_MOTOR_6020_CAN_LOSE_SLOVE
 static uint8_t delay_time = 100;
 #endif
+
 //CAN1 Interrupt
 //CAN1中断
 void CAN1_RX0_IRQHandler(void)
@@ -107,9 +116,9 @@ void CAN1_RX0_IRQHandler(void)
 
     if (CAN_GetITStatus(CAN1, CAN_IT_FMP0) != RESET)
     {
-        CAN_ClearITPendingBit(CAN1, CAN_IT_FMP0);
+        CAN_ClearITPendingBit(CAN1, CAN_IT_FMP0);//Clear the CAN1 interrupt flag to avoid entering the interrupt immediately after exiting the interrupt
         CAN_Receive(CAN1, CAN_FIFO0, &rx1_message);
-        CAN_hook(&rx1_message);
+        CAN_hook(&rx1_message);//wait to be processed
     }
 }
 
@@ -120,12 +129,14 @@ void CAN2_RX0_IRQHandler(void)
     static CanRxMsg rx2_message;
     if (CAN_GetITStatus(CAN2, CAN_IT_FMP0) != RESET)
     {
-        CAN_ClearITPendingBit(CAN2, CAN_IT_FMP0);
+        CAN_ClearITPendingBit(CAN2, CAN_IT_FMP0);//Clear the CAN2 interrupt flag to avoid entering the interrupt immediately after exiting the interrupt
         CAN_Receive(CAN2, CAN_FIFO0, &rx2_message);
-        CAN_hook(&rx2_message);
+        CAN_hook(&rx2_message);//wait to be processed
     }
 }
 
+//If Gimbal Motor fails to send CAN message, try to solve by sending command in random delay time
+//如果云台电机CAN发送失败，尝试使用 随机延迟 发送控制指令的方式解决
 #if GIMBAL_MOTOR_6020_CAN_LOSE_SLOVE
 void GIMBAL_lose_slove(void)
 {
@@ -137,9 +148,9 @@ void GIMBAL_lose_slove(void)
 void CAN_CMD_GIMBAL(int16_t yaw, int16_t pitch, int16_t shoot, int16_t rev)
 {
     GIMBAL_TxMessage.StdId = CAN_GIMBAL_ALL_ID;
-    GIMBAL_TxMessage.IDE = CAN_ID_STD;
+    GIMBAL_TxMessage.IDE = CAN_ID_STD;//CAN_identifier_type=standard
     GIMBAL_TxMessage.RTR = CAN_RTR_DATA;
-    GIMBAL_TxMessage.DLC = 0x08;
+    GIMBAL_TxMessage.DLC = 0x08;//length of data
     GIMBAL_TxMessage.Data[0] = (yaw >> 8);
     GIMBAL_TxMessage.Data[1] = yaw;
     GIMBAL_TxMessage.Data[2] = (pitch >> 8);
@@ -148,19 +159,20 @@ void CAN_CMD_GIMBAL(int16_t yaw, int16_t pitch, int16_t shoot, int16_t rev)
     GIMBAL_TxMessage.Data[5] = shoot;
     GIMBAL_TxMessage.Data[6] = (rev >> 8);
     GIMBAL_TxMessage.Data[7] = rev;
-
+//If Gimbal Motor fails to send CAN message
 #if GIMBAL_MOTOR_6020_CAN_LOSE_SLOVE
 
-    TIM6->CNT = 0;
-    TIM6->ARR = delay_time ;
+    TIM6->CNT = 0;//clear count of TIM6 
+    TIM6->ARR = delay_time ;//set Auto-Reload Register as delay_time
 
-    TIM_Cmd(TIM6,ENABLE);
+    TIM_Cmd(TIM6,ENABLE);//Enable TIM6
 #else
     CAN_Transmit( GIMBAL_CAN,  &GIMBAL_TxMessage );
 #endif
 
 }
-
+//TIM6 Timer Interrupt
+//TIM6定时器中断
 void TIM6_DAC_IRQHandler(void)
 {
     if( TIM_GetITStatus( TIM6, TIM_IT_Update )!= RESET )
@@ -170,10 +182,10 @@ void TIM6_DAC_IRQHandler(void)
 #if GIMBAL_MOTOR_6020_CAN_LOSE_SLOVE
         CAN_Transmit( GIMBAL_CAN,  &GIMBAL_TxMessage );
 #endif
-        TIM_Cmd(TIM6,DISABLE);
+        TIM_Cmd(TIM6,DISABLE);//Disable TIM6
     }
 }
-//CAN transmits the data of 0x700's ID，trigger M3508 Gear Motor into  Quick ID Setting Mode
+//CAN transmits the data of 0x700's ID，trigger M3508 Gear Motor into Quick ID Setting Mode
 //CAN 发送 0x700的ID的数据，会引发M3508进入快速设置ID模式
 void CAN_CMD_CHASSIS_RESET_ID(void)
 {
@@ -273,7 +285,7 @@ static void CAN_hook(CanRxMsg *rx_message)
     {
     case CAN_YAW_MOTOR_ID:
     {
-        //Get Yaw Gimbal Motor Measure
+        //Process Yaw Gimbal Motor Function
 				//处理yaw电机数据宏函数
         get_gimbal_motor_measure(&motor_yaw, rx_message);
         //Record time
@@ -283,7 +295,7 @@ static void CAN_hook(CanRxMsg *rx_message)
     }
     case CAN_PIT_MOTOR_ID:
     {
-        //Get Pitch Gimbal Motor Measure
+        //Process Pitch Gimbal Motor Function
 				//处理pitch电机数据宏函数
         get_gimbal_motor_measure(&motor_pit, rx_message);
         DetectHook(PitchGimbalMotorTOE);
@@ -291,9 +303,9 @@ static void CAN_hook(CanRxMsg *rx_message)
     }
     case CAN_TRIGGER_MOTOR_ID:
     {
-        //Get Trigger Gimbal Motor Measure
+        //Process Trigger Motor Function
 				//处理电机数据宏函数
-       get_motor_measure(&motor_trigger, rx_message);
+				get_motor_measure(&motor_trigger, rx_message);
 				//Record time
 				//记录时间
         DetectHook(TriggerMotorTOE);
@@ -308,7 +320,7 @@ static void CAN_hook(CanRxMsg *rx_message)
 				//Get Motor ID
         //处理电机ID号
         i = rx_message->StdId - CAN_3508_M1_ID;
-				//Get Motor #i Measure
+				//Process Motor #i Measure
         //处理对应电机数据宏函数
         get_motor_measure(&motor_chassis[i], rx_message);
 				//Record time
@@ -319,6 +331,8 @@ static void CAN_hook(CanRxMsg *rx_message)
     
     case CAN_TX2_ID:
     {
+				//处理TX2数据
+				//Process TX2 data
         get_tx2_measure(&tx2,rx_message);
     }
 
