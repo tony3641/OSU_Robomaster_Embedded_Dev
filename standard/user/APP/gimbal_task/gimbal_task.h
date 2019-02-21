@@ -139,9 +139,10 @@
 
 typedef enum
 {
-    GIMBAL_MOTOR_RAW = 0, //电机原始值控制
-    GIMBAL_MOTOR_GYRO,    //电机陀螺仪角度控制
-    GIMBAL_MOTOR_ENCONDE, //电机编码值角度控制
+    GIMBAL_MOTOR_RAW = 0, //set to ini value
+    GIMBAL_MOTOR_GYRO,    //controlled by gyro
+    GIMBAL_MOTOR_ENCONDE, //controlled by encoder
+		GIMBAL_MOTOR_AUTO_AIMING, //controlled by encoder+AI
 } gimbal_motor_mode_e;
 
 typedef struct
@@ -212,6 +213,7 @@ typedef struct
     Gimbal_Cali_t gimbal_cali;
 } Gimbal_Control_t;
 
+static void Gimbal_Send_TX2_Data(Gimbal_Control_t *Gimbal);
 extern const Gimbal_Motor_t *get_yaw_motor_point(void);
 extern const Gimbal_Motor_t *get_pitch_motor_point(void);
 extern void GIMBAL_task(void *pvParameters);

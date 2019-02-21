@@ -86,6 +86,8 @@ extern void CAN_CMD_CHASSIS_RESET_ID(void);
 extern void CAN_CMD_GIMBAL(int16_t yaw, int16_t pitch, int16_t shoot, int16_t rev);
 //发送底盘电机控制命令
 extern void CAN_CMD_CHASSIS(int16_t motor1, int16_t motor2, int16_t motor3, int16_t motor4);
+//Send TX2 Data CMD
+extern void CAN_CMD_TX2(int16_t yaw, int16_t pitch);//-32767-32768
 //返回yaw电机变量地址，通过指针方式获取原始数据
 extern const motor_measure_t *get_Yaw_Gimbal_Motor_Measure_Point(void);
 //返回pitch电机变量地址，通过指针方式获取原始数据
