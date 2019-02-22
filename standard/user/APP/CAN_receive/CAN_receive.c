@@ -25,7 +25,10 @@
 #include "task.h"
 
 #include "Detect_Task.h"
-
+/* test */
+#include "led.h"//加入LED
+#include "delay.h"
+/* test */
 //Read Chassis Motor data
 //底盘电机数据读取
 //"ecd" represents "encoder"
@@ -231,8 +234,11 @@ void CAN_CMD_CHASSIS(int16_t motor1, int16_t motor2, int16_t motor3, int16_t mot
 //Send gyro data to TX2
 //发送陀螺仪数据到TX2
 void CAN_CMD_TX2(int16_t yaw, int16_t pitch){//-32767-32768
-  
-  yaw+=32767; //0-32767 <- -32767-32768
+  /* test */
+	
+	uint8_t IS_SUCCESS;//
+  /* test */
+	yaw+=32767; //0-32767 <- -32767-32768
   pitch+=32767;//0-32767 <- -32767-32768
   
   CanTxMsg TxMessage;
@@ -250,6 +256,18 @@ void CAN_CMD_TX2(int16_t yaw, int16_t pitch){//-32767-32768
   TxMessage.Data[7] = 0;
   
   CAN_Transmit(CAN2, &TxMessage);
+	/* test */
+	if(CAN_MessagePending(CAN2,CAN_FIFO0)==0)
+		IS_SUCCESS=0;//发送失败
+	else
+		IS_SUCCESS=1;//发送成功
+	
+	while (IS_SUCCESS)//若发送成功
+	{
+		led_green_toggle();//绿灯闪烁
+		delay_ms(10);
+	}		
+	/* test */
 }
 
 //Return Yaw Address of motor，retrieve original data through Pointer
@@ -334,6 +352,7 @@ static void CAN_hook(CanRxMsg *rx_message)
 				//处理TX2数据
 				//Process TX2 data
         get_tx2_measure(&tx2,rx_message);
+			
     }
 
     default:
