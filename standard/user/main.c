@@ -83,8 +83,8 @@ void BSP_init(void)
     //定时器6 初始化
     TIM6_Init(60000, 90);
     //CAN接口初始化
-    CAN1_mode_init(CAN_SJW_1tq, CAN_BS2_2tq, CAN_BS1_6tq, 5, CAN_Mode_Normal);//CAN1-正常模式
-    CAN2_mode_init(CAN_SJW_1tq, CAN_BS2_2tq, CAN_BS1_6tq, 5, CAN_Mode_Normal);//CAN2-正常模式
+    CAN1_mode_init(CAN_SJW_1tq, CAN_BS2_2tq, CAN_BS1_6tq, 5, CAN_Mode_LoopBack);//CAN1-正常模式CAN_Mode_Normal，回环模式CAN_Mode_LoopBack
+    CAN2_mode_init(CAN_SJW_1tq, CAN_BS2_2tq, CAN_BS1_6tq, 5, CAN_Mode_LoopBack);//CAN2-正常模式CAN_Mode_Normal，回环模式CAN_Mode_LoopBack
 
     //24v 输出 依次上电
     for (uint8_t i = POWER1_CTRL_SWITCH; i < POWER4_CTRL_SWITCH + 1; i++)
