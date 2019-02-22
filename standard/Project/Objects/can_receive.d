@@ -49,4 +49,5 @@
 .\objects\can_receive.o: ..\User\FreeRTOS\include\mpu_wrappers.h
 .\objects\can_receive.o: ..\User\FreeRTOS\include\task.h
 .\objects\can_receive.o: ..\User\FreeRTOS\include\list.h
+.\objects\can_receive.o: ..\User\hardware\BUZZER\buzzer.h
 .\objects\can_receive.o: ..\User\APP\Detect_Task\Detect_Task.h

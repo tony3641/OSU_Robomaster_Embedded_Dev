@@ -23,7 +23,7 @@
 #include "FreeRTOSConfig.h"
 #include "FreeRTOS.h"
 #include "task.h"
-
+#include "buzzer.h"
 #include "Detect_Task.h"
 
 //Read Chassis Motor data
@@ -55,6 +55,7 @@
 //Data[0] is used to determine the type of package, pitch_package & yaw_package are used to adjust PID, aim_package is used to transmit the pixel coordinates
 #define get_tx2_measure(ptr,rx_message)                                                        												\
 {																																																											\
+	   if(rx_message->Data[0]==0xff) buzzer_on(150,10000);                                                              \
 		(ptr)->package_type=(uint16_t)(rx_message->Data[0]);																	 														\
 		tx2_package_type_e tx2_package_type;                                                   														\
 		switch(tx2_package_type){                                                              														\
@@ -232,8 +233,8 @@ void CAN_CMD_CHASSIS(int16_t motor1, int16_t motor2, int16_t motor3, int16_t mot
 //发送陀螺仪数据到TX2
 void CAN_CMD_TX2(int16_t yaw, int16_t pitch){//-32767-32768
   
-  yaw+=32767; //0-32767 <- -32767-32768
-  pitch+=32767;//0-32767 <- -32767-32768
+  //yaw+=32767; //0-32767 <- -32767-32768
+  //pitch+=32767;//0-32767 <- -32767-32768
   
   CanTxMsg TxMessage;
   TxMessage.StdId=CAN_TX2_ID;
@@ -333,7 +334,11 @@ static void CAN_hook(CanRxMsg *rx_message)
     {
 				//处理TX2数据
 				//Process TX2 data
+			  //buzzer_on(150,10000);
         get_tx2_measure(&tx2,rx_message);
+			  			
+			  //CAN_CMD_TX2(100,100);
+        break;
     }
 
     default:

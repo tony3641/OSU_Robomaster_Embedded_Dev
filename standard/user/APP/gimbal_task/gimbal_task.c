@@ -36,6 +36,7 @@
 #include "FreeRTOSConfig.h"
 #include "FreeRTOS.h"
 #include "task.h"
+#include "remote_control.h"
 
 //format motor encoder 0-8192
 #define ECD_Format(ecd)         \
@@ -64,7 +65,8 @@ uint32_t gimbal_high_water;
 //control struct for gimbal
 static Gimbal_Control_t gimbal_control;
 
-
+//extern RC_ctrl_t rc_ctrl;
+		
 //can cmd to send
 static int16_t Yaw_Can_Set_Current = 0, Pitch_Can_Set_Current = 0, Shoot_Can_Set_Current = 0;
 
@@ -486,7 +488,7 @@ static void GIMBAL_Set_Contorl(Gimbal_Control_t *gimbal_set_control)
 
     fp32 add_yaw_angle = 0.0f;
     fp32 add_pitch_angle = 0.0f;
-
+		//add_pitch_angle+=(fp32)rc_ctrl.rc.ch[3];
     gimbal_behaviour_control_set(&add_yaw_angle, &add_pitch_angle, gimbal_set_control);
     //setting yaw motor control mode
     if (gimbal_set_control->gimbal_yaw_motor.gimbal_motor_mode == GIMBAL_MOTOR_RAW)

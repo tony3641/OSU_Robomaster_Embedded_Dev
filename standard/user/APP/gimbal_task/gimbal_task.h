@@ -9,7 +9,7 @@
   * @history
   *  Version    Date            Author          Modification
   *  V1.0.0     Dec-26-2018     RM              1. 完成
-  *
+  *  V1.0.1     Feb-21-2018     Tony-OSU        Yaw,Pitch PID tuning
   @verbatim
   ==============================================================================
 
@@ -57,7 +57,7 @@
 //pitch 角度环 角度由编码器 PID参数以及 PID最大输出，积分输出
 #define PITCH_ENCODE_RELATIVE_PID_KP 15.0f
 #define PITCH_ENCODE_RELATIVE_PID_KI 0.00f
-#define PITCH_ENCODE_RELATIVE_PID_KD 0.0f
+#define PITCH_ENCODE_RELATIVE_PID_KD 0.7f
 
 #define PITCH_ENCODE_RELATIVE_PID_MAX_OUT 10.0f
 #define PITCH_ENCODE_RELATIVE_PID_MAX_IOUT 0.0f
@@ -65,7 +65,7 @@
 //yaw 角度环 角度由编码器 PID参数以及 PID最大输出，积分输出
 #define YAW_ENCODE_RELATIVE_PID_KP 18.0f
 #define YAW_ENCODE_RELATIVE_PID_KI 0.01f
-#define YAW_ENCODE_RELATIVE_PID_KD 0.5f
+#define YAW_ENCODE_RELATIVE_PID_KD 1.0f
 #define YAW_ENCODE_RELATIVE_PID_MAX_OUT 10.0f
 #define YAW_ENCODE_RELATIVE_PID_MAX_IOUT 0.0f
 

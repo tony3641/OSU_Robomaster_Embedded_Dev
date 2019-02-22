@@ -33,7 +33,7 @@ static int16_t RC_abs(int16_t value);
 static void SBUS_TO_RC(volatile const uint8_t *sbus_buf, RC_ctrl_t *rc_ctrl);
 
 //遥控器控制变量
-static RC_ctrl_t rc_ctrl;
+//static RC_ctrl_t rc_ctrl;
 //接收原始数据，为18个字节，给了36个字节长度，防止DMA传输越界
 static uint8_t SBUS_rx_buf[2][SBUS_RX_BUF_NUM];
 
