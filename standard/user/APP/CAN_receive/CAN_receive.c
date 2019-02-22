@@ -1,18 +1,20 @@
 /**
   ****************************(C) COPYRIGHT 2016 DJI****************************
   * @file       can_receive.c/h
-  * @brief      完成can设备数据收发函数，该文件是通过can中断完成接收
-  * @note       该文件不是freeRTOS任务
+  * @brief      can device transmit and recevice function，receive via CAN interrupt
+  * @note       This is NOT a freeRTOS TASK
   * @history
   *  Version    Date            Author          Modification
-  *  V1.0.0     Dec-26-2018     RM              1. 完成
-  *  V1.0.1     Feb-17-2018     Tony-OSU        Add tx2 can bus config
+  *  V1.0.0     Dec-26-2018     RM              1. Compete
+  *  V1.0.1     Feb-17-2019     Tony-OSU        Add tx2 can bus config
+	*  V1.1.0     Feb-21-2019     Tony-OSU        Finish Custom CAN Bus, fully functional
   @verbatim
   ==============================================================================
 
   ==============================================================================
   @endverbatim
   ****************************(C) COPYRIGHT 2016 DJI****************************
+	**************Modifid by Ohio State University Robomaster Team****************
   */
 
 #include "CAN_Receive.h"
@@ -25,7 +27,11 @@
 #include "task.h"
 #include "buzzer.h"
 #include "Detect_Task.h"
-
+#include "pid.h"
+/* test */
+#include "led.h"//加入LED
+#include "delay.h"
+/* test */
 //Read Chassis Motor data
 //底盘电机数据读取
 //"ecd" represents "encoder"
@@ -212,6 +218,7 @@ void CAN_CMD_CHASSIS_RESET_ID(void)
 //发送底盘电机控制命令
 void CAN_CMD_CHASSIS(int16_t motor1, int16_t motor2, int16_t motor3, int16_t motor4)
 {
+	  //Transmit config
     CanTxMsg TxMessage;
     TxMessage.StdId = CAN_CHASSIS_ALL_ID;
     TxMessage.IDE = CAN_ID_STD;
@@ -229,12 +236,45 @@ void CAN_CMD_CHASSIS(int16_t motor1, int16_t motor2, int16_t motor3, int16_t mot
     CAN_Transmit(CHASSIS_CAN, &TxMessage);
 }
 
+
+//Send PID Tuning Data
+void CAN_CMD_PID_TUNING(uint8_t Device_ID, PidTypeDef *PID_struct){
+	//Transmit config
+	//The realization of Transmitting package is based on 
+	//declaring a CanTxMsg struct with some necessary configuration
+	CanTxMsg TxMessage;
+	TxMessage.StdId=CAN_PID_TUNING_ID;
+	TxMessage.IDE=CAN_ID_STD;
+	TxMessage.RTR=CAN_RTR_DATA;
+	TxMessage.DLC=0x04;
+	//type casting to make data easy to transmit
+	//These are returned feeback of easier PID tuning and dynamic tuning
+	uint16_t output=(uint16_t)(PID_struct->out);
+	uint16_t error=(uint16_t)(PID_struct->error[0]);
+	
+	TxMessage.Data[0]=output >> 8;
+	TxMessage.Data[1]=output;
+	TxMessage.Data[2]=error >> 8;
+	TxMessage.Data[3]=error;
+	
+	CAN_Transmit(PID_TUNING_CAN, &TxMessage);
+}
+
 //Send gyro data to TX2
 //发送陀螺仪数据到TX2
 void CAN_CMD_TX2(int16_t yaw, int16_t pitch){//-32767-32768
-  
-  //yaw+=32767; //0-32767 <- -32767-32768
-  //pitch+=32767;//0-32767 <- -32767-32768
+//<<<<<<< HEAD
+//  
+//  //yaw+=32767; //0-32767 <- -32767-32768
+//  //pitch+=32767;//0-32767 <- -32767-32768
+//=======
+//  /* test */
+//	
+//	uint8_t IS_SUCCESS;//
+//  /* test */
+//	yaw+=32767; //0-32767 <- -32767-32768
+//  pitch+=32767;//0-32767 <- -32767-32768
+//>>>>>>> fb95f3d11679339d397e456bdecd2983f0f47822
   
   CanTxMsg TxMessage;
   TxMessage.StdId=CAN_TX2_ID;
@@ -250,7 +290,19 @@ void CAN_CMD_TX2(int16_t yaw, int16_t pitch){//-32767-32768
   TxMessage.Data[6] = 0;
   TxMessage.Data[7] = 0;
   
-  CAN_Transmit(CAN2, &TxMessage);
+  CAN_Transmit(TX2_CAN, &TxMessage);
+	/* test */
+//	if(CAN_MessagePending(CAN2,CAN_FIFO0)==0)
+//		IS_SUCCESS=0;//发送失败
+//	else
+//		IS_SUCCESS=1;//发送成功
+//	
+//	while (IS_SUCCESS)//若发送成功
+//	{
+//		led_green_toggle();//绿灯闪烁
+//		delay_ms(10);
+//	}		
+	/* test */
 }
 
 //Return Yaw Address of motor，retrieve original data through Pointer
@@ -336,9 +388,13 @@ static void CAN_hook(CanRxMsg *rx_message)
 				//Process TX2 data
 			  //buzzer_on(150,10000);
         get_tx2_measure(&tx2,rx_message);
+//<<<<<<< HEAD
 			  			
 			  //CAN_CMD_TX2(100,100);
         break;
+//=======
+//			
+//>>>>>>> fb95f3d11679339d397e456bdecd2983f0f47822
     }
 
     default:

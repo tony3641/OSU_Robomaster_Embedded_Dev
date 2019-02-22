@@ -51,3 +51,6 @@
 .\objects\can_receive.o: ..\User\FreeRTOS\include\list.h
 .\objects\can_receive.o: ..\User\hardware\BUZZER\buzzer.h
 .\objects\can_receive.o: ..\User\APP\Detect_Task\Detect_Task.h
+.\objects\can_receive.o: ..\User\APP\pid\pid.h
+.\objects\can_receive.o: ..\User\hardware\LED\led.h
+.\objects\can_receive.o: ..\User\hardware\delay\delay.h

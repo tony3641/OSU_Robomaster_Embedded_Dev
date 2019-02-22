@@ -213,7 +213,7 @@ int16_t shoot_control_loop(void)
         shoot_fric2_on(fric_pwm2);
 
         //¼ÆËã²¦µ¯ÂÖµç»úPID
-        PID_Calc(&trigger_motor_pid, trigger_motor.speed, trigger_motor.speed_set*1.3);
+        PID_Calc(&trigger_motor_pid, trigger_motor.speed, trigger_motor.speed_set*1.3f);
 
         trigger_motor.given_current = (int16_t)(trigger_motor_pid.out);
         shoot_CAN_Set_Current = trigger_motor.given_current;

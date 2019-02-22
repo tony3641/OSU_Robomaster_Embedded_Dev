@@ -82,17 +82,17 @@ uint8_t CAN2_mode_init(uint8_t tsjw, uint8_t tbs2, uint8_t tbs1, uint16_t brp, u
     GPIO_PinAFConfig(GPIOB, GPIO_PinSource12, GPIO_AF_CAN2);
     GPIO_PinAFConfig(GPIOB, GPIO_PinSource13, GPIO_AF_CAN2);
 
-    CAN_InitStructure.CAN_TTCM = DISABLE;
-    CAN_InitStructure.CAN_ABOM = ENABLE;
-    CAN_InitStructure.CAN_AWUM = DISABLE;
-    CAN_InitStructure.CAN_NART = DISABLE;
-    CAN_InitStructure.CAN_RFLM = DISABLE;
-    CAN_InitStructure.CAN_TXFP = DISABLE;
-    CAN_InitStructure.CAN_Mode = mode;
+    CAN_InitStructure.CAN_TTCM = DISABLE;//禁止时间触发通信模式
+    CAN_InitStructure.CAN_ABOM = ENABLE;//使用自动离线管理
+    CAN_InitStructure.CAN_AWUM = DISABLE;//禁止自动唤醒，睡眠模式通过清除CAN_MCR寄存器的SLEEP位，由软件唤醒
+    CAN_InitStructure.CAN_NART = DISABLE;//CAN报文只被发送1次，不管发送的结果如何（成功、出错或仲裁丢失）
+    CAN_InitStructure.CAN_RFLM = DISABLE;//在接收溢出时FIFO未被锁定，当接收FIFO的报文未被读出，下一个收到的报文会覆盖原有的报文
+    CAN_InitStructure.CAN_TXFP = DISABLE;//优先级由报文标识符决定
+    CAN_InitStructure.CAN_Mode = mode;//CAN硬件工作模式
     CAN_InitStructure.CAN_SJW = tsjw;
     CAN_InitStructure.CAN_BS1 = tbs1;
     CAN_InitStructure.CAN_BS2 = tbs2;
-    CAN_InitStructure.CAN_Prescaler = brp;
+    CAN_InitStructure.CAN_Prescaler = brp;//ABP总线时钟分配
     CAN_Init(CAN2, &CAN_InitStructure);
 
     CAN_FilterInitStructure.CAN_FilterNumber = 14;

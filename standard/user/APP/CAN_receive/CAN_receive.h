@@ -1,18 +1,21 @@
 /**
   ****************************(C) COPYRIGHT 2016 DJI****************************
   * @file       can_receive.c/h
-  * @brief      完成can设备数据收发函数，该文件是通过can中断完成接收
-  * @note       该文件不是freeRTOS任务
+  * @brief      can device transmit and recevice function，receive via CAN interrupt
+  * @note       This is NOT a freeRTOS TASK
   * @history
   *  Version    Date            Author          Modification
   *  V1.0.0     Dec-26-2018     RM              1. 完成
   *  V1.0.1     Feb-17-2019     Tony-OSU        Add tx2 can bus config
+	*  V1.1.0     Feb-21-2019     Tony-OSU        Finish Custom CAN Bus, fully functional
   @verbatim
   ==============================================================================
 
   ==============================================================================
   @endverbatim
   ****************************(C) COPYRIGHT 2016 DJI****************************
+  **************Modifid by Ohio State University Robomaster Team****************
+
   */
 
 #ifndef CANTASK_H
@@ -21,6 +24,8 @@
 
 #define CHASSIS_CAN CAN2
 #define GIMBAL_CAN CAN1
+#define TX2_CAN CAN2
+#define PID_TUNING_CAN CAN2
 
 /* Enumerate CAN send and receive ID */
 /* 枚举声明CAN收发ID*/
@@ -38,6 +43,7 @@ typedef enum
     CAN_GIMBAL_ALL_ID = 0x1FF,
 
     CAN_TX2_ID=0x208, //TX2 ID
+	  CAN_PID_TUNING_ID=0x209 //PID tuning config ID
 } can_msg_id_e;
 
 //RM electrical motor unified data struct

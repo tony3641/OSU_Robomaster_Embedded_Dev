@@ -16,7 +16,9 @@
 
   ==============================================================================
   @endverbatim
-  ****************************(C) COPYRIGHT 2016 DJI****************************  //do u think an open source project should be copyrighted?
+  ****************************(C) COPYRIGHT 2016 DJI****************************
+	**************Modifid by Ohio State University Robomaster Team****************
+
   */
 
 #include "Gimbal_Task.h"
