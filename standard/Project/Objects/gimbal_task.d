@@ -18,6 +18,7 @@
 .\objects\gimbal_task.o: ..\User\APP\INS_Task\INS_Task.h
 .\objects\gimbal_task.o: ..\User\APP\Shoot\shoot.h
 .\objects\gimbal_task.o: ..\User\APP\Detect_Task\Detect_Task.h
+.\objects\gimbal_task.o: ..\User\hardware\BUZZER\buzzer.h
 .\objects\gimbal_task.o: ..\User\FreeRTOS\include\FreeRTOSConfig.h
 .\objects\gimbal_task.o: ..\User\FreeRTOS\include\FreeRTOS.h
 .\objects\gimbal_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h

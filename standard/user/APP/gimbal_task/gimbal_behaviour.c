@@ -212,6 +212,7 @@ void gimbal_behaviour_control_set(fp32 *add_yaw, fp32 *add_pitch, Gimbal_Control
 
     static fp32 rc_add_yaw, rc_add_pit;
     static int16_t yaw_channel = 0, pitch_channel = 0;
+		pitch_channel=gimbal_control_set->gimbal_rc_ctrl->rc.ch[3];
 
     //将遥控器的数据处理死区 int16_t yaw_channel,pitch_channel
     rc_deadline_limit(gimbal_control_set->gimbal_rc_ctrl->rc.ch[YawChannel], yaw_channel, RC_deadband);

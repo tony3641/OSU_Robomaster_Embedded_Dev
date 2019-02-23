@@ -34,7 +34,7 @@
 #include "CAN_Receive.h"
 #include "Detect_Task.h"
 #include "pid.h"
-
+#include "buzzer.h"
 #include "FreeRTOSConfig.h"
 #include "FreeRTOS.h"
 #include "task.h"
@@ -66,7 +66,9 @@ uint32_t gimbal_high_water;
 
 //control struct for gimbal
 static Gimbal_Control_t gimbal_control;
-
+		//USE THIS FOR GIMBAL REMOTE CONTROL!!!!!!!!!!!!!!!!!!!!
+		//一定要用这个！！！！！不用会爆炸！！！！！！
+		
 //extern RC_ctrl_t rc_ctrl;
 		
 //can cmd to send
@@ -90,7 +92,8 @@ static void GIMBAL_Set_Contorl(Gimbal_Control_t *gimbal_set_control);
 static void GIMBAL_Control_loop(Gimbal_Control_t *gimbal_control_loop);
 
 static void gimbal_motor_absolute_angle_control(Gimbal_Motor_t *gimbal_motor);
-static void gimbal_motor_relative_angle_control(Gimbal_Motor_t *gimbal_motor);
+static void gimbal_motor_relative_angle_control_yaw(Gimbal_Motor_t *gimbal_motor);
+static void gimbal_motor_relative_angle_control_pitch(Gimbal_Motor_t *gimbal_motor);
 static void gimbal_motor_raw_angle_control(Gimbal_Motor_t *gimbal_motor);
 
 //set limit to make sure the gimbal will not exceed mechenical limit
@@ -122,6 +125,8 @@ void GIMBAL_task(void *pvParameters)
 
     while (1)
     {
+			  gimbal_control.gimbal_rc_ctrl=get_remote_control_point();
+			  //if(gimbal_control.gimbal_rc_ctrl->rc.ch[3]) buzzer_on(150,10000); 
         GIMBAL_Set_Mode(&gimbal_control);                    //set control mode
         GIMBAL_Mode_Change_Control_Transit(&gimbal_control); //save data when changing mode
         GIMBAL_Feedback_Update(&gimbal_control);             //update feedback data
@@ -129,6 +134,7 @@ void GIMBAL_task(void *pvParameters)
         GIMBAL_Control_loop(&gimbal_control);                //PID calculation
         Shoot_Can_Set_Current = shoot_control_loop();        //launcher control
 			  Gimbal_Send_TX2_Data(&gimbal_control);               //send data to TX2
+			  
 #if YAW_TURN
         Yaw_Can_Set_Current = -gimbal_control.gimbal_yaw_motor.given_current;
 #else
@@ -490,7 +496,7 @@ static void GIMBAL_Set_Contorl(Gimbal_Control_t *gimbal_set_control)
 
     fp32 add_yaw_angle = 0.0f;
     fp32 add_pitch_angle = 0.0f;
-		//add_pitch_angle+=(fp32)rc_ctrl.rc.ch[3];
+		//add_pitch_angle+=gimbal_set_control->gimbal_rc_ctrl->rc.ch[3];
     gimbal_behaviour_control_set(&add_yaw_angle, &add_pitch_angle, gimbal_set_control);
     //setting yaw motor control mode
     if (gimbal_set_control->gimbal_yaw_motor.gimbal_motor_mode == GIMBAL_MOTOR_RAW)
@@ -600,7 +606,7 @@ static void GIMBAL_Control_loop(Gimbal_Control_t *gimbal_control_loop)
     else if (gimbal_control_loop->gimbal_yaw_motor.gimbal_motor_mode == GIMBAL_MOTOR_ENCONDE)
     {
         //enconder controlled
-        gimbal_motor_relative_angle_control(&gimbal_control_loop->gimbal_yaw_motor);
+        gimbal_motor_relative_angle_control_yaw(&gimbal_control_loop->gimbal_yaw_motor);
     }
 
     //pitch不同模式对于不同的控制函数
@@ -617,7 +623,8 @@ static void GIMBAL_Control_loop(Gimbal_Control_t *gimbal_control_loop)
     else if (gimbal_control_loop->gimbal_pitch_motor.gimbal_motor_mode == GIMBAL_MOTOR_ENCONDE)
     {
         //enconder controlled
-        gimbal_motor_relative_angle_control(&gimbal_control_loop->gimbal_pitch_motor);
+        //gimbal_motor_relative_angle_control(&gimbal_control_loop->gimbal_pitch_motor);
+				gimbal_motor_relative_angle_control_pitch(&gimbal_control_loop->gimbal_pitch_motor);
     }
 }
 
@@ -634,7 +641,7 @@ static void gimbal_motor_absolute_angle_control(Gimbal_Motor_t *gimbal_motor)
     gimbal_motor->given_current = (int16_t)(gimbal_motor->current_set);
 }
 
-static void gimbal_motor_relative_angle_control(Gimbal_Motor_t *gimbal_motor)
+static void gimbal_motor_relative_angle_control_pitch(Gimbal_Motor_t *gimbal_motor) //FOR PITCH
 {
     if (gimbal_motor == NULL)
     {
@@ -642,11 +649,30 @@ static void gimbal_motor_relative_angle_control(Gimbal_Motor_t *gimbal_motor)
     }
 
     //角度环，速度环串级pid调试
-    gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_relative_angle_pid, gimbal_motor->relative_angle, gimbal_motor->relative_angle_set, gimbal_motor->motor_gyro);
+    gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_relative_angle_pid, gimbal_motor->relative_angle, (gimbal_motor->relative_angle_set), gimbal_motor->motor_gyro);
     gimbal_motor->current_set = PID_Calc(&gimbal_motor->gimbal_motor_gyro_pid, gimbal_motor->motor_gyro, gimbal_motor->motor_gyro_set);
     //assign control value
     gimbal_motor->given_current = (int16_t)(gimbal_motor->current_set);
 }
+
+static void gimbal_motor_relative_angle_control_yaw(Gimbal_Motor_t *gimbal_motor) //FOR YAW
+{
+    if (gimbal_motor == NULL)
+    {
+        return;
+    }
+
+    //角度环，速度环串级pid调试
+    gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_relative_angle_pid, gimbal_motor->relative_angle, (gimbal_motor->relative_angle_set), gimbal_motor->motor_gyro);
+    gimbal_motor->current_set = PID_Calc(&gimbal_motor->gimbal_motor_gyro_pid, gimbal_motor->motor_gyro, gimbal_motor->motor_gyro_set);
+    //assign control value
+    gimbal_motor->given_current = (int16_t)(gimbal_motor->current_set);
+}
+
+
+
+
+
 static void gimbal_motor_raw_angle_control(Gimbal_Motor_t *gimbal_motor)
 {
     if (gimbal_motor == NULL)
