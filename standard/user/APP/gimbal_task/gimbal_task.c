@@ -496,7 +496,8 @@ static void GIMBAL_Set_Contorl(Gimbal_Control_t *gimbal_set_control)
 
     fp32 add_yaw_angle = 0.0f;
     fp32 add_pitch_angle = 0.0f;
-		//add_pitch_angle+=gimbal_set_control->gimbal_rc_ctrl->rc.ch[3];
+		//add_pitch_angle+=gimbal_set_control->gimbal_rc_ctrl->rc.ch[3];  //tested NOT WORKING
+		//buzzer_on(450,gimbal_set_control->gimbal_rc_ctrl->rc.ch[3]*3);
     gimbal_behaviour_control_set(&add_yaw_angle, &add_pitch_angle, gimbal_set_control);
     //setting yaw motor control mode
     if (gimbal_set_control->gimbal_yaw_motor.gimbal_motor_mode == GIMBAL_MOTOR_RAW)
@@ -650,7 +651,8 @@ static void gimbal_motor_relative_angle_control_pitch(Gimbal_Motor_t *gimbal_mot
 
     //角度环，速度环串级pid调试
     gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_relative_angle_pid, gimbal_motor->relative_angle, (gimbal_motor->relative_angle_set), gimbal_motor->motor_gyro);
-    gimbal_motor->current_set = PID_Calc(&gimbal_motor->gimbal_motor_gyro_pid, gimbal_motor->motor_gyro, gimbal_motor->motor_gyro_set);
+    gimbal_motor->current_set = PID_Calc(&gimbal_motor->gimbal_motor_gyro_pid, gimbal_motor->motor_gyro, gimbal_motor->motor_gyro_set-gimbal_control.gimbal_rc_ctrl->mouse.x/200);//Testing
+																																																																																									//Gimbal turning tested working
     //assign control value
     gimbal_motor->given_current = (int16_t)(gimbal_motor->current_set);
 }

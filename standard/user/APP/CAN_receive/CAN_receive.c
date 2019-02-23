@@ -237,6 +237,21 @@ void CAN_CMD_CHASSIS(int16_t motor1, int16_t motor2, int16_t motor3, int16_t mot
 }
 
 
+void CAN_GIMBAL_TO_CAN2(uint8_t *data,int id){
+	CanTxMsg TxMessage;
+	TxMessage.StdId=id;
+	TxMessage.IDE=CAN_ID_STD;
+	TxMessage.RTR=CAN_RTR_DATA;
+	TxMessage.DLC=0x08;
+	
+	for(int i=0;i<8;i++){
+		TxMessage.Data[i]=data[i];
+	}
+	
+	CAN_Transmit(CAN2,&TxMessage);
+	
+}
+
 //Send PID Tuning Data
 void CAN_CMD_PID_TUNING(uint8_t Device_ID, PidTypeDef *PID_struct){
 	//Transmit config
@@ -341,6 +356,8 @@ static void CAN_hook(CanRxMsg *rx_message)
         //Process Yaw Gimbal Motor Function
 				//处理yaw电机数据宏函数
         get_gimbal_motor_measure(&motor_yaw, rx_message);
+			  CAN_GIMBAL_TO_CAN2(rx_message->Data,CAN_GIMBAL_YAW_INTER_TRANSFER_ID);  //INTERCHANGE DATA TO CAN2
+			
         //Record time
 				//记录时间
         DetectHook(YawGimbalMotorTOE);
@@ -351,6 +368,7 @@ static void CAN_hook(CanRxMsg *rx_message)
         //Process Pitch Gimbal Motor Function
 				//处理pitch电机数据宏函数
         get_gimbal_motor_measure(&motor_pit, rx_message);
+			  CAN_GIMBAL_TO_CAN2(rx_message->Data,CAN_GIMBAL_PITCH_INTER_TRANSFER_ID);  //INTERCHANGE DATA TO CAN2
         DetectHook(PitchGimbalMotorTOE);
         break;
     }

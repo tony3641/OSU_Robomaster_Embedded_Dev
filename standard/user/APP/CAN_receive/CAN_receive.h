@@ -43,7 +43,9 @@ typedef enum
     CAN_GIMBAL_ALL_ID = 0x1FF,
 
     CAN_TX2_ID=0x208, //TX2 ID
-	  CAN_PID_TUNING_ID=0x209 //PID tuning config ID
+	  CAN_PID_TUNING_ID=0x209, //PID tuning config ID
+	  CAN_GIMBAL_YAW_INTER_TRANSFER_ID=0x210, //Transfer Gimbal data to CAN2
+	  CAN_GIMBAL_PITCH_INTER_TRANSFER_ID=0x211
 } can_msg_id_e;
 
 //RM electrical motor unified data struct
