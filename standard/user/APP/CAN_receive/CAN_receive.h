@@ -27,6 +27,7 @@
 #define TX2_CAN CAN2
 #define PID_TUNING_CAN CAN2
 
+
 /* Enumerate CAN send and receive ID */
 /* 枚举声明CAN收发ID*/
 typedef enum
@@ -58,6 +59,8 @@ typedef struct
     uint8_t temperate;
     int16_t last_ecd;
 } motor_measure_t;
+
+
 
 //Enumerate TX2 data package type
 //枚举声明TX2通信数据包类型

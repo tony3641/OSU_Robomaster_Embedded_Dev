@@ -103,7 +103,7 @@ static motor_measure_t motor_yaw, motor_pit, motor_trigger, motor_chassis[4];
     
 //Declare TX2 variables struct
 //声明TX2变量结构体
-tx2_measure_t tx2;
+extern tx2_measure_t tx2;
 
 //Declare Gimbal Sending Message
 //声明云台的发送信息
