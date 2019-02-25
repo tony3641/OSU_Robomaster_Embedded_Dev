@@ -636,7 +636,7 @@ static void gimbal_motor_absolute_angle_control(Gimbal_Motor_t *gimbal_motor)
     {
         return;
     }
-    //角度环，速度环串级pid调试
+    //角度环，速度环串级pid调试 //a
     gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_absolute_angle_pid, gimbal_motor->absolute_angle, gimbal_motor->absolute_angle_set, gimbal_motor->motor_gyro);
     gimbal_motor->current_set = PID_Calc(&gimbal_motor->gimbal_motor_gyro_pid, gimbal_motor->motor_gyro, gimbal_motor->motor_gyro_set);
     //assign control value
@@ -652,7 +652,7 @@ static void gimbal_motor_relative_angle_control_pitch(Gimbal_Motor_t *gimbal_mot
 
     //角度环，速度环串级pid调试
     gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_relative_angle_pid, gimbal_motor->relative_angle, (gimbal_motor->relative_angle_set), gimbal_motor->motor_gyro);
-    gimbal_motor->current_set = PID_Calc(&gimbal_motor->gimbal_motor_gyro_pid, gimbal_motor->motor_gyro, gimbal_motor->motor_gyro_set-gimbal_control.gimbal_rc_ctrl->mouse.y/200+tx2.aim_data_package.vertical_pixel-360);//Testing
+    gimbal_motor->current_set = PID_Calc(&gimbal_motor->gimbal_motor_gyro_pid, gimbal_motor->motor_gyro, gimbal_motor->motor_gyro_set-gimbal_control.gimbal_rc_ctrl->mouse.y/200+tx2.aim_data_package.vertical_pixel);//Testing
 																																																																																									//Gimbal turning tested working
     //assign control value
     gimbal_motor->given_current = (int16_t)(gimbal_motor->current_set);
@@ -667,7 +667,7 @@ static void gimbal_motor_relative_angle_control_yaw(Gimbal_Motor_t *gimbal_motor
 
     //角度环，速度环串级pid调试
     gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_relative_angle_pid, gimbal_motor->relative_angle, (gimbal_motor->relative_angle_set), gimbal_motor->motor_gyro);
-    gimbal_motor->current_set = PID_Calc(&gimbal_motor->gimbal_motor_gyro_pid, gimbal_motor->motor_gyro, gimbal_motor->motor_gyro_set-gimbal_control.gimbal_rc_ctrl->mouse.x+tx2.aim_data_package.horizontal_pixel-640);
+    gimbal_motor->current_set = PID_Calc(&gimbal_motor->gimbal_motor_gyro_pid, gimbal_motor->motor_gyro, gimbal_motor->motor_gyro_set-gimbal_control.gimbal_rc_ctrl->mouse.x+tx2.aim_data_package.horizontal_pixel);
     //assign control value
     gimbal_motor->given_current = (int16_t)(gimbal_motor->current_set);
 }

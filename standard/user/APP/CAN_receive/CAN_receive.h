@@ -32,6 +32,8 @@
 /* 枚举声明CAN收发ID*/
 typedef enum
 {
+	  CAN_AIM_DATA_ID = 0x300,
+	
     CAN_CHASSIS_ALL_ID = 0x200,
     CAN_3508_M1_ID = 0x201,
     CAN_3508_M2_ID = 0x202,
@@ -42,8 +44,8 @@ typedef enum
     CAN_PIT_MOTOR_ID = 0x206,
     CAN_TRIGGER_MOTOR_ID = 0x207,
     CAN_GIMBAL_ALL_ID = 0x1FF,
-
-    CAN_TX2_ID=0x208, //TX2 ID
+	
+    CAN_TX2_ID=0x111, //TX2 ID
 	  CAN_PID_TUNING_ID=0x209, //PID tuning config ID
 	  CAN_GIMBAL_YAW_INTER_TRANSFER_ID=0x210, //Transfer Gimbal data to CAN2
 	  CAN_GIMBAL_PITCH_INTER_TRANSFER_ID=0x211
@@ -65,9 +67,9 @@ typedef struct
 //Enumerate TX2 data package type
 //枚举声明TX2通信数据包类型
 typedef enum{
-	pitch_package,
-	yaw_package,
-	aim_package,
+	pitch_package=1,
+	yaw_package=2,
+	aim_package=3,
 } tx2_package_type_e;
 
 //TX2 to Gimbal Motor PID data package

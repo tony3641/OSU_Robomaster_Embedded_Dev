@@ -84,15 +84,22 @@
 				(ptr)->yaw_pid_package.power=(uint16_t)((rx_message->Data[6]<<8)|(rx_message)->Data[7]);	 										\
 				break;																																						 														\
 			case aim_package:																																		 														\
-				(ptr)->aim_data_package.horizontal_pixel_buffer=(uint16_t)((rx_message->Data[1]<<8)|(rx_message)->Data[2]);		\
-				(ptr)->aim_data_package.vertical_pixel_buffer=(uint16_t)((rx_message->Data[3]<<8)|(rx_message)->Data[4]);			\
-				(ptr)->aim_data_package.horizontal_pixel-=32767;																	 														\
-				(ptr)->aim_data_package.vertical_pixel-=32767;																		 														\
+				(ptr)->aim_data_package.horizontal_pixel=(uint16_t)((rx_message->Data[1]<<8)|(rx_message)->Data[2]);		\
+				(ptr)->aim_data_package.vertical_pixel=(uint16_t)((rx_message->Data[3]<<8)|(rx_message)->Data[4]);			\
+				(ptr)->aim_data_package.horizontal_pixel-=0x0a;																																	\
+				(ptr)->aim_data_package.vertical_pixel-=0x0a;																																		\
 				break;																																						 														\
 																																																											\
 		}																																											 														\
 } 
 		
+#define get_aim_data(ptr,rx_message)																																							\
+{ 																																																							  \
+	(ptr)->aim_data_package.horizontal_pixel=(uint16_t)((rx_message->Data[0]<<8)|(rx_message->Data[1]));						\
+	(ptr)->aim_data_package.vertical_pixel=(uint16_t)((rx_message->Data[2]<<8)|((rx_message)->Data[3]));            \
+	(ptr)->aim_data_package.horizontal_pixel-=0x0a;																																	\
+	(ptr)->aim_data_package.vertical_pixel-=0x0a;																																		\
+}
 //Process CAN Receive funtion together
 //统一处理CAN接收函数
 static void CAN_hook(CanRxMsg *rx_message);
@@ -406,14 +413,19 @@ static void CAN_hook(CanRxMsg *rx_message)
 				//Process TX2 data
 			  //buzzer_on(150,10000);
         get_tx2_measure(&tx2,rx_message);
+		}
 //<<<<<<< HEAD
 			  			
 			  //CAN_CMD_TX2(100,100);
         break;
+		case CAN_AIM_DATA_ID:
+		{
+				get_aim_data(&tx2,rx_message);
+		}
 //=======
 //			
 //>>>>>>> fb95f3d11679339d397e456bdecd2983f0f47822
-    }
+    
 
     default:
     {
