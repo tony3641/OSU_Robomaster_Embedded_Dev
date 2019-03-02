@@ -5,9 +5,11 @@
   * @note       This is NOT a freeRTOS TASK
   * @history
   *  Version    Date            Author          Modification
-  *  V1.0.0     Dec-26-2018     RM              1. Íê³É
+  *  V1.0.0     Dec-26-2018     RM              Complete
   *  V1.0.1     Feb-17-2019     Tony-OSU        Add tx2 can bus config
 	*  V1.1.0     Feb-21-2019     Tony-OSU        Finish Custom CAN Bus, fully functional
+	*  V1.2.0     Mar-01-2019     Tony-OSU        Package ID modified 
+	*																							@note TX2 package is now 0x111 for higher priority
   @verbatim
   ==============================================================================
 

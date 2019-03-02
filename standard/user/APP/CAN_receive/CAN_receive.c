@@ -8,6 +8,8 @@
   *  V1.0.0     Dec-26-2018     RM              1. Compete
   *  V1.0.1     Feb-17-2019     Tony-OSU        Add tx2 can bus config
 	*  V1.1.0     Feb-21-2019     Tony-OSU        Finish Custom CAN Bus, fully functional
+	*  V1.2.0     Mar-01-2019     Tony-OSU        CAN unpackaging simplified. Pixel bias changed.
+	* 																						@note some packages ID has CHANGED!! See .h file for detail
   @verbatim
   ==============================================================================
 
@@ -86,8 +88,8 @@
 			case aim_package:																																		 														\
 				(ptr)->aim_data_package.horizontal_pixel=(uint16_t)((rx_message->Data[1]<<8)|(rx_message)->Data[2]);		\
 				(ptr)->aim_data_package.vertical_pixel=(uint16_t)((rx_message->Data[3]<<8)|(rx_message)->Data[4]);			\
-				(ptr)->aim_data_package.horizontal_pixel-=0x0a;																																	\
-				(ptr)->aim_data_package.vertical_pixel-=0x0a;																																		\
+				(ptr)->aim_data_package.horizontal_pixel-=640;																																	\
+				(ptr)->aim_data_package.vertical_pixel-=320;																																		\
 				break;																																						 														\
 																																																											\
 		}																																											 														\
@@ -97,8 +99,8 @@
 { 																																																							  \
 	(ptr)->aim_data_package.horizontal_pixel=(uint16_t)((rx_message->Data[0]<<8)|(rx_message->Data[1]));						\
 	(ptr)->aim_data_package.vertical_pixel=(uint16_t)((rx_message->Data[2]<<8)|((rx_message)->Data[3]));            \
-	(ptr)->aim_data_package.horizontal_pixel-=0x0a;																																	\
-	(ptr)->aim_data_package.vertical_pixel-=0x0a;																																		\
+	(ptr)->aim_data_package.horizontal_pixel-=295;																																	\
+	(ptr)->aim_data_package.vertical_pixel-=140;			//First quadrant																															\
 }
 //Process CAN Receive funtion together
 //统一处理CAN接收函数
@@ -432,4 +434,5 @@ static void CAN_hook(CanRxMsg *rx_message)
         break;
     }
     }
+}
 }

@@ -8,8 +8,9 @@
   * @note       
   * @history
   *  Version    Date            Author          Modification
-  *  V1.0.0     Dec-26-2018     RM              1. 完成
+  *  V1.0.0     Dec-26-2018     RM              Complete
   *  V1.0.1     Feb-21-2018     Tony-OSU        Yaw,Pitch PID tuning
+	*  V1.0.3     Feb-28-2018     Tony-OSU        Auto aiming coefficient added for YAW&PITCH
   @verbatim
   ==============================================================================
 
@@ -26,18 +27,28 @@
 #include "remote_control.h"
 
 //pitch 速度环 PID参数以及 PID最大输出，积分输出
-#define PITCH_SPEED_PID_KP 2000.0f
-#define PITCH_SPEED_PID_KI 20.0f
+#define PITCH_SPEED_PID_KP 2000.0f //2000
+#define PITCH_SPEED_PID_KI 20.0f   //20
 #define PITCH_SPEED_PID_KD 0.0f
 #define PITCH_SPEED_PID_MAX_OUT 30000.0f
 #define PITCH_SPEED_PID_MAX_IOUT 5000.0f
 
 //yaw 速度环 PID参数以及 PID最大输出，积分输出
-#define YAW_SPEED_PID_KP 2200.0f
-#define YAW_SPEED_PID_KI 20.0f
+#define YAW_SPEED_PID_KP 2200.0f //2200
+#define YAW_SPEED_PID_KI 20.0f   //20
 #define YAW_SPEED_PID_KD 0.0f
 #define YAW_SPEED_PID_MAX_OUT 30000.0f
 #define YAW_SPEED_PID_MAX_IOUT 5000.0f
+
+//YAW Self aiming speed loop    //Experiencing problem???? Don't PID tune here!!!! Set configuration in .c file!!!
+#define YAW_AIM_PID_KP = 500.0f
+#define YAW_AIM_PID_KI = 0.30f
+#define YAW_AIM_PID_KD = 50.5f
+
+//PITCH self aiming speed loop	//Experiencing problem???? Don't PID tune here!!!! Set configuration in .c file!!!
+#define PITCH_AIM_PID_KP = 300.0f
+#define PITCH_AIM_PID_KI = 0.43f
+#define PITCH_AIM_PID_KD = 13.0f
 
 //pitch 角度环 角度由陀螺仪解算 PID参数以及 PID最大输出，积分输出
 #define PITCH_GYRO_ABSOLUTE_PID_KP 15.0f
@@ -171,6 +182,7 @@ typedef struct
     Gimbal_PID_t gimbal_motor_absolute_angle_pid;
     Gimbal_PID_t gimbal_motor_relative_angle_pid;
     PidTypeDef gimbal_motor_gyro_pid;
+		PidTypeDef gimbal_motor_aim_pid;
     gimbal_motor_mode_e gimbal_motor_mode;
     gimbal_motor_mode_e last_gimbal_motor_mode;
     uint16_t offset_ecd;
