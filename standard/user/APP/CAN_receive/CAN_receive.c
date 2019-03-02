@@ -99,8 +99,8 @@
 { 																																																							  \
 	(ptr)->aim_data_package.horizontal_pixel=(uint16_t)((rx_message->Data[0]<<8)|(rx_message->Data[1]));						\
 	(ptr)->aim_data_package.vertical_pixel=(uint16_t)((rx_message->Data[2]<<8)|((rx_message)->Data[3]));            \
-	(ptr)->aim_data_package.horizontal_pixel-=295;																																	\
-	(ptr)->aim_data_package.vertical_pixel-=140;			//First quadrant																															\
+	(ptr)->aim_data_package.horizontal_pixel-=270;																																	\
+	(ptr)->aim_data_package.vertical_pixel-=100;			//First quadrant																															\
 }
 //Process CAN Receive funtion together
 //统一处理CAN接收函数

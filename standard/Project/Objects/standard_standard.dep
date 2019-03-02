@@ -2504,7 +2504,7 @@ I (..\User\APP\Remote_Control\Remote_Control.h)(0x5C6F694B)
 I (..\User\hardware\RC\rc.h)(0x5C3A8146)
 I (..\User\APP\INS_Task\INS_Task.h)(0x5C3560AC)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599F83FC)
-I (..\User\APP\Gimbal_Task\gimbal_task.h)(0x5C79E08D)
+I (..\User\APP\Gimbal_Task\gimbal_task.h)(0x5C79EA7D)
 I (..\User\APP\CAN_Receive\CAN_Receive.h)(0x5C79E08D)
 I (..\User\APP\pid\pid.h)(0x5C3A801A)
 I (..\User\FreeRTOS\include\FreeRTOSConfig.h)(0x5C2167A4)
@@ -2518,7 +2518,7 @@ I (..\User\FreeRTOS\portable\RVDS\ARM_CM4F\portmacro.h)(0x573FF0E6)
 I (..\User\FreeRTOS\include\mpu_wrappers.h)(0x573FF0E6)
 I (..\User\FreeRTOS\include\task.h)(0x573FF0E6)
 I (..\User\FreeRTOS\include\list.h)(0x573FF0E6)
-F (..\user\APP\CAN_receive\CAN_receive.c)(0x5C79E017)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\FWLIB\inc -I ..\User -I ..\User\AHRS -I ..\User\DSP\Include -I ..\User\FreeRTOS\include -I ..\User\FreeRTOS\portable -I ..\User\FreeRTOS\portable\RVDS\ARM_CM4F -I ..\user\user_lib -I ..\User\hardware\ADC -I ..\User\hardware\BUZZER -I ..\User\hardware\delay -I ..\User\hardware\EXIT_Init -I ..\User\hardware\CAN -I ..\User\hardware\LED -I ..\User\hardware\FLASH -I ..\User\hardware\FRIC -I ..\User\hardware\LASER -I ..\User\hardware\POWER_CTRL -I ..\User\hardware\RC -I ..\User\hardware\RNG -I ..\User\hardware\SPI -I ..\User\hardware\SYS -I ..\user\hardware\timer -I ..\User\APP\Calibrate_Task -I ..\User\APP\CAN_Receive -I ..\User\APP\Chassis_Task -I ..\User\APP\Detect_Task -I ..\User\APP\FreeRTOS_Middleware -I ..\User\APP\Gimbal_Task -I ..\User\APP\INS_Task -I ..\User\APP\pid -I ..\User\APP\Remote_Control -I ..\User\APP\Shoot -I ..\User\APP\Start_Task -I ..\User\APP\User_Task-I.\RTE\_standard-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="526" -DSTM32F427xx -DSTM32F427X -DUSE_STDPERIPH_DRIVER -D__FPU_USED -D__FPU_PRESENT -DARM_MATH_CM4 -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING --C99-o .\objects\can_receive.o --omf_browse .\objects\can_receive.crf --depend .\objects\can_receive.d)
+F (..\user\APP\CAN_receive\CAN_receive.c)(0x5C7A083E)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\FWLIB\inc -I ..\User -I ..\User\AHRS -I ..\User\DSP\Include -I ..\User\FreeRTOS\include -I ..\User\FreeRTOS\portable -I ..\User\FreeRTOS\portable\RVDS\ARM_CM4F -I ..\user\user_lib -I ..\User\hardware\ADC -I ..\User\hardware\BUZZER -I ..\User\hardware\delay -I ..\User\hardware\EXIT_Init -I ..\User\hardware\CAN -I ..\User\hardware\LED -I ..\User\hardware\FLASH -I ..\User\hardware\FRIC -I ..\User\hardware\LASER -I ..\User\hardware\POWER_CTRL -I ..\User\hardware\RC -I ..\User\hardware\RNG -I ..\User\hardware\SPI -I ..\User\hardware\SYS -I ..\user\hardware\timer -I ..\User\APP\Calibrate_Task -I ..\User\APP\CAN_Receive -I ..\User\APP\Chassis_Task -I ..\User\APP\Detect_Task -I ..\User\APP\FreeRTOS_Middleware -I ..\User\APP\Gimbal_Task -I ..\User\APP\INS_Task -I ..\User\APP\pid -I ..\User\APP\Remote_Control -I ..\User\APP\Shoot -I ..\User\APP\Start_Task -I ..\User\APP\User_Task-I.\RTE\_standard-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="526" -DSTM32F427xx -DSTM32F427X -DUSE_STDPERIPH_DRIVER -D__FPU_USED -D__FPU_PRESENT -DARM_MATH_CM4 -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING --C99-o .\objects\can_receive.o --omf_browse .\objects\can_receive.crf --depend .\objects\can_receive.d)
 I (..\user\APP\CAN_receive\CAN_Receive.h)(0x5C79E08D)
 I (..\User\main.h)(0x5C3BC5D6)
 I (..\CMSIS\stm32f4xx.h)(0x5A24E090)
@@ -2578,7 +2578,7 @@ I (..\user\APP\chassis_task\chassis_behaviour.h)(0x5C32C9C2)
 I (..\User\main.h)(0x5C3BC5D6)
 I (..\user\APP\chassis_task\chassis_task.h)(0x5C3A7F6C)
 I (..\User\APP\CAN_Receive\CAN_Receive.h)(0x5C79E08D)
-I (..\User\APP\Gimbal_Task\Gimbal_Task.h)(0x5C79E08D)
+I (..\User\APP\Gimbal_Task\Gimbal_Task.h)(0x5C79EA7D)
 I (..\User\APP\pid\pid.h)(0x5C3A801A)
 I (..\User\APP\Remote_Control\remote_control.h)(0x5C6F694B)
 I (..\User\hardware\RC\rc.h)(0x5C3A8146)
@@ -2596,7 +2596,7 @@ F (..\user\APP\chassis_task\chassis_task.c)(0x5C360F00)(-c --cpu Cortex-M4.fp -g
 I (..\user\APP\chassis_task\chassis_task.h)(0x5C3A7F6C)
 I (..\User\main.h)(0x5C3BC5D6)
 I (..\User\APP\CAN_Receive\CAN_Receive.h)(0x5C79E08D)
-I (..\User\APP\Gimbal_Task\Gimbal_Task.h)(0x5C79E08D)
+I (..\User\APP\Gimbal_Task\Gimbal_Task.h)(0x5C79EA7D)
 I (..\User\APP\pid\pid.h)(0x5C3A801A)
 I (..\User\APP\Remote_Control\remote_control.h)(0x5C6F694B)
 I (..\User\hardware\RC\rc.h)(0x5C3A8146)
@@ -2692,7 +2692,7 @@ I (..\User\FreeRTOS\include\list.h)(0x573FF0E6)
 F (..\user\APP\gimbal_task\gimbal_behaviour.c)(0x5C70B498)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\FWLIB\inc -I ..\User -I ..\User\AHRS -I ..\User\DSP\Include -I ..\User\FreeRTOS\include -I ..\User\FreeRTOS\portable -I ..\User\FreeRTOS\portable\RVDS\ARM_CM4F -I ..\user\user_lib -I ..\User\hardware\ADC -I ..\User\hardware\BUZZER -I ..\User\hardware\delay -I ..\User\hardware\EXIT_Init -I ..\User\hardware\CAN -I ..\User\hardware\LED -I ..\User\hardware\FLASH -I ..\User\hardware\FRIC -I ..\User\hardware\LASER -I ..\User\hardware\POWER_CTRL -I ..\User\hardware\RC -I ..\User\hardware\RNG -I ..\User\hardware\SPI -I ..\User\hardware\SYS -I ..\user\hardware\timer -I ..\User\APP\Calibrate_Task -I ..\User\APP\CAN_Receive -I ..\User\APP\Chassis_Task -I ..\User\APP\Detect_Task -I ..\User\APP\FreeRTOS_Middleware -I ..\User\APP\Gimbal_Task -I ..\User\APP\INS_Task -I ..\User\APP\pid -I ..\User\APP\Remote_Control -I ..\User\APP\Shoot -I ..\User\APP\Start_Task -I ..\User\APP\User_Task-I.\RTE\_standard-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="526" -DSTM32F427xx -DSTM32F427X -DUSE_STDPERIPH_DRIVER -D__FPU_USED -D__FPU_PRESENT -DARM_MATH_CM4 -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING --C99-o .\objects\gimbal_behaviour.o --omf_browse .\objects\gimbal_behaviour.crf --depend .\objects\gimbal_behaviour.d)
 I (..\user\APP\gimbal_task\gimbal_behaviour.h)(0x5C361798)
 I (..\User\main.h)(0x5C3BC5D6)
-I (..\user\APP\gimbal_task\Gimbal_Task.h)(0x5C79E08D)
+I (..\user\APP\gimbal_task\Gimbal_Task.h)(0x5C79EA7D)
 I (..\User\APP\CAN_Receive\CAN_Receive.h)(0x5C79E08D)
 I (..\User\APP\pid\pid.h)(0x5C3A801A)
 I (..\User\APP\Remote_Control\remote_control.h)(0x5C6F694B)
@@ -2708,8 +2708,8 @@ I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x599F83FE)
 I (..\User\hardware\BUZZER\buzzer.h)(0x5C2FF876)
 I (..\User\APP\Detect_Task\Detect_Task.h)(0x5C2FF6E4)
 I (..\user\user_lib\user_lib.h)(0x5C33EEC8)
-F (..\user\APP\gimbal_task\gimbal_task.c)(0x5C79E0D2)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\FWLIB\inc -I ..\User -I ..\User\AHRS -I ..\User\DSP\Include -I ..\User\FreeRTOS\include -I ..\User\FreeRTOS\portable -I ..\User\FreeRTOS\portable\RVDS\ARM_CM4F -I ..\user\user_lib -I ..\User\hardware\ADC -I ..\User\hardware\BUZZER -I ..\User\hardware\delay -I ..\User\hardware\EXIT_Init -I ..\User\hardware\CAN -I ..\User\hardware\LED -I ..\User\hardware\FLASH -I ..\User\hardware\FRIC -I ..\User\hardware\LASER -I ..\User\hardware\POWER_CTRL -I ..\User\hardware\RC -I ..\User\hardware\RNG -I ..\User\hardware\SPI -I ..\User\hardware\SYS -I ..\user\hardware\timer -I ..\User\APP\Calibrate_Task -I ..\User\APP\CAN_Receive -I ..\User\APP\Chassis_Task -I ..\User\APP\Detect_Task -I ..\User\APP\FreeRTOS_Middleware -I ..\User\APP\Gimbal_Task -I ..\User\APP\INS_Task -I ..\User\APP\pid -I ..\User\APP\Remote_Control -I ..\User\APP\Shoot -I ..\User\APP\Start_Task -I ..\User\APP\User_Task-I.\RTE\_standard-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="526" -DSTM32F427xx -DSTM32F427X -DUSE_STDPERIPH_DRIVER -D__FPU_USED -D__FPU_PRESENT -DARM_MATH_CM4 -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING --C99-o .\objects\gimbal_task.o --omf_browse .\objects\gimbal_task.crf --depend .\objects\gimbal_task.d)
-I (..\user\APP\gimbal_task\Gimbal_Task.h)(0x5C79E08D)
+F (..\user\APP\gimbal_task\gimbal_task.c)(0x5C7A0BE2)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\FWLIB\inc -I ..\User -I ..\User\AHRS -I ..\User\DSP\Include -I ..\User\FreeRTOS\include -I ..\User\FreeRTOS\portable -I ..\User\FreeRTOS\portable\RVDS\ARM_CM4F -I ..\user\user_lib -I ..\User\hardware\ADC -I ..\User\hardware\BUZZER -I ..\User\hardware\delay -I ..\User\hardware\EXIT_Init -I ..\User\hardware\CAN -I ..\User\hardware\LED -I ..\User\hardware\FLASH -I ..\User\hardware\FRIC -I ..\User\hardware\LASER -I ..\User\hardware\POWER_CTRL -I ..\User\hardware\RC -I ..\User\hardware\RNG -I ..\User\hardware\SPI -I ..\User\hardware\SYS -I ..\user\hardware\timer -I ..\User\APP\Calibrate_Task -I ..\User\APP\CAN_Receive -I ..\User\APP\Chassis_Task -I ..\User\APP\Detect_Task -I ..\User\APP\FreeRTOS_Middleware -I ..\User\APP\Gimbal_Task -I ..\User\APP\INS_Task -I ..\User\APP\pid -I ..\User\APP\Remote_Control -I ..\User\APP\Shoot -I ..\User\APP\Start_Task -I ..\User\APP\User_Task-I.\RTE\_standard-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="526" -DSTM32F427xx -DSTM32F427X -DUSE_STDPERIPH_DRIVER -D__FPU_USED -D__FPU_PRESENT -DARM_MATH_CM4 -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING --C99-o .\objects\gimbal_task.o --omf_browse .\objects\gimbal_task.crf --depend .\objects\gimbal_task.d)
+I (..\user\APP\gimbal_task\Gimbal_Task.h)(0x5C79EA7D)
 I (..\User\main.h)(0x5C3BC5D6)
 I (..\User\APP\CAN_Receive\CAN_Receive.h)(0x5C79E08D)
 I (..\User\APP\pid\pid.h)(0x5C3A801A)
@@ -2844,14 +2844,14 @@ I (..\FWLIB\inc\stm32f4xx_dma2d.h)(0x581D7D4A)
 I (..\FWLIB\inc\stm32f4xx_fmc.h)(0x581D7D4A)
 I (..\FWLIB\inc\stm32f4xx_sai.h)(0x5822C51C)
 I (..\User\APP\Detect_Task\Detect_Task.h)(0x5C2FF6E4)
-F (..\user\APP\shoot\shoot.c)(0x5C709353)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\FWLIB\inc -I ..\User -I ..\User\AHRS -I ..\User\DSP\Include -I ..\User\FreeRTOS\include -I ..\User\FreeRTOS\portable -I ..\User\FreeRTOS\portable\RVDS\ARM_CM4F -I ..\user\user_lib -I ..\User\hardware\ADC -I ..\User\hardware\BUZZER -I ..\User\hardware\delay -I ..\User\hardware\EXIT_Init -I ..\User\hardware\CAN -I ..\User\hardware\LED -I ..\User\hardware\FLASH -I ..\User\hardware\FRIC -I ..\User\hardware\LASER -I ..\User\hardware\POWER_CTRL -I ..\User\hardware\RC -I ..\User\hardware\RNG -I ..\User\hardware\SPI -I ..\User\hardware\SYS -I ..\user\hardware\timer -I ..\User\APP\Calibrate_Task -I ..\User\APP\CAN_Receive -I ..\User\APP\Chassis_Task -I ..\User\APP\Detect_Task -I ..\User\APP\FreeRTOS_Middleware -I ..\User\APP\Gimbal_Task -I ..\User\APP\INS_Task -I ..\User\APP\pid -I ..\User\APP\Remote_Control -I ..\User\APP\Shoot -I ..\User\APP\Start_Task -I ..\User\APP\User_Task-I.\RTE\_standard-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="526" -DSTM32F427xx -DSTM32F427X -DUSE_STDPERIPH_DRIVER -D__FPU_USED -D__FPU_PRESENT -DARM_MATH_CM4 -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING --C99-o .\objects\shoot.o --omf_browse .\objects\shoot.crf --depend .\objects\shoot.d)
+F (..\user\APP\shoot\shoot.c)(0x5C79FC90)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\FWLIB\inc -I ..\User -I ..\User\AHRS -I ..\User\DSP\Include -I ..\User\FreeRTOS\include -I ..\User\FreeRTOS\portable -I ..\User\FreeRTOS\portable\RVDS\ARM_CM4F -I ..\user\user_lib -I ..\User\hardware\ADC -I ..\User\hardware\BUZZER -I ..\User\hardware\delay -I ..\User\hardware\EXIT_Init -I ..\User\hardware\CAN -I ..\User\hardware\LED -I ..\User\hardware\FLASH -I ..\User\hardware\FRIC -I ..\User\hardware\LASER -I ..\User\hardware\POWER_CTRL -I ..\User\hardware\RC -I ..\User\hardware\RNG -I ..\User\hardware\SPI -I ..\User\hardware\SYS -I ..\user\hardware\timer -I ..\User\APP\Calibrate_Task -I ..\User\APP\CAN_Receive -I ..\User\APP\Chassis_Task -I ..\User\APP\Detect_Task -I ..\User\APP\FreeRTOS_Middleware -I ..\User\APP\Gimbal_Task -I ..\User\APP\INS_Task -I ..\User\APP\pid -I ..\User\APP\Remote_Control -I ..\User\APP\Shoot -I ..\User\APP\Start_Task -I ..\User\APP\User_Task-I.\RTE\_standard-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="526" -DSTM32F427xx -DSTM32F427X -DUSE_STDPERIPH_DRIVER -D__FPU_USED -D__FPU_PRESENT -DARM_MATH_CM4 -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING --C99-o .\objects\shoot.o --omf_browse .\objects\shoot.crf --depend .\objects\shoot.d)
 I (..\user\APP\shoot\Shoot.h)(0x5C3A7F6C)
 I (..\User\main.h)(0x5C3BC5D6)
 I (..\User\APP\CAN_Receive\CAN_Receive.h)(0x5C79E08D)
 I (..\User\APP\Remote_Control\remote_control.h)(0x5C6F694B)
 I (..\User\hardware\RC\rc.h)(0x5C3A8146)
 I (..\user\user_lib\user_lib.h)(0x5C33EEC8)
-I (..\User\APP\Gimbal_Task\Gimbal_Task.h)(0x5C79E08D)
+I (..\User\APP\Gimbal_Task\Gimbal_Task.h)(0x5C79EA7D)
 I (..\User\APP\pid\pid.h)(0x5C3A801A)
 I (..\User\APP\Gimbal_Task\gimbal_behaviour.h)(0x5C361798)
 I (..\User\APP\Detect_Task\Detect_Task.h)(0x5C2FF6E4)
@@ -2926,7 +2926,7 @@ I (..\User\APP\User_Task\User_Task.h)(0x5C2FF7C0)
 I (..\User\APP\INS_Task\INS_Task.h)(0x5C3560AC)
 I (..\User\APP\Chassis_Task\Chassis_Task.h)(0x5C3A7F6C)
 I (..\User\APP\CAN_Receive\CAN_Receive.h)(0x5C79E08D)
-I (..\User\APP\Gimbal_Task\Gimbal_Task.h)(0x5C79E08D)
+I (..\User\APP\Gimbal_Task\Gimbal_Task.h)(0x5C79EA7D)
 I (..\User\APP\pid\pid.h)(0x5C3A801A)
 I (..\User\APP\Remote_Control\remote_control.h)(0x5C6F694B)
 I (..\User\hardware\RC\rc.h)(0x5C3A8146)
