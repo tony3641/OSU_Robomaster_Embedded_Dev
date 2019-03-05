@@ -40,15 +40,15 @@
 #define YAW_SPEED_PID_MAX_OUT 30000.0f
 #define YAW_SPEED_PID_MAX_IOUT 5000.0f
 
-//YAW Self aiming speed loop    //Experiencing problem???? Don't PID tune here!!!! Set configuration in .c file!!!
-#define YAW_AIM_PID_KP = 500.0f
-#define YAW_AIM_PID_KI = 0.30f
-#define YAW_AIM_PID_KD = 50.5f
+//YAW Self aiming speed loop   //PID for auto aiming
+#define YAW_AIM_PID_KP 1550.0f
+#define YAW_AIM_PID_KI 10.0f
+#define YAW_AIM_PID_KD 80.0f
 
-//PITCH self aiming speed loop	//Experiencing problem???? Don't PID tune here!!!! Set configuration in .c file!!!
-#define PITCH_AIM_PID_KP = 300.0f
-#define PITCH_AIM_PID_KI = 0.43f
-#define PITCH_AIM_PID_KD = 13.0f
+//PITCH self aiming speed loop	//PID for auto aiming
+#define PITCH_AIM_PID_KP 100.0f
+#define PITCH_AIM_PID_KI 1.0f
+#define PITCH_AIM_PID_KD 10.0f
 
 //pitch 角度环 角度由陀螺仪解算 PID参数以及 PID最大输出，积分输出
 #define PITCH_GYRO_ABSOLUTE_PID_KP 15.0f
@@ -182,7 +182,7 @@ typedef struct
     Gimbal_PID_t gimbal_motor_absolute_angle_pid;
     Gimbal_PID_t gimbal_motor_relative_angle_pid;
     PidTypeDef gimbal_motor_gyro_pid;
-		PidTypeDef gimbal_motor_aim_pid;
+		PidTypeDef gimbal_motor_aim_pid;//new for auto aim
     gimbal_motor_mode_e gimbal_motor_mode;
     gimbal_motor_mode_e last_gimbal_motor_mode;
     uint16_t offset_ecd;
