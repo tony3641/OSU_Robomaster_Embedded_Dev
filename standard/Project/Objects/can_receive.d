@@ -3,7 +3,7 @@
 .\objects\can_receive.o: ..\User\main.h
 .\objects\can_receive.o: ..\CMSIS\stm32f4xx.h
 .\objects\can_receive.o: ..\CMSIS\core_cm4.h
-.\objects\can_receive.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\can_receive.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\can_receive.o: ..\CMSIS\core_cmInstr.h
 .\objects\can_receive.o: ..\CMSIS\core_cmFunc.h
 .\objects\can_receive.o: ..\CMSIS\core_cmSimd.h
@@ -41,7 +41,7 @@
 .\objects\can_receive.o: ..\User\hardware\RNG\rng.h
 .\objects\can_receive.o: ..\User\FreeRTOS\include\FreeRTOSConfig.h
 .\objects\can_receive.o: ..\User\FreeRTOS\include\FreeRTOS.h
-.\objects\can_receive.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects\can_receive.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\objects\can_receive.o: ..\User\FreeRTOS\include\projdefs.h
 .\objects\can_receive.o: ..\User\FreeRTOS\include\portable.h
 .\objects\can_receive.o: ..\User\FreeRTOS\include\deprecated_definitions.h
@@ -52,5 +52,3 @@
 .\objects\can_receive.o: ..\User\hardware\BUZZER\buzzer.h
 .\objects\can_receive.o: ..\User\APP\Detect_Task\Detect_Task.h
 .\objects\can_receive.o: ..\User\APP\pid\pid.h
-.\objects\can_receive.o: ..\User\hardware\LED\led.h
-.\objects\can_receive.o: ..\User\hardware\delay\delay.h

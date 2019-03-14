@@ -1,8 +1,8 @@
 .\objects\event_groups.o: ..\user\FreeRTOS\event_groups.c
-.\objects\event_groups.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\event_groups.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\objects\event_groups.o: ..\User\FreeRTOS\include\FreeRTOS.h
-.\objects\event_groups.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
-.\objects\event_groups.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\event_groups.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects\event_groups.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\event_groups.o: ..\User\FreeRTOS\include\FreeRTOSConfig.h
 .\objects\event_groups.o: ..\User\main.h
 .\objects\event_groups.o: ..\User\FreeRTOS\include\projdefs.h

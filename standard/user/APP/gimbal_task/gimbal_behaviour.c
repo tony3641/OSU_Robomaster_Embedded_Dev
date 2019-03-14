@@ -21,8 +21,9 @@
 #include "gimbal_behaviour.h"
 #include "arm_math.h"
 #include "buzzer.h"
-#include "Detect_Task.h"
 
+#include "Detect_Task.h"
+#include "CAN_receive.h"
 #include "user_lib.h"
 
 ////云台校准蜂鸣器响声
@@ -76,6 +77,8 @@
             }                                                                        \
         }                                                                            \
     }
+
+
 
 /**
   * @brief          云台行为状态机设置，因为在cali等模式下使用了return，故而再用了一个函数
@@ -150,7 +153,6 @@ static gimbal_behaviour_e gimbal_behaviour = GIMBAL_ZERO_FORCE;
   * @param[in]      云台数据指针
   * @retval         返回空
   */
-
 gimbal_motor_mode_e test = GIMBAL_MOTOR_ENCONDE;
 void gimbal_behaviour_mode_set(Gimbal_Control_t *gimbal_mode_set)
 {
@@ -202,6 +204,7 @@ void gimbal_behaviour_mode_set(Gimbal_Control_t *gimbal_mode_set)
   * @param[in]      云台数据指针
   * @retval         返回空
   */
+
 void gimbal_behaviour_control_set(fp32 *add_yaw, fp32 *add_pitch, Gimbal_Control_t *gimbal_control_set)
 {
 
@@ -212,15 +215,16 @@ void gimbal_behaviour_control_set(fp32 *add_yaw, fp32 *add_pitch, Gimbal_Control
 
     static fp32 rc_add_yaw, rc_add_pit;
     static int16_t yaw_channel = 0, pitch_channel = 0;
-		pitch_channel=gimbal_control_set->gimbal_rc_ctrl->rc.ch[3];
 
     //将遥控器的数据处理死区 int16_t yaw_channel,pitch_channel
     rc_deadline_limit(gimbal_control_set->gimbal_rc_ctrl->rc.ch[YawChannel], yaw_channel, RC_deadband);
     rc_deadline_limit(gimbal_control_set->gimbal_rc_ctrl->rc.ch[PitchChannel], pitch_channel, RC_deadband);
 
+    
     rc_add_yaw = yaw_channel * Yaw_RC_SEN - gimbal_control_set->gimbal_rc_ctrl->mouse.x * Yaw_Mouse_Sen;
     rc_add_pit = pitch_channel * Pitch_RC_SEN + gimbal_control_set->gimbal_rc_ctrl->mouse.y * Pitch_Mouse_Sen;
-
+		
+		
     if (gimbal_behaviour == GIMBAL_ZERO_FORCE)
     {
         gimbal_zero_force_control(&rc_add_yaw, &rc_add_pit, gimbal_control_set);
@@ -240,14 +244,17 @@ void gimbal_behaviour_control_set(fp32 *add_yaw, fp32 *add_pitch, Gimbal_Control
     else if (gimbal_behaviour == GIMBAL_RELATIVE_ANGLE)
     {
         gimbal_relative_angle_control(&rc_add_yaw, &rc_add_pit, gimbal_control_set);
+
     }
     else if (gimbal_behaviour == GIMBAL_MOTIONLESS)
     {
         gimbal_motionless_control(&rc_add_yaw, &rc_add_pit, gimbal_control_set);
     }
-    //将控制增加量赋值
+    
+		//将控制增加量赋值
     *add_yaw = rc_add_yaw;
     *add_pitch = rc_add_pit;
+		
 }
 
 /**
@@ -534,16 +541,17 @@ static void gimbal_absolute_angle_control(fp32 *yaw, fp32 *pitch, Gimbal_Control
         static uint8_t gimbal_turn_flag = 0;
         static fp32 gimbal_end_angle = 0.0f;
 
-        if ((gimbal_control_set->gimbal_rc_ctrl->key.v & TurnKeyBoard) && !(last_turn_keyboard & TurnKeyBoard))
+        if ((gimbal_control_set->gimbal_rc_ctrl->key.v & TurnKeyBoard) && !(last_turn_keyboard & TurnKeyBoard))//测试测试
         {
+					
             if (gimbal_turn_flag == 0)
             {
                 gimbal_turn_flag = 1;
-                //保存掉头的目标值
+							//保存掉头的目标值
                 gimbal_end_angle = rad_format(gimbal_control_set->gimbal_yaw_motor.absolute_angle + PI);
             }
         }
-        last_turn_keyboard = gimbal_control_set->gimbal_rc_ctrl->key.v ;
+        last_turn_keyboard = gimbal_control_set->gimbal_rc_ctrl->key.v;
 
         if (gimbal_turn_flag)
         {
@@ -551,18 +559,23 @@ static void gimbal_absolute_angle_control(fp32 *yaw, fp32 *pitch, Gimbal_Control
             if (rad_format(gimbal_end_angle - gimbal_control_set->gimbal_yaw_motor.absolute_angle) > 0.0f)
             {
                 *yaw += TurnSpeed;
+							buzzer_on(140,10000);
             }
             else
             {
                 *yaw -= TurnSpeed;
+							
             }
         }
         //到达pi （180°）后停止
         if (gimbal_turn_flag && fabs(rad_format(gimbal_end_angle - gimbal_control_set->gimbal_yaw_motor.absolute_angle)) < 0.01f)
         {
             gimbal_turn_flag = 0;
+					buzzer_off();
         }
-    }
+			
+			}
+			
 }
 /**
   * @brief          云台编码值控制，电机是相对角度控制，

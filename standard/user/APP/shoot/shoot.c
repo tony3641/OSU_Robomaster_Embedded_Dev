@@ -216,7 +216,7 @@ int16_t shoot_control_loop(void)
         PID_Calc(&trigger_motor_pid, trigger_motor.speed, trigger_motor.speed_set);
 
         trigger_motor.given_current = (int16_t)(trigger_motor_pid.out);
-        shoot_CAN_Set_Current = trigger_motor.given_current;
+        shoot_CAN_Set_Current = trigger_motor.given_current;//射击间隔
     }
 
     return shoot_CAN_Set_Current;
@@ -299,7 +299,7 @@ static void Shoot_Feedback_Update(void)
     speed_fliter_1 = speed_fliter_2;
     speed_fliter_2 = speed_fliter_3;
     speed_fliter_3 = speed_fliter_2 * fliter_num[0] + speed_fliter_1 * fliter_num[1] + (trigger_motor.shoot_motor_measure->speed_rpm * Motor_RMP_TO_SPEED) * fliter_num[2];
-    trigger_motor.speed = speed_fliter_3;
+    trigger_motor.speed = speed_fliter_3;//测试
 
     //电机圈数重置， 因为输出轴旋转一圈， 电机轴旋转 36圈，将电机轴数据处理成输出轴数据，用于控制输出轴角度
     if (trigger_motor.shoot_motor_measure->ecd - trigger_motor.shoot_motor_measure->last_ecd > Half_ecd_range)

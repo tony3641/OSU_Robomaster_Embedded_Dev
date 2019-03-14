@@ -13,12 +13,12 @@
 .\objects\shoot.o: ..\User\hardware\FRIC\fric.h
 .\objects\shoot.o: ..\User\DSP\Include\arm_math.h
 .\objects\shoot.o: ..\CMSIS\core_cm4.h
-.\objects\shoot.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\shoot.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\shoot.o: ..\CMSIS\core_cmInstr.h
 .\objects\shoot.o: ..\CMSIS\core_cmFunc.h
 .\objects\shoot.o: ..\CMSIS\core_cmSimd.h
-.\objects\shoot.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\objects\shoot.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\objects\shoot.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\shoot.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\objects\shoot.o: ..\CMSIS\stm32f4xx.h
 .\objects\shoot.o: ..\CMSIS\core_cm4.h
 .\objects\shoot.o: ..\CMSIS\system_stm32f4xx.h
@@ -54,7 +54,7 @@
 .\objects\shoot.o: ..\FWLIB\inc\stm32f4xx_sai.h
 .\objects\shoot.o: ..\User\FreeRTOS\include\FreeRTOSConfig.h
 .\objects\shoot.o: ..\User\FreeRTOS\include\FreeRTOS.h
-.\objects\shoot.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects\shoot.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\objects\shoot.o: ..\User\FreeRTOS\include\projdefs.h
 .\objects\shoot.o: ..\User\FreeRTOS\include\portable.h
 .\objects\shoot.o: ..\User\FreeRTOS\include\deprecated_definitions.h

@@ -5,11 +5,11 @@
 <h2>Tool Versions:</h2>
 IDE-Version: µVision V5.26.2.0
 Copyright (C) 2018 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: Yuxuan Han,  , LIC=GE7BS-LGGYP-RE2H3-AMRUM-58IHY-BJFVT
+License Information: Yuan You, The Ohio State University, LIC=47GFW-QWB3D-1PBZ5-GWM13-MB3K3-H0EMY
  
 Tool Versions:
-Toolchain:       MDK-ARM Professional  Version: 5.26.2.0
-Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
+Toolchain:       MDK-ARM Plus  Version: 5.26.2.0
+Toolchain Path:  D:\Keil_v5\ARM\ARMCC\Bin
 C Compiler:      Armcc.exe V5.06 update 6 (build 750)
 Assembler:       Armasm.exe V5.06 update 6 (build 750)
 Linker/Locator:  ArmLink.exe V5.06 update 6 (build 750)
@@ -21,17 +21,22 @@ Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.5.0
 Dialog DLL:      TCM.DLL V1.36.1.0
  
 <h2>Project:</h2>
-C:\Users\tony3\Contacts\Desktop\OSU_Robomaster_Embedded-Dev\OSU_Robomaster_Embedded_Dev\standard\Project\standard.uvprojx
-Project File Date:  02/17/2019
+D:\OneDrive - The Ohio State University\RoboMaster\RM-editing\standard\Project\standard.uvprojx
+Project File Date:  03/06/2019
 
 <h2>Output:</h2>
-*** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+*** Using Compiler 'V5.06 update 6 (build 750)', folder: 'D:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'standard'
 compiling gimbal_task.c...
+..\user\APP\gimbal_task\gimbal_task.c(633): warning:  #177-D: function "gimbal_motor_absolute_angle_control"  was declared but never referenced
+  static void gimbal_motor_absolute_angle_control(Gimbal_Motor_t *gimbal_motor)
+..\user\APP\gimbal_task\gimbal_task.c(570): warning:  #177-D: function "GIMBAL_relative_angle_limit"  was declared but never referenced
+  static void GIMBAL_relative_angle_limit(Gimbal_Motor_t *gimbal_motor, fp32 add)
+..\user\APP\gimbal_task\gimbal_task.c: 2 warnings, 0 errors
 linking...
-Program Size: Code=52616 RO-data=2796 RW-data=568 ZI-data=135568  
+Program Size: Code=50288 RO-data=2772 RW-data=568 ZI-data=135424  
 FromELF: creating hex file...
-".\Objects\infantry.axf" - 0 Error(s), 0 Warning(s).
+".\Objects\infantry.axf" - 0 Error(s), 2 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -42,10 +47,10 @@ Package Vendor: Keil
 
 <h2>Collection of Component include folders:</h2>
   .\RTE\_standard
-  C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+  D:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:09
 </pre>
 </body>
 </html>

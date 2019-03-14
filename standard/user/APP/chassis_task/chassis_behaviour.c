@@ -258,7 +258,7 @@ static void chassis_infantry_follow_gimbal_yaw_control(fp32 *vx_set, fp32 *vy_se
     //º∆À„“£øÿ∆˜µƒ‘≠ º ‰»Î–≈∫≈
 
     //≈–∂œ «∑Ò“™“°∞⁄
-    if (chassis_move_rc_to_vector->chassis_RC->key.v & SWING_KEY)
+    if (chassis_move_rc_to_vector->chassis_RC->key.v & SWING_KEY)//≤‚ ‘≤‚ ‘≤‚ ‘
     {
         if (swing_flag == 0)
         {
@@ -296,8 +296,9 @@ static void chassis_infantry_follow_gimbal_yaw_control(fp32 *vx_set, fp32 *vy_se
     {
         swing_time -= 2 * PI;
     }
+		*angle_set = swing_angle;
 
-    *angle_set = swing_angle;
+
 }
 
 /**

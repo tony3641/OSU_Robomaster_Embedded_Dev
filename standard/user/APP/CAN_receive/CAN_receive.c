@@ -30,10 +30,7 @@
 #include "buzzer.h"
 #include "Detect_Task.h"
 #include "pid.h"
-/* test */
-#include "led.h"//加入LED
-#include "delay.h"
-/* test */
+
 //Read Chassis Motor data
 //底盘电机数据读取
 //"ecd" represents "encoder"
@@ -58,50 +55,67 @@
 		(ptr)->temperate = (rx_message)->Data[6];                                              \
 }
 
-//TX2 Data Receive
-//TX2数据读取
-//Data[0] is used to determine the type of package, pitch_package & yaw_package are used to adjust PID, aim_package is used to transmit the pixel coordinates
-#define get_tx2_measure(ptr,rx_message)                                                        												\
-{																																																											\
-	   if(rx_message->Data[0]==0xff) buzzer_on(150,10000);                                                              \
-		(ptr)->package_type=(uint16_t)(rx_message->Data[0]);																	 														\
-		tx2_package_type_e tx2_package_type;                                                   														\
-		switch(tx2_package_type){                                                              														\
-			case pitch_package:       																													 														\
-				(ptr)->pitch_pid_package.error=0;																									 														\
-				(ptr)->pitch_pid_package.err_last=(ptr)->pitch_pid_package.error;                  														\
-				(ptr)->pitch_pid_package.kp=(uint8_t)(rx_message->Data[1]);																										\
-				(ptr)->pitch_pid_package.ki=(uint8_t)(rx_message->Data[2]);                                   								\
-				(ptr)->pitch_pid_package.kd=(uint8_t)(rx_message->Data[3]);                                   								\
-				(ptr)->pitch_pid_package.error=(uint16_t)((rx_message->Data[4]<<8)|(rx_message)->Data[5]);   									\
-				(ptr)->pitch_pid_package.power=(uint16_t)((rx_message->Data[6]<<8)|(rx_message)->Data[7]);	 									\
-				break;																																						 														\
-			case yaw_package:																																		 														\
-				(ptr)->yaw_pid_package.error=0;																									 															\
-				(ptr)->yaw_pid_package.err_last=(ptr)->pitch_pid_package.error;                  															\
-				(ptr)->yaw_pid_package.kp=(uint8_t)(rx_message->Data[1]);																					 						\
-				(ptr)->yaw_pid_package.ki=(uint8_t)(rx_message->Data[2]);                                          						\
-				(ptr)->yaw_pid_package.kd=(uint8_t)(rx_message->Data[3]);                                          						\
-				(ptr)->yaw_pid_package.error=(uint16_t)((rx_message->Data[4]<<8)|(rx_message)->Data[5]);   										\
-				(ptr)->yaw_pid_package.power=(uint16_t)((rx_message->Data[6]<<8)|(rx_message)->Data[7]);	 										\
-				break;																																						 														\
-			case aim_package:																																		 														\
-				(ptr)->aim_data_package.horizontal_pixel=(uint16_t)((rx_message->Data[1]<<8)|(rx_message)->Data[2]);		\
-				(ptr)->aim_data_package.vertical_pixel=(uint16_t)((rx_message->Data[3]<<8)|(rx_message)->Data[4]);			\
-				(ptr)->aim_data_package.horizontal_pixel-=640;																																	\
-				(ptr)->aim_data_package.vertical_pixel-=320;																																		\
-				break;																																						 														\
-																																																											\
-		}																																											 														\
-} 
-		
+////TX2 Data Receive
+////TX2数据读取
+////Data[0] is used to determine the type of package, pitch_package & yaw_package are used to adjust PID, aim_package is used to transmit the pixel coordinates
+//#define get_tx2_measure(ptr,rx_message)                                                        												\
+//{																																																											\
+//	   if(rx_message->Data[0]==0xff) buzzer_on(150,10000);                                                              \
+//		(ptr)->package_type=(uint16_t)(rx_message->Data[0]);																	 														\
+//		tx2_package_type_e tx2_package_type;                                                   														\
+//		switch(tx2_package_type){                                                              														\
+//			case pitch_package:       																													 														\
+//				(ptr)->pitch_pid_package.error=0;																									 														\
+//				(ptr)->pitch_pid_package.err_last=(ptr)->pitch_pid_package.error;                  														\
+//				(ptr)->pitch_pid_package.kp=(uint8_t)(rx_message->Data[1]);																										\
+//				(ptr)->pitch_pid_package.ki=(uint8_t)(rx_message->Data[2]);                                   								\
+//				(ptr)->pitch_pid_package.kd=(uint8_t)(rx_message->Data[3]);                                   								\
+//				(ptr)->pitch_pid_package.error=(uint16_t)((rx_message->Data[4]<<8)|(rx_message)->Data[5]);   									\
+//				(ptr)->pitch_pid_package.power=(uint16_t)((rx_message->Data[6]<<8)|(rx_message)->Data[7]);	 									\
+//				break;																																						 														\
+//			case yaw_package:																																		 														\
+//				(ptr)->yaw_pid_package.error=0;																									 															\
+//				(ptr)->yaw_pid_package.err_last=(ptr)->pitch_pid_package.error;                  															\
+//				(ptr)->yaw_pid_package.kp=(uint8_t)(rx_message->Data[1]);																					 						\
+//				(ptr)->yaw_pid_package.ki=(uint8_t)(rx_message->Data[2]);                                          						\
+//				(ptr)->yaw_pid_package.kd=(uint8_t)(rx_message->Data[3]);                                          						\
+//				(ptr)->yaw_pid_package.error=(uint16_t)((rx_message->Data[4]<<8)|(rx_message)->Data[5]);   										\
+//				(ptr)->yaw_pid_package.power=(uint16_t)((rx_message->Data[6]<<8)|(rx_message)->Data[7]);	 										\
+//				break;																																						 														\
+//			case aim_package:																																		 														\
+//				(ptr)->aim_data_package.horizontal_pixel=(uint16_t)((rx_message->Data[1]<<8)|(rx_message)->Data[2]);		\
+//				(ptr)->aim_data_package.vertical_pixel=(uint16_t)((rx_message->Data[3]<<8)|(rx_message)->Data[4]);			\
+//				(ptr)->aim_data_package.horizontal_pixel-=640;																																	\
+//				(ptr)->aim_data_package.vertical_pixel-=320;																																		\
+//				break;																																						 														\
+//																																																											\
+//		}\
+//}		\
+////////////////////////////////First quadrant///////270,100///////////////////////
 #define get_aim_data(ptr,rx_message)																																							\
 { 																																																							  \
 	(ptr)->aim_data_package.horizontal_pixel=(uint16_t)((rx_message->Data[0]<<8)|(rx_message->Data[1]));						\
+	if((ptr)->aim_data_package.horizontal_pixel>1800.0f)																														\
+		{																																																							\
+			(ptr)->aim_data_package.horizontal_pixel=1800.0f;																														\
+		};																																																						\
+	if((ptr)->aim_data_package.horizontal_pixel<0.0f)																																\
+		{																																																							\
+			(ptr)->aim_data_package.horizontal_pixel=0.0f;																															\
+		};																																																						\
 	(ptr)->aim_data_package.vertical_pixel=(uint16_t)((rx_message->Data[2]<<8)|((rx_message)->Data[3]));            \
-	(ptr)->aim_data_package.horizontal_pixel-=270;																																	\
-	(ptr)->aim_data_package.vertical_pixel-=100;			//First quadrant																															\
+	if((ptr)->aim_data_package.vertical_pixel>500.0f)																																\
+		{																																																							\
+			(ptr)->aim_data_package.vertical_pixel=500.0f;																															\
+		};																																																						\
+	if((ptr)->aim_data_package.vertical_pixel<0.0f)																																	\
+		{																																																							\
+			(ptr)->aim_data_package.vertical_pixel=0.0f;																																\
+		};																																																						\
+	(ptr)->aim_data_package.horizontal_pixel-=900.0f;																																\
+	(ptr)->aim_data_package.vertical_pixel-=250.0f;																																	\
 }
+//////////////////////////////First quadrant//////////////////////////////
 //Process CAN Receive funtion together
 //统一处理CAN接收函数
 static void CAN_hook(CanRxMsg *rx_message);
@@ -112,8 +126,7 @@ static motor_measure_t motor_yaw, motor_pit, motor_trigger, motor_chassis[4];
     
 //Declare TX2 variables struct
 //声明TX2变量结构体
-extern tx2_measure_t tx2;
-
+extern tx2_measure_t tx2;//extern全局定义，使其他文件也能调用
 //Declare Gimbal Sending Message
 //声明云台的发送信息
 static CanTxMsg GIMBAL_TxMessage;
@@ -287,18 +300,6 @@ void CAN_CMD_PID_TUNING(uint8_t Device_ID, PidTypeDef *PID_struct){
 //Send gyro data to TX2
 //发送陀螺仪数据到TX2
 void CAN_CMD_TX2(int16_t yaw, int16_t pitch){//-32767-32768
-//<<<<<<< HEAD
-//  
-//  //yaw+=32767; //0-32767 <- -32767-32768
-//  //pitch+=32767;//0-32767 <- -32767-32768
-//=======
-//  /* test */
-//	
-//	uint8_t IS_SUCCESS;//
-//  /* test */
-//	yaw+=32767; //0-32767 <- -32767-32768
-//  pitch+=32767;//0-32767 <- -32767-32768
-//>>>>>>> fb95f3d11679339d397e456bdecd2983f0f47822
   
   CanTxMsg TxMessage;
   TxMessage.StdId=CAN_TX2_ID;
@@ -315,18 +316,6 @@ void CAN_CMD_TX2(int16_t yaw, int16_t pitch){//-32767-32768
   TxMessage.Data[7] = 0;
   
   CAN_Transmit(TX2_CAN, &TxMessage);
-	/* test */
-//	if(CAN_MessagePending(CAN2,CAN_FIFO0)==0)
-//		IS_SUCCESS=0;//发送失败
-//	else
-//		IS_SUCCESS=1;//发送成功
-//	
-//	while (IS_SUCCESS)//若发送成功
-//	{
-//		led_green_toggle();//绿灯闪烁
-//		delay_ms(10);
-//	}		
-	/* test */
 }
 
 //Return Yaw Address of motor，retrieve original data through Pointer
@@ -409,30 +398,25 @@ static void CAN_hook(CanRxMsg *rx_message)
         break;
     }
     
-    case CAN_TX2_ID:
-    {
-				//处理TX2数据
-				//Process TX2 data
-			  //buzzer_on(150,10000);
-        get_tx2_measure(&tx2,rx_message);
-		}
-//<<<<<<< HEAD
-			  			
-			  //CAN_CMD_TX2(100,100);
-        break;
+//    case CAN_TX2_ID:
+//    {
+//				//处理TX2数据
+//				//Process TX2 data
+//			  //buzzer_on(150,10000);
+//        get_tx2_measure(&tx2,rx_message);
+//		
+//        break;
+//		}
 		case CAN_AIM_DATA_ID:
 		{
-				get_aim_data(&tx2,rx_message);
+				get_aim_data(&tx2,rx_message);//tx2自瞄
+				break;
 		}
-//=======
-//			
-//>>>>>>> fb95f3d11679339d397e456bdecd2983f0f47822
-    
+
 
     default:
     {
         break;
     }
     }
-}
 }

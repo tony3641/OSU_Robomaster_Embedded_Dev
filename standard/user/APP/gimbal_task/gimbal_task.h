@@ -8,9 +8,8 @@
   * @note       
   * @history
   *  Version    Date            Author          Modification
-  *  V1.0.0     Dec-26-2018     RM              Complete
-  *  V1.0.1     Feb-21-2018     Tony-OSU        Yaw,Pitch PID tuning
-	*  V1.0.3     Feb-28-2018     Tony-OSU        Auto aiming coefficient added for YAW&PITCH
+  *  V1.0.0     Dec-26-2018     RM              1. 完成
+  *
   @verbatim
   ==============================================================================
 
@@ -27,28 +26,18 @@
 #include "remote_control.h"
 
 //pitch 速度环 PID参数以及 PID最大输出，积分输出
-#define PITCH_SPEED_PID_KP 2000.0f //2000
-#define PITCH_SPEED_PID_KI 5.0f   //20
-#define PITCH_SPEED_PID_KD 300.0f
+#define PITCH_SPEED_PID_KP 2000.0f
+#define PITCH_SPEED_PID_KI 20.0f
+#define PITCH_SPEED_PID_KD 0.0f
 #define PITCH_SPEED_PID_MAX_OUT 30000.0f
 #define PITCH_SPEED_PID_MAX_IOUT 5000.0f
 
 //yaw 速度环 PID参数以及 PID最大输出，积分输出
-#define YAW_SPEED_PID_KP 2800.0f //2200
-#define YAW_SPEED_PID_KI 5.0f   //20
-#define YAW_SPEED_PID_KD 1000.0f
+#define YAW_SPEED_PID_KP 2200.0f
+#define YAW_SPEED_PID_KI 20.0f
+#define YAW_SPEED_PID_KD 0.0f
 #define YAW_SPEED_PID_MAX_OUT 30000.0f
 #define YAW_SPEED_PID_MAX_IOUT 5000.0f
-
-//YAW Self aiming speed loop   //PID for auto aiming
-#define YAW_AIM_PID_KP 1550.0f
-#define YAW_AIM_PID_KI 10.0f
-#define YAW_AIM_PID_KD 80.0f
-
-//PITCH self aiming speed loop	//PID for auto aiming
-#define PITCH_AIM_PID_KP 100.0f
-#define PITCH_AIM_PID_KI 1.0f
-#define PITCH_AIM_PID_KD 10.0f
 
 //pitch 角度环 角度由陀螺仪解算 PID参数以及 PID最大输出，积分输出
 #define PITCH_GYRO_ABSOLUTE_PID_KP 15.0f
@@ -68,15 +57,15 @@
 //pitch 角度环 角度由编码器 PID参数以及 PID最大输出，积分输出
 #define PITCH_ENCODE_RELATIVE_PID_KP 15.0f
 #define PITCH_ENCODE_RELATIVE_PID_KI 0.00f
-#define PITCH_ENCODE_RELATIVE_PID_KD 0.7f
+#define PITCH_ENCODE_RELATIVE_PID_KD 0.0f
 
 #define PITCH_ENCODE_RELATIVE_PID_MAX_OUT 10.0f
 #define PITCH_ENCODE_RELATIVE_PID_MAX_IOUT 0.0f
 
 //yaw 角度环 角度由编码器 PID参数以及 PID最大输出，积分输出
-#define YAW_ENCODE_RELATIVE_PID_KP 18.0f
-#define YAW_ENCODE_RELATIVE_PID_KI 0.01f
-#define YAW_ENCODE_RELATIVE_PID_KD 1.0f
+#define YAW_ENCODE_RELATIVE_PID_KP 8.0f
+#define YAW_ENCODE_RELATIVE_PID_KI 0.0f
+#define YAW_ENCODE_RELATIVE_PID_KD 0.0f
 #define YAW_ENCODE_RELATIVE_PID_MAX_OUT 10.0f
 #define YAW_ENCODE_RELATIVE_PID_MAX_IOUT 0.0f
 
@@ -87,7 +76,7 @@
 #define PitchChannel 3
 #define ModeChannel 0
 //掉头180 按键
-#define TurnKeyBoard KEY_PRESSED_OFFSET_F
+#define TurnKeyBoard KEY_PRESSED_OFFSET_B
 //掉头云台速度
 #define TurnSpeed 0.04f
 //测试按键尚未使用
@@ -96,7 +85,7 @@
 #define RC_deadband 10
 //yaw，pitch角度与遥控器输入比例
 #define Yaw_RC_SEN -0.000005f
-#define Pitch_RC_SEN -0.000006f //0.005
+#define Pitch_RC_SEN -0.000005f //0.005
 //yaw,pitch角度和鼠标输入的比例
 #define Yaw_Mouse_Sen 0.00005f
 #define Pitch_Mouse_Sen 0.00015f
@@ -150,10 +139,9 @@
 
 typedef enum
 {
-    GIMBAL_MOTOR_RAW = 0, //set to ini value
-    GIMBAL_MOTOR_GYRO,    //controlled by gyro
-    GIMBAL_MOTOR_ENCONDE, //controlled by encoder
-		GIMBAL_MOTOR_AUTO_AIMING, //controlled by encoder+AI
+    GIMBAL_MOTOR_RAW = 0, //电机原始值控制
+    GIMBAL_MOTOR_GYRO,    //电机陀螺仪角度控制
+    GIMBAL_MOTOR_ENCONDE, //电机编码值角度控制
 } gimbal_motor_mode_e;
 
 typedef struct
@@ -182,7 +170,6 @@ typedef struct
     Gimbal_PID_t gimbal_motor_absolute_angle_pid;
     Gimbal_PID_t gimbal_motor_relative_angle_pid;
     PidTypeDef gimbal_motor_gyro_pid;
-		PidTypeDef gimbal_motor_aim_pid;//new for auto aim
     gimbal_motor_mode_e gimbal_motor_mode;
     gimbal_motor_mode_e last_gimbal_motor_mode;
     uint16_t offset_ecd;
