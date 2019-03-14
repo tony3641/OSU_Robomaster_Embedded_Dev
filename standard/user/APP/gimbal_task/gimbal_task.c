@@ -653,7 +653,7 @@ static void gimbal_motor_absolute_angle_control_yaw(Gimbal_Motor_t *gimbal_motor
 		fp32 delta_yaw;//yaw电机角度目标变量
 		fp32 data_to_deg_ratio=0.0017477385219321f;//2048电机编码值/900角度/系数1302
 		delta_yaw=(fp32)(gimbal_control.gimbal_rc_ctrl->rc.ch[2])*-0.0005f+(fp32)(tx2.aim_data_package.horizontal_pixel)*-data_to_deg_ratio+(fp32)(gimbal_control.gimbal_rc_ctrl->mouse.x)*-0.0025f;
-		//更改relative_angle_set的值来达到锁定位置环，只是暂时不知道怎么实现
+		//目标更改relative_angle_set的值来达到锁定位置环，暂时未实现
 		//角度环，速度环串级pid调试
     gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_relative_angle_pid, gimbal_motor->relative_angle, gimbal_motor->relative_angle+delta_yaw, gimbal_motor->motor_gyro);
     gimbal_motor->current_set = PID_Calc(&gimbal_motor->gimbal_motor_gyro_pid, gimbal_motor->motor_gyro, gimbal_motor->motor_gyro_set);
@@ -670,8 +670,8 @@ static void gimbal_motor_relative_angle_control_yaw(Gimbal_Motor_t *gimbal_motor
 				
 		fp32 delta_yaw;//yaw电机角度目标变量
 		fp32 data_to_deg_ratio=0.0017477385219321f;//2048电机编码值/900角度/系数1302
-		delta_yaw=(fp32)(gimbal_control.gimbal_rc_ctrl->rc.ch[2])*-0.000005f+(fp32)(tx2.aim_data_package.horizontal_pixel)*-data_to_deg_ratio+(fp32)(gimbal_control.gimbal_rc_ctrl->mouse.x)*-0.0025f;
-		//更改relative_angle_set的值来达到锁定位置环，只是暂时不知道怎么实现
+		delta_yaw=(fp32)(gimbal_control.gimbal_rc_ctrl->rc.ch[2])*-0.000005f+(fp32)(tx2.aim_data_package.horizontal_pixel)*-data_to_deg_ratio+(fp32)(gimbal_control.gimbal_rc_ctrl->mouse.x)*-0.000025f;
+		//更改relative_angle_set的值来达到锁定位置环
 		gimbal_motor->relative_angle_set+=delta_yaw;
     //角度环，速度环串级pid调试
     gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_relative_angle_pid, gimbal_motor->relative_angle, gimbal_motor->relative_angle_set, gimbal_motor->motor_gyro);
@@ -688,8 +688,9 @@ static void gimbal_motor_relative_angle_control_pitch(Gimbal_Motor_t *gimbal_mot
 		
 		fp32 delta_pitch;//pitch电机角度目标变量
 		fp32 data_to_deg_ratio=0.0017477385219321f;//2048电机编码值/900角度/系数1302
-		delta_pitch=(fp32)(gimbal_control.gimbal_rc_ctrl->rc.ch[3])*-0.000005f+(fp32)(tx2.aim_data_package.vertical_pixel)*data_to_deg_ratio+(fp32)(gimbal_control.gimbal_rc_ctrl->mouse.y)*0.0025f;
-    gimbal_motor->relative_angle_set+=delta_pitch;
+		delta_pitch=(fp32)(gimbal_control.gimbal_rc_ctrl->rc.ch[3])*-0.000005f+(fp32)(tx2.aim_data_package.vertical_pixel)*data_to_deg_ratio+(fp32)(gimbal_control.gimbal_rc_ctrl->mouse.y)*0.000025f;
+    //更改relative_angle_set的值来达到锁定位置环
+		gimbal_motor->relative_angle_set+=delta_pitch;
 		//角度环，速度环串级pid调试
     gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_relative_angle_pid, gimbal_motor->relative_angle, gimbal_motor->relative_angle_set, gimbal_motor->motor_gyro);
     gimbal_motor->current_set = PID_Calc(&gimbal_motor->gimbal_motor_gyro_pid, gimbal_motor->motor_gyro, gimbal_motor->motor_gyro_set);
