@@ -91,31 +91,37 @@
 //																																																											\
 //		}\
 //}		\
-////////////////////////////////First quadrant///////270,100///////////////////////
+////////////////////////////////		tx2自瞄数据包		////////////////////////////////
 #define get_aim_data(ptr,rx_message)																																							\
 { 																																																							  \
 	(ptr)->aim_data_package.horizontal_pixel=(uint16_t)((rx_message->Data[0]<<8)|(rx_message->Data[1]));						\
-	if((ptr)->aim_data_package.horizontal_pixel>1800.0f)																														\
+	if((ptr)->aim_data_package.horizontal_pixel>=1700.0f)																														\
 		{																																																							\
-			(ptr)->aim_data_package.horizontal_pixel=1800.0f;																														\
-		};																																																						\
-	if((ptr)->aim_data_package.horizontal_pixel<0.0f)																																\
+			(ptr)->aim_data_package.horizontal_pixel=1700.0f;																														\
+		}																																																							\
+	if((ptr)->aim_data_package.horizontal_pixel<=100.0f)																														\
 		{																																																							\
-			(ptr)->aim_data_package.horizontal_pixel=0.0f;																															\
-		};																																																						\
+			(ptr)->aim_data_package.horizontal_pixel=100.0f;																														\
+		}																																																							\
 	(ptr)->aim_data_package.vertical_pixel=(uint16_t)((rx_message->Data[2]<<8)|((rx_message)->Data[3]));            \
-	if((ptr)->aim_data_package.vertical_pixel>500.0f)																																\
+	if((ptr)->aim_data_package.vertical_pixel>=400.0f)																															\
 		{																																																							\
-			(ptr)->aim_data_package.vertical_pixel=500.0f;																															\
-		};																																																						\
-	if((ptr)->aim_data_package.vertical_pixel<0.0f)																																	\
+			(ptr)->aim_data_package.vertical_pixel=400.0f;																															\
+		}																																																							\
+	if((ptr)->aim_data_package.vertical_pixel<=100.0f)																															\
 		{																																																							\
-			(ptr)->aim_data_package.vertical_pixel=0.0f;																																\
-		};																																																						\
-	(ptr)->aim_data_package.horizontal_pixel-=900.0f;																																\
-	(ptr)->aim_data_package.vertical_pixel-=250.0f;																																	\
+			(ptr)->aim_data_package.vertical_pixel=100.0f;																															\
+		}																																																							\
 }
-//////////////////////////////First quadrant//////////////////////////////
+////////////////////////////////		tx2自瞄数据包		////////////////////////////////
+
+//暂时无用
+#define get_absolute_angle_data(ptr,rx_message)																																		\
+{ 																																																							  \
+	(ptr)->aim_data_package.horizontal_pixel=(uint16_t)((rx_message->Data[0]<<8)|(rx_message->Data[1]));						\
+	(ptr)->aim_data_package.vertical_pixel=(uint16_t)((rx_message->Data[2]<<8)|((rx_message)->Data[3]));            \
+}
+
 //Process CAN Receive funtion together
 //统一处理CAN接收函数
 static void CAN_hook(CanRxMsg *rx_message);
@@ -127,6 +133,7 @@ static motor_measure_t motor_yaw, motor_pit, motor_trigger, motor_chassis[4];
 //Declare TX2 variables struct
 //声明TX2变量结构体
 extern tx2_measure_t tx2;//extern全局定义，使其他文件也能调用
+
 //Declare Gimbal Sending Message
 //声明云台的发送信息
 static CanTxMsg GIMBAL_TxMessage;
@@ -258,7 +265,7 @@ void CAN_CMD_CHASSIS(int16_t motor1, int16_t motor2, int16_t motor3, int16_t mot
     CAN_Transmit(CHASSIS_CAN, &TxMessage);
 }
 
-
+//发送云台编码器数据
 void CAN_GIMBAL_TO_CAN2(uint8_t *data,int id){
 	CanTxMsg TxMessage;
 	TxMessage.StdId=id;
@@ -297,12 +304,12 @@ void CAN_CMD_PID_TUNING(uint8_t Device_ID, PidTypeDef *PID_struct){
 	CAN_Transmit(PID_TUNING_CAN, &TxMessage);
 }
 
-//Send gyro data to TX2
-//发送陀螺仪数据到TX2
-void CAN_CMD_TX2(int16_t yaw, int16_t pitch){//-32767-32768
+//Send gimbal gyro data to TX2
+//发送云台陀螺仪数据到TX2
+void CAN_GIMBAL_GYRO_DATA_TX2(int16_t yaw, int16_t pitch){//-32767-32768
   
   CanTxMsg TxMessage;
-  TxMessage.StdId=CAN_TX2_ID;
+  TxMessage.StdId=GYRO_DATA_TX2_ID;
   TxMessage.IDE=CAN_ID_STD;
   TxMessage.RTR=CAN_RTR_DATA;
   TxMessage.DLC=0x08;
@@ -367,7 +374,10 @@ static void CAN_hook(CanRxMsg *rx_message)
 				//处理pitch电机数据宏函数
         get_gimbal_motor_measure(&motor_pit, rx_message);
 			  CAN_GIMBAL_TO_CAN2(rx_message->Data,CAN_GIMBAL_PITCH_INTER_TRANSFER_ID);  //INTERCHANGE DATA TO CAN2
-        DetectHook(PitchGimbalMotorTOE);
+				
+				//Record time
+				//记录时间
+				DetectHook(PitchGimbalMotorTOE);
         break;
     }
     case CAN_TRIGGER_MOTOR_ID:
@@ -375,6 +385,7 @@ static void CAN_hook(CanRxMsg *rx_message)
         //Process Trigger Motor Function
 				//处理电机数据宏函数
 				get_motor_measure(&motor_trigger, rx_message);
+				
 				//Record time
 				//记录时间
         DetectHook(TriggerMotorTOE);
@@ -403,10 +414,18 @@ static void CAN_hook(CanRxMsg *rx_message)
 //				//处理TX2数据
 //				//Process TX2 data
 //			  //buzzer_on(150,10000);
-//        get_tx2_measure(&tx2,rx_message);
+//        //get_tx2_measure(&tx2,rx_message);
 //		
 //        break;
 //		}
+		case GYRO_DATA_TX2_ID:
+    {
+				//处理云台陀螺仪绝对角度到TX2数据
+
+				//CAN_GIMBAL_GYRO_DATA_TX2()
+        break;
+		}
+		
 		case CAN_AIM_DATA_ID:
 		{
 				get_aim_data(&tx2,rx_message);//tx2自瞄

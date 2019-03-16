@@ -3,6 +3,16 @@
 #include "main.h"
 
 #include "Gimbal_Task.h"
+
+
+
+
+
+/*test*/
+//模式切换按键
+#define SWTICH_MODE KEY_PRESSED_OFFSET_CTRL
+/*test*/
+
 typedef enum
 {
   GIMBAL_ZERO_FORCE = 0, //云台无力

@@ -100,9 +100,17 @@ void chassis_behaviour_mode_set(chassis_move_t *chassis_move_mode)
     }
 
     //遥控器设置行为模式
-    if (switch_is_mid(chassis_move_mode->chassis_RC->rc.s[MODE_CHANNEL]))
+		if (switch_is_mid(chassis_move_mode->chassis_RC->rc.s[MODE_CHANNEL]))
     {
-        chassis_behaviour_mode = CHASSIS_NO_FOLLOW_YAW;
+        if(chassis_move_mode->chassis_RC->key.v & SWTICH_MODE)//按键切换模式，松开取消
+				{
+					chassis_behaviour_mode = CHASSIS_INFANTRY_FOLLOW_GIMBAL_YAW;//底盘跟随云台模式
+				}
+				else
+				{
+					chassis_behaviour_mode = CHASSIS_NO_FOLLOW_YAW;//底盘不跟随模式
+				}
+				
     }
     else if (switch_is_down(chassis_move_mode->chassis_RC->rc.s[MODE_CHANNEL]))
     {
@@ -251,7 +259,7 @@ static void chassis_infantry_follow_gimbal_yaw_control(fp32 *vx_set, fp32 *vy_se
     //max_angle 是sin函数的幅值
     static fp32 max_angle = SWING_NO_MOVE_ANGLE;
     //add_time 是摇摆角度改变的快慢，最大越快
-    static fp32 const add_time = PI / 250.0f;
+    static fp32 const add_time = PI / 500.0f;
     //使能摇摆标志位
     static uint8_t swing_flag = 0;
 
@@ -341,6 +349,10 @@ static void chassis_no_follow_yaw_control(fp32 *vx_set, fp32 *vy_set, fp32 *wz_s
     }
 
     chassis_rc_to_control_vector(vx_set, vy_set, chassis_move_rc_to_vector);
+		
+	
+		
+		
     *wz_set = -CHASSIS_WZ_RC_SEN * chassis_move_rc_to_vector->chassis_RC->rc.ch[CHASSIS_WZ_CHANNEL];
 }
 

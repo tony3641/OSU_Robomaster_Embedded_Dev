@@ -363,7 +363,15 @@ static void gimbal_behavour_set(Gimbal_Control_t *gimbal_mode_set)
     }
     else if (switch_is_mid(gimbal_mode_set->gimbal_rc_ctrl->rc.s[ModeChannel]))
     {
-        gimbal_behaviour = GIMBAL_RELATIVE_ANGLE;
+        if(gimbal_mode_set->gimbal_rc_ctrl->key.v & SWTICH_MODE)//按键切换模式，松开取消
+				{
+					gimbal_behaviour = GIMBAL_ABSOLUTE_ANGLE;//绝对角度模式
+				}
+				else
+				{
+					gimbal_behaviour = GIMBAL_RELATIVE_ANGLE;//相对角度模式
+				}  
+			
     }
     else if (switch_is_up(gimbal_mode_set->gimbal_rc_ctrl->rc.s[ModeChannel]))
     {
@@ -536,45 +544,45 @@ static void gimbal_absolute_angle_control(fp32 *yaw, fp32 *pitch, Gimbal_Control
         return;
     }
 
-    {
-        static uint16_t last_turn_keyboard = 0;
-        static uint8_t gimbal_turn_flag = 0;
-        static fp32 gimbal_end_angle = 0.0f;
+//    {
+//        static uint16_t last_turn_keyboard = 0;
+//        static uint8_t gimbal_turn_flag = 0;
+//        static fp32 gimbal_end_angle = 0.0f;
 
-        if ((gimbal_control_set->gimbal_rc_ctrl->key.v & TurnKeyBoard) && !(last_turn_keyboard & TurnKeyBoard))//测试测试
-        {
-					
-            if (gimbal_turn_flag == 0)
-            {
-                gimbal_turn_flag = 1;
-							//保存掉头的目标值
-                gimbal_end_angle = rad_format(gimbal_control_set->gimbal_yaw_motor.absolute_angle + PI);
-            }
-        }
-        last_turn_keyboard = gimbal_control_set->gimbal_rc_ctrl->key.v;
+//        if ((gimbal_control_set->gimbal_rc_ctrl->key.v & TurnKeyBoard) && !(last_turn_keyboard & TurnKeyBoard))//测试测试
+//        {
+//					
+//            if (gimbal_turn_flag == 0)
+//            {
+//                gimbal_turn_flag = 1;
+//							//保存掉头的目标值
+//                gimbal_end_angle = rad_format(gimbal_control_set->gimbal_yaw_motor.absolute_angle + PI);
+//            }
+//        }
+//        last_turn_keyboard = gimbal_control_set->gimbal_rc_ctrl->key.v;
 
-        if (gimbal_turn_flag)
-        {
-            //不断控制到掉头的目标值，正转，反装是随机
-            if (rad_format(gimbal_end_angle - gimbal_control_set->gimbal_yaw_motor.absolute_angle) > 0.0f)
-            {
-                *yaw += TurnSpeed;
-							buzzer_on(140,10000);
-            }
-            else
-            {
-                *yaw -= TurnSpeed;
-							
-            }
-        }
-        //到达pi （180°）后停止
-        if (gimbal_turn_flag && fabs(rad_format(gimbal_end_angle - gimbal_control_set->gimbal_yaw_motor.absolute_angle)) < 0.01f)
-        {
-            gimbal_turn_flag = 0;
-					buzzer_off();
-        }
-			
-			}
+//        if (gimbal_turn_flag)
+//        {
+//            //不断控制到掉头的目标值，正转，反装是随机
+//            if (rad_format(gimbal_end_angle - gimbal_control_set->gimbal_yaw_motor.absolute_angle) > 0.0f)
+//            {
+//                *yaw += TurnSpeed;
+//							buzzer_on(140,10000);
+//            }
+//            else
+//            {
+//                *yaw -= TurnSpeed;
+//							
+//            }
+//        }
+//        //到达pi （180°）后停止
+//        if (gimbal_turn_flag && fabs(rad_format(gimbal_end_angle - gimbal_control_set->gimbal_yaw_motor.absolute_angle)) < 0.01f)
+//        {
+//            gimbal_turn_flag = 0;
+//					buzzer_off();
+//        }
+//			
+//			}
 			
 }
 /**

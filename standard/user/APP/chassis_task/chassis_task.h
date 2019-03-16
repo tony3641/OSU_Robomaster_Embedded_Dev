@@ -64,6 +64,10 @@
 #define MAX_MOTOR_CAN_CURRENT 16000.0f
 //底盘摇摆按键
 #define SWING_KEY KEY_PRESSED_OFFSET_CTRL
+/*test*/
+//跟随模式切换按键
+#define SWTICH_MODE KEY_PRESSED_OFFSET_CTRL
+/*test*/
 //底盘前后左右控制按键
 #define CHASSIS_FRONT_KEY KEY_PRESSED_OFFSET_W
 #define CHASSIS_BACK_KEY KEY_PRESSED_OFFSET_S
@@ -81,7 +85,7 @@
 //底盘运动过程最大平移速度
 #define NORMAL_MAX_CHASSIS_SPEED_Y 2.9f
 //底盘设置旋转速度，设置前后左右轮不同设定速度的比例分权 0为在几何中心，不需要补偿
-#define CHASSIS_WZ_SET_SCALE 0.1f
+#define CHASSIS_WZ_SET_SCALE 0.11f
 
 //摇摆原地不动摇摆最大角度(rad)
 #define SWING_NO_MOVE_ANGLE 0.7f

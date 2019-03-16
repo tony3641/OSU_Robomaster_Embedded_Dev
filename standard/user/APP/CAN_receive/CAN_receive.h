@@ -46,7 +46,9 @@ typedef enum
     CAN_PIT_MOTOR_ID = 0x206,
     CAN_TRIGGER_MOTOR_ID = 0x207,
     CAN_GIMBAL_ALL_ID = 0x1FF,
+		
 	
+		GYRO_DATA_TX2_ID=0x212,//陀螺仪绝对角度数据ID
     CAN_TX2_ID=0x111, //TX2 ID
 	  CAN_PID_TUNING_ID=0x209, //PID tuning config ID
 	  CAN_GIMBAL_YAW_INTER_TRANSFER_ID=0x210, //Transfer Gimbal data to CAN2
@@ -112,7 +114,7 @@ extern void CAN_CMD_GIMBAL(int16_t yaw, int16_t pitch, int16_t shoot, int16_t re
 //发送底盘电机控制命令
 extern void CAN_CMD_CHASSIS(int16_t motor1, int16_t motor2, int16_t motor3, int16_t motor4);
 //Send TX2 Data CMD
-extern void CAN_CMD_TX2(int16_t yaw, int16_t pitch);//-32767-32768
+extern void CAN_GIMBAL_GYRO_DATA_TX2(int16_t yaw, int16_t pitch);//-32767-32768
 //返回yaw电机变量地址，通过指针方式获取原始数据
 extern const motor_measure_t *get_Yaw_Gimbal_Motor_Measure_Point(void);
 //返回pitch电机变量地址，通过指针方式获取原始数据
