@@ -10,7 +10,7 @@
 
 /*test*/
 //Ä£Ê½ÇÐ»»°´¼ü
-#define SWTICH_MODE KEY_PRESSED_OFFSET_CTRL
+#define SWTICH_MODE KEY_PRESSED_OFFSET_F
 /*test*/
 
 typedef enum

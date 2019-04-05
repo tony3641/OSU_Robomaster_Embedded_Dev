@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\infantry.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\infantry.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Wed Mar 13 02:48:06 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Thu Apr 04 22:34:43 2019
 <BR><P>
 <H3>Maximum Stack Usage =        280 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -704,8 +704,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[86]"></a>_sys_exit</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, sys_exit.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit_exit
-<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sig_exit
+<BR><BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sig_exit
+<LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit_exit
 </UL>
 
 <P><STRONG><a name="[98]"></a>__default_signal_display</STRONG> (Thumb, 50 bytes, Stack size 16 bytes, defsig_general.o(.text), UNUSED)
@@ -935,14 +935,6 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_task
 </UL>
 
-<P><STRONG><a name="[cc]"></a>CAN_CMD_TX2</STRONG> (Thumb, 84 bytes, Stack size 32 bytes, can_receive.o(i.CAN_CMD_TX2))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = CAN_CMD_TX2 &rArr; CAN_Transmit
-</UL>
-<BR>[Calls]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Transmit
-</UL>
-<BR>[Called By]<UL><LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gimbal_Send_TX2_Data
-</UL>
-
 <P><STRONG><a name="[bd]"></a>CAN_ClearITPendingBit</STRONG> (Thumb, 162 bytes, Stack size 0 bytes, stm32f4xx_can.o(i.CAN_ClearITPendingBit))
 <BR><BR>[Called By]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_RX0_IRQHandler
 <LI><a href="#[23]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_RX0_IRQHandler
@@ -953,6 +945,14 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN2_mode_init
 <LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN1_mode_init
+</UL>
+
+<P><STRONG><a name="[cc]"></a>CAN_GIMBAL_GYRO_DATA_TX2</STRONG> (Thumb, 84 bytes, Stack size 32 bytes, can_receive.o(i.CAN_GIMBAL_GYRO_DATA_TX2))
+<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = CAN_GIMBAL_GYRO_DATA_TX2 &rArr; CAN_Transmit
+</UL>
+<BR>[Calls]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Transmit
+</UL>
+<BR>[Called By]<UL><LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gimbal_Send_TX2_Data
 </UL>
 
 <P><STRONG><a name="[cd]"></a>CAN_GIMBAL_TO_CAN2</STRONG> (Thumb, 56 bytes, Stack size 32 bytes, can_receive.o(i.CAN_GIMBAL_TO_CAN2))
@@ -995,7 +995,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = CAN_Transmit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_GIMBAL_TO_CAN2
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_CMD_TX2
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_GIMBAL_GYRO_DATA_TX2
 <LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_CMD_GIMBAL
 <LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_CMD_CHASSIS
 </UL>
@@ -1168,7 +1168,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[6f]"></a>GIMBAL_task</STRONG> (Thumb, 214 bytes, Stack size 0 bytes, gimbal_task.o(i.GIMBAL_task))
-<BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = GIMBAL_task &rArr; GIMBAL_Set_Contorl &rArr; gimbal_behaviour_control_set &rArr; gimbal_absolute_angle_control &rArr; __aeabi_cdcmple
+<BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = GIMBAL_task &rArr; GIMBAL_Set_Contorl &rArr; gimbal_behaviour_control_set &rArr; gimbal_init_control &rArr; __aeabi_f2d
 </UL>
 <BR>[Calls]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uxTaskGetStackHighWaterMark
@@ -1809,9 +1809,8 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shoot_ready_control
 <LI><a href="#[1e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shoot_bullet_control
-<LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_init_control
-<LI><a href="#[198]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_behavour_set
-<LI><a href="#[191]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_absolute_angle_control
+<LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_init_control
+<LI><a href="#[197]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_behavour_set
 <LI><a href="#[16a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_control_loop
 </UL>
 
@@ -1864,7 +1863,7 @@ Global Symbols
 <LI><a href="#[3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cali_gimbal_hook
 <LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RC_cmd_to_calibrate
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;INSTask
-<LI><a href="#[191]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_absolute_angle_control
+<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_motor_relative_angle_control_yaw
 </UL>
 
 <P><STRONG><a name="[119]"></a>buzzer_on</STRONG> (Thumb, 22 bytes, Stack size 16 bytes, buzzer.o(i.buzzer_on))
@@ -1876,7 +1875,8 @@ Global Symbols
 <LI><a href="#[3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cali_gimbal_hook
 <LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RC_cmd_to_calibrate
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;INSTask
-<LI><a href="#[191]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_absolute_angle_control
+<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_motor_relative_angle_control_yaw
+<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_motor_relative_angle_control_pitch
 </UL>
 
 <P><STRONG><a name="[bb]"></a>cali_param_init</STRONG> (Thumb, 168 bytes, Stack size 8 bytes, calibrate_task.o(i.cali_param_init))
@@ -1911,7 +1911,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[177]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_set_contorl
 </UL>
 
-<P><STRONG><a name="[168]"></a>chassis_behaviour_mode_set</STRONG> (Thumb, 150 bytes, Stack size 8 bytes, chassis_behaviour.o(i.chassis_behaviour_mode_set))
+<P><STRONG><a name="[168]"></a>chassis_behaviour_mode_set</STRONG> (Thumb, 168 bytes, Stack size 8 bytes, chassis_behaviour.o(i.chassis_behaviour_mode_set))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = chassis_behaviour_mode_set
 </UL>
 <BR>[Calls]<UL><LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_cmd_to_chassis_stop
@@ -2139,14 +2139,14 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[fb]"></a>gimbal_behaviour_control_set</STRONG> (Thumb, 332 bytes, Stack size 16 bytes, gimbal_behaviour.o(i.gimbal_behaviour_control_set))
-<BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = gimbal_behaviour_control_set &rArr; gimbal_absolute_angle_control &rArr; __aeabi_cdcmple
+<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = gimbal_behaviour_control_set &rArr; gimbal_init_control &rArr; __aeabi_f2d
 </UL>
-<BR>[Calls]<UL><LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_zero_force_control
-<LI><a href="#[196]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_relative_angle_control
-<LI><a href="#[197]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_motionless_control
-<LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_init_control
-<LI><a href="#[195]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_cali_control
-<LI><a href="#[191]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_absolute_angle_control
+<BR>[Calls]<UL><LI><a href="#[191]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_zero_force_control
+<LI><a href="#[195]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_relative_angle_control
+<LI><a href="#[196]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_motionless_control
+<LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_init_control
+<LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_cali_control
+<LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_absolute_angle_control
 </UL>
 <BR>[Called By]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_Set_Contorl
 </UL>
@@ -2154,7 +2154,7 @@ Global Symbols
 <P><STRONG><a name="[fe]"></a>gimbal_behaviour_mode_set</STRONG> (Thumb, 134 bytes, Stack size 8 bytes, gimbal_behaviour.o(i.gimbal_behaviour_mode_set))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = gimbal_behaviour_mode_set &rArr; gimbal_behavour_set &rArr; __aeabi_cdcmple
 </UL>
-<BR>[Calls]<UL><LI><a href="#[198]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_behavour_set
+<BR>[Calls]<UL><LI><a href="#[197]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_behavour_set
 </UL>
 <BR>[Called By]<UL><LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_Set_Mode
 </UL>
@@ -2343,9 +2343,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_engineer_follow_chassis_yaw_control
 <LI><a href="#[1e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shoot_ready_control
 <LI><a href="#[1e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shoot_bullet_control
-<LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_absolute_angle_limit
 <LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_PID_Calc
-<LI><a href="#[191]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_absolute_angle_control
 <LI><a href="#[177]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_set_contorl
 <LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_feedback_update
 </UL>
@@ -2626,7 +2624,7 @@ Global Symbols
 
 <P><STRONG><a name="[100]"></a>toe_is_error</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, detect_task.o(i.toe_is_error))
 <BR><BR>[Called By]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_task
-<LI><a href="#[198]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_behavour_set
+<LI><a href="#[197]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_behavour_set
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_task
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UserTask
 </UL>
@@ -3121,13 +3119,12 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_f2d
 </UL>
 
-<P><STRONG><a name="[192]"></a>__aeabi_cdcmple</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, dleqf.o(x$fpl$dleqf))
+<P><STRONG><a name="[198]"></a>__aeabi_cdcmple</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, dleqf.o(x$fpl$dleqf))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_cdcmple
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shoot_ready_control
 <LI><a href="#[1e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shoot_bullet_control
-<LI><a href="#[198]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_behavour_set
-<LI><a href="#[191]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_absolute_angle_control
+<LI><a href="#[197]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_behavour_set
 </UL>
 
 <P><STRONG><a name="[207]"></a>_dcmple</STRONG> (Thumb, 120 bytes, Stack size 32 bytes, dleqf.o(x$fpl$dleqf), UNUSED)
@@ -3162,7 +3159,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shoot_ready_control
 <LI><a href="#[1e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shoot_bullet_control
-<LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_init_control
+<LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_init_control
 </UL>
 
 <P><STRONG><a name="[20a]"></a>_drcmple</STRONG> (Thumb, 98 bytes, Stack size 16 bytes, drleqf.o(x$fpl$drleqf), UNUSED)
@@ -3196,9 +3193,8 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shoot_ready_control
 <LI><a href="#[1e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shoot_bullet_control
-<LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_init_control
-<LI><a href="#[198]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_behavour_set
-<LI><a href="#[191]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_absolute_angle_control
+<LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_init_control
+<LI><a href="#[197]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_behavour_set
 <LI><a href="#[16a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_control_loop
 </UL>
 
@@ -3631,7 +3627,7 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> calibrate_task.o(.data)
 </UL>
-<P><STRONG><a name="[bf]"></a>CAN_hook</STRONG> (Thumb, 602 bytes, Stack size 8 bytes, can_receive.o(i.CAN_hook))
+<P><STRONG><a name="[bf]"></a>CAN_hook</STRONG> (Thumb, 572 bytes, Stack size 8 bytes, can_receive.o(i.CAN_hook))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = CAN_hook &rArr; CAN_GIMBAL_TO_CAN2 &rArr; CAN_Transmit
 </UL>
 <BR>[Calls]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DetectHook
@@ -3650,7 +3646,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_behaviour_control_set
 </UL>
 
-<P><STRONG><a name="[164]"></a>chassis_infantry_follow_gimbal_yaw_control</STRONG> (Thumb, 248 bytes, Stack size 24 bytes, chassis_behaviour.o(i.chassis_infantry_follow_gimbal_yaw_control))
+<P><STRONG><a name="[164]"></a>chassis_infantry_follow_gimbal_yaw_control</STRONG> (Thumb, 256 bytes, Stack size 24 bytes, chassis_behaviour.o(i.chassis_infantry_follow_gimbal_yaw_control))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = chassis_infantry_follow_gimbal_yaw_control &rArr; chassis_rc_to_control_vector
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arm_sin_f32
@@ -3765,37 +3761,28 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DetectTask
 </UL>
 
-<P><STRONG><a name="[191]"></a>gimbal_absolute_angle_control</STRONG> (Thumb, 294 bytes, Stack size 40 bytes, gimbal_behaviour.o(i.gimbal_absolute_angle_control))
-<BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = gimbal_absolute_angle_control &rArr; __aeabi_cdcmple
-</UL>
-<BR>[Calls]<UL><LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_on
-<LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_off
-<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;loop_fp32_constrain
-<LI><a href="#[16d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_fabs
-<LI><a href="#[16c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
-<LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
-</UL>
-<BR>[Called By]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_behaviour_control_set
+<P><STRONG><a name="[194]"></a>gimbal_absolute_angle_control</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, gimbal_behaviour.o(i.gimbal_absolute_angle_control))
+<BR><BR>[Called By]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_behaviour_control_set
 </UL>
 
-<P><STRONG><a name="[198]"></a>gimbal_behavour_set</STRONG> (Thumb, 644 bytes, Stack size 24 bytes, gimbal_behaviour.o(i.gimbal_behavour_set))
+<P><STRONG><a name="[197]"></a>gimbal_behavour_set</STRONG> (Thumb, 662 bytes, Stack size 24 bytes, gimbal_behaviour.o(i.gimbal_behavour_set))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = gimbal_behavour_set &rArr; __aeabi_cdcmple
 </UL>
 <BR>[Calls]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;toe_is_error
 <LI><a href="#[16d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_fabs
 <LI><a href="#[16c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
-<LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
+<LI><a href="#[198]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
 </UL>
 <BR>[Called By]<UL><LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_behaviour_mode_set
 </UL>
 
-<P><STRONG><a name="[195]"></a>gimbal_cali_control</STRONG> (Thumb, 444 bytes, Stack size 8 bytes, gimbal_behaviour.o(i.gimbal_cali_control))
+<P><STRONG><a name="[193]"></a>gimbal_cali_control</STRONG> (Thumb, 444 bytes, Stack size 8 bytes, gimbal_behaviour.o(i.gimbal_cali_control))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = gimbal_cali_control
 </UL>
 <BR>[Called By]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_behaviour_control_set
 </UL>
 
-<P><STRONG><a name="[194]"></a>gimbal_init_control</STRONG> (Thumb, 174 bytes, Stack size 32 bytes, gimbal_behaviour.o(i.gimbal_init_control))
+<P><STRONG><a name="[192]"></a>gimbal_init_control</STRONG> (Thumb, 174 bytes, Stack size 32 bytes, gimbal_behaviour.o(i.gimbal_init_control))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = gimbal_init_control &rArr; __aeabi_f2d
 </UL>
 <BR>[Calls]<UL><LI><a href="#[16d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_fabs
@@ -3805,15 +3792,15 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_behaviour_control_set
 </UL>
 
-<P><STRONG><a name="[197]"></a>gimbal_motionless_control</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, gimbal_behaviour.o(i.gimbal_motionless_control))
+<P><STRONG><a name="[196]"></a>gimbal_motionless_control</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, gimbal_behaviour.o(i.gimbal_motionless_control))
 <BR><BR>[Called By]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_behaviour_control_set
 </UL>
 
-<P><STRONG><a name="[196]"></a>gimbal_relative_angle_control</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, gimbal_behaviour.o(i.gimbal_relative_angle_control))
+<P><STRONG><a name="[195]"></a>gimbal_relative_angle_control</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, gimbal_behaviour.o(i.gimbal_relative_angle_control))
 <BR><BR>[Called By]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_behaviour_control_set
 </UL>
 
-<P><STRONG><a name="[193]"></a>gimbal_zero_force_control</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, gimbal_behaviour.o(i.gimbal_zero_force_control))
+<P><STRONG><a name="[191]"></a>gimbal_zero_force_control</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, gimbal_behaviour.o(i.gimbal_zero_force_control))
 <BR><BR>[Called By]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_behaviour_control_set
 </UL>
 
@@ -3876,9 +3863,9 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[fa]"></a>GIMBAL_Set_Contorl</STRONG> (Thumb, 154 bytes, Stack size 16 bytes, gimbal_task.o(i.GIMBAL_Set_Contorl))
-<BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = GIMBAL_Set_Contorl &rArr; gimbal_behaviour_control_set &rArr; gimbal_absolute_angle_control &rArr; __aeabi_cdcmple
+<BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = GIMBAL_Set_Contorl &rArr; gimbal_behaviour_control_set &rArr; gimbal_init_control &rArr; __aeabi_f2d
 </UL>
-<BR>[Calls]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_absolute_angle_limit
+<BR>[Calls]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_angle_limit
 <LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_behaviour_control_set
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_task
@@ -3892,22 +3879,18 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_task
 </UL>
 
-<P><STRONG><a name="[fc]"></a>GIMBAL_absolute_angle_limit</STRONG> (Thumb, 228 bytes, Stack size 16 bytes, gimbal_task.o(i.GIMBAL_absolute_angle_limit))
-<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = GIMBAL_absolute_angle_limit
-</UL>
-<BR>[Calls]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;loop_fp32_constrain
-</UL>
-<BR>[Called By]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_Set_Contorl
+<P><STRONG><a name="[fc]"></a>GIMBAL_angle_limit</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, gimbal_task.o(i.GIMBAL_angle_limit))
+<BR><BR>[Called By]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_Set_Contorl
 </UL>
 
 <P><STRONG><a name="[f5]"></a>Gimbal_PID_clear</STRONG> (Thumb, 44 bytes, Stack size 0 bytes, gimbal_task.o(i.Gimbal_PID_clear))
 <BR><BR>[Called By]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_Init
 </UL>
 
-<P><STRONG><a name="[103]"></a>Gimbal_Send_TX2_Data</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, gimbal_task.o(i.Gimbal_Send_TX2_Data))
-<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = Gimbal_Send_TX2_Data &rArr; CAN_CMD_TX2 &rArr; CAN_Transmit
+<P><STRONG><a name="[103]"></a>Gimbal_Send_TX2_Data</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, gimbal_task.o(i.Gimbal_Send_TX2_Data))
+<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = Gimbal_Send_TX2_Data &rArr; CAN_GIMBAL_GYRO_DATA_TX2 &rArr; CAN_Transmit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_CMD_TX2
+<BR>[Calls]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_GIMBAL_GYRO_DATA_TX2
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_task
 </UL>
@@ -3920,8 +3903,8 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_cali_gimbal_hook
 </UL>
 
-<P><STRONG><a name="[e8]"></a>gimbal_motor_absolute_angle_control_yaw</STRONG> (Thumb, 180 bytes, Stack size 16 bytes, gimbal_task.o(i.gimbal_motor_absolute_angle_control_yaw))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = gimbal_motor_absolute_angle_control_yaw &rArr; GIMBAL_PID_Calc
+<P><STRONG><a name="[e8]"></a>gimbal_motor_absolute_angle_control_yaw</STRONG> (Thumb, 156 bytes, Stack size 8 bytes, gimbal_task.o(i.gimbal_motor_absolute_angle_control_yaw))
+<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = gimbal_motor_absolute_angle_control_yaw &rArr; GIMBAL_PID_Calc
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_PID_Calc
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_Calc
@@ -3933,19 +3916,22 @@ Local Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_Control_loop
 </UL>
 
-<P><STRONG><a name="[ea]"></a>gimbal_motor_relative_angle_control_pitch</STRONG> (Thumb, 184 bytes, Stack size 16 bytes, gimbal_task.o(i.gimbal_motor_relative_angle_control_pitch))
+<P><STRONG><a name="[ea]"></a>gimbal_motor_relative_angle_control_pitch</STRONG> (Thumb, 340 bytes, Stack size 16 bytes, gimbal_task.o(i.gimbal_motor_relative_angle_control_pitch))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = gimbal_motor_relative_angle_control_pitch &rArr; GIMBAL_PID_Calc
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_PID_Calc
+<BR>[Calls]<UL><LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_on
+<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_PID_Calc
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_Calc
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_Control_loop
 </UL>
 
-<P><STRONG><a name="[e9]"></a>gimbal_motor_relative_angle_control_yaw</STRONG> (Thumb, 188 bytes, Stack size 16 bytes, gimbal_task.o(i.gimbal_motor_relative_angle_control_yaw))
+<P><STRONG><a name="[e9]"></a>gimbal_motor_relative_angle_control_yaw</STRONG> (Thumb, 452 bytes, Stack size 16 bytes, gimbal_task.o(i.gimbal_motor_relative_angle_control_yaw))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = gimbal_motor_relative_angle_control_yaw &rArr; GIMBAL_PID_Calc
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_PID_Calc
+<BR>[Calls]<UL><LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_on
+<LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_off
+<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_PID_Calc
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_Calc
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_Control_loop
@@ -4005,7 +3991,7 @@ Local Symbols
 <LI><a href="#[16d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_fabs
 <LI><a href="#[16c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 <LI><a href="#[199]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
-<LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
+<LI><a href="#[198]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
 </UL>
 <BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shoot_control_loop
 </UL>
@@ -4022,7 +4008,7 @@ Local Symbols
 <LI><a href="#[16d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_fabs
 <LI><a href="#[16c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 <LI><a href="#[199]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
-<LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
+<LI><a href="#[198]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
 </UL>
 <BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shoot_control_loop
 </UL>

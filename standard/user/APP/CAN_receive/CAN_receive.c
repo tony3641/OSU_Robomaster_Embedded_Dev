@@ -282,27 +282,27 @@ void CAN_GIMBAL_TO_CAN2(uint8_t *data,int id){
 }
 
 //Send PID Tuning Data
-void CAN_CMD_PID_TUNING(uint8_t Device_ID, PidTypeDef *PID_struct){
-	//Transmit config
-	//The realization of Transmitting package is based on 
-	//declaring a CanTxMsg struct with some necessary configuration
-	CanTxMsg TxMessage;
-	TxMessage.StdId=CAN_PID_TUNING_ID;
-	TxMessage.IDE=CAN_ID_STD;
-	TxMessage.RTR=CAN_RTR_DATA;
-	TxMessage.DLC=0x04;
-	//type casting to make data easy to transmit
-	//These are returned feeback of easier PID tuning and dynamic tuning
-	uint16_t output=(uint16_t)(PID_struct->out);
-	uint16_t error=(uint16_t)(PID_struct->error[0]);
-	
-	TxMessage.Data[0]=output >> 8;
-	TxMessage.Data[1]=output;
-	TxMessage.Data[2]=error >> 8;
-	TxMessage.Data[3]=error;
-	
-	CAN_Transmit(PID_TUNING_CAN, &TxMessage);
-}
+//void CAN_CMD_PID_TUNING(uint8_t Device_ID, PidTypeDef *PID_struct){
+//	//Transmit config
+//	//The realization of Transmitting package is based on 
+//	//declaring a CanTxMsg struct with some necessary configuration
+//	CanTxMsg TxMessage;
+//	TxMessage.StdId=CAN_PID_TUNING_ID;
+//	TxMessage.IDE=CAN_ID_STD;
+//	TxMessage.RTR=CAN_RTR_DATA;
+//	TxMessage.DLC=0x04;
+//	//type casting to make data easy to transmit
+//	//These are returned feeback of easier PID tuning and dynamic tuning
+//	uint16_t output=(uint16_t)(PID_struct->out);
+//	uint16_t error=(uint16_t)(PID_struct->error[0]);
+//	
+//	TxMessage.Data[0]=output >> 8;
+//	TxMessage.Data[1]=output;
+//	TxMessage.Data[2]=error >> 8;
+//	TxMessage.Data[3]=error;
+//	
+//	CAN_Transmit(PID_TUNING_CAN, &TxMessage);
+//}
 
 //Send gimbal gyro data to TX2
 //发送云台陀螺仪数据到TX2
@@ -385,7 +385,7 @@ static void CAN_hook(CanRxMsg *rx_message)
         //Process Trigger Motor Function
 				//处理电机数据宏函数
 				get_motor_measure(&motor_trigger, rx_message);
-				
+				CAN_GIMBAL_TO_CAN2(rx_message->Data,CAN_TRIGGER_INTER_TRANSFER_ID);  //INTERCHANGE DATA TO CAN2
 				//Record time
 				//记录时间
         DetectHook(TriggerMotorTOE);
@@ -418,13 +418,13 @@ static void CAN_hook(CanRxMsg *rx_message)
 //		
 //        break;
 //		}
-		case GYRO_DATA_TX2_ID:
-    {
-				//处理云台陀螺仪绝对角度到TX2数据
+//		case GYRO_DATA_TX2_ID:
+//    {
+//				//处理云台陀螺仪绝对角度到TX2数据
 
-				//CAN_GIMBAL_GYRO_DATA_TX2()
-        break;
-		}
+//				CAN_GIMBAL_TO_CAN2(rx_message->Data,GYRO_DATA_TX2_ID);
+//        break;
+//		}
 		
 		case CAN_AIM_DATA_ID:
 		{

@@ -55,7 +55,7 @@
 #define Motor_ECD_TO_ANGLE 0.000021305288720633905968306772076277f
 #define FULL_COUNT 18
 //≤¶µØÀŸ∂»
-#define TRIGGER_SPEED 15.0f//10.0f≤‚ ‘
+#define TRIGGER_SPEED 20.0f//10.0f≤‚ ‘
 #define Ready_Trigger_Speed 6.0f
 
 #define KEY_OFF_JUGUE_TIME 500
@@ -68,7 +68,7 @@
 #define REVERSE_SPEED_LIMIT 13.0f
 
 #define PI_Four 0.78539816339744830961566084581988f
-#define PI_Ten 0.314f
+#define PI_Ten 0.314f//
 
 //≤¶µØ¬÷µÁª˙PID
 #define TRIGGER_ANGLE_PID_KP 800.0f

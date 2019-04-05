@@ -65,8 +65,8 @@
 //底盘摇摆按键
 #define SWING_KEY KEY_PRESSED_OFFSET_CTRL
 /*test*/
-//跟随模式切换按键
-#define SWTICH_MODE KEY_PRESSED_OFFSET_CTRL
+//跟随模式切换按键//若要更改按键请同时更改宏定义于gimbal_behaviour.h
+#define SWTICH_MODE KEY_PRESSED_OFFSET_F
 /*test*/
 //底盘前后左右控制按键
 #define CHASSIS_FRONT_KEY KEY_PRESSED_OFFSET_W

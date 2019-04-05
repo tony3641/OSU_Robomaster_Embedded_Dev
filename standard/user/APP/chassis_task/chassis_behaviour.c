@@ -262,32 +262,37 @@ static void chassis_infantry_follow_gimbal_yaw_control(fp32 *vx_set, fp32 *vy_se
     static fp32 const add_time = PI / 500.0f;
     //使能摇摆标志位
     static uint8_t swing_flag = 0;
-
+		//
     //计算遥控器的原始输入信号
 
     //判断是否要摇摆
-    if (chassis_move_rc_to_vector->chassis_RC->key.v & SWING_KEY)//测试测试测试
+    if (chassis_move_rc_to_vector->chassis_RC->key.v & SWING_KEY)//按一下进入摇摆模式
     {
         if (swing_flag == 0)
         {
             swing_flag = 1;
             swing_time = 0.0f;
         }
+				//再按一下，如果正在摇摆，关闭摇摆
+				else if (swing_flag == 1)
+        {
+            swing_flag = 0;
+        }
     }
-    else
-    {
-        swing_flag = 0;
-    }
+//    else
+//    {
+//        swing_flag = 0;
+//    }
 
     //判断键盘输入是不是在控制底盘运动，底盘在运动减小摇摆角度
     if (chassis_move_rc_to_vector->chassis_RC->key.v & CHASSIS_FRONT_KEY || chassis_move_rc_to_vector->chassis_RC->key.v & CHASSIS_BACK_KEY ||
         chassis_move_rc_to_vector->chassis_RC->key.v & CHASSIS_LEFT_KEY || chassis_move_rc_to_vector->chassis_RC->key.v & CHASSIS_RIGHT_KEY)
     {
-        max_angle = SWING_MOVE_ANGLE;
+        max_angle = SWING_MOVE_ANGLE*2;
     }
     else
     {
-        max_angle = SWING_NO_MOVE_ANGLE;
+        max_angle = SWING_NO_MOVE_ANGLE*2;
     }
     //sin函数生成控制角度
     if (swing_flag)
