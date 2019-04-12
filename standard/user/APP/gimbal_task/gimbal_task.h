@@ -35,7 +35,7 @@
 //yaw 速度环 PID参数以及 PID最大输出，积分输出
 #define YAW_SPEED_PID_KP 2200.0f
 #define YAW_SPEED_PID_KI 20.0f
-#define YAW_SPEED_PID_KD 1500.0f//0.0f
+#define YAW_SPEED_PID_KD 0.0f//0.0f
 #define YAW_SPEED_PID_MAX_OUT 30000.0f
 #define YAW_SPEED_PID_MAX_IOUT 5000.0f
 
@@ -63,9 +63,9 @@
 #define PITCH_ENCODE_RELATIVE_PID_MAX_IOUT 0.0f
 
 //yaw 角度环 角度由编码器 PID参数以及 PID最大输出，积分输出
-#define YAW_ENCODE_RELATIVE_PID_KP 8.0f
+#define YAW_ENCODE_RELATIVE_PID_KP 18.0f//8.0f
 #define YAW_ENCODE_RELATIVE_PID_KI 0.0f
-#define YAW_ENCODE_RELATIVE_PID_KD 0.0f//1.09f//0.0f
+#define YAW_ENCODE_RELATIVE_PID_KD 0.25f//1.09f//0.0f
 #define YAW_ENCODE_RELATIVE_PID_MAX_OUT 10.0f
 #define YAW_ENCODE_RELATIVE_PID_MAX_IOUT 0.0f
 
@@ -96,7 +96,7 @@
 #define GIMBAL_CONTROL_TIME 1
 
 //云台测试模式 宏定义 0 为不使用测试模式
-#define GIMBAL_TEST_MODE 0
+#define GIMBAL_TEST_MODE 1
 
 //电机是否反装
 #define PITCH_TURN 0

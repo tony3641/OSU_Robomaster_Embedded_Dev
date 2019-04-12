@@ -115,13 +115,12 @@
 }
 ////////////////////////////////		tx2自瞄数据包		////////////////////////////////
 
-//暂时无用
-#define get_absolute_angle_data(ptr,rx_message)																																		\
-{ 																																																							  \
-	(ptr)->aim_data_package.horizontal_pixel=(uint16_t)((rx_message->Data[0]<<8)|(rx_message->Data[1]));						\
-	(ptr)->aim_data_package.vertical_pixel=(uint16_t)((rx_message->Data[2]<<8)|((rx_message)->Data[3]));            \
+//陀螺仪数据获取
+#define get_gyro_data(ptr,rx_message)																												\
+{ 																																													\
+	(ptr)->absolute_yaw_angle=(uint16_t)((rx_message->Data[0]<<8)|(rx_message->Data[1]));			\
+	(ptr)->absolute_pitch_angle=(uint16_t)((rx_message->Data[2]<<8)|(rx_message->Data[3]));		\
 }
-
 //Process CAN Receive funtion together
 //统一处理CAN接收函数
 static void CAN_hook(CanRxMsg *rx_message);
@@ -266,7 +265,7 @@ void CAN_CMD_CHASSIS(int16_t motor1, int16_t motor2, int16_t motor3, int16_t mot
 }
 
 //发送云台编码器数据
-void CAN_GIMBAL_TO_CAN2(uint8_t *data,int id){
+void CAN_GIMBAL_ENCODE_DATA(uint8_t *data,int id){
 	CanTxMsg TxMessage;
 	TxMessage.StdId=id;
 	TxMessage.IDE=CAN_ID_STD;
@@ -304,9 +303,9 @@ void CAN_GIMBAL_TO_CAN2(uint8_t *data,int id){
 //	CAN_Transmit(PID_TUNING_CAN, &TxMessage);
 //}
 
-//Send gimbal gyro data to TX2
-//发送云台陀螺仪数据到TX2
-void CAN_GIMBAL_GYRO_DATA_TX2(int16_t yaw, int16_t pitch){//-32767-32768
+//Send gimbal gyro data
+//发送云台陀螺仪数据
+void CAN_GIMBAL_GYRO_DATA(int16_t yaw, int16_t pitch){//-32767-32768
   
   CanTxMsg TxMessage;
   TxMessage.StdId=GYRO_DATA_TX2_ID;
@@ -361,7 +360,7 @@ static void CAN_hook(CanRxMsg *rx_message)
         //Process Yaw Gimbal Motor Function
 				//处理yaw电机数据宏函数
         get_gimbal_motor_measure(&motor_yaw, rx_message);
-			  CAN_GIMBAL_TO_CAN2(rx_message->Data,CAN_GIMBAL_YAW_INTER_TRANSFER_ID);  //INTERCHANGE DATA TO CAN2
+			  CAN_GIMBAL_ENCODE_DATA(rx_message->Data,CAN_GIMBAL_YAW_INTER_TRANSFER_ID);  //INTERCHANGE DATA TO CAN2
 			
         //Record time
 				//记录时间
@@ -373,7 +372,7 @@ static void CAN_hook(CanRxMsg *rx_message)
         //Process Pitch Gimbal Motor Function
 				//处理pitch电机数据宏函数
         get_gimbal_motor_measure(&motor_pit, rx_message);
-			  CAN_GIMBAL_TO_CAN2(rx_message->Data,CAN_GIMBAL_PITCH_INTER_TRANSFER_ID);  //INTERCHANGE DATA TO CAN2
+			  CAN_GIMBAL_ENCODE_DATA(rx_message->Data,CAN_GIMBAL_PITCH_INTER_TRANSFER_ID);  //INTERCHANGE DATA TO CAN2
 				
 				//Record time
 				//记录时间
@@ -385,7 +384,7 @@ static void CAN_hook(CanRxMsg *rx_message)
         //Process Trigger Motor Function
 				//处理电机数据宏函数
 				get_motor_measure(&motor_trigger, rx_message);
-				CAN_GIMBAL_TO_CAN2(rx_message->Data,CAN_TRIGGER_INTER_TRANSFER_ID);  //INTERCHANGE DATA TO CAN2
+				CAN_GIMBAL_ENCODE_DATA(rx_message->Data,CAN_TRIGGER_INTER_TRANSFER_ID);  //INTERCHANGE DATA TO CAN2
 				//Record time
 				//记录时间
         DetectHook(TriggerMotorTOE);
@@ -418,10 +417,11 @@ static void CAN_hook(CanRxMsg *rx_message)
 //		
 //        break;
 //		}
+		
 //		case GYRO_DATA_TX2_ID:
 //    {
 //				//处理云台陀螺仪绝对角度到TX2数据
-
+//				get_gyro_data(&gyro_absolute_angle,rx_message);
 //				CAN_GIMBAL_TO_CAN2(rx_message->Data,GYRO_DATA_TX2_ID);
 //        break;
 //		}
@@ -429,6 +429,7 @@ static void CAN_hook(CanRxMsg *rx_message)
 		case CAN_AIM_DATA_ID:
 		{
 				get_aim_data(&tx2,rx_message);//tx2自瞄
+				CAN_GIMBAL_ENCODE_DATA(rx_message->Data,CAN_AIM_DATA_ID+1);
 				break;
 		}
 
