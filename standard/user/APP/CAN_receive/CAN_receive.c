@@ -115,12 +115,12 @@
 }
 ////////////////////////////////		tx2自瞄数据包		////////////////////////////////
 
-//陀螺仪数据获取
-#define get_gyro_data(ptr,rx_message)																												\
-{ 																																													\
-	(ptr)->absolute_yaw_angle=(uint16_t)((rx_message->Data[0]<<8)|(rx_message->Data[1]));			\
-	(ptr)->absolute_pitch_angle=(uint16_t)((rx_message->Data[2]<<8)|(rx_message->Data[3]));		\
-}
+////陀螺仪数据获取
+//#define get_gyro_data(ptr,rx_message)																												\
+//{ 																																													\
+//	(ptr)->absolute_yaw_angle=(uint16_t)((rx_message->Data[0]<<8)|(rx_message->Data[1]));			\
+//	(ptr)->absolute_pitch_angle=(uint16_t)((rx_message->Data[2]<<8)|(rx_message->Data[3]));		\
+//}
 //Process CAN Receive funtion together
 //统一处理CAN接收函数
 static void CAN_hook(CanRxMsg *rx_message);
