@@ -8,10 +8,17 @@
  * Discrete-Time IIR Filter (real)
  * -------------------------------
  * Filter Structure    : Direct-Form II
+ * Window Type         : Chebyshev Type II
+ * Filter Type         : IIR
+ * Response Type       : Low Pass
  * Numerator Length    : 10
  * Denominator Length  : 10
  * Stable              : Yes
  * Linear Phase        : No
+ * F-pass							 : 10Hz
+ * F-stop              : 20Hz
+ * Group Delay         : about 40ms
+ *
  */
 
 /* General type conversion for MATLAB generated C-code  */

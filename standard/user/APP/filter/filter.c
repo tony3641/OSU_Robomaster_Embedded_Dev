@@ -121,5 +121,4 @@ double Chebyshev_Type_II_IIR_LPF(IIR_Filter_t *F)
 	return F->filtered_value;
 }
 
-extern IIR_Filter_t IIR_filter;
-extern double Chebyshev_Type_II_IIR_LPF(IIR_Filter_t *F);
+

@@ -87,13 +87,6 @@ static void GIMBAL_Set_Contorl(Gimbal_Control_t *gimbal_set_control);
 static void GIMBAL_Control_loop(Gimbal_Control_t *gimbal_control_loop);
 
 
-//发送云台陀螺仪数据
-static void Send_Gimbal_GYRO_Data(Gimbal_Control_t *gimbal_gyro_data);
-
-
-
-
-
 static void gimbal_motor_absolute_angle_control(Gimbal_Motor_t *gimbal_motor);
 static void gimbal_motor_absolute_angle_control_yaw(Gimbal_Motor_t *gimbal_motor);
 static void gimbal_motor_relative_angle_control_yaw(Gimbal_Motor_t *gimbal_motor);
@@ -107,14 +100,27 @@ static void GIMBAL_angle_limit(Gimbal_Motor_t *gimbal_motor, fp32 add);
 static void GIMBAL_PID_Init(Gimbal_PID_t *pid, fp32 maxout, fp32 intergral_limit, fp32 kp, fp32 ki, fp32 kd);
 static fp32 GIMBAL_PID_Calc(Gimbal_PID_t *pid, fp32 get, fp32 set, fp32 error_delta);
 
+
+
+
+
+
+
+
+
+//发送云台陀螺仪数据
+static void Send_Gimbal_GYRO_Data(Gimbal_Control_t *gimbal_gyro_data);
 //声明tx2传发数据结构类型
 tx2_aim_package_t tx2;
 //声明IIR滤波器结构类型
 IIR_Filter_t IIR_filter;
 //rescale系数
 static fp32 rescale_coeff=1.1185f;
-
+//定义滤波器
 double Chebyshev_Type_II_IIR_LPF(IIR_Filter_t *F);
+
+
+
 
 
 
@@ -148,29 +154,14 @@ void GIMBAL_task(void *pvParameters)
         GIMBAL_Mode_Change_Control_Transit(&gimbal_control); //控制模式切换 控制数据过渡
 						
         GIMBAL_Feedback_Update(&gimbal_control);             //云台数据反馈
-			
-			
-				
-			
-			
-			
+						
         GIMBAL_Set_Contorl(&gimbal_control);                 //设置云台控制量
 			
-
-
         GIMBAL_Control_loop(&gimbal_control);                //云台控制PID计算
 
         Shoot_Can_Set_Current = shoot_control_loop();        //射击任务控制循环
 				
 				Send_Gimbal_GYRO_Data(&gimbal_control);							 //发送云台陀螺仪数据
-			
-			
-				
-			
-			
-			
-			
-			
 			
 			
 #if YAW_TURN
@@ -714,12 +705,6 @@ static void gimbal_motor_absolute_angle_control_yaw(Gimbal_Motor_t *gimbal_motor
     //控制值赋值
     gimbal_motor->given_current = (int16_t)(gimbal_motor->current_set);
 }
-
-
-
-
-
-
 static void gimbal_motor_relative_angle_control_yaw(Gimbal_Motor_t *gimbal_motor)//普通模式下YAW电机
 {
     if (gimbal_motor == NULL)
@@ -761,7 +746,7 @@ static void gimbal_motor_relative_angle_control_yaw(Gimbal_Motor_t *gimbal_motor
 		
 		
 		delta_yaw=(fp32)(gimbal_control.gimbal_rc_ctrl->rc.ch[2])*-0.000005f 
-																									+(fp32)(returned_data-yaw_mid)*-data_to_deg_ratio*0//1000*coeff
+																									+(fp32)(returned_data-yaw_mid)*-data_to_deg_ratio*1//1000*coeff
 																									+(fp32)(gimbal_control.gimbal_rc_ctrl->mouse.x)*-0.00025f;////-0.000025f//relative_angle_set鼠标用这个系数///////-0.0025f;//relative_angle+delta_yaw鼠标用这个系数
 		
 //		if(tx2.horizontal_pixel==900)
