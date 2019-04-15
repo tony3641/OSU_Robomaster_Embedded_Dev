@@ -82,6 +82,7 @@
 ".\objects\chassis_task.o"
 ".\objects\detect_task.o"
 ".\objects\freertos_middleware.o"
+".\objects\filter.o"
 ".\objects\gimbal_behaviour.o"
 ".\objects\gimbal_task.o"
 ".\objects\ins_task.o"

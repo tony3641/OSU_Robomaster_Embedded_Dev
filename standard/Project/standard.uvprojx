@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F427X,USE_STDPERIPH_DRIVER,__FPU_USED,__FPU_PRESENT,ARM_MATH_CM4,__CC_ARM,ARM_MATH_MATRIX_CHECK,ARM_MATH_ROUNDING</Define>
               <Undefine></Undefine>
-              <IncludePath>..\CMSIS;..\FWLIB\inc;..\User;..\User\AHRS;..\User\DSP\Include;..\User\FreeRTOS\include;..\User\FreeRTOS\portable;..\User\FreeRTOS\portable\RVDS\ARM_CM4F;..\user\user_lib;..\User\hardware\ADC;..\User\hardware\BUZZER;..\User\hardware\delay;..\User\hardware\EXIT_Init;..\User\hardware\CAN;..\User\hardware\LED;..\User\hardware\FLASH;..\User\hardware\FRIC;..\User\hardware\LASER;..\User\hardware\POWER_CTRL;..\User\hardware\RC;..\User\hardware\RNG;..\User\hardware\SPI;..\User\hardware\SYS;..\user\hardware\timer;..\User\APP\Calibrate_Task;..\User\APP\CAN_Receive;..\User\APP\Chassis_Task;..\User\APP\Detect_Task;..\User\APP\FreeRTOS_Middleware;..\User\APP\Gimbal_Task;..\User\APP\INS_Task;..\User\APP\pid;..\User\APP\Remote_Control;..\User\APP\Shoot;..\User\APP\Start_Task;..\User\APP\User_Task</IncludePath>
+              <IncludePath>..\CMSIS;..\FWLIB\inc;..\User;..\User\AHRS;..\User\DSP\Include;..\User\FreeRTOS\include;..\User\FreeRTOS\portable;..\User\FreeRTOS\portable\RVDS\ARM_CM4F;..\user\user_lib;..\User\hardware\ADC;..\User\hardware\BUZZER;..\User\hardware\delay;..\User\hardware\EXIT_Init;..\User\hardware\CAN;..\User\hardware\LED;..\User\hardware\FLASH;..\User\hardware\FRIC;..\User\hardware\LASER;..\User\hardware\POWER_CTRL;..\User\hardware\RC;..\User\hardware\RNG;..\User\hardware\SPI;..\User\hardware\SYS;..\user\hardware\timer;..\User\APP\Calibrate_Task;..\User\APP\CAN_Receive;..\User\APP\Chassis_Task;..\User\APP\Detect_Task;..\User\APP\FreeRTOS_Middleware;..\User\APP\Gimbal_Task;..\User\APP\INS_Task;..\User\APP\pid;..\User\APP\Remote_Control;..\User\APP\Shoot;..\User\APP\Start_Task;..\User\APP\User_Task;..\user\APP\filter</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -841,6 +841,11 @@
               <FileName>FreeRTOS_middleware.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\user\APP\FreeRTOS_middleware\FreeRTOS_middleware.c</FilePath>
+            </File>
+            <File>
+              <FileName>filter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\user\APP\filter\filter.c</FilePath>
             </File>
             <File>
               <FileName>gimbal_behaviour.c</FileName>

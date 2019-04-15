@@ -35,7 +35,7 @@
 //yaw 速度环 PID参数以及 PID最大输出，积分输出
 #define YAW_SPEED_PID_KP 2200.0f
 #define YAW_SPEED_PID_KI 20.0f
-#define YAW_SPEED_PID_KD 0.0f//0.0f
+#define YAW_SPEED_PID_KD 0.0f
 #define YAW_SPEED_PID_MAX_OUT 30000.0f
 #define YAW_SPEED_PID_MAX_IOUT 5000.0f
 
@@ -65,7 +65,7 @@
 //yaw 角度环 角度由编码器 PID参数以及 PID最大输出，积分输出
 #define YAW_ENCODE_RELATIVE_PID_KP 18.0f//8.0f
 #define YAW_ENCODE_RELATIVE_PID_KI 0.0f
-#define YAW_ENCODE_RELATIVE_PID_KD 0.25f//1.09f//0.0f
+#define YAW_ENCODE_RELATIVE_PID_KD 0.75f//1.09f//0.0f
 #define YAW_ENCODE_RELATIVE_PID_MAX_OUT 10.0f
 #define YAW_ENCODE_RELATIVE_PID_MAX_IOUT 0.0f
 
@@ -186,7 +186,6 @@ typedef struct
     fp32 raw_cmd_current;
     fp32 current_set;
     int16_t given_current;
-
 } Gimbal_Motor_t;
 
 typedef struct
@@ -211,6 +210,9 @@ typedef struct
     Gimbal_Motor_t gimbal_pitch_motor;
     Gimbal_Cali_t gimbal_cali;
 } Gimbal_Control_t;
+
+
+
 
 extern void Gimbal_Send_TX2_Data(Gimbal_Control_t *Gimbal);
 extern const Gimbal_Motor_t *get_yaw_motor_point(void);

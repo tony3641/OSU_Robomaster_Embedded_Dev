@@ -19,9 +19,13 @@
 .\objects\gimbal_task.o: ..\User\APP\Shoot\shoot.h
 .\objects\gimbal_task.o: ..\User\APP\Detect_Task\Detect_Task.h
 .\objects\gimbal_task.o: ..\User\hardware\BUZZER\buzzer.h
+.\objects\gimbal_task.o: ..\user\APP\filter\filter.h
+.\objects\gimbal_task.o: ..\user\APP\filter\tmwtypes.h
+.\objects\gimbal_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\limits.h
+.\objects\gimbal_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\float.h
+.\objects\gimbal_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\objects\gimbal_task.o: ..\User\FreeRTOS\include\FreeRTOSConfig.h
 .\objects\gimbal_task.o: ..\User\FreeRTOS\include\FreeRTOS.h
-.\objects\gimbal_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\objects\gimbal_task.o: ..\User\FreeRTOS\include\projdefs.h
 .\objects\gimbal_task.o: ..\User\FreeRTOS\include\portable.h
 .\objects\gimbal_task.o: ..\User\FreeRTOS\include\deprecated_definitions.h

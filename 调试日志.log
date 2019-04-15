@@ -1,3 +1,7 @@
+April 14, 2019
+更改为位置PID锁定（测试）
+加入滤波器，启用ChebyshevII LPF平滑tx2传输数据，创建filter.c/.h，整理代码
+
 April 11, 2019
 通过CAN发送云台陀螺仪数据
 

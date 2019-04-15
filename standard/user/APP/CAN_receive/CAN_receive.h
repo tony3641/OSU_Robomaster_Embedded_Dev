@@ -95,15 +95,15 @@ typedef struct{
 	uint32_t vertical_pixel;
 } tx2_aim_package_t;
 
-//TX2 data receive struct
-//TX2数据接收结构体
-typedef struct
-{
+////TX2 data receive struct
+////TX2数据接收结构体
+//typedef struct
+//{
 //	uint16_t package_type;
-//  tx2_gimbal_package_t yaw_pid_package;
-//	tx2_gimbal_package_t pitch_pid_package;
-	tx2_aim_package_t aim_data_package;
-} tx2_measure_t;
+////  tx2_gimbal_package_t yaw_pid_package;
+////	tx2_gimbal_package_t pitch_pid_package;
+//	tx2_aim_package_t aim_data_package;
+//} tx2_measure_t;
 
 
 

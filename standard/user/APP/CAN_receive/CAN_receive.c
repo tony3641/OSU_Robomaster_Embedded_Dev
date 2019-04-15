@@ -94,23 +94,23 @@
 ////////////////////////////////		tx2自瞄数据包		////////////////////////////////
 #define get_aim_data(ptr,rx_message)																																							\
 { 																																																							  \
-	(ptr)->aim_data_package.horizontal_pixel=(uint16_t)((rx_message->Data[0]<<8)|(rx_message->Data[1]));						\
-	if((ptr)->aim_data_package.horizontal_pixel>=1700.0f)																														\
+	(ptr)->horizontal_pixel=(uint16_t)((rx_message->Data[0]<<8)|(rx_message->Data[1]));						\
+	if((ptr)->horizontal_pixel>=1700.0f)																														\
 		{																																																							\
-			(ptr)->aim_data_package.horizontal_pixel=1700.0f;																														\
+			(ptr)->horizontal_pixel=1700.0f;																														\
 		}																																																							\
-	if((ptr)->aim_data_package.horizontal_pixel<=100.0f)																														\
+	if((ptr)->horizontal_pixel<=100.0f)																														\
 		{																																																							\
-			(ptr)->aim_data_package.horizontal_pixel=100.0f;																														\
+			(ptr)->horizontal_pixel=100.0f;																														\
 		}																																																							\
-	(ptr)->aim_data_package.vertical_pixel=(uint16_t)((rx_message->Data[2]<<8)|((rx_message)->Data[3]));            \
-	if((ptr)->aim_data_package.vertical_pixel>=400.0f)																															\
+	(ptr)->vertical_pixel=(uint16_t)((rx_message->Data[2]<<8)|((rx_message)->Data[3]));            \
+	if((ptr)->vertical_pixel>=400.0f)																															\
 		{																																																							\
-			(ptr)->aim_data_package.vertical_pixel=400.0f;																															\
+			(ptr)->vertical_pixel=400.0f;																															\
 		}																																																							\
-	if((ptr)->aim_data_package.vertical_pixel<=100.0f)																															\
+	if((ptr)->vertical_pixel<=100.0f)																															\
 		{																																																							\
-			(ptr)->aim_data_package.vertical_pixel=100.0f;																															\
+			(ptr)->vertical_pixel=100.0f;																															\
 		}																																																							\
 }
 ////////////////////////////////		tx2自瞄数据包		////////////////////////////////
@@ -131,7 +131,7 @@ static motor_measure_t motor_yaw, motor_pit, motor_trigger, motor_chassis[4];
     
 //Declare TX2 variables struct
 //声明TX2变量结构体
-extern tx2_measure_t tx2;//extern全局定义，使其他文件也能调用
+extern tx2_aim_package_t tx2;//extern全局定义，使其他文件也能调用
 
 //Declare Gimbal Sending Message
 //声明云台的发送信息
