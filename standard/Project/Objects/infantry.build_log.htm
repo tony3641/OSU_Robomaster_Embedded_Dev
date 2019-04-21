@@ -30,15 +30,19 @@ Build target 'standard'
 compiling gimbal_task.c...
 ..\user\APP\gimbal_task\gimbal_task.c(716): warning:  #550-D: variable "coeff"  was set but never used
   		static fp32 coeff;
+..\user\APP\gimbal_task\gimbal_task.c(721): warning:  #177-D: variable "yaw_ecd_relative_center"  was declared but never referenced
+  		int32_t yaw_ecd_relative_center;
+..\user\APP\gimbal_task\gimbal_task.c(722): warning:  #177-D: variable "yaw_angle_relative_center"  was declared but never referenced
+  		int32_t yaw_angle_relative_center;
 ..\user\APP\gimbal_task\gimbal_task.c(676): warning:  #177-D: function "gimbal_motor_absolute_angle_control"  was declared but never referenced
   static void gimbal_motor_absolute_angle_control(Gimbal_Motor_t *gimbal_motor)
 ..\user\APP\gimbal_task\gimbal_task.c(565): warning:  #177-D: function "GIMBAL_angle_limit"  was declared but never referenced
   static void GIMBAL_angle_limit(Gimbal_Motor_t *gimbal_motor, fp32 add)
-..\user\APP\gimbal_task\gimbal_task.c: 3 warnings, 0 errors
+..\user\APP\gimbal_task\gimbal_task.c: 5 warnings, 0 errors
 linking...
-Program Size: Code=53924 RO-data=2932 RW-data=648 ZI-data=135560  
+Program Size: Code=54412 RO-data=5340 RW-data=672 ZI-data=140392  
 FromELF: creating hex file...
-".\Objects\infantry.axf" - 0 Error(s), 3 Warning(s).
+".\Objects\infantry.axf" - 0 Error(s), 5 Warning(s).
 
 <h2>Software Packages used:</h2>
 

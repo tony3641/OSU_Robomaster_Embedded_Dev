@@ -15,7 +15,7 @@
  * Denominator Length  : 10
  * Stable              : Yes
  * Linear Phase        : No
- * F-pass							 : 10Hz
+ * F-pass              : 10Hz
  * F-stop              : 20Hz
  * Group Delay         : about 40ms
  *
@@ -35,3 +35,9 @@ typedef struct{
 	double filtered_value;
 }IIR_Filter_t;
 
+typedef struct{
+	double fir_raw_value;
+	double fir_xbuf[301];
+	double fir_ybuf[301];
+	double fir_filtered_value;
+}FIR_Filter_t;
