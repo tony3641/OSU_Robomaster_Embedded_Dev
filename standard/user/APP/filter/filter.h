@@ -35,9 +35,17 @@ typedef struct{
 	double filtered_value;
 }IIR_Filter_t;
 
+
 typedef struct{
 	double fir_raw_value;
-	double fir_xbuf[301];
-	double fir_ybuf[301];
+	double fir_xbuf[361];
+	double fir_ybuf[361];
 	double fir_filtered_value;
 }FIR_Filter_t;
+
+typedef struct{
+	double blm_raw_value;
+	double blm_xbuf[31];
+	double blm_ybuf[31];
+	double blm_filtered_value;
+}Blackman_Filter_t;

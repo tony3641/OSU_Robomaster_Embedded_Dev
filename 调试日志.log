@@ -1,3 +1,6 @@
+April 22, 2019
+分线程（user_task.c）用于filter计算，CV传输来的数据(有延迟时间t)与延迟时间t前的编码器值计算后抵消得到一个定值，用于旋转云台的目标位置
+
 April 14, 2019
 更改为位置PID锁定（测试）
 加入滤波器，启用ChebyshevII LPF平滑tx2传输数据，创建filter.c/.h，整理代码

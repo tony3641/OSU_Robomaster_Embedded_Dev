@@ -32,7 +32,7 @@
 #include "Detect_Task.h"
 #include "pid.h"
 
-#include "buzzer.h"//加入蜂鸣器测试
+#include "buzzer.h"//加入蜂鸣器用于测试
 #include "filter.h"
 
 #include "FreeRTOSConfig.h"
@@ -64,7 +64,7 @@ uint32_t gimbal_high_water;
 #endif
 
 //云台控制所有相关数据
-static Gimbal_Control_t gimbal_control;
+extern Gimbal_Control_t gimbal_control;
 
 //发送的can 指令
 static int16_t Yaw_Can_Set_Current = 0, Pitch_Can_Set_Current = 0, Shoot_Can_Set_Current = 0;
@@ -105,23 +105,10 @@ static fp32 GIMBAL_PID_Calc(Gimbal_PID_t *pid, fp32 get, fp32 set, fp32 error_de
 
 
 
-
-
-
 //发送云台陀螺仪数据
 static void Send_Gimbal_GYRO_Data(Gimbal_Control_t *gimbal_gyro_data);
 //声明tx2传发数据结构类型
 tx2_aim_package_t tx2;
-//声明IIR滤波器结构类型
-IIR_Filter_t IIR_filter;
-//rescale系数
-static fp32 rescale_coeff=1.1185f;
-//定义滤波器
-double Chebyshev_Type_II_IIR_LPF(IIR_Filter_t *F);
-
-
-
-
 
 
 
@@ -147,14 +134,18 @@ void GIMBAL_task(void *pvParameters)
         GIMBAL_Feedback_Update(&gimbal_control);             //云台数据反馈
     }
 
-    while (1)
+
+    while (1)	
     {
+
+			
+			
         GIMBAL_Set_Mode(&gimbal_control);                    //设置云台控制模式
 
         GIMBAL_Mode_Change_Control_Transit(&gimbal_control); //控制模式切换 控制数据过渡
 						
         GIMBAL_Feedback_Update(&gimbal_control);             //云台数据反馈
-						
+				
         GIMBAL_Set_Contorl(&gimbal_control);                 //设置云台控制量
 			
         GIMBAL_Control_loop(&gimbal_control);                //云台控制PID计算
@@ -718,12 +709,13 @@ static void gimbal_motor_relative_angle_control_yaw(Gimbal_Motor_t *gimbal_motor
 		static fp32 const yaw_mid=900.0f;
 		static fp32 const deadzone=0.0f;
 		static fp32 returned_data;
-		int32_t yaw_ecd_relative_center;
-		int32_t yaw_angle_relative_center;
-		int32_t IS_Filtered;
+//		int32_t yaw_ecd_relative_center;
+//		int32_t yaw_angle_relative_center;
+//		int32_t IS_Filtered;
 		
 		
-		IS_Filtered=1;//1为开启滤波器，0为关闭滤波器
+	
+		
 		//0.00017477385219321f 进双环后转化需要转180度的时间大约是20秒
 		
 		//当can bus无tx2数据输入时默认为0，初始化tx2水平数据为900以防开机云台旋转
@@ -750,7 +742,7 @@ static void gimbal_motor_relative_angle_control_yaw(Gimbal_Motor_t *gimbal_motor
 		
 //if(右键按下)
 //		{
-//			gimbal_control.gimbal_yaw_motor.offset_ecd=gimbal_motor->gimbal_motor_measure->ecd;//按下右键时使当前编码器读值为参考
+//			gimbal_control.gimbal_yaw_motor.offset_ecd=gimbal_motor->gimbal_motor_measure->ecd;//按下右键时使当前编码器读值作为ecd_offset
 //		}
 //		
 		
@@ -763,18 +755,10 @@ static void gimbal_motor_relative_angle_control_yaw(Gimbal_Motor_t *gimbal_motor
 //没用		yaw_ecd_relative_center=(7191-gimbal_motor->gimbal_motor_measure->ecd);//相对中心编码器的值
 //没用		yaw_angle_relative_center=yaw_ecd_relative_center*3600/8192;
 		
-		IIR_filter.raw_value=tx2.horizontal_pixel;//滤波器输入为tx2传输的数据		
+
 		
-		
-		if (IS_Filtered==1)
-		{
-			returned_data=Chebyshev_Type_II_IIR_LPF(&IIR_filter)/rescale_coeff;//滤波器输出，rescale保持振幅相同
-		}
-		else if (IS_Filtered==0)
-		{
-			returned_data=tx2.horizontal_pixel;
-		}
-		
+
+	
 		
 		
 		delta_yaw=(fp32)(gimbal_control.gimbal_rc_ctrl->rc.ch[2])*-0.0005000f 
@@ -843,7 +827,7 @@ static void gimbal_motor_relative_angle_control_pitch(Gimbal_Motor_t *gimbal_mot
 		static fp32 delta_pitch;//pitch电机角度目标变量
 		static fp32 coeff;
 		static fp32 data_to_deg_ratio=0.001745329252f;//2048电机编码值/900角度/系数1302
-		static fp32 const pitch_mid=325.0f;
+		static fp32 const pitch_mid=400.0f;
 		static fp32 const deadzone=10.0f;
 		
 		//当can bus无tx2数据输入时默认为0，初始化tx2垂直数据为250以防开机云台旋转
@@ -913,20 +897,12 @@ int32_t yaw_relative_set_1000, yaw_relative_angle_1000;
 int32_t yaw_speed_int_1000, pitch_speed_int_1000;
 int32_t yaw_speed_set_int_1000, pitch_speed_set_int_1000;
 
-int32_t filtered_data;
-int32_t raw_data;
 
 
-int32_t yaw_ecd_jscope;
-int32_t yaw_ecd_relative_center_jscope;
-int32_t yaw_angle_relative_center_jscope;
-int32_t final_angle_set;
-int32_t final_angle_set_last_ecd;
+fp32 delayed_ecd;//定义从user_task.c extern的group delay后的编码器的值
+int32_t final_angle_set;//最终改变的角度值
 
 
-FIR_Filter_t group_delay;
-double Group_Delay_Filter(FIR_Filter_t *F);
-int32_t delayed_value;
 
 
 
@@ -946,25 +922,14 @@ static void J_scope_gimbal_test(void)
     pitch_speed_set_int_1000 = (int32_t)(gimbal_control.gimbal_pitch_motor.motor_gyro_set * 1000);
     pitch_relative_angle_1000 = (int32_t)(gimbal_control.gimbal_pitch_motor.relative_angle * 1000);
     pitch_relative_set_1000 = (int32_t)(gimbal_control.gimbal_pitch_motor.relative_angle_set * 1000);
-		filtered_data=(int32_t)(IIR_filter.filtered_value)/rescale_coeff;
-		raw_data=(int32_t)(IIR_filter.raw_value);
-	
-	
-	yaw_ecd_jscope=gimbal_control.gimbal_yaw_motor.gimbal_motor_measure->ecd;
-	
-	group_delay.fir_raw_value=yaw_ecd_jscope;
-	delayed_value=(int32_t)(Group_Delay_Filter(&group_delay));
-	
-		
-	
-	yaw_ecd_relative_center_jscope=(int32_t)(7210-gimbal_control.gimbal_yaw_motor.gimbal_motor_measure->ecd);
-	
-	yaw_angle_relative_center_jscope=(int32_t)(motor_ecd_to_angle_change(delayed_value,gimbal_control.gimbal_yaw_motor.offset_ecd)*1000);
+				
 
-
-	//final_angle_set_last_ecd=(int32_t)(((filtered_data-906-(yaw_angle_relative_center_jscope/1000)/0.001745329252f)));
 	
-	final_angle_set=(int32_t)(((filtered_data-906-yaw_angle_relative_center_jscope/1000/0.001745329252f)));//	
+	
+	
+
+	
+		final_angle_set=(int32_t)(tx2.horizontal_pixel-900-(delayed_ecd*572.9577951f));//应该是个定值	
 }
 
 #endif

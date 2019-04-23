@@ -15,3 +15,12 @@
 .\objects\user_task.o: ..\User\hardware\LED\led.h
 .\objects\user_task.o: ..\User\APP\Detect_Task\Detect_Task.h
 .\objects\user_task.o: ..\User\APP\INS_Task\INS_Task.h
+.\objects\user_task.o: ..\User\APP\Gimbal_Task\gimbal_task.h
+.\objects\user_task.o: ..\User\APP\CAN_Receive\CAN_Receive.h
+.\objects\user_task.o: ..\User\APP\pid\pid.h
+.\objects\user_task.o: ..\User\APP\Remote_Control\remote_control.h
+.\objects\user_task.o: ..\User\hardware\RC\rc.h
+.\objects\user_task.o: ..\user\APP\filter\filter.h
+.\objects\user_task.o: ..\user\APP\filter\tmwtypes.h
+.\objects\user_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\limits.h
+.\objects\user_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\float.h
