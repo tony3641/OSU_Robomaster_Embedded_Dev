@@ -108,7 +108,7 @@ static fp32 GIMBAL_PID_Calc(Gimbal_PID_t *pid, fp32 get, fp32 set, fp32 error_de
 //发送云台陀螺仪数据
 static void Send_Gimbal_GYRO_Data(Gimbal_Control_t *gimbal_gyro_data);
 //声明tx2传发数据结构类型
-tx2_aim_package_t tx2;
+//tx2_aim_package_t tx2;
 
 
 
@@ -696,6 +696,14 @@ static void gimbal_motor_absolute_angle_control_yaw(Gimbal_Motor_t *gimbal_motor
     //控制值赋值
     gimbal_motor->given_current = (int16_t)(gimbal_motor->current_set);
 }
+
+
+
+
+
+/////////////////////////////////////////////////
+fp32 filtered_final_angle_set;
+/////////////////////////////////////////////////
 static void gimbal_motor_relative_angle_control_yaw(Gimbal_Motor_t *gimbal_motor)//普通模式下YAW电机
 {
     if (gimbal_motor == NULL)
@@ -708,30 +716,24 @@ static void gimbal_motor_relative_angle_control_yaw(Gimbal_Motor_t *gimbal_motor
 		static fp32 const data_to_deg_ratio=0.001745329252f;//2*pi弧度/360角度/10精度
 		static fp32 const yaw_mid=900.0f;
 		static fp32 const deadzone=0.0f;
-		static fp32 returned_data;
-//		int32_t yaw_ecd_relative_center;
-//		int32_t yaw_angle_relative_center;
-//		int32_t IS_Filtered;
-		
-		
-	
+
 		
 		//0.00017477385219321f 进双环后转化需要转180度的时间大约是20秒
 		
-		//当can bus无tx2数据输入时默认为0，初始化tx2水平数据为900以防开机云台旋转
-		if(tx2.horizontal_pixel==0)
-		{
-			tx2.horizontal_pixel=yaw_mid;
-		}
-		//接受tx2数据死区下线
-		if ((tx2.horizontal_pixel+-yaw_mid)>deadzone||(tx2.horizontal_pixel+-yaw_mid)<-deadzone)
-		{
-			coeff=1;
-		}
-		else if ((tx2.horizontal_pixel+-yaw_mid)<deadzone||(tx2.horizontal_pixel+-yaw_mid)>-deadzone)
-		{
-			coeff=0;
-		}	
+//		//当can bus无tx2数据输入时默认为0，初始化tx2水平数据为900以防开机云台旋转
+//		if(tx2.horizontal_pixel==0)
+//		{
+//			tx2.horizontal_pixel=yaw_mid;
+//		}
+//		//接受tx2数据死区下线
+//		if ((tx2.horizontal_pixel+-yaw_mid)>deadzone||(tx2.horizontal_pixel+-yaw_mid)<-deadzone)
+//		{
+//			coeff=1;
+//		}
+//		else if ((tx2.horizontal_pixel+-yaw_mid)<deadzone||(tx2.horizontal_pixel+-yaw_mid)>-deadzone)
+//		{
+//			coeff=0;
+//		}	
 		
 		//log函数动态改Kp
 		//coeff=log10f(0.265f*fabsf(tx2.horizontal_pixel+-900.0f)+1.0f)/(log10f(3.0f)-0.0f);
@@ -761,8 +763,8 @@ static void gimbal_motor_relative_angle_control_yaw(Gimbal_Motor_t *gimbal_motor
 	
 		
 		
-		delta_yaw=(fp32)(gimbal_control.gimbal_rc_ctrl->rc.ch[2])*-0.0005000f 
-																									+(fp32)(returned_data-yaw_mid)*-data_to_deg_ratio*0//1000*coeff
+		delta_yaw=(fp32)(gimbal_control.gimbal_rc_ctrl->rc.ch[2])*-0.000005f;
+																									+(fp32)(filtered_final_angle_set)*-data_to_deg_ratio*00//1000*coeff
 																									+(fp32)(gimbal_control.gimbal_rc_ctrl->mouse.x)*-0.00025f;////-0.000025f//relative_angle_set鼠标用这个系数///////-0.0025f;//relative_angle+delta_yaw鼠标用这个系数
 		
 //		if(tx2.horizontal_pixel==900)
@@ -830,26 +832,26 @@ static void gimbal_motor_relative_angle_control_pitch(Gimbal_Motor_t *gimbal_mot
 		static fp32 const pitch_mid=400.0f;
 		static fp32 const deadzone=10.0f;
 		
-		//当can bus无tx2数据输入时默认为0，初始化tx2垂直数据为250以防开机云台旋转
-		if(tx2.vertical_pixel==0)
-		{
-			tx2.vertical_pixel=pitch_mid;
-		}
+//		//当can bus无tx2数据输入时默认为0，初始化tx2垂直数据为250以防开机云台旋转
+//		if(tx2.vertical_pixel==0)
+//		{
+//			tx2.vertical_pixel=pitch_mid;
+//		}
+//		
 		
-		
-		//接受tx2数据死区下线
-		if ((tx2.vertical_pixel+-pitch_mid)>deadzone||(tx2.vertical_pixel+-pitch_mid)<-deadzone)
-		{
-			coeff=3.0f;
-		}
-		else if ((tx2.vertical_pixel+-pitch_mid)<deadzone||(tx2.vertical_pixel+-pitch_mid)>-deadzone)
-		{
-			coeff=0;
-		}	
-		
+//		//接受tx2数据死区下线
+//		if ((tx2.vertical_pixel+-pitch_mid)>deadzone||(tx2.vertical_pixel+-pitch_mid)<-deadzone)
+//		{
+//			coeff=3.0f;
+//		}
+//		else if ((tx2.vertical_pixel+-pitch_mid)<deadzone||(tx2.vertical_pixel+-pitch_mid)>-deadzone)
+//		{
+//			coeff=0;
+//		}	
+//		
 		
 		delta_pitch=(fp32)(gimbal_control.gimbal_rc_ctrl->rc.ch[3])*-0.000005f
-																										+(fp32)(tx2.vertical_pixel-pitch_mid)*data_to_deg_ratio/1000*coeff
+																										+(fp32)(pitch_mid-pitch_mid)*data_to_deg_ratio/1000*coeff
 																										+(fp32)(gimbal_control.gimbal_rc_ctrl->mouse.y)*0.00025f;////0.000025f//relative_angle_set时鼠标用这个系数///////-0.0025f;//relative_angle+delta_pitch鼠标用这个系数
     //更改relative_angle_set的值来达到锁定位置环
 		gimbal_motor->relative_angle_set+=delta_pitch;
@@ -899,13 +901,20 @@ int32_t yaw_speed_set_int_1000, pitch_speed_set_int_1000;
 
 
 
-fp32 delayed_ecd;//定义从user_task.c extern的group delay后的编码器的值
-int32_t final_angle_set;//最终改变的角度值
+fp32 delayed_relative_angle;//定义从user_task.c extern的group delay后的relative angle的值
+extern int32_t final_angle_set;//最终改变的角度值
+fp32 filtered_final_angle_set;
+int32_t filtered_final_angle_set_jscope;
+
+int32_t delayed_relative_angle_1000;
 
 
+int32_t filtered_horizontal_pixel;
+int32_t filtered_horizontal_pixel_jscope;
 
 
-
+int32_t filtered_horizontal_pixel_blackman_jscope;
+int32_t filtered_horizontal_pixel_chebyshevII_jscope;
 
 static void J_scope_gimbal_test(void)
 {
@@ -923,13 +932,13 @@ static void J_scope_gimbal_test(void)
     pitch_relative_angle_1000 = (int32_t)(gimbal_control.gimbal_pitch_motor.relative_angle * 1000);
     pitch_relative_set_1000 = (int32_t)(gimbal_control.gimbal_pitch_motor.relative_angle_set * 1000);
 				
+		filtered_final_angle_set_jscope=filtered_final_angle_set;
+		filtered_horizontal_pixel_jscope=filtered_horizontal_pixel;
+//
+		delayed_relative_angle_1000=(int32_t)(delayed_relative_angle*1000);
 
 	
-	
-	
-
-	
-		final_angle_set=(int32_t)(tx2.horizontal_pixel-900-(delayed_ecd*572.9577951f));//应该是个定值	
+		final_angle_set=(int32_t)(filtered_horizontal_pixel_jscope-900-(delayed_relative_angle*572.9577951f));//应该是个定值	
 }
 
 #endif

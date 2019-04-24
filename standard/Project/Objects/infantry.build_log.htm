@@ -27,18 +27,16 @@ Project File Date:  04/14/2019
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'D:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'standard'
-compiling gimbal_task.c...
-..\user\APP\gimbal_task\gimbal_task.c(707): warning:  #550-D: variable "coeff"  was set but never used
-  		static fp32 coeff;
-..\user\APP\gimbal_task\gimbal_task.c(667): warning:  #177-D: function "gimbal_motor_absolute_angle_control"  was declared but never referenced
-  static void gimbal_motor_absolute_angle_control(Gimbal_Motor_t *gimbal_motor)
-..\user\APP\gimbal_task\gimbal_task.c(556): warning:  #177-D: function "GIMBAL_angle_limit"  was declared but never referenced
-  static void GIMBAL_angle_limit(Gimbal_Motor_t *gimbal_motor, fp32 add)
-..\user\APP\gimbal_task\gimbal_task.c: 3 warnings, 0 errors
+compiling user_task.c...
+..\user\APP\user_task\user_task.c(72): warning:  #177-D: variable "filter_tx2_data_flag"  was declared but never referenced
+  static int filter_tx2_data_flag;
+..\user\APP\user_task\user_task.c(73): warning:  #177-D: variable "filter_final_angle_set_flag"  was declared but never referenced
+  static int filter_final_angle_set_flag;
+..\user\APP\user_task\user_task.c: 2 warnings, 0 errors
 linking...
-Program Size: Code=52680 RO-data=6072 RW-data=644 ZI-data=141180  
+Program Size: Code=50476 RO-data=2772 RW-data=676 ZI-data=138844  
 FromELF: creating hex file...
-".\Objects\infantry.axf" - 0 Error(s), 3 Warning(s).
+".\Objects\infantry.axf" - 0 Error(s), 2 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -52,7 +50,7 @@ Package Vendor: Keil
   D:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>

@@ -43,9 +43,18 @@ typedef struct{
 	double fir_filtered_value;
 }FIR_Filter_t;
 
+
+#define BLACKMAN_LENGTH 101
 typedef struct{
 	double blm_raw_value;
-	double blm_xbuf[31];
-	double blm_ybuf[31];
+	double blm_xbuf[BLACKMAN_LENGTH];
+	double blm_ybuf[BLACKMAN_LENGTH];
 	double blm_filtered_value;
 }Blackman_Filter_t;
+
+
+#define DELAY_MS 205 
+typedef struct{
+	double group_delay_raw_value;
+	double group_delay_buffer[DELAY_MS];
+}Group_Delay_t;

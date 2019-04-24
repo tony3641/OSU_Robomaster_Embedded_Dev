@@ -1,7 +1,8 @@
 /**
   ****************************(C) COPYRIGHT 2016 DJI****************************
   * @file       user_task.c/h
-  * @brief      一个普通心跳程序，如果设备无错误，绿灯1Hz闪烁,然后获取姿态角
+  * @brief      *一个普通心跳程序，如果设备无错误，绿灯1Hz闪烁,然后获取姿态角*
+  *             现用与filter计算线程
   * @note       
   * @history
   *  Version    Date            Author          Modification
@@ -33,7 +34,7 @@
 //自定义
 #include "gimbal_task.h"
 #include "filter.h"
-
+#include "CAN_Receive.h"
 
 
 #define user_is_error() toe_is_error(errorListLength)
@@ -47,22 +48,68 @@ fp32 angle_degree[3] = {0.0f, 0.0f, 0.0f};
 
 
 ////自定义内容
-//定义gimbal结构体，获取数据
+//定义结构体，获取数据
 Gimbal_Control_t gimbal_control;
+tx2_aim_package_t tx2;
+int32_t final_angle_set;
 
-//定义filter类型
-FIR_Filter_t group_delay;
-//FIR_Filter_t double_group_delay;
+//声明filter类型
+Group_Delay_t group_delay;
+Blackman_Filter_t blackman;
+IIR_Filter_t chebyshevII;
 
 //定义filter
-double Group_Delay_Filter(FIR_Filter_t *F);
-//extern group delay后的编码器，用于其他文件
-extern fp32 delayed_ecd;
-//fp32 double_delayed_value;
+double Group_Delay(Group_Delay_t *GD);
+double Blackman_Filter(Blackman_Filter_t *F);
+double Chebyshev_Type_II_IIR_LPF(IIR_Filter_t *F);
 
-static void Filter_running(Gimbal_Control_t *gimbal_data)
+//extern 滤波后的数据，用于其他文件
+extern fp32 delayed_relative_angle;
+extern int32_t filtered_horizontal_pixel;//必须是int，别问
+extern fp32 filtered_final_angle_set;
+
+
+static int filter_tx2_data_flag;
+static int filter_final_angle_set_flag;
+
+
+
+
+static void Filter_Running(Gimbal_Control_t *gimbal_data)
 	{
-		delayed_ecd=Group_Delay_Filter(&group_delay);//经过x ms delay后的编码器的值, 根据需求参考GroupDelayTable
+
+//		filter_tx2_data_flag=0;
+//		filter_final_angle_set_flag=0;
+//		
+//		//是否对tx2发来的自瞄数据进行滤波
+//		if(filter_tx2_data_flag==0)
+//		{
+//			filtered_horizontal_pixel=Blackman_Filter(&blackman);
+//		}
+//		else if(filter_tx2_data_flag==1)
+//		{
+			filtered_horizontal_pixel=tx2.horizontal_pixel;
+//		}
+//		
+//		
+//		
+//		
+//		//是否对最终角度进行滤波
+//		if(filter_final_angle_set_flag==0)
+//		{
+//			filtered_final_angle_set=Chebyshev_Type_II_IIR_LPF(&chebyshevII)/1.115;
+//		}
+//		else if(filter_final_angle_set_flag==1)
+//		{
+			filtered_final_angle_set=final_angle_set;
+//		}		
+		
+		
+		
+		
+		
+		delayed_relative_angle=Group_Delay(&group_delay);//经过x ms delay后的编码器的值
+
 	}
 
 
@@ -88,16 +135,16 @@ void UserTask(void *pvParameters)
 				
 				
 				
+				//filter的输入
+				group_delay.group_delay_raw_value=gimbal_control.gimbal_yaw_motor.relative_angle;//group delay fir filter输入为编码器相对ecd_offset的角度(-pi/2,pi/2)			
 				
-				group_delay.fir_raw_value=gimbal_control.gimbal_yaw_motor.relative_angle;//group delay fir filter输入为编码器相对ecd_offset的角度(-pi/2,pi/2)
-
-				//double_group_delay.fir_raw_value=delayed_value;
-				//double_delayed_value=Group_Delay_Filter(&double_group_delay);
-
+//				blackman.blm_raw_value=tx2.horizontal_pixel;
+//				
+//				chebyshevII.raw_value=final_angle_set;
 				
 				
 				
-				Filter_running(&gimbal_control);//运行filter
+				Filter_Running(&gimbal_control);//filter进行计算
 				
 				
 				
