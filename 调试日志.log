@@ -1,3 +1,10 @@
+April 24, 2019
+优化初步完成，选用Butterworth IIR(50ms Group Delay)，CV发送延迟(约190ms)，Kalman学习中
+目标：	定义当前relative_angle为reference，以便在任意角度开启自瞄
+	尽可能减小gyro的速度控制影响以便扭腰模式不受干扰
+	对底盘进行system identification，尝试使用lead/lag compensator instead of PID，尝试减小急停时的功率
+	或者缓速停止而非直接到0
+
 April 23, 2019
 上机测试初步成功，需要平滑CV数据，提升CV发送帧率，降低CV发送延迟(约200ms)
 

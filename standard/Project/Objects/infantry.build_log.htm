@@ -28,15 +28,27 @@ Project File Date:  04/14/2019
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'D:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'standard'
 compiling user_task.c...
-..\user\APP\user_task\user_task.c(72): warning:  #177-D: variable "filter_tx2_data_flag"  was declared but never referenced
-  static int filter_tx2_data_flag;
-..\user\APP\user_task\user_task.c(73): warning:  #177-D: variable "filter_final_angle_set_flag"  was declared but never referenced
-  static int filter_final_angle_set_flag;
-..\user\APP\user_task\user_task.c: 2 warnings, 0 errors
+compiling filter.c...
+compiling gimbal_task.c...
+..\user\APP\gimbal_task\gimbal_task.c(787): warning:  #177-D: variable "coeff"  was declared but never referenced
+  		static fp32 coeff;
+..\user\APP\gimbal_task\gimbal_task.c(789): warning:  #177-D: variable "yaw_mid"  was declared but never referenced
+  		static fp32 const yaw_mid=900.0f;
+..\user\APP\gimbal_task\gimbal_task.c(790): warning:  #177-D: variable "deadzone"  was declared but never referenced
+  		static fp32 const deadzone=0.0f;
+..\user\APP\gimbal_task\gimbal_task.c(898): warning:  #177-D: variable "coeff"  was declared but never referenced
+  		static fp32 coeff;
+..\user\APP\gimbal_task\gimbal_task.c(901): warning:  #177-D: variable "deadzone"  was declared but never referenced
+  		static fp32 const deadzone=10.0f;
+..\user\APP\gimbal_task\gimbal_task.c(739): warning:  #177-D: function "gimbal_motor_absolute_angle_control"  was declared but never referenced
+  static void gimbal_motor_absolute_angle_control(Gimbal_Motor_t *gimbal_motor)
+..\user\APP\gimbal_task\gimbal_task.c(628): warning:  #177-D: function "GIMBAL_angle_limit"  was declared but never referenced
+  static void GIMBAL_angle_limit(Gimbal_Motor_t *gimbal_motor, fp32 add)
+..\user\APP\gimbal_task\gimbal_task.c: 7 warnings, 0 errors
 linking...
-Program Size: Code=50476 RO-data=2772 RW-data=676 ZI-data=138844  
+Program Size: Code=52752 RO-data=3728 RW-data=676 ZI-data=139228  
 FromELF: creating hex file...
-".\Objects\infantry.axf" - 0 Error(s), 2 Warning(s).
+".\Objects\infantry.axf" - 0 Error(s), 7 Warning(s).
 
 <h2>Software Packages used:</h2>
 

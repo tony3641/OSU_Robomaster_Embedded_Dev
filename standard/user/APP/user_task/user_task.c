@@ -56,20 +56,23 @@ int32_t final_angle_set;
 //声明filter类型
 Group_Delay_t group_delay;
 Blackman_Filter_t blackman;
-IIR_Filter_t chebyshevII;
+IIR_Filter_t butterworth_aim_yaw;
+IIR_Filter_t butterworth_aim_pitch;
+IIR_Filter_t butterworth_final_angle;
 
 //定义filter
 double Group_Delay(Group_Delay_t *GD);
 double Blackman_Filter(Blackman_Filter_t *F);
-double Chebyshev_Type_II_IIR_LPF(IIR_Filter_t *F);
+double Butterworth_Filter(IIR_Filter_t *F);
 
 //extern 滤波后的数据，用于其他文件
 extern fp32 delayed_relative_angle;
-extern int32_t filtered_horizontal_pixel;//必须是int，别问
+extern fp32 filtered_horizontal_pixel;//extern 变量定义类型必须一致
+extern int32_t filtered_vertical_pixel;
 extern fp32 filtered_final_angle_set;
 
-
-static int filter_tx2_data_flag;
+//声明flag
+static int filter_tx2_yaw_data_flag;
 static int filter_final_angle_set_flag;
 
 
@@ -78,31 +81,43 @@ static int filter_final_angle_set_flag;
 static void Filter_Running(Gimbal_Control_t *gimbal_data)
 	{
 
-//		filter_tx2_data_flag=0;
-//		filter_final_angle_set_flag=0;
-//		
-//		//是否对tx2发来的自瞄数据进行滤波
-//		if(filter_tx2_data_flag==0)
-//		{
-//			filtered_horizontal_pixel=Blackman_Filter(&blackman);
-//		}
-//		else if(filter_tx2_data_flag==1)
-//		{
+		
+		filter_tx2_yaw_data_flag=1;
+		filter_final_angle_set_flag=0;//没什么效果
+		
+		
+		
+		
+		//是否对tx2发来的yaw轴自瞄数据进行滤波
+		if(filter_tx2_yaw_data_flag==1)
+		{
+			filtered_horizontal_pixel=Butterworth_Filter(&butterworth_aim_yaw);//Blackman_Filter(&blackman);
+		}
+		else if(filter_tx2_yaw_data_flag==0)
+		{
 			filtered_horizontal_pixel=tx2.horizontal_pixel;
-//		}
-//		
-//		
-//		
-//		
-//		//是否对最终角度进行滤波
-//		if(filter_final_angle_set_flag==0)
+		}
+		
+		//是否对tx2发来的pitch轴自瞄数据进行滤波，pitch轴数据无需平滑及预测
+//		if(filter_tx2_yaw_data_flag==1)
 //		{
-//			filtered_final_angle_set=Chebyshev_Type_II_IIR_LPF(&chebyshevII)/1.115;
+//			filtered_horizontal_pixel=Butterworth_Filter(&butterworth_aim_yaw);//Blackman_Filter(&blackman);
 //		}
-//		else if(filter_final_angle_set_flag==1)
+//		else if(filter_tx2_yaw_data_flag==0)
 //		{
+			filtered_vertical_pixel=tx2.horizontal_pixel;
+//		}
+		
+		
+		//是否对最终角度进行滤波
+		if(filter_final_angle_set_flag==1)
+		{
+			filtered_final_angle_set=Butterworth_Filter(&butterworth_final_angle);
+		}
+		else if(filter_final_angle_set_flag==0)
+		{
 			filtered_final_angle_set=final_angle_set;
-//		}		
+		}		
 		
 		
 		
@@ -137,11 +152,8 @@ void UserTask(void *pvParameters)
 				
 				//filter的输入
 				group_delay.group_delay_raw_value=gimbal_control.gimbal_yaw_motor.relative_angle;//group delay fir filter输入为编码器相对ecd_offset的角度(-pi/2,pi/2)			
-				
-//				blackman.blm_raw_value=tx2.horizontal_pixel;
-//				
-//				chebyshevII.raw_value=final_angle_set;
-				
+				butterworth_aim_yaw.raw_value=tx2.horizontal_pixel;
+				butterworth_final_angle.raw_value=final_angle_set;
 				
 				
 				Filter_Running(&gimbal_control);//filter进行计算

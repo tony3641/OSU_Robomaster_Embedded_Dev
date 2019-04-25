@@ -91,30 +91,27 @@ float *kalman_filter_calc(kalman_filter_t *F, float signal1, float signal2)
 }
 
 
-/* Chebyshev Type II LPF IIR Filter */
-
-#define N 10
+/* Butterworth LPF IIR Filter */
 const real64_T NUM[N] = {
-  4.728303125142e-05,-0.0003212344796949,0.0008974755504678,-0.001237838604899,
-  0.0006143145830995,0.0006143145830995,-0.001237838604899,0.0008974755504678,
-  -0.0003212344796949,4.728303125142e-05
+  4.937227088621e-11,3.949781670897e-10,1.382423584814e-09,2.764847169628e-09,
+  3.456058962035e-09,2.764847169628e-09,1.382423584814e-09,3.949781670897e-10,
+  4.937227088621e-11
 };
 
 const real64_T DEN[N] = {
-                   1,   -8.535326876791,    32.39009699572,   -71.72534454754,
-      102.1400805577,   -97.00060811724,    61.43343646769,   -25.02018206012,
-      5.946087737604,  -0.6282401568797
+                   1,   -7.454409929462,    24.32861936777,   -45.40334929689,
+      52.99495134458,   -39.61407677781,    18.51935008066,   -4.950374763522,
+     0.5792899873104
 };
 
-double Chebyshev_Type_II_IIR_LPF(IIR_Filter_t *F)
-{
+double Butterworth_Filter(IIR_Filter_t *F)
+{	
 	int i;
 	for(i=N-1; i>0; i--)
 	{
 		F->ybuf[i] = F->ybuf[i-1]; 
 		F->xbuf[i] = F->xbuf[i-1];
 	}
-
 	F->xbuf[0] = F->raw_value;
 	F->ybuf[0] = NUM[0] * F->xbuf[0];
 	for(i=1;i<N;i++)
@@ -124,10 +121,6 @@ double Chebyshev_Type_II_IIR_LPF(IIR_Filter_t *F)
 	F->filtered_value = F->ybuf[0];
 	return F->filtered_value;
 }
-
-
-
-
 
 ////////////////////////////////////////////////////////
 double Group_Delay(Group_Delay_t *GD)

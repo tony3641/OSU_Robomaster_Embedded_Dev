@@ -423,6 +423,78 @@ static void GIMBAL_Init(Gimbal_Control_t *gimbal_init)
 
 }
 
+
+
+#if GIMBAL_TEST_MODE
+
+//jscope观察数据
+int32_t yaw_ins_int_1000, pitch_ins_int_1000;
+int32_t yaw_ins_set_1000, pitch_ins_set_1000;
+int32_t pitch_relative_set_1000, pitch_relative_angle_1000;
+int32_t yaw_relative_set_1000, yaw_relative_angle_1000;
+int32_t yaw_speed_int_1000, pitch_speed_int_1000;
+int32_t yaw_speed_set_int_1000, pitch_speed_set_int_1000;
+
+//jscope自定义观察数据
+int32_t filtered_final_angle_set_jscope;
+int32_t delayed_relative_angle_1000;
+int32_t filtered_horizontal_pixel_jscope;
+int32_t filtered_horizontal_pixel_blackman_jscope;
+int32_t filtered_horizontal_pixel_chebyshevII_jscope;
+
+
+//外部文件传入数据
+fp32 delayed_relative_angle;//定义从user_task.c extern的group delay后的relative angle的值
+fp32 filtered_horizontal_pixel;
+fp32 filtered_final_angle_set;
+
+
+
+//传出数据
+extern int32_t final_angle_set;//最终改变的角度值
+
+
+
+
+
+static void J_scope_gimbal_test(void)
+{
+    yaw_ins_int_1000 = (int32_t)(gimbal_control.gimbal_yaw_motor.absolute_angle * 1000);
+    yaw_ins_set_1000 = (int32_t)(gimbal_control.gimbal_yaw_motor.absolute_angle_set * 1000);
+    yaw_speed_int_1000 = (int32_t)(gimbal_control.gimbal_yaw_motor.motor_gyro * 1000);
+    yaw_speed_set_int_1000 = (int32_t)(gimbal_control.gimbal_yaw_motor.motor_gyro_set * 1000);
+		yaw_relative_angle_1000 = (int32_t)(gimbal_control.gimbal_yaw_motor.relative_angle * 1000);
+    yaw_relative_set_1000 = (int32_t)(gimbal_control.gimbal_yaw_motor.relative_angle_set * 1000);
+
+    pitch_ins_int_1000 = (int32_t)(gimbal_control.gimbal_pitch_motor.absolute_angle * 1000);
+    pitch_ins_set_1000 = (int32_t)(gimbal_control.gimbal_pitch_motor.absolute_angle_set * 1000);
+    pitch_speed_int_1000 = (int32_t)(gimbal_control.gimbal_pitch_motor.motor_gyro * 1000);
+    pitch_speed_set_int_1000 = (int32_t)(gimbal_control.gimbal_pitch_motor.motor_gyro_set * 1000);
+    pitch_relative_angle_1000 = (int32_t)(gimbal_control.gimbal_pitch_motor.relative_angle * 1000);
+    pitch_relative_set_1000 = (int32_t)(gimbal_control.gimbal_pitch_motor.relative_angle_set * 1000);
+				
+		filtered_final_angle_set_jscope=(int32_t)(filtered_final_angle_set);
+		filtered_horizontal_pixel_jscope=(int32_t)(filtered_horizontal_pixel);
+
+		delayed_relative_angle_1000=(int32_t)(delayed_relative_angle*1000);
+
+	
+		final_angle_set=(int32_t)(filtered_horizontal_pixel_jscope-900-(delayed_relative_angle*572.9577951f));//应该是个定值	
+}
+
+#endif
+
+
+
+
+
+
+
+
+
+
+
+
 static void GIMBAL_Set_Mode(Gimbal_Control_t *gimbal_set_mode)
 {
     if (gimbal_set_mode == NULL)
@@ -716,7 +788,7 @@ static void gimbal_motor_relative_angle_control_yaw(Gimbal_Motor_t *gimbal_motor
 		static fp32 const data_to_deg_ratio=0.001745329252f;//2*pi弧度/360角度/10精度
 		static fp32 const yaw_mid=900.0f;
 		static fp32 const deadzone=0.0f;
-
+	
 		
 		//0.00017477385219321f 进双环后转化需要转180度的时间大约是20秒
 		
@@ -747,11 +819,6 @@ static void gimbal_motor_relative_angle_control_yaw(Gimbal_Motor_t *gimbal_motor
 //			gimbal_control.gimbal_yaw_motor.offset_ecd=gimbal_motor->gimbal_motor_measure->ecd;//按下右键时使当前编码器读值作为ecd_offset
 //		}
 //		
-		
-	
-
-
-
 
 		
 //没用		yaw_ecd_relative_center=(7191-gimbal_motor->gimbal_motor_measure->ecd);//相对中心编码器的值
@@ -763,8 +830,8 @@ static void gimbal_motor_relative_angle_control_yaw(Gimbal_Motor_t *gimbal_motor
 	
 		
 		
-		delta_yaw=(fp32)(gimbal_control.gimbal_rc_ctrl->rc.ch[2])*-0.000005f;
-																									+(fp32)(filtered_final_angle_set)*-data_to_deg_ratio*00//1000*coeff
+		delta_yaw=(fp32)(gimbal_control.gimbal_rc_ctrl->rc.ch[2])*-0.0005005f
+																									+(fp32)(filtered_final_angle_set)*-data_to_deg_ratio//1000*coeff
 																									+(fp32)(gimbal_control.gimbal_rc_ctrl->mouse.x)*-0.00025f;////-0.000025f//relative_angle_set鼠标用这个系数///////-0.0025f;//relative_angle+delta_yaw鼠标用这个系数
 		
 //		if(tx2.horizontal_pixel==900)
@@ -819,6 +886,7 @@ static void gimbal_motor_relative_angle_control_yaw(Gimbal_Motor_t *gimbal_motor
 		gimbal_motor->given_current = (int16_t)(gimbal_motor->current_set);
 		
 }
+int32_t filtered_vertical_pixel;
 static void gimbal_motor_relative_angle_control_pitch(Gimbal_Motor_t *gimbal_motor)//普通模式下PITCH电机
 {
     if (gimbal_motor == NULL)
@@ -828,15 +896,15 @@ static void gimbal_motor_relative_angle_control_pitch(Gimbal_Motor_t *gimbal_mot
 
 		static fp32 delta_pitch;//pitch电机角度目标变量
 		static fp32 coeff;
-		static fp32 data_to_deg_ratio=0.001745329252f;//2048电机编码值/900角度/系数1302
-		static fp32 const pitch_mid=400.0f;
+		static fp32 const data_to_deg_ratio=0.001745329252f;//2*pi弧度/360角度/10精度
+		static fp32 const pitch_mid=300.0f;
 		static fp32 const deadzone=10.0f;
 		
-//		//当can bus无tx2数据输入时默认为0，初始化tx2垂直数据为250以防开机云台旋转
-//		if(tx2.vertical_pixel==0)
-//		{
-//			tx2.vertical_pixel=pitch_mid;
-//		}
+		//当can bus无tx2数据输入时默认为0，初始化tx2垂直数据为250以防开机云台旋转
+		if(filtered_vertical_pixel==0)
+		{
+			filtered_vertical_pixel=pitch_mid;
+		}
 //		
 		
 //		//接受tx2数据死区下线
@@ -849,9 +917,9 @@ static void gimbal_motor_relative_angle_control_pitch(Gimbal_Motor_t *gimbal_mot
 //			coeff=0;
 //		}	
 //		
-		
+		//暂时停止pitch自瞄
 		delta_pitch=(fp32)(gimbal_control.gimbal_rc_ctrl->rc.ch[3])*-0.000005f
-																										+(fp32)(pitch_mid-pitch_mid)*data_to_deg_ratio/1000*coeff
+																										+(fp32)(pitch_mid-pitch_mid)*data_to_deg_ratio/1000
 																										+(fp32)(gimbal_control.gimbal_rc_ctrl->mouse.y)*0.00025f;////0.000025f//relative_angle_set时鼠标用这个系数///////-0.0025f;//relative_angle+delta_pitch鼠标用这个系数
     //更改relative_angle_set的值来达到锁定位置环
 		gimbal_motor->relative_angle_set+=delta_pitch;
@@ -890,58 +958,6 @@ static void gimbal_motor_raw_angle_control(Gimbal_Motor_t *gimbal_motor)
     gimbal_motor->current_set = gimbal_motor->raw_cmd_current;
     gimbal_motor->given_current = (int16_t)(gimbal_motor->current_set);
 }
-
-#if GIMBAL_TEST_MODE
-int32_t yaw_ins_int_1000, pitch_ins_int_1000;
-int32_t yaw_ins_set_1000, pitch_ins_set_1000;
-int32_t pitch_relative_set_1000, pitch_relative_angle_1000;
-int32_t yaw_relative_set_1000, yaw_relative_angle_1000;
-int32_t yaw_speed_int_1000, pitch_speed_int_1000;
-int32_t yaw_speed_set_int_1000, pitch_speed_set_int_1000;
-
-
-
-fp32 delayed_relative_angle;//定义从user_task.c extern的group delay后的relative angle的值
-extern int32_t final_angle_set;//最终改变的角度值
-fp32 filtered_final_angle_set;
-int32_t filtered_final_angle_set_jscope;
-
-int32_t delayed_relative_angle_1000;
-
-
-int32_t filtered_horizontal_pixel;
-int32_t filtered_horizontal_pixel_jscope;
-
-
-int32_t filtered_horizontal_pixel_blackman_jscope;
-int32_t filtered_horizontal_pixel_chebyshevII_jscope;
-
-static void J_scope_gimbal_test(void)
-{
-    yaw_ins_int_1000 = (int32_t)(gimbal_control.gimbal_yaw_motor.absolute_angle * 1000);
-    yaw_ins_set_1000 = (int32_t)(gimbal_control.gimbal_yaw_motor.absolute_angle_set * 1000);
-    yaw_speed_int_1000 = (int32_t)(gimbal_control.gimbal_yaw_motor.motor_gyro * 1000);
-    yaw_speed_set_int_1000 = (int32_t)(gimbal_control.gimbal_yaw_motor.motor_gyro_set * 1000);
-		yaw_relative_angle_1000 = (int32_t)(gimbal_control.gimbal_yaw_motor.relative_angle * 1000);
-    yaw_relative_set_1000 = (int32_t)(gimbal_control.gimbal_yaw_motor.relative_angle_set * 1000);
-
-    pitch_ins_int_1000 = (int32_t)(gimbal_control.gimbal_pitch_motor.absolute_angle * 1000);
-    pitch_ins_set_1000 = (int32_t)(gimbal_control.gimbal_pitch_motor.absolute_angle_set * 1000);
-    pitch_speed_int_1000 = (int32_t)(gimbal_control.gimbal_pitch_motor.motor_gyro * 1000);
-    pitch_speed_set_int_1000 = (int32_t)(gimbal_control.gimbal_pitch_motor.motor_gyro_set * 1000);
-    pitch_relative_angle_1000 = (int32_t)(gimbal_control.gimbal_pitch_motor.relative_angle * 1000);
-    pitch_relative_set_1000 = (int32_t)(gimbal_control.gimbal_pitch_motor.relative_angle_set * 1000);
-				
-		filtered_final_angle_set_jscope=filtered_final_angle_set;
-		filtered_horizontal_pixel_jscope=filtered_horizontal_pixel;
-//
-		delayed_relative_angle_1000=(int32_t)(delayed_relative_angle*1000);
-
-	
-		final_angle_set=(int32_t)(filtered_horizontal_pixel_jscope-900-(delayed_relative_angle*572.9577951f));//应该是个定值	
-}
-
-#endif
 
 static void GIMBAL_PID_Init(Gimbal_PID_t *pid, fp32 maxout, fp32 max_iout, fp32 kp, fp32 ki, fp32 kd)
 {
