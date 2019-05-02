@@ -102,9 +102,9 @@ void chassis_behaviour_mode_set(chassis_move_t *chassis_move_mode)
     //遥控器设置行为模式
 		if (switch_is_mid(chassis_move_mode->chassis_RC->rc.s[MODE_CHANNEL]))
     {
-        if(chassis_move_mode->chassis_RC->key.v & SWTICH_MODE)//按键切换模式，松开取消
+        if(chassis_move_mode->chassis_RC->key.v & SWTICH_MODE)//按键切换模式，松开取消 在gimbal_behaviour.c中一起更改
 				{
-					chassis_behaviour_mode = CHASSIS_INFANTRY_FOLLOW_GIMBAL_YAW;//底盘跟随云台模式
+					chassis_behaviour_mode = CHASSIS_NO_FOLLOW_YAW;//CHASSIS_INFANTRY_FOLLOW_GIMBAL_YAW;//底盘跟随云台模式
 				}
 				else
 				{
@@ -118,7 +118,7 @@ void chassis_behaviour_mode_set(chassis_move_t *chassis_move_mode)
     }
     else if (switch_is_up(chassis_move_mode->chassis_RC->rc.s[MODE_CHANNEL]))
     {
-        chassis_behaviour_mode = CHASSIS_INFANTRY_FOLLOW_GIMBAL_YAW;
+        chassis_behaviour_mode = CHASSIS_NO_FOLLOW_YAW;//测试中，上拨进入自瞄，所以不跟随云台；CHASSIS_INFANTRY_FOLLOW_GIMBAL_YAW; 上拨跟随云台
     }
 
     //云台进入某些状态的时候，底盘保持不动
@@ -254,7 +254,7 @@ static void chassis_infantry_follow_gimbal_yaw_control(fp32 *vx_set, fp32 *vy_se
 
     //摇摆角度是利用sin函数生成，swing_time 是sin函数的输入值
     static fp32 swing_time = 0.0f;
-    //swing_time 是计算出来的角度
+    //swing_angle 是计算出来的角度
     static fp32 swing_angle = 0.0f;
     //max_angle 是sin函数的幅值
     static fp32 max_angle = SWING_NO_MOVE_ANGLE;
@@ -262,7 +262,8 @@ static void chassis_infantry_follow_gimbal_yaw_control(fp32 *vx_set, fp32 *vy_se
     static fp32 const add_time = PI / 500.0f;
     //使能摇摆标志位
     static uint8_t swing_flag = 0;
-		//
+		
+
     //计算遥控器的原始输入信号
 
     //判断是否要摇摆
@@ -288,11 +289,11 @@ static void chassis_infantry_follow_gimbal_yaw_control(fp32 *vx_set, fp32 *vy_se
     if (chassis_move_rc_to_vector->chassis_RC->key.v & CHASSIS_FRONT_KEY || chassis_move_rc_to_vector->chassis_RC->key.v & CHASSIS_BACK_KEY ||
         chassis_move_rc_to_vector->chassis_RC->key.v & CHASSIS_LEFT_KEY || chassis_move_rc_to_vector->chassis_RC->key.v & CHASSIS_RIGHT_KEY)
     {
-        max_angle = SWING_MOVE_ANGLE*2;
+        max_angle = SWING_MOVE_ANGLE;
     }
     else
     {
-        max_angle = SWING_NO_MOVE_ANGLE*2;
+        max_angle = SWING_NO_MOVE_ANGLE;
     }
     //sin函数生成控制角度
     if (swing_flag)
@@ -310,7 +311,7 @@ static void chassis_infantry_follow_gimbal_yaw_control(fp32 *vx_set, fp32 *vy_se
         swing_time -= 2 * PI;
     }
 		*angle_set = swing_angle;
-
+	
 
 }
 
@@ -354,11 +355,89 @@ static void chassis_no_follow_yaw_control(fp32 *vx_set, fp32 *vy_set, fp32 *wz_s
     }
 
     chassis_rc_to_control_vector(vx_set, vy_set, chassis_move_rc_to_vector);
+		/////////////////////////////////////////////////////////////////////////
 		
+		
+		//摇摆角度是利用sin函数生成，swing_time 是sin函数的输入值
+    static fp32 swing_time = 0.0f;
+    //swing_angle 是计算出来的角度
+    static fp32 swing_angle = 0.0f;
+    //max_angle 是sin函数的幅值
+    static fp32 max_angle = SWING_NO_MOVE_ANGLE;
+    //add_time 是摇摆角度改变的快慢，最大越快
+    static fp32 const add_time = PI / 500.0f;
+    //使能摇摆标志位
+    static uint8_t swing_flag = 0;
+		
+
+    //计算遥控器的原始输入信号
+
+    //判断是否要摇摆
+    if (chassis_move_rc_to_vector->chassis_RC->key.v & SWING_KEY)//按一下进入摇摆模式
+    {
+        if (swing_flag == 0)
+        {
+            swing_flag = 1;
+            swing_time = 0.0f;
+        }
+		}
+//				//再按一下，如果正在摇摆，关闭摇摆
+//				else if (swing_flag == 1)
+//        {
+//            swing_flag = 0;
+//        }
+//    }
+		else
+		{
+				swing_flag = 0;
+		}
+		
+
+		
+		
+		
+		
+		
+		
+		
+    //判断键盘输入是不是在控制底盘运动，底盘在运动减小摇摆角度
+    if (chassis_move_rc_to_vector->chassis_RC->key.v & CHASSIS_FRONT_KEY || chassis_move_rc_to_vector->chassis_RC->key.v & CHASSIS_BACK_KEY ||
+        chassis_move_rc_to_vector->chassis_RC->key.v & CHASSIS_LEFT_KEY || chassis_move_rc_to_vector->chassis_RC->key.v & CHASSIS_RIGHT_KEY)
+    {
+        max_angle = SWING_MOVE_ANGLE*5;
+    }
+    else
+    {
+        max_angle = SWING_NO_MOVE_ANGLE*5;
+    }
+    //sin函数生成控制角度
+    if (swing_flag)
+    {
+//				if(arm_sin_f32(swing_time)>0)
+//				{
+//					swing_angle = max_angle;
+//				}
+//				else if(arm_sin_f32(swing_time)<0)
+//				{
+//					swing_angle = - max_angle;
+//				};
+				swing_angle=max_angle*arm_sin_f32(swing_time);
+        swing_time += add_time;
+    }
+    else
+    {
+        swing_angle = 0.0f;
+    }
+    //sin函数不超过2pi
+    if (swing_time > 2 * PI)
+    {
+        swing_time -= 2 * PI;
+    }
+		//*angle_set = swing_angle;
 	
 		
-		
-    *wz_set = -CHASSIS_WZ_RC_SEN * chassis_move_rc_to_vector->chassis_RC->rc.ch[CHASSIS_WZ_CHANNEL];//测试测试
+		//////////////////////////////////////////////////////
+    *wz_set = -CHASSIS_WZ_RC_SEN * chassis_move_rc_to_vector->chassis_RC->rc.ch[CHASSIS_WZ_CHANNEL]+swing_angle;;//测试测试
 }
 
 /**
@@ -380,6 +459,6 @@ static void chassis_open_set_control(fp32 *vx_set, fp32 *vy_set, fp32 *wz_set, c
 
     *vx_set = chassis_move_rc_to_vector->chassis_RC->rc.ch[CHASSIS_X_CHANNEL] * CHASSIS_OPEN_RC_SCALE;
     *vy_set = -chassis_move_rc_to_vector->chassis_RC->rc.ch[CHASSIS_Y_CHANNEL] * CHASSIS_OPEN_RC_SCALE;
-    *wz_set = -chassis_move_rc_to_vector->chassis_RC->rc.ch[CHASSIS_WZ_CHANNEL] * CHASSIS_OPEN_RC_SCALE;//测试测试
+    *wz_set = -chassis_move_rc_to_vector->chassis_RC->rc.ch[CHASSIS_WZ_CHANNEL] * CHASSIS_OPEN_RC_SCALE;
     return;
 }

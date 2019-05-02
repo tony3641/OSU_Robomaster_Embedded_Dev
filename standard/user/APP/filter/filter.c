@@ -1,47 +1,43 @@
-/* second-order kalman filter on stm32 */
+/**
+  ****************************(C) COPYRIGHT 2016 DJI****************************
+  * @file       filter.c
+  * @brief      Filter程序实现，包括Kalman，IIR，FIR和Group Delay
+  * @note       
+  * @history
+  *  Version    Date            Author          Modification
+  *  V1.0.0     May-01-2019     OSU-RM          1. 完成
+  *
+  @verbatim
+  ==============================================================================
 
-#include "arm_math.h"
+  ==============================================================================
+  @endverbatim
+  ****************************(C) COPYRIGHT 2019 OSU****************************
+  */
+
 #include "filter.h"
 #include "CAN_Receive.h"
-
-
-
-
-
-#define mat         arm_matrix_instance_f32 
-#define mat_init    arm_mat_init_f32
-#define mat_add     arm_mat_add_f32
-#define mat_sub     arm_mat_sub_f32
-#define mat_mult    arm_mat_mult_f32
-#define mat_trans   arm_mat_trans_f32
-#define mat_inv     arm_mat_inverse_f32
-
-typedef struct
-{
-  float raw_value;
-  float filtered_value[2];
-  mat xhat, xhatminus, z, A, H, AT, HT, Q, R, P, Pminus, K;
-} kalman_filter_t;
-
-typedef struct
-{
-  float raw_value;
-  float filtered_value[2];
-  float xhat_data[2], xhatminus_data[2], z_data[2],Pminus_data[4], K_data[4];
-  float P_data[4];
-  float AT_data[4], HT_data[4];
-  float A_data[4];
-  float H_data[4];
-  float Q_data[4];
-  float R_data[4];
-} kalman_filter_init_t;
+#include "buzzer.h"
+#include "led.h"
 
 void kalman_filter_init(kalman_filter_t *F, kalman_filter_init_t *I)
 {
+	//将I中数据导入F中
   mat_init(&F->xhat,2,1,(float *)I->xhat_data);
-
-  mat_init(&F->HT,2,2,(float *)I->HT_data);
-  mat_trans(&F->H, &F->HT);
+	mat_init(&F->xhatminus,2,1,(float *)I->xhatminus_data);
+	mat_init(&F->z,2,1,(float *)I->z_data);
+	mat_init(&F->Q,2,2,(float *)I->Q_data);
+	mat_init(&F->R,2,2,(float *)I->R_data);
+	mat_init(&F->K,2,2,(float *)I->K_data);
+	mat_init(&F->P,2,2,(float *)I->P_data);
+	mat_init(&F->Pminus,2,2,(float *)I->Pminus_data);
+	mat_init(&F->A,2,2,(float *)I->A_data);
+	mat_init(&F->H,2,2,(float *)I->H_data);
+	mat_init(&F->AT,2,2,(float *)I->AT_data);
+	mat_init(&F->HT,2,2,(float *)I->HT_data);
+	
+  mat_trans(&F->A, &F->AT);
+	mat_trans(&F->H, &F->HT);
 }
 
 float *kalman_filter_calc(kalman_filter_t *F, float signal1, float signal2)

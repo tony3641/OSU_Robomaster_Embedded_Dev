@@ -46,7 +46,7 @@
     }
 
 //底盘运动数据
-static chassis_move_t chassis_move;
+extern chassis_move_t chassis_move;
 
 //底盘初始化，主要是pid初始化
 static void chassis_init(chassis_move_t *chassis_move_init);
@@ -60,7 +60,8 @@ void chassis_mode_change_control_transit(chassis_move_t *chassis_move_transit);
 static void chassis_set_contorl(chassis_move_t *chassis_move_control);
 //底盘PID计算以及运动分解
 static void chassis_control_loop(chassis_move_t *chassis_move_control_loop);
-
+//jscope
+static void J_scope_chassis_test(void);
 #if INCLUDE_uxTaskGetStackHighWaterMark
 uint32_t chassis_high_water;
 #endif
@@ -90,6 +91,8 @@ void chassis_task(void *pvParameters)
         chassis_set_contorl(&chassis_move);
         //底盘控制PID计算
         chassis_control_loop(&chassis_move);
+			
+				J_scope_chassis_test();
 
         if (!(toe_is_error(ChassisMotor1TOE) || toe_is_error(ChassisMotor2TOE) || toe_is_error(ChassisMotor3TOE) || toe_is_error(ChassisMotor4TOE)))
         {
@@ -298,6 +301,8 @@ static void chassis_set_contorl(chassis_move_t *chassis_move_control)
     if (chassis_move_control->chassis_mode == CHASSIS_VECTOR_FOLLOW_GIMBAL_YAW)
     {
         fp32 sin_yaw = 0.0f, cos_yaw = 0.0f;
+				//jscope
+				
         //旋转控制底盘速度方向，保证前进方向是云台方向，有利于运动平稳
         sin_yaw = arm_sin_f32(-chassis_move_control->chassis_yaw_motor->relative_angle);
         cos_yaw = arm_cos_f32(-chassis_move_control->chassis_yaw_motor->relative_angle);
@@ -307,7 +312,8 @@ static void chassis_set_contorl(chassis_move_t *chassis_move_control)
         chassis_move_control->chassis_relative_angle_set = rad_format(angle_set);
         //计算旋转PID角速度
         chassis_move_control->wz_set = -PID_Calc(&chassis_move_control->chassis_angle_pid, chassis_move_control->chassis_yaw_motor->relative_angle, chassis_move_control->chassis_relative_angle_set);
-        //速度限幅
+        
+				//速度限幅
         chassis_move_control->vx_set = fp32_constrain(chassis_move_control->vx_set, chassis_move_control->vx_min_speed, chassis_move_control->vx_max_speed);
         chassis_move_control->vy_set = fp32_constrain(chassis_move_control->vy_set, chassis_move_control->vy_min_speed, chassis_move_control->vy_max_speed);
     }
@@ -343,6 +349,32 @@ static void chassis_set_contorl(chassis_move_t *chassis_move_control)
         chassis_move_control->chassis_cmd_slow_set_vy.out = 0.0f;
     }
 }
+
+
+
+
+
+int32_t wz_set_jscope;
+static void J_scope_chassis_test(void)
+{
+	wz_set_jscope=(int32_t)(chassis_move.wz_set*100);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 static void chassis_vector_to_mecanum_wheel_speed(const fp32 vx_set, const fp32 vy_set, const fp32 wz_set, fp32 wheel_speed[4])
 {
     //旋转的时候， 由于云台靠前，所以是前面两轮 0 ，1 旋转的速度变慢， 后面两轮 2,3 旋转的速度变快

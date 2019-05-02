@@ -24,3 +24,12 @@
 .\objects\user_task.o: ..\user\APP\filter\tmwtypes.h
 .\objects\user_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\limits.h
 .\objects\user_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\float.h
+.\objects\user_task.o: ..\User\DSP\Include\arm_math.h
+.\objects\user_task.o: ..\CMSIS\core_cm4.h
+.\objects\user_task.o: ..\CMSIS\core_cmInstr.h
+.\objects\user_task.o: ..\CMSIS\core_cmFunc.h
+.\objects\user_task.o: ..\CMSIS\core_cmSimd.h
+.\objects\user_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\user_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\objects\user_task.o: ..\User\APP\Chassis_Task\chassis_task.h
+.\objects\user_task.o: ..\user\user_lib\user_lib.h

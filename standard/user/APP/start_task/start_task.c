@@ -41,7 +41,7 @@ TaskHandle_t GIMBALTask_Handler;
 TaskHandle_t ChassisTask_Handler;
 
 #define User_TASK_PRIO 4
-#define User_STK_SIZE 256
+#define User_STK_SIZE 512
 static TaskHandle_t UserTask_Handler;
 
 #define START_TASK_PRIO 1

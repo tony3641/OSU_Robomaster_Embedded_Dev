@@ -30,11 +30,11 @@
 
 
 
-
 //自定义
 #include "gimbal_task.h"
 #include "filter.h"
 #include "CAN_Receive.h"
+#include "chassis_task.h"
 
 
 #define user_is_error() toe_is_error(errorListLength)
@@ -52,23 +52,37 @@ fp32 angle_degree[3] = {0.0f, 0.0f, 0.0f};
 Gimbal_Control_t gimbal_control;
 tx2_aim_package_t tx2;
 int32_t final_angle_set;
+//底盘运动数据
+chassis_move_t chassis_move;
 
 //声明filter类型
-Group_Delay_t group_delay;
+Group_Delay_t group_delay_aim;
+Group_Delay_t group_delay_chassis_speed;
+
 Blackman_Filter_t blackman;
+
 IIR_Filter_t butterworth_aim_yaw;
 IIR_Filter_t butterworth_aim_pitch;
 IIR_Filter_t butterworth_final_angle;
+
+kalman_filter_t kalman;
+kalman_filter_init_t kalman_initial;
+
 
 //定义filter
 double Group_Delay(Group_Delay_t *GD);
 double Blackman_Filter(Blackman_Filter_t *F);
 double Butterworth_Filter(IIR_Filter_t *F);
+float *kalman_filter_calc(kalman_filter_t *F, float signal1, float signal2);
+//初始化Kalman
+void kalman_filter_init(kalman_filter_t *F, kalman_filter_init_t *I);
 
 //extern 滤波后的数据，用于其他文件
+//extern 变量定义类型必须一致
 extern fp32 delayed_relative_angle;
-extern fp32 filtered_horizontal_pixel;//extern 变量定义类型必须一致
-extern int32_t filtered_vertical_pixel;
+extern fp32 delayed_wz_set;
+extern fp32 filtered_horizontal_pixel;
+extern fp32 filtered_vertical_pixel;
 extern fp32 filtered_final_angle_set;
 
 //声明flag
@@ -77,21 +91,19 @@ static int filter_final_angle_set_flag;
 
 
 
-
 static void Filter_Running(Gimbal_Control_t *gimbal_data)
-	{
+{
 
 		
 		filter_tx2_yaw_data_flag=1;
-		filter_final_angle_set_flag=0;//没什么效果
-		
-		
-		
+		filter_final_angle_set_flag=0;
+	
 		
 		//是否对tx2发来的yaw轴自瞄数据进行滤波
 		if(filter_tx2_yaw_data_flag==1)
 		{
-			filtered_horizontal_pixel=Butterworth_Filter(&butterworth_aim_yaw);//Blackman_Filter(&blackman);
+			filtered_horizontal_pixel=kalman_filter_calc(&kalman, tx2.horizontal_pixel, 0)[0];
+//			filtered_horizontal_pixel=Butterworth_Filter(&butterworth_aim_yaw);//Blackman_Filter(&blackman);
 		}
 		else if(filter_tx2_yaw_data_flag==0)
 		{
@@ -105,14 +117,14 @@ static void Filter_Running(Gimbal_Control_t *gimbal_data)
 //		}
 //		else if(filter_tx2_yaw_data_flag==0)
 //		{
-			filtered_vertical_pixel=tx2.horizontal_pixel;
+			filtered_vertical_pixel=tx2.vertical_pixel;
 //		}
 		
 		
 		//是否对最终角度进行滤波
 		if(filter_final_angle_set_flag==1)
 		{
-			filtered_final_angle_set=Butterworth_Filter(&butterworth_final_angle);
+			filtered_final_angle_set=kalman_filter_calc(&kalman, final_angle_set, 0)[0];
 		}
 		else if(filter_final_angle_set_flag==0)
 		{
@@ -120,20 +132,67 @@ static void Filter_Running(Gimbal_Control_t *gimbal_data)
 		}		
 		
 		
-		
-		
-		
-		delayed_relative_angle=Group_Delay(&group_delay);//经过x ms delay后的编码器的值
-
+		delayed_relative_angle=Group_Delay(&group_delay_aim);//经过x ms delay后的编码器的值
+		delayed_wz_set=Group_Delay(&group_delay_chassis_speed);
 	}
 
 
 void UserTask(void *pvParameters)
 {
 
-    const volatile fp32 *angle;
-    //获取姿态角指针
-    angle = get_INS_angle_point();
+		const volatile fp32 *angle;
+		//获取姿态角指针
+		angle = get_INS_angle_point();
+	
+		//初始化Kalman Filter矩阵
+		//Covariance of the Process Noise
+		kalman_initial.Q_data[0]=1;			kalman_initial.Q_data[1]=0;
+		kalman_initial.Q_data[2]=0;			kalman_initial.Q_data[3]=1;
+		
+		//Covariance of the Measurement Noise
+		kalman_initial.R_data[0]=7000;	kalman_initial.R_data[1]=0;
+		kalman_initial.R_data[2]=0;			kalman_initial.R_data[3]=10000;
+		
+		//Prior Estimate
+		kalman_initial.xhat_data[0]=0;
+		kalman_initial.xhat_data[1]=0;
+		
+		//Last State of Prior Estimate
+		kalman_initial.xhatminus_data[0]=0;			
+		kalman_initial.xhatminus_data[1]=0;	
+		
+		//Actual Measurement of x
+		kalman_initial.z_data[0]=0;
+		kalman_initial.z_data[1]=0;
+	
+		//Covariance of the Estimation-Error
+		kalman_initial.Pminus_data[0]=0;kalman_initial.Pminus_data[1]=0;
+		kalman_initial.Pminus_data[2]=0;kalman_initial.Pminus_data[3]=0;
+		
+		//Kalman Gain
+		kalman_initial.K_data[0]=0;			kalman_initial.K_data[1]=0;
+		kalman_initial.K_data[2]=0;			kalman_initial.K_data[3]=0;
+
+		//Initial Covariance of the Estimation-Error
+		kalman_initial.P_data[0]=0;			kalman_initial.P_data[1]=0;
+		kalman_initial.P_data[2]=0; 		kalman_initial.P_data[3]=0;
+	
+		//System Term
+		kalman_initial.A_data[0]=1;			kalman_initial.A_data[1]=0;
+		kalman_initial.A_data[2]=0;			kalman_initial.A_data[3]=1;
+		
+		kalman_initial.AT_data[0]=0;		kalman_initial.AT_data[1]=0;
+		kalman_initial.AT_data[2]=0;		kalman_initial.AT_data[3]=0;
+		
+		//Observation Model
+		kalman_initial.H_data[0]=1;			kalman_initial.H_data[1]=0;
+		kalman_initial.H_data[2]=0;			kalman_initial.H_data[3]=1;
+		
+		kalman_initial.HT_data[0]=0;		kalman_initial.HT_data[1]=0;
+		kalman_initial.HT_data[2]=0;		kalman_initial.HT_data[3]=0;
+		
+		//初始化Kalman Filter
+		kalman_filter_init(&kalman,&kalman_initial);
     while (1)
     {
 
@@ -151,10 +210,11 @@ void UserTask(void *pvParameters)
 				
 				
 				//filter的输入
-				group_delay.group_delay_raw_value=gimbal_control.gimbal_yaw_motor.relative_angle;//group delay fir filter输入为编码器相对ecd_offset的角度(-pi/2,pi/2)			
-				butterworth_aim_yaw.raw_value=tx2.horizontal_pixel;
-				butterworth_final_angle.raw_value=final_angle_set;
-				
+				group_delay_aim.group_delay_raw_value=gimbal_control.gimbal_yaw_motor.relative_angle;//group delay fir filter输入为编码器相对ecd_offset的角度(-pi/2,pi/2)
+				group_delay_chassis_speed.group_delay_raw_value=chassis_move.wz_set;
+//				butterworth_aim_yaw.raw_value=tx2.horizontal_pixel;
+//				butterworth_final_angle.raw_value=final_angle_set;
+
 				
 				Filter_Running(&gimbal_control);//filter进行计算
 				

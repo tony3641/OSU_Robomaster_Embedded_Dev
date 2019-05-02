@@ -65,7 +65,7 @@
 //yaw 角度环 角度由编码器 PID参数以及 PID最大输出，积分输出
 #define YAW_ENCODE_RELATIVE_PID_KP 8.0f//8.0f
 #define YAW_ENCODE_RELATIVE_PID_KI 0.0f
-#define YAW_ENCODE_RELATIVE_PID_KD 0.04f//0
+#define YAW_ENCODE_RELATIVE_PID_KD 0.07f//0
 #define YAW_ENCODE_RELATIVE_PID_MAX_OUT 10.0f
 #define YAW_ENCODE_RELATIVE_PID_MAX_IOUT 0.0f
 
@@ -140,8 +140,9 @@
 typedef enum
 {
     GIMBAL_MOTOR_RAW = 0, //电机原始值控制
-    GIMBAL_MOTOR_GYRO,    //电机陀螺仪角度控制
+    GIMBAL_MOTOR_GYRO,    //电机陀螺仪角度控制，已弃用
     GIMBAL_MOTOR_ENCONDE, //电机编码值角度控制
+		GIMBAL_MOTOR_AIM,			//电机自瞄系统自动控制
 } gimbal_motor_mode_e;
 
 typedef struct
