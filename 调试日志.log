@@ -1,3 +1,10 @@
+May 1, 2019
+Kalman Filter测试完成，任意角度开启自瞄完成
+延迟太大了，扭腰模式再议
+下一阶段目标：	与速度结合完成预测
+	   	完成底盘功率限制
+		修改跟随模式为直接操控底盘旋转，云台锁定不动
+
 April 24, 2019
 优化初步完成，选用Butterworth IIR(50ms Group Delay)，CV发送延迟(约190ms)，Kalman学习中
 目标：	定义当前relative_angle为reference，以便在任意角度开启自瞄
