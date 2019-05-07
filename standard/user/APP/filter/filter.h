@@ -57,17 +57,17 @@ typedef struct{
 }Blackman_Filter_t;
 
 
-#define DELAY_MS 335//这他妈怎么每次都不一样？？？？？？？？？
+#define DELAY_MS 300//180 tx2 300 nano
 typedef struct{
 	double group_delay_raw_value;
 	double group_delay_buffer[DELAY_MS];
 }Group_Delay_t;
 
-#define DELAY_MS1 250
+#define CHASSIS_DELAY_MS 1//底盘摇摆？
 typedef struct{
-	double group_delay_raw_value;
-	double group_delay_buffer[DELAY_MS1];
-}Group_Delay_t1;
+	double group_delay_chassis_raw_value;
+	double group_delay_chassis_buffer[CHASSIS_DELAY_MS];
+}Group_Delay_Chassis_t;
 
 
 #define mat         arm_matrix_instance_f32 
@@ -78,26 +78,26 @@ typedef struct{
 #define mat_trans   arm_mat_trans_f32
 #define mat_inv     arm_mat_inverse_f32
 
+#define MATRIX_ORDER 4
 typedef struct
 {
   fp32 raw_value;
-  fp32 filtered_value[2];
+  fp32 filtered_value[MATRIX_ORDER];
   mat xhat, xhatminus, z, A, H, AT, HT, Q, R, P, Pminus, K;
 } kalman_filter_t;
 
 typedef struct
 {
-  fp32 raw_value;
-  fp32 filtered_value[2];
-  fp32 xhat_data[2];						//Prior Estimate
-	fp32 xhatminus_data[2];			//Last State of Prior Estimate
-	fp32 z_data[2];							//Actual Measurement of x
-	fp32 Pminus_data[4];					//Covariance of the Estimation-Error
-	fp32 K_data[4];							//Kalman Gain
-  fp32 P_data[4];							//Initial Covariance of the Estimation-Error
-  fp32 AT_data[4], HT_data[4];	//Transpose Matrix
-  fp32 A_data[4];							//System Term
-  fp32 H_data[4];							//Observation Model
-  fp32 Q_data[4];							//Covariance of the Process Noise
-  fp32 R_data[4];							//Covariance of the Measurement Noise
+  fp32 filtered_value[MATRIX_ORDER];
+  fp32 xhat_data[MATRIX_ORDER];						//Prior Estimate
+	fp32 xhatminus_data[MATRIX_ORDER];			//Last State of Prior Estimate
+	fp32 z_data[MATRIX_ORDER];							//Actual Measurement of x
+	fp32 Pminus_data[MATRIX_ORDER*MATRIX_ORDER];					//Covariance of the Estimation-Error
+	fp32 K_data[MATRIX_ORDER*MATRIX_ORDER];							//Kalman Gain
+  fp32 P_data[MATRIX_ORDER*MATRIX_ORDER];							//Initial Covariance of the Estimation-Error
+  fp32 AT_data[MATRIX_ORDER*MATRIX_ORDER], HT_data[MATRIX_ORDER*MATRIX_ORDER];	//Transpose Matrix
+  fp32 A_data[MATRIX_ORDER*MATRIX_ORDER];							//System Term
+  fp32 H_data[MATRIX_ORDER*MATRIX_ORDER];							//Observation Model
+  fp32 Q_data[MATRIX_ORDER*MATRIX_ORDER];							//Covariance of the Process Noise
+  fp32 R_data[MATRIX_ORDER*MATRIX_ORDER];							//Covariance of the Measurement Noise
 } kalman_filter_init_t;

@@ -23,35 +23,43 @@
 void kalman_filter_init(kalman_filter_t *F, kalman_filter_init_t *I)
 {
 	//将I中数据导入F中
-  mat_init(&F->xhat,2,1,(float *)I->xhat_data);
-	mat_init(&F->xhatminus,2,1,(float *)I->xhatminus_data);
-	mat_init(&F->z,2,1,(float *)I->z_data);
-	mat_init(&F->Q,2,2,(float *)I->Q_data);
-	mat_init(&F->R,2,2,(float *)I->R_data);
-	mat_init(&F->K,2,2,(float *)I->K_data);
-	mat_init(&F->P,2,2,(float *)I->P_data);
-	mat_init(&F->Pminus,2,2,(float *)I->Pminus_data);
-	mat_init(&F->A,2,2,(float *)I->A_data);
-	mat_init(&F->H,2,2,(float *)I->H_data);
-	mat_init(&F->AT,2,2,(float *)I->AT_data);
-	mat_init(&F->HT,2,2,(float *)I->HT_data);
+  mat_init(&F->xhat,MATRIX_ORDER,1,(float *)I->xhat_data);
+	mat_init(&F->xhatminus,MATRIX_ORDER,1,(float *)I->xhatminus_data);
+	mat_init(&F->z,MATRIX_ORDER,1,(float *)I->z_data);
+	mat_init(&F->Q,MATRIX_ORDER,MATRIX_ORDER,(float *)I->Q_data);
+	mat_init(&F->R,MATRIX_ORDER,MATRIX_ORDER,(float *)I->R_data);
+	mat_init(&F->K,MATRIX_ORDER,MATRIX_ORDER,(float *)I->K_data);
+	mat_init(&F->P,MATRIX_ORDER,MATRIX_ORDER,(float *)I->P_data);
+	mat_init(&F->Pminus,MATRIX_ORDER,MATRIX_ORDER,(float *)I->Pminus_data);
+	mat_init(&F->A,MATRIX_ORDER,MATRIX_ORDER,(float *)I->A_data);
+	mat_init(&F->H,MATRIX_ORDER,MATRIX_ORDER,(float *)I->H_data);
+	mat_init(&F->AT,MATRIX_ORDER,MATRIX_ORDER,(float *)I->AT_data);
+	mat_init(&F->HT,MATRIX_ORDER,MATRIX_ORDER,(float *)I->HT_data);
 	
   mat_trans(&F->A, &F->AT);
 	mat_trans(&F->H, &F->HT);
 }
 
-float *kalman_filter_calc(kalman_filter_t *F, float signal1, float signal2)
+float *kalman_filter_calc(kalman_filter_t *F, float x, float y, float vx, float vy)
 {
-  float TEMP_data[4] = {0, 0, 0, 0};
-  float TEMP_data21[2] = {0, 0};
-  mat TEMP,TEMP21;
+  float TEMP_data[MATRIX_ORDER*MATRIX_ORDER] = {0, 0, 0, 0,
+																								0, 0, 0, 0,
+																								0, 0, 0, 0,
+																								0, 0, 0, 0};
+  float TEMP_data41[MATRIX_ORDER] = {0,
+																		 0,
+																		 0,
+																		 0};
+  mat TEMP,TEMP41;
 
-  mat_init(&TEMP,2,2,(float *)TEMP_data);
-  mat_init(&TEMP21,2,1,(float *)TEMP_data21);
+  mat_init(&TEMP,MATRIX_ORDER,MATRIX_ORDER,(float *)TEMP_data);
+  mat_init(&TEMP41,MATRIX_ORDER,1,(float *)TEMP_data41);
 
-  F->z.pData[0] = signal1;
-  F->z.pData[1] = signal2;
-
+  F->z.pData[0] = x;
+  F->z.pData[1] = y;
+  F->z.pData[2] = vx;
+  F->z.pData[3] = vy;
+	
   //1. xhat'(k)= A xhat(k-1)
   mat_mult(&F->A, &F->xhat, &F->xhatminus);
 
@@ -70,10 +78,10 @@ float *kalman_filter_calc(kalman_filter_t *F, float signal1, float signal2)
   mat_mult(&TEMP, &F->P, &F->K);
 
   //4. xhat(k) = xhat'(k) + K(k) (z(k) - H xhat'(k))
-  mat_mult(&F->H, &F->xhatminus, &TEMP21);
-  mat_sub(&F->z, &TEMP21, &F->xhat);
-  mat_mult(&F->K, &F->xhat, &TEMP21);
-  mat_add(&F->xhatminus, &TEMP21, &F->xhat);
+  mat_mult(&F->H, &F->xhatminus, &TEMP41);
+  mat_sub(&F->z, &TEMP41, &F->xhat);
+  mat_mult(&F->K, &F->xhat, &TEMP41);
+  mat_add(&F->xhatminus, &TEMP41, &F->xhat);
 
   //5. P(k) = (1-K(k)H)P'(k)
   mat_mult(&F->K, &F->H, &F->P);
@@ -82,6 +90,8 @@ float *kalman_filter_calc(kalman_filter_t *F, float signal1, float signal2)
 
   F->filtered_value[0] = F->xhat.pData[0];
   F->filtered_value[1] = F->xhat.pData[1];
+	F->filtered_value[2] = F->xhat.pData[2];
+  F->filtered_value[3] = F->xhat.pData[3];
 
   return F->filtered_value;
 }
@@ -131,6 +141,19 @@ double Group_Delay(Group_Delay_t *GD)
 	GD->group_delay_buffer[0] = GD->group_delay_raw_value;
 
 	return GD->group_delay_buffer[DELAY_MS-1];
+}
+double Group_Delay_Chassis(Group_Delay_Chassis_t *GD)
+{
+	int i;
+	for(i=CHASSIS_DELAY_MS-1; i>0; i--)
+	{
+
+		GD->group_delay_chassis_buffer[i] = GD->group_delay_chassis_buffer[i-1];
+	}
+
+	GD->group_delay_chassis_buffer[0] = GD->group_delay_chassis_raw_value;
+
+	return GD->group_delay_chassis_buffer[CHASSIS_DELAY_MS-1];
 }
 ///////////////////////////////////////////////////////
 

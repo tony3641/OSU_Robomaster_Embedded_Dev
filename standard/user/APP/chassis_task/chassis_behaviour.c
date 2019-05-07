@@ -251,8 +251,8 @@ static void chassis_infantry_follow_gimbal_yaw_control(fp32 *vx_set, fp32 *vy_se
     }
 
     chassis_rc_to_control_vector(vx_set, vy_set, chassis_move_rc_to_vector);
-
-    //摇摆角度是利用sin函数生成，swing_time 是sin函数的输入值
+		
+		//摇摆角度是利用sin函数生成，swing_time 是sin函数的输入值
     static fp32 swing_time = 0.0f;
     //swing_angle 是计算出来的角度
     static fp32 swing_angle = 0.0f;
@@ -274,16 +274,18 @@ static void chassis_infantry_follow_gimbal_yaw_control(fp32 *vx_set, fp32 *vy_se
             swing_flag = 1;
             swing_time = 0.0f;
         }
-				//再按一下，如果正在摇摆，关闭摇摆
-				else if (swing_flag == 1)
-        {
-            swing_flag = 0;
-        }
-    }
-//    else
-//    {
-//        swing_flag = 0;
+		}
+//				//再按一下，如果正在摇摆，关闭摇摆
+//				else if (swing_flag == 1)
+//        {
+//            swing_flag = 0;
+//        }
 //    }
+		else
+		{
+				swing_flag = 0;
+		}
+		
 
     //判断键盘输入是不是在控制底盘运动，底盘在运动减小摇摆角度
     if (chassis_move_rc_to_vector->chassis_RC->key.v & CHASSIS_FRONT_KEY || chassis_move_rc_to_vector->chassis_RC->key.v & CHASSIS_BACK_KEY ||
@@ -373,32 +375,26 @@ static void chassis_no_follow_yaw_control(fp32 *vx_set, fp32 *vy_set, fp32 *wz_s
     //计算遥控器的原始输入信号
 
     //判断是否要摇摆
-    if (chassis_move_rc_to_vector->chassis_RC->key.v & SWING_KEY)//按一下进入摇摆模式
-    {
-        if (swing_flag == 0)
-        {
-            swing_flag = 1;
-            swing_time = 0.0f;
-        }
-		}
-//				//再按一下，如果正在摇摆，关闭摇摆
-//				else if (swing_flag == 1)
+//    if (switch_is_up(chassis_move_rc_to_vector->chassis_RC->rc.s[1]))//按一下进入摇摆模式
+//    {
+//        if (swing_flag == 0)
 //        {
-//            swing_flag = 0;
+//            swing_flag = 1;
+//            swing_time = 0.0f;
 //        }
-//    }
-		else
-		{
-				swing_flag = 0;
-		}
+//		}
+////				//再按一下，如果正在摇摆，关闭摇摆
+////				else if (swing_flag == 1)
+////        {
+////            swing_flag = 0;
+////        }
+////    }
+//		else
+//		{
+//				swing_flag = 0;
+//		}
 		
-
-		
-		
-		
-		
-		
-		
+	
 		
     //判断键盘输入是不是在控制底盘运动，底盘在运动减小摇摆角度
     if (chassis_move_rc_to_vector->chassis_RC->key.v & CHASSIS_FRONT_KEY || chassis_move_rc_to_vector->chassis_RC->key.v & CHASSIS_BACK_KEY ||
@@ -421,7 +417,7 @@ static void chassis_no_follow_yaw_control(fp32 *vx_set, fp32 *vy_set, fp32 *wz_s
 //				{
 //					swing_angle = - max_angle;
 //				};
-				swing_angle=max_angle*arm_sin_f32(swing_time);
+				swing_angle=max_angle*(arm_sin_f32(swing_time));
         swing_time += add_time;
     }
     else
@@ -433,12 +429,13 @@ static void chassis_no_follow_yaw_control(fp32 *vx_set, fp32 *vy_set, fp32 *wz_s
     {
         swing_time -= 2 * PI;
     }
-		//*angle_set = swing_angle;
+//		*angle_set = swing_angle;
 	
 		
 		//////////////////////////////////////////////////////
     *wz_set = -CHASSIS_WZ_RC_SEN * chassis_move_rc_to_vector->chassis_RC->rc.ch[CHASSIS_WZ_CHANNEL]+swing_angle;;//测试测试
 }
+
 
 /**
   * @brief          底盘开环的行为状态机下，底盘模式是raw原生状态，故而设定值会直接发送到can总线上
