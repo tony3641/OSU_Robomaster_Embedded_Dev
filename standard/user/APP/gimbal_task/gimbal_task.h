@@ -29,14 +29,14 @@
 #define PITCH_SPEED_PID_KP 2000.0f
 #define PITCH_SPEED_PID_KI 20.0f
 #define PITCH_SPEED_PID_KD 0.0f
-#define PITCH_SPEED_PID_MAX_OUT 30000.0f
+#define PITCH_SPEED_PID_MAX_OUT 10000.0f//30000.0f
 #define PITCH_SPEED_PID_MAX_IOUT 5000.0f
 
 //yaw 速度环 PID参数以及 PID最大输出，积分输出
 #define YAW_SPEED_PID_KP 2200.0f//2200.0f
 #define YAW_SPEED_PID_KI 10.0f
 #define YAW_SPEED_PID_KD 0.0f
-#define YAW_SPEED_PID_MAX_OUT 10000.0f//10000.0f
+#define YAW_SPEED_PID_MAX_OUT 10000.0f//30000.0f
 #define YAW_SPEED_PID_MAX_IOUT 5000.0f
 
 //pitch 角度环 角度由陀螺仪解算 PID参数以及 PID最大输出，积分输出
@@ -63,9 +63,9 @@
 #define PITCH_ENCODE_RELATIVE_PID_MAX_IOUT 0.0f
 
 //yaw 角度环 角度由编码器 PID参数以及 PID最大输出，积分输出
-#define YAW_ENCODE_RELATIVE_PID_KP 12.0f//8.0f
+#define YAW_ENCODE_RELATIVE_PID_KP 8.0f//8.0f
 #define YAW_ENCODE_RELATIVE_PID_KI 0.0f
-#define YAW_ENCODE_RELATIVE_PID_KD 0.00f//0
+#define YAW_ENCODE_RELATIVE_PID_KD 0.0f//0
 #define YAW_ENCODE_RELATIVE_PID_MAX_OUT 10.0f
 #define YAW_ENCODE_RELATIVE_PID_MAX_IOUT 0.0f
 
@@ -179,7 +179,13 @@ typedef struct
 
     fp32 relative_angle;     //rad
     fp32 relative_angle_set; //rad
-    fp32 absolute_angle;     //rad
+    fp32 absolute_angle;     //rad 经过计算后的数值
+	
+	
+		fp32 absolute_angle_raw; //rad 陀螺仪中直接读取的数值
+	
+	
+	
     fp32 absolute_angle_set; //rad
     fp32 motor_gyro;         //rad/s
     fp32 motor_gyro_set;

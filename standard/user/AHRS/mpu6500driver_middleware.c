@@ -49,7 +49,6 @@ void mpu6500_GPIO_init(void)
 
 #endif
 }
-
 void mpu6500_com_init(void)
 {
 

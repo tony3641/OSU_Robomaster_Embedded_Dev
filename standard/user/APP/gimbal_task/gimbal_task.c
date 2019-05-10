@@ -106,8 +106,8 @@ static void gimbal_motor_raw_angle_control(Gimbal_Motor_t *gimbal_motor);
 static void GIMBAL_PID_Init(Gimbal_PID_t *pid, fp32 maxout, fp32 intergral_limit, fp32 kp, fp32 ki, fp32 kd);
 static fp32 GIMBAL_PID_Calc(Gimbal_PID_t *pid, fp32 get, fp32 set, fp32 error_delta);
 
-
-
+//陀螺仪绝对角度临时参照值
+fp32 temp_absolute_angle_reference;
 
 
 
@@ -432,7 +432,7 @@ static void GIMBAL_Init(Gimbal_Control_t *gimbal_init)
 #if GIMBAL_TEST_MODE
 
 //jscope观察数据
-int32_t yaw_ins_int_1000, pitch_ins_int_1000;
+int32_t yaw_ins_int_1000, pitch_ins_int_1000, yaw_ins_raw_int_1000;
 int32_t yaw_ins_set_1000, pitch_ins_set_1000;
 int32_t pitch_relative_set_1000, pitch_relative_angle_1000;
 int32_t yaw_relative_set_1000, yaw_relative_angle_1000;
@@ -441,17 +441,16 @@ int32_t yaw_speed_set_int_1000, pitch_speed_set_int_1000;
 
 
 //jscope自定义观察数据
-int32_t filtered_yaw_final_angle_set_jscope;
-int32_t filtered_pitch_final_angle_set_jscope;
-int32_t delayed_relative_angle_jscope;
+int32_t filtered_final_yaw_angle_set_jscope;
+int32_t filtered_final_pitch_angle_set_jscope;
 int32_t delayed_yaw_absolute_angle_jscope;
 int32_t delayed_pitch_relative_angle_jscope;
 int32_t filtered_horizontal_pixel_jscope;
 int32_t filtered_yaw_motor_speed_jscope;
 int32_t filtered_vertical_pixel_jscope;
 int32_t filtered_pitch_motor_speed_jscope;
-int32_t delayed_wz_set_jscope;
 
+int32_t temp_absolute_angle_reference_jscope;
 
 //传出数据
 extern int32_t final_yaw_angle_set;//最终改变的YAW轴角度值
@@ -460,16 +459,13 @@ extern int32_t final_pitch_angle_set;//最终改变的PITCH轴角度值
 /////////////////////////////////////////////////
 //外部文件传入数据
 fp32 *filtered_final_angle_set;
-fp32 delayed_wz_set;
-fp32 delayed_yaw_absolute_angle;
-fp32 delayed_yaw_relative_angle;
-fp32 delayed_pitch_relative_angle;//定义从user_task.c extern的group delay后的relative angle的值
 fp32 *filtered_aim_data;
-fp32 filtered_vertical_pixel;
+fp32 delayed_yaw_absolute_angle;
+fp32 delayed_pitch_relative_angle;//定义从user_task.c extern的group delay后的relative angle的值
 /////////////////////////////////////////////////
 
 const fp32 yaw_mid=900.0f;
-const fp32 pitch_mid=350.0f;
+const fp32 pitch_mid=300.0f;
 
 
 static void J_scope_gimbal_test(void)
@@ -488,26 +484,35 @@ static void J_scope_gimbal_test(void)
     pitch_relative_angle_1000 = (int32_t)(gimbal_control.gimbal_pitch_motor.relative_angle * 1000);
     pitch_relative_set_1000 = (int32_t)(gimbal_control.gimbal_pitch_motor.relative_angle_set * 1000);
 				
-
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		filtered_horizontal_pixel_jscope=(int32_t)(filtered_aim_data[0]-yaw_mid);//相对 相机坐标系x轴 中点的角度 = 滤波后的x轴自瞄数据 - x轴中心点
 		filtered_vertical_pixel_jscope=(int32_t)(filtered_aim_data[1]-pitch_mid);//相对 相机坐标系y轴 中点的角度 = 滤波后的y轴自瞄数据 - y轴中心点	
 		filtered_yaw_motor_speed_jscope=(int32_t)(filtered_aim_data[2]);//滤波后的YAW轴电机速度
 		filtered_pitch_motor_speed_jscope=(int32_t)(filtered_aim_data[3]);//滤波后的PITCH轴电机速度
 	
 	
-		delayed_wz_set_jscope=(int32_t)(-delayed_wz_set*1000);
-		delayed_relative_angle_jscope=(int32_t)(delayed_yaw_relative_angle*572.9577951f);
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
 		delayed_yaw_absolute_angle_jscope=(int32_t)(delayed_yaw_absolute_angle*572.9577951f);
 		delayed_pitch_relative_angle_jscope=(int32_t)(delayed_pitch_relative_angle*572.9577951f);
-		//final_yaw_angle_set=(int32_t)(filtered_horizontal_pixel_jscope-(delayed_relative_angle*572.9577951f));//应该是个定值，编码器
+		
 		final_yaw_angle_set=(int32_t)(filtered_horizontal_pixel_jscope-(delayed_yaw_absolute_angle*572.9577951f));//YAW陀螺仪最终角度 是个定值
-		final_pitch_angle_set=(int32_t)(-filtered_vertical_pixel_jscope-(delayed_pitch_relative_angle*572.9577951f));//PITCH编码器最终角度 是个定制
-		
-		
-		
-		
-		filtered_yaw_final_angle_set_jscope=(int32_t)(filtered_final_angle_set[0]);
-		filtered_pitch_final_angle_set_jscope=(int32_t)(filtered_final_angle_set[1]);
+		final_pitch_angle_set=(int32_t)(-filtered_vertical_pixel_jscope+(delayed_pitch_relative_angle*572.9577951f));//PITCH编码器最终角度 是个定制
+				
+		filtered_final_yaw_angle_set_jscope=(int32_t)(filtered_final_angle_set[0]);
+		filtered_final_pitch_angle_set_jscope=(int32_t)(filtered_final_angle_set[1]);
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		temp_absolute_angle_reference_jscope=(int32_t)(temp_absolute_angle_reference*1000);
+		yaw_ins_raw_int_1000=(int32_t)(gimbal_control.gimbal_yaw_motor.absolute_angle_raw * 1000);
 }
 
 #endif
@@ -531,12 +536,33 @@ static void GIMBAL_Feedback_Update(Gimbal_Control_t *gimbal_feedback_update)
     }
     //云台数据更新
     gimbal_feedback_update->gimbal_pitch_motor.absolute_angle = *(gimbal_feedback_update->gimbal_INT_angle_point + INS_PITCH_ADDRESS_OFFSET);
+
+	
     gimbal_feedback_update->gimbal_pitch_motor.relative_angle = motor_ecd_to_angle_change(gimbal_feedback_update->gimbal_pitch_motor.gimbal_motor_measure->ecd,
                                                                                           gimbal_feedback_update->gimbal_pitch_motor.offset_ecd);
     gimbal_feedback_update->gimbal_pitch_motor.motor_gyro = *(gimbal_feedback_update->gimbal_INT_gyro_point + INS_GYRO_Y_ADDRESS_OFFSET);
 
-    gimbal_feedback_update->gimbal_yaw_motor.absolute_angle = *(gimbal_feedback_update->gimbal_INT_angle_point + INS_YAW_ADDRESS_OFFSET);
-    gimbal_feedback_update->gimbal_yaw_motor.relative_angle = motor_ecd_to_angle_change(gimbal_feedback_update->gimbal_yaw_motor.gimbal_motor_measure->ecd,
+    //将从陀螺仪中直接读取的数值重命名为absolute_angle_raw
+		gimbal_feedback_update->gimbal_yaw_motor.absolute_angle_raw = *(gimbal_feedback_update->gimbal_INT_angle_point + INS_YAW_ADDRESS_OFFSET);
+		
+		
+		
+		///////////////////////////////////////////////////////////////////////////////////////////////
+		//重新计算absolute_angle，使得每次开启自瞄时当前位置的数值为0
+		gimbal_feedback_update->gimbal_yaw_motor.absolute_angle=gimbal_feedback_update->gimbal_yaw_motor.absolute_angle_raw-temp_absolute_angle_reference;
+		if(gimbal_feedback_update->gimbal_yaw_motor.absolute_angle<=(temp_absolute_angle_reference-PI))
+		{
+			gimbal_feedback_update->gimbal_yaw_motor.absolute_angle+=2*PI;
+		}
+		if(gimbal_feedback_update->gimbal_yaw_motor.absolute_angle>=PI)
+		{
+			gimbal_feedback_update->gimbal_yaw_motor.absolute_angle-=2*PI;
+		}
+		///////////////////////////////////////////////////////////////////////////////////////////////
+    
+		
+		
+		gimbal_feedback_update->gimbal_yaw_motor.relative_angle = motor_ecd_to_angle_change(gimbal_feedback_update->gimbal_yaw_motor.gimbal_motor_measure->ecd,
                                                                                         gimbal_feedback_update->gimbal_yaw_motor.offset_ecd);
 
     gimbal_feedback_update->gimbal_yaw_motor.motor_gyro = arm_cos_f32(gimbal_feedback_update->gimbal_pitch_motor.relative_angle) * (*(gimbal_feedback_update->gimbal_INT_gyro_point + INS_GYRO_Z_ADDRESS_OFFSET))
@@ -559,7 +585,7 @@ static fp32 motor_ecd_to_angle_change(uint16_t ecd, uint16_t offset_ecd)
 }
 
 //云台状态切换保存，用于状态切换过渡
-fp32 temp_absolute_angle_reference;
+
 static void GIMBAL_Mode_Change_Control_Transit(Gimbal_Control_t *gimbal_mode_change)
 {
     if (gimbal_mode_change == NULL)
@@ -578,18 +604,23 @@ static void GIMBAL_Mode_Change_Control_Transit(Gimbal_Control_t *gimbal_mode_cha
     else if (gimbal_mode_change->gimbal_yaw_motor.last_gimbal_motor_mode != GIMBAL_MOTOR_ENCONDE && gimbal_mode_change->gimbal_yaw_motor.gimbal_motor_mode == GIMBAL_MOTOR_ENCONDE)
     {
         gimbal_mode_change->gimbal_yaw_motor.relative_angle_set = gimbal_mode_change->gimbal_yaw_motor.relative_angle;
-    }
+				
+			
+//				temp_absolute_angle_reference=gimbal_mode_change->gimbal_yaw_motor.absolute_angle_raw;
+		}
 		//新加入自瞄控制模式
 		else if (gimbal_mode_change->gimbal_yaw_motor.last_gimbal_motor_mode != GIMBAL_MOTOR_AIM && gimbal_mode_change->gimbal_yaw_motor.gimbal_motor_mode == GIMBAL_MOTOR_AIM)
     {
-        //编码器自瞄-状态切换
-				gimbal_mode_change->gimbal_yaw_motor.relative_angle=0;
-				gimbal_mode_change->gimbal_yaw_motor.offset_ecd=gimbal_mode_change->gimbal_yaw_motor.gimbal_motor_measure->ecd;
-				gimbal_mode_change->gimbal_yaw_motor.relative_angle_set = 0;
+//        //编码器自瞄-状态切换
+//				gimbal_mode_change->gimbal_yaw_motor.relative_angle=0;
+//				gimbal_mode_change->gimbal_yaw_motor.offset_ecd=gimbal_mode_change->gimbal_yaw_motor.gimbal_motor_measure->ecd;
+//				gimbal_mode_change->gimbal_yaw_motor.relative_angle_set = 0;
 				
 				//陀螺仪自瞄-状态切换
-				gimbal_mode_change->gimbal_yaw_motor.absolute_angle=0;
-				gimbal_mode_change->gimbal_yaw_motor.absolute_angle_set = gimbal_mode_change->gimbal_yaw_motor.absolute_angle;
+				temp_absolute_angle_reference=gimbal_mode_change->gimbal_yaw_motor.absolute_angle_raw;//将absolute_angle_raw作为参照值
+
+				
+		
     }
     gimbal_mode_change->gimbal_yaw_motor.last_gimbal_motor_mode = gimbal_mode_change->gimbal_yaw_motor.gimbal_motor_mode;
 
@@ -753,6 +784,10 @@ static void GIMBAL_Control_loop(Gimbal_Control_t *gimbal_control_loop)
     {
         //enconde角度控制
         gimbal_motor_relative_angle_control_yaw(&gimbal_control_loop->gimbal_yaw_motor);//普通模式-云台控制
+		
+			
+			
+
     }
 		//新加入自瞄控制
     else if (gimbal_control_loop->gimbal_yaw_motor.gimbal_motor_mode == GIMBAL_MOTOR_AIM)
@@ -825,116 +860,114 @@ static void gimbal_motor_absolute_angle_control_yaw(Gimbal_Motor_t *gimbal_motor
     gimbal_motor->given_current = (int16_t)(gimbal_motor->current_set);
 }
 
-//自瞄模式下YAW电机-编码器
-static void gimbal_motor_aim_control_yaw(Gimbal_Motor_t *gimbal_motor)
-{
-    if (gimbal_motor == NULL)
-    {
-        return;
-    }
-				
-		static fp32 delta_yaw;//yaw电机角度目标变量
-//		static fp32 coeff;
-		static fp32 const data_to_deg_ratio=0.001745329252f;//2*pi弧度/360角度/10精度 //角度转成弧度
-//		static fp32 const yaw_mid=900.0f;
-//		static fp32 const deadzone=0.0f;
-		static fp32 final_relative_angle_set; //yaw电机最终相对目标角度
-	
-		
-		//0.00017477385219321f 进双环后转化需要转180度的时间大约是20秒
-		
-//		//当can bus无tx2数据输入时默认为0，初始化tx2水平数据为900以防开机云台旋转
-//		if(tx2.horizontal_pixel==0)
-//		{
-//			tx2.horizontal_pixel=yaw_mid;
-//		}
-//		//接受tx2数据死区下线
-//		if ((tx2.horizontal_pixel+-yaw_mid)>deadzone||(tx2.horizontal_pixel+-yaw_mid)<-deadzone)
-//		{
-//			coeff=1;
-//		}
-//		else if ((tx2.horizontal_pixel+-yaw_mid)<deadzone||(tx2.horizontal_pixel+-yaw_mid)>-deadzone)
-//		{
-//			coeff=0;
-//		}	
-		
-		//log函数动态改Kp
-		//coeff=log10f(0.265f*fabsf(tx2.horizontal_pixel+-900.0f)+1.0f)/(log10f(3.0f)-0.0f);
-		
-		
-		
-		
-		
-//if(右键按下)
-//		{
-//			gimbal_control.gimbal_yaw_motor.offset_ecd=gimbal_motor->gimbal_motor_measure->ecd;//按下右键时使当前编码器读值作为ecd_offset
-//		}
+////自瞄模式下YAW电机-编码器
+//static void gimbal_motor_aim_control_yaw(Gimbal_Motor_t *gimbal_motor)
+//{
+//    if (gimbal_motor == NULL)
+//    {
+//        return;
+//    }
+//				
+//		static fp32 delta_yaw;//yaw电机角度目标变量
+////		static fp32 coeff;
+//		static fp32 const data_to_deg_ratio=0.001745329252f;//2*pi弧度/360角度/10精度 //角度转成弧度
+////		static fp32 const yaw_mid=900.0f;
+////		static fp32 const deadzone=0.0f;
+//		static fp32 final_relative_angle_set; //yaw电机最终相对目标角度
+//	
+//		
+//		//0.00017477385219321f 进双环后转化需要转180度的时间大约是20秒
+//		
+////		//当can bus无tx2数据输入时默认为0，初始化tx2水平数据为900以防开机云台旋转
+////		if(tx2.horizontal_pixel==0)
+////		{
+////			tx2.horizontal_pixel=yaw_mid;
+////		}
+////		//接受tx2数据死区下线
+////		if ((tx2.horizontal_pixel+-yaw_mid)>deadzone||(tx2.horizontal_pixel+-yaw_mid)<-deadzone)
+////		{
+////			coeff=1;
+////		}
+////		else if ((tx2.horizontal_pixel+-yaw_mid)<deadzone||(tx2.horizontal_pixel+-yaw_mid)>-deadzone)
+////		{
+////			coeff=0;
+////		}	
+//		
+//		//log函数动态改Kp
+//		//coeff=log10f(0.265f*fabsf(tx2.horizontal_pixel+-900.0f)+1.0f)/(log10f(3.0f)-0.0f);
+//		
+//		
+//		
+//		
+//		
+////if(右键按下)
+////		{
+////			gimbal_control.gimbal_yaw_motor.offset_ecd=gimbal_motor->gimbal_motor_measure->ecd;//按下右键时使当前编码器读值作为ecd_offset
+////		}
+////		
+
+//		
+////没用		yaw_ecd_relative_center=(7191-gimbal_motor->gimbal_motor_measure->ecd);//相对中心编码器的值
+////没用		yaw_angle_relative_center=yaw_ecd_relative_center*3600/8192;
 //		
 
-		
-//没用		yaw_ecd_relative_center=(7191-gimbal_motor->gimbal_motor_measure->ecd);//相对中心编码器的值
-//没用		yaw_angle_relative_center=yaw_ecd_relative_center*3600/8192;
-		
+//		
+//	
+//		
+//		delta_yaw=(fp32)(filtered_final_angle_set[0])*-data_to_deg_ratio*1;//1000*coeff   +filtered_horizontal_pixel[1]
+//		
+////		if(tx2.horizontal_pixel==900)
+////			{
+////				buzzer_on(35,10000);
+////			}
+////		else if (tx2.horizontal_pixel!=900)
+////			{
+////				buzzer_off();
+////			}
+//		
+//		
 
-		
-	
-		
-		delta_yaw=(fp32)(filtered_final_angle_set[0])*-data_to_deg_ratio*1;//1000*coeff   +filtered_horizontal_pixel[1]
-		
-//		if(tx2.horizontal_pixel==900)
-//			{
-//				buzzer_on(35,10000);
-//			}
-//		else if (tx2.horizontal_pixel!=900)
-//			{
-//				buzzer_off();
-//			}
-		
-		
-		//底盘转速补偿
-		fp32 chassis_move_speed;
-		chassis_move_speed=delayed_wz_set*0.0f;//0.075;//rad/s
-		//更改relative_angle_set的值来达到锁定位置环
-		//gimbal_motor->relative_angle_set-=chassis_move_speed;
+//		//更改relative_angle_set的值来达到锁定位置环
+//		//gimbal_motor->relative_angle_set-=chassis_move_speed;
 
 
-			
-		
-		final_relative_angle_set=gimbal_motor->relative_angle_set+delta_yaw;//临时
-		final_relative_angle_set-=chassis_move_speed;
+//			
+//		
+//		final_relative_angle_set=gimbal_motor->relative_angle_set+delta_yaw;//临时
 
 
-		//限制云台yaw电机左右幅度
-		fp32 yaw_limit=data_to_deg_ratio*900;//增大扩展左右界，减小收缩左右界
-		if(final_relative_angle_set>yaw_limit)//左界
-		{
-			final_relative_angle_set=yaw_limit;
-			buzzer_on(60,5000);
-		}
-		else if(final_relative_angle_set<-yaw_limit)//右界
-		{
-			final_relative_angle_set=-yaw_limit;
-			buzzer_on(60,5000);
-		}
-		else
-		{
-			buzzer_off();
-		}
-		
-		
-		
-    //角度环，速度环串级pid调试
-    gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_relative_angle_pid, gimbal_motor->relative_angle, final_relative_angle_set, gimbal_motor->motor_gyro);
-    gimbal_motor->current_set = PID_Calc(&gimbal_motor->gimbal_motor_gyro_pid, gimbal_motor->motor_gyro, gimbal_motor->motor_gyro_set);
-    
-		//读取编码器的值
-		//(gimbal_motor->gimbal_motor_measure->ecd<=5097)//最右 1417（5143）；中间 1C17（7191）；最左0418（8191+1048）
+
+//		//限制云台yaw电机左右幅度
+//		fp32 yaw_limit=data_to_deg_ratio*900;//增大扩展左右界，减小收缩左右界
+//		if(final_relative_angle_set>yaw_limit)//左界
+//		{
+//			final_relative_angle_set=yaw_limit;
+//			buzzer_on(60,5000);
+//		}
+//		else if(final_relative_angle_set<-yaw_limit)//右界
+//		{
+//			final_relative_angle_set=-yaw_limit;
+//			buzzer_on(60,5000);
+//		}
+//		else
+//		{
+//			buzzer_off();
+//		}
+//		
+//		
+//		
+//    //角度环，速度环串级pid调试
+//    gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_relative_angle_pid, gimbal_motor->relative_angle, final_relative_angle_set, gimbal_motor->motor_gyro);
+//    gimbal_motor->current_set = PID_Calc(&gimbal_motor->gimbal_motor_gyro_pid, gimbal_motor->motor_gyro, gimbal_motor->motor_gyro_set);
+//    
+//		//读取编码器的值
+//		//(gimbal_motor->gimbal_motor_measure->ecd<=5097)//最右 1417（5143）；中间 1C17（7191）；最左0418（8191+1048）
 
 
-		//控制值赋值
-		gimbal_motor->given_current = (int16_t)(gimbal_motor->current_set);
-		
-}
+//		//控制值赋值
+//		gimbal_motor->given_current = (int16_t)(gimbal_motor->current_set);
+//		
+//}
 
 //自瞄模式-陀螺仪-YAW电机
 static void gimbal_motor_aim_control_gyro_yaw(Gimbal_Motor_t *gimbal_motor)
@@ -943,42 +976,42 @@ static void gimbal_motor_aim_control_gyro_yaw(Gimbal_Motor_t *gimbal_motor)
     {
         return;
     }
-				
 		static fp32 delta_yaw;//yaw电机角度目标变量
 		static fp32 const data_to_deg_ratio=0.001745329252f;//2*pi弧度/360角度/10精度 //角度转成弧度
 		static fp32 final_absolute_yaw_angle_set; //yaw电机最终相对目标角度
-	
 
+		
 		delta_yaw=(fp32)(filtered_final_angle_set[0])*-data_to_deg_ratio*1;
 
-		//更改absolute_angle_set的值来达到锁定位置环
-		//gimbal_motor->absolute_angle_set-=chassis_move_speed;
+		//用摇杆/鼠标更改absolute_angle_set的值，在一定范围内临时手动调整准心
+		gimbal_motor->absolute_angle_set=(fp32)(gimbal_control.gimbal_rc_ctrl->rc.ch[2])*-0.0005f;
+
 
 		//改变最终绝对角度
 		final_absolute_yaw_angle_set=gimbal_motor->absolute_angle_set+delta_yaw;
 
 
 
-		//限制云台yaw电机左右幅度
-		fp32 yaw_limit=data_to_deg_ratio*900;//增大扩展左右界，减小收缩左右界
-		if(final_absolute_yaw_angle_set>yaw_limit)//左界
-		{
-			final_absolute_yaw_angle_set=yaw_limit;
-			buzzer_on(60,5000);
-		}
-		else if(final_absolute_yaw_angle_set<-yaw_limit)//右界
-		{
-			final_absolute_yaw_angle_set=-yaw_limit;
-			buzzer_on(60,5000);
-		}
-		else
-		{
-			buzzer_off();
-		}
+//		//限制云台yaw电机左右幅度
+//		fp32 yaw_limit=data_to_deg_ratio*900;//增大扩展左右界，减小收缩左右界
+//		if(final_absolute_yaw_angle_set>yaw_limit)//左界
+//		{
+//			final_absolute_yaw_angle_set=yaw_limit;
+//			buzzer_on(60,5000);
+//		}
+//		else if(final_absolute_yaw_angle_set<-yaw_limit)//右界
+//		{
+//			final_absolute_yaw_angle_set=-yaw_limit;
+//			buzzer_on(60,5000);
+//		}
+//		else
+//		{
+//			buzzer_off();
+//		}
 		
 	
     //角度环，速度环串级pid调试
-    gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_relative_angle_pid, gimbal_motor->absolute_angle, final_absolute_yaw_angle_set, gimbal_motor->motor_gyro);
+    gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_absolute_angle_pid, gimbal_motor->absolute_angle, final_absolute_yaw_angle_set, gimbal_motor->motor_gyro);
     gimbal_motor->current_set = PID_Calc(&gimbal_motor->gimbal_motor_gyro_pid, gimbal_motor->motor_gyro, gimbal_motor->motor_gyro_set);
 
 		//控制值赋值
@@ -999,7 +1032,7 @@ static void gimbal_motor_aim_control_pitch(Gimbal_Motor_t *gimbal_motor)
 
 		
 
-		delta_pitch=(fp32)(filtered_final_angle_set[1])*-data_to_deg_ratio*1;
+		delta_pitch=(fp32)(filtered_final_angle_set[1])*-data_to_deg_ratio*0;
     
 //		//更改relative_angle_set的值来达到锁定位置环
 //		gimbal_motor->relative_angle_set+=delta_pitch;

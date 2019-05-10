@@ -31,43 +31,43 @@
  */
 
 
-#define N 9
-typedef struct{
-	double raw_value;
-	double xbuf[N];
-	double ybuf[N];
-	double filtered_value;
-}IIR_Filter_t;
+//#define N 9
+//typedef struct{
+//	double raw_value;
+//	double xbuf[N];
+//	double ybuf[N];
+//	double filtered_value;
+//}IIR_Filter_t;
 
 
-typedef struct{
-	double fir_raw_value;
-	double fir_xbuf[361];
-	double fir_ybuf[361];
-	double fir_filtered_value;
-}FIR_Filter_t;
+//typedef struct{
+//	double fir_raw_value;
+//	double fir_xbuf[361];
+//	double fir_ybuf[361];
+//	double fir_filtered_value;
+//}FIR_Filter_t;
 
 
-#define BLACKMAN_LENGTH 101
-typedef struct{
-	double blm_raw_value;
-	double blm_xbuf[BLACKMAN_LENGTH];
-	double blm_ybuf[BLACKMAN_LENGTH];
-	double blm_filtered_value;
-}Blackman_Filter_t;
+//#define BLACKMAN_LENGTH 101
+//typedef struct{
+//	double blm_raw_value;
+//	double blm_xbuf[BLACKMAN_LENGTH];
+//	double blm_ybuf[BLACKMAN_LENGTH];
+//	double blm_filtered_value;
+//}Blackman_Filter_t;
 
 
-#define DELAY_MS 300//180 tx2 300 nano
+#define DELAY_MS 400//170 TPU  300 tx2&nano
 typedef struct{
 	double group_delay_raw_value;
 	double group_delay_buffer[DELAY_MS];
 }Group_Delay_t;
 
-#define CHASSIS_DELAY_MS 1//底盘摇摆？
-typedef struct{
-	double group_delay_chassis_raw_value;
-	double group_delay_chassis_buffer[CHASSIS_DELAY_MS];
-}Group_Delay_Chassis_t;
+//#define CHASSIS_DELAY_MS 1//底盘摇摆？
+//typedef struct{
+//	double group_delay_chassis_raw_value;
+//	double group_delay_chassis_buffer[CHASSIS_DELAY_MS];
+//}Group_Delay_Chassis_t;
 
 
 #define mat         arm_matrix_instance_f32 
@@ -78,7 +78,7 @@ typedef struct{
 #define mat_trans   arm_mat_trans_f32
 #define mat_inv     arm_mat_inverse_f32
 
-#define MATRIX_ORDER 4
+#define MATRIX_ORDER 4 //若要更改order，一同更改user_task.c中的矩阵和filter.c中的function的输入signal
 typedef struct
 {
   fp32 raw_value;

@@ -31,6 +31,7 @@
 //#define GIMBALWarnBuzzerOFF() buzzer_off()
 
 #define int_abs(x) ((x) > 0 ? (x) : (-x))
+
 /**
   * @brief          遥控器的死区判断，因为遥控器的拨杆在中位的时候，不一定是发送1024过来，
   * @author         RM
@@ -210,6 +211,7 @@ void gimbal_behaviour_mode_set(Gimbal_Control_t *gimbal_mode_set)
   * @retval         返回空
   */
 
+
 void gimbal_behaviour_control_set(fp32 *add_yaw, fp32 *add_pitch, Gimbal_Control_t *gimbal_control_set)
 {
 
@@ -245,15 +247,15 @@ void gimbal_behaviour_control_set(fp32 *add_yaw, fp32 *add_pitch, Gimbal_Control
 		//新加入自瞄控制模式
 		else if (gimbal_behaviour == GIMBAL_AIM)
 		{
-				gimbal_relative_angle_control(&rc_add_yaw, &rc_add_pit, gimbal_control_set);//测试
+				gimbal_absolute_angle_control(&rc_add_yaw, &rc_add_pit, gimbal_control_set);
 		}
     else if (gimbal_behaviour == GIMBAL_ABSOLUTE_ANGLE)
     {
-        gimbal_absolute_angle_control(&rc_add_yaw, &rc_add_pit, gimbal_control_set);//无
+        gimbal_absolute_angle_control(&rc_add_yaw, &rc_add_pit, gimbal_control_set);
     }
     else if (gimbal_behaviour == GIMBAL_RELATIVE_ANGLE)
     {
-        gimbal_relative_angle_control(&rc_add_yaw, &rc_add_pit, gimbal_control_set);//无
+        gimbal_relative_angle_control(&rc_add_yaw, &rc_add_pit, gimbal_control_set);
 
     }
     else if (gimbal_behaviour == GIMBAL_MOTIONLESS)
@@ -310,6 +312,7 @@ bool_t gimbal_cmd_to_shoot_stop(void)
   * @param[in]      云台数据指针
   * @retval         返回空
   */
+
 static void gimbal_behaviour_set(Gimbal_Control_t *gimbal_mode_set)
 {
     if (gimbal_mode_set == NULL)
@@ -370,19 +373,11 @@ static void gimbal_behaviour_set(Gimbal_Control_t *gimbal_mode_set)
     if (switch_is_down(gimbal_mode_set->gimbal_rc_ctrl->rc.s[ModeChannel]))
     {
         gimbal_behaviour = GIMBAL_ZERO_FORCE;
-    }
+		}
     else if (switch_is_mid(gimbal_mode_set->gimbal_rc_ctrl->rc.s[ModeChannel]))
     {
-        if(gimbal_mode_set->gimbal_rc_ctrl->key.v & SWTICH_MODE)//按键切换模式，松开取消 在chassis_behaviour.c中一起更改
-				{
-					gimbal_behaviour = GIMBAL_AIM;//GIMBAL_ABSOLUTE_ANGLE;//绝对角度模式
-				}
-				else
-				{
-					gimbal_behaviour = GIMBAL_RELATIVE_ANGLE;//相对角度模式
-				}  
-			
-    }
+				gimbal_behaviour = GIMBAL_RELATIVE_ANGLE;//相对角度模式
+		}
     else if (switch_is_up(gimbal_mode_set->gimbal_rc_ctrl->rc.s[ModeChannel]))
     {
         gimbal_behaviour = GIMBAL_AIM;//上拨自瞄模式

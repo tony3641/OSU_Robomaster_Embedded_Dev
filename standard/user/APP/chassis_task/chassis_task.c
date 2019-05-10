@@ -46,7 +46,7 @@
     }
 
 //底盘运动数据
-extern chassis_move_t chassis_move;
+static chassis_move_t chassis_move;
 
 //底盘初始化，主要是pid初始化
 static void chassis_init(chassis_move_t *chassis_move_init);

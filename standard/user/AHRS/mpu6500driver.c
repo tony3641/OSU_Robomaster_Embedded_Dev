@@ -197,7 +197,7 @@ uint8_t mpu6500_init(void)
             return write_mpu6500_reg_data_error[writeNum][2];
         }
     }
-    // NO error
+//    // NO error
     return MPU6500_NO_ERROR;
 }
 
