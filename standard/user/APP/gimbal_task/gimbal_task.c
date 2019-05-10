@@ -40,6 +40,23 @@
 #include "task.h"
 
 
+//软件复位Trigger
+#include "stm32f4xx.h"
+#include "core_cm4.h"
+#include "core_cmFunc.h"
+
+extern void SoftReset(void)
+{
+	__set_FAULTMASK(1);
+	NVIC_SystemReset();
+}
+//软件复位Trigger
+
+
+
+
+
+
 //电机编码值规整 0—8191
 #define ECD_Format(ecd)         \
     {                           \
@@ -490,18 +507,6 @@ static void J_scope_gimbal_test(void)
 		filtered_yaw_motor_speed_jscope=(int32_t)(filtered_aim_data[2]);//滤波后的YAW轴电机速度
 		filtered_pitch_motor_speed_jscope=(int32_t)(filtered_aim_data[3]);//滤波后的PITCH轴电机速度
 	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
 		delayed_yaw_absolute_angle_jscope=(int32_t)(delayed_yaw_absolute_angle*572.9577951f);
 		delayed_pitch_relative_angle_jscope=(int32_t)(delayed_pitch_relative_angle*572.9577951f);
 		
@@ -762,6 +767,12 @@ static void GIMBAL_Mode_Change_Control_Transit(Gimbal_Control_t *gimbal_mode_cha
 //        gimbal_motor->relative_angle_set = gimbal_motor->min_relative_angle;
 //    }
 //}
+
+
+
+
+
+
 //云台控制状态使用不同控制pid
 static void GIMBAL_Control_loop(Gimbal_Control_t *gimbal_control_loop)
 {
@@ -784,7 +795,18 @@ static void GIMBAL_Control_loop(Gimbal_Control_t *gimbal_control_loop)
     {
         //enconde角度控制
         gimbal_motor_relative_angle_control_yaw(&gimbal_control_loop->gimbal_yaw_motor);//普通模式-云台控制
-		
+			
+			
+			
+			
+			//软件复位程序
+			if (switch_is_down(gimbal_control_loop->gimbal_rc_ctrl->rc.s[1]))
+			{
+        SoftReset();
+			}
+			//软件复位程序
+			
+			
 			
 			
 

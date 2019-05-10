@@ -185,7 +185,7 @@ uint8_t mpu6500_init(void)
         return NO_Sensor;
     }
 
-    //set mpu6500 sonsor config and check
+    //set mpu6500 sensor config and check
     for (writeNum = 0; writeNum < MPU6500_Write_Reg_Num; writeNum++)
     {
         mpu6500_write_single_reg(write_mpu6500_reg_data_error[writeNum][0], write_mpu6500_reg_data_error[writeNum][1]);
