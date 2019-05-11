@@ -39,23 +39,8 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
-
 //软件复位Trigger
-#include "stm32f4xx.h"
-#include "core_cm4.h"
-#include "core_cmFunc.h"
-
-extern void SoftReset(void)
-{
-	__set_FAULTMASK(1);
-	NVIC_SystemReset();
-}
-//软件复位Trigger
-
-
-
-
-
+void SoftReset(void);
 
 //电机编码值规整 0—8191
 #define ECD_Format(ecd)         \
@@ -504,8 +489,8 @@ static void J_scope_gimbal_test(void)
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		filtered_horizontal_pixel_jscope=(int32_t)(filtered_aim_data[0]-yaw_mid);//相对 相机坐标系x轴 中点的角度 = 滤波后的x轴自瞄数据 - x轴中心点
 		filtered_vertical_pixel_jscope=(int32_t)(filtered_aim_data[1]-pitch_mid);//相对 相机坐标系y轴 中点的角度 = 滤波后的y轴自瞄数据 - y轴中心点	
-		filtered_yaw_motor_speed_jscope=(int32_t)(filtered_aim_data[2]);//滤波后的YAW轴电机速度
-		filtered_pitch_motor_speed_jscope=(int32_t)(filtered_aim_data[3]);//滤波后的PITCH轴电机速度
+		filtered_yaw_motor_speed_jscope=(int32_t)(filtered_aim_data[2]*1000);//滤波后的YAW轴电机速度
+		filtered_pitch_motor_speed_jscope=(int32_t)(filtered_aim_data[3]*1000);//滤波后的PITCH轴电机速度
 	
 		delayed_yaw_absolute_angle_jscope=(int32_t)(delayed_yaw_absolute_angle*572.9577951f);
 		delayed_pitch_relative_angle_jscope=(int32_t)(delayed_pitch_relative_angle*572.9577951f);
@@ -1003,7 +988,7 @@ static void gimbal_motor_aim_control_gyro_yaw(Gimbal_Motor_t *gimbal_motor)
 		static fp32 final_absolute_yaw_angle_set; //yaw电机最终相对目标角度
 
 		
-		delta_yaw=(fp32)(filtered_final_angle_set[0])*-data_to_deg_ratio*1;
+		delta_yaw=(fp32)(filtered_final_angle_set[0]-0.05f*572.9577951f*filtered_final_angle_set[2])*-data_to_deg_ratio*1;//我觉得需要从相机的xy输入算出速度，而不是直接读速度？
 
 		//用摇杆/鼠标更改absolute_angle_set的值，在一定范围内临时手动调整准心
 		gimbal_motor->absolute_angle_set=(fp32)(gimbal_control.gimbal_rc_ctrl->rc.ch[2])*-0.0005f;

@@ -36,6 +36,12 @@
 #include "CAN_Receive.h"
 #include "chassis_task.h"
 
+//软件复位Trigger
+#include "stm32f4xx.h"
+#include "core_cm4.h"
+#include "core_cmFunc.h"
+
+
 
 #define user_is_error() toe_is_error(errorListLength)
 
@@ -85,6 +91,13 @@ static int filter_aim_data_flag;
 static int filter_final_angle_set_flag;
 
 
+//软件复位Trigger
+extern void SoftReset(void)
+{
+	__set_FAULTMASK(1);//关闭所有中断，以防复位被打断
+	NVIC_SystemReset();//复位
+}
+
 
 static void Filter_Running(Gimbal_Control_t *gimbal_data)
 {
@@ -130,8 +143,8 @@ static void Filter_Running(Gimbal_Control_t *gimbal_data)
 			static fp32 temp_final_angle_set[4];
 			temp_final_angle_set[0]=final_yaw_angle_set;
 			temp_final_angle_set[1]=final_pitch_angle_set;
-			temp_final_angle_set[2]=gimbal_control.gimbal_yaw_motor.motor_gyro;
-			temp_final_angle_set[3]=gimbal_control.gimbal_pitch_motor.motor_gyro;
+			temp_final_angle_set[2]=0;//gimbal_control.gimbal_yaw_motor.motor_gyro;
+			temp_final_angle_set[3]=0;//gimbal_control.gimbal_pitch_motor.motor_gyro;
 			*filtered_final_angle_set=temp_final_angle_set;
 		}		
 		
@@ -146,7 +159,7 @@ void UserTask(void *pvParameters)
 {
 
 		const volatile fp32 *angle;
-		const fp32 dt=0;//运行频率？
+		const fp32 dt=0.001;//572.9577951f*0.000;//运行频率？
 		//获取姿态角指针
 		angle = get_INS_angle_point();
 	
@@ -158,10 +171,10 @@ void UserTask(void *pvParameters)
 		kalman_initial.Q_data[12]	=	0;			kalman_initial.Q_data[13]	=	0;			kalman_initial.Q_data[14]	=	0;			kalman_initial.Q_data[15]	=	1;
 		
 		//Covariance of the Measurement Noise Matrix R
-		kalman_initial.R_data[0]	= 20000;	kalman_initial.R_data[1]	=	0;			kalman_initial.R_data[2]	=	0;			kalman_initial.R_data[3]	=	0;
-		kalman_initial.R_data[4]	= 0;			kalman_initial.R_data[5]	=	20000;	kalman_initial.R_data[6]	=	0;			kalman_initial.R_data[7]	=	0;
-		kalman_initial.R_data[8]	= 0;			kalman_initial.R_data[9]	=	0;			kalman_initial.R_data[10]	=	20000;	kalman_initial.R_data[11]	=	0;
-		kalman_initial.R_data[12]	=	0;			kalman_initial.R_data[13]	=	0;			kalman_initial.R_data[14]	=	0;			kalman_initial.R_data[15]	=	20000;
+		kalman_initial.R_data[0]	= 8000;		kalman_initial.R_data[1]	=	0;			kalman_initial.R_data[2]	=	0;			kalman_initial.R_data[3]	=	0;
+		kalman_initial.R_data[4]	= 0;			kalman_initial.R_data[5]	=	8000;		kalman_initial.R_data[6]	=	0;			kalman_initial.R_data[7]	=	0;
+		kalman_initial.R_data[8]	= 0;			kalman_initial.R_data[9]	=	0;			kalman_initial.R_data[10]	=	60000;	kalman_initial.R_data[11]	=	0;
+		kalman_initial.R_data[12]	=	0;			kalman_initial.R_data[13]	=	0;			kalman_initial.R_data[14]	=	0;			kalman_initial.R_data[15]	=	60000;
 		
 		//System Term Matrix A
 		kalman_initial.A_data[0]	= 1;			kalman_initial.A_data[1]	=	0;			kalman_initial.A_data[2]	=	dt;			kalman_initial.A_data[3]	=	0;
@@ -176,8 +189,8 @@ void UserTask(void *pvParameters)
 	
 	
 		//Observation Model Matrix H
-		kalman_initial.H_data[0]	= 1;			kalman_initial.H_data[1]	=	0;			kalman_initial.H_data[2]	=	0;			kalman_initial.H_data[3]	=	0;
-		kalman_initial.H_data[4]	= 0;			kalman_initial.H_data[5]	=	1;			kalman_initial.H_data[6]	=	0;			kalman_initial.H_data[7]	=	0;
+		kalman_initial.H_data[0]	= 1;			kalman_initial.H_data[1]	=	0;			kalman_initial.H_data[2]	=	-10*dt;			kalman_initial.H_data[3]	=	0;
+		kalman_initial.H_data[4]	= 0;			kalman_initial.H_data[5]	=	1;			kalman_initial.H_data[6]	=	0;			kalman_initial.H_data[7]	=	-10*dt;
 		kalman_initial.H_data[8]	= 0;			kalman_initial.H_data[9]	=	0;			kalman_initial.H_data[10]	=	1;			kalman_initial.H_data[11]	=	0;
 		kalman_initial.H_data[12]	=	0;			kalman_initial.H_data[13]	=	0;			kalman_initial.H_data[14]	=	0;			kalman_initial.H_data[15]	=	1;
 		

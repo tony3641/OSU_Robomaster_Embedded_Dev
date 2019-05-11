@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\infantry.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\infantry.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Fri May 10 15:04:04 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Fri May 10 21:17:24 2019
 <BR><P>
 <H3>Maximum Stack Usage =        280 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1294,7 +1294,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_red_toggle
 </UL>
 
-<P><STRONG><a name="[e8]"></a>Group_Delay</STRONG> (Thumb, 54 bytes, Stack size 0 bytes, filter.o(i.Group_Delay))
+<P><STRONG><a name="[e8]"></a>Group_Delay</STRONG> (Thumb, 48 bytes, Stack size 0 bytes, filter.o(i.Group_Delay))
 <BR><BR>[Called By]<UL><LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Filter_Running
 </UL>
 
@@ -1573,7 +1573,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOB_Exti8_GPIO_Init
 </UL>
 
-<P><STRONG><a name="[ee]"></a>SoftReset</STRONG> (Thumb, 68 bytes, Stack size 0 bytes, gimbal_task.o(i.SoftReset))
+<P><STRONG><a name="[ee]"></a>SoftReset</STRONG> (Thumb, 68 bytes, Stack size 0 bytes, user_task.o(i.SoftReset))
 <BR><BR>[Called By]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_Control_loop
 </UL>
 
@@ -1811,7 +1811,7 @@ Global Symbols
 <P><STRONG><a name="[a]"></a>UsageFault_Handler</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f4xx_it.o(i.UsageFault_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f427xx.o(RESET)
 </UL>
-<P><STRONG><a name="[71]"></a>UserTask</STRONG> (Thumb, 1408 bytes, Stack size 0 bytes, user_task.o(i.UserTask))
+<P><STRONG><a name="[71]"></a>UserTask</STRONG> (Thumb, 1420 bytes, Stack size 0 bytes, user_task.o(i.UserTask))
 <BR><BR>[Stack]<UL><LI>Max Depth = 196<LI>Call Chain = UserTask &rArr; Filter_Running &rArr; kalman_filter_calc &rArr; arm_mat_inverse_f32
 </UL>
 <BR>[Calls]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
@@ -3835,7 +3835,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gimbal_behaviour_mode_set
 </UL>
 
-<P><STRONG><a name="[ea]"></a>GIMBAL_Control_loop</STRONG> (Thumb, 158 bytes, Stack size 8 bytes, gimbal_task.o(i.GIMBAL_Control_loop))
+<P><STRONG><a name="[ea]"></a>GIMBAL_Control_loop</STRONG> (Thumb, 160 bytes, Stack size 8 bytes, gimbal_task.o(i.GIMBAL_Control_loop))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = GIMBAL_Control_loop &rArr; gimbal_motor_relative_angle_control_yaw &rArr; GIMBAL_PID_Calc
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SoftReset
@@ -3910,7 +3910,7 @@ Local Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_Init
 </UL>
 
-<P><STRONG><a name="[108]"></a>J_scope_gimbal_test</STRONG> (Thumb, 582 bytes, Stack size 0 bytes, gimbal_task.o(i.J_scope_gimbal_test))
+<P><STRONG><a name="[108]"></a>J_scope_gimbal_test</STRONG> (Thumb, 598 bytes, Stack size 0 bytes, gimbal_task.o(i.J_scope_gimbal_test))
 <BR><BR>[Called By]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_task
 </UL>
 
@@ -3939,7 +3939,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_Control_loop
 </UL>
 
-<P><STRONG><a name="[ef]"></a>gimbal_motor_aim_control_gyro_yaw</STRONG> (Thumb, 166 bytes, Stack size 8 bytes, gimbal_task.o(i.gimbal_motor_aim_control_gyro_yaw))
+<P><STRONG><a name="[ef]"></a>gimbal_motor_aim_control_gyro_yaw</STRONG> (Thumb, 182 bytes, Stack size 8 bytes, gimbal_task.o(i.gimbal_motor_aim_control_gyro_yaw))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = gimbal_motor_aim_control_gyro_yaw &rArr; GIMBAL_PID_Calc
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_PID_Calc
@@ -4059,7 +4059,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shoot_control_loop
 </UL>
 
-<P><STRONG><a name="[e6]"></a>Filter_Running</STRONG> (Thumb, 332 bytes, Stack size 16 bytes, user_task.o(i.Filter_Running))
+<P><STRONG><a name="[e6]"></a>Filter_Running</STRONG> (Thumb, 324 bytes, Stack size 16 bytes, user_task.o(i.Filter_Running))
 <BR><BR>[Stack]<UL><LI>Max Depth = 196<LI>Call Chain = Filter_Running &rArr; kalman_filter_calc &rArr; arm_mat_inverse_f32
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kalman_filter_calc
