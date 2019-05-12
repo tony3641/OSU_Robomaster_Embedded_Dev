@@ -3,7 +3,7 @@
 .\objects\fric.o: ..\User\main.h
 .\objects\fric.o: ..\CMSIS\stm32f4xx.h
 .\objects\fric.o: ..\CMSIS\core_cm4.h
-.\objects\fric.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\fric.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\fric.o: ..\CMSIS\core_cmInstr.h
 .\objects\fric.o: ..\CMSIS\core_cmFunc.h
 .\objects\fric.o: ..\CMSIS\core_cmSimd.h

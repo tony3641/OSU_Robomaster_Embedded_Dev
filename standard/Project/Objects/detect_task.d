@@ -6,9 +6,9 @@
 .\objects\detect_task.o: ..\User\APP\Remote_Control\Remote_Control.h
 .\objects\detect_task.o: ..\User\hardware\RC\rc.h
 .\objects\detect_task.o: ..\User\FreeRTOS\include\FreeRTOSConfig.h
-.\objects\detect_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\detect_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\detect_task.o: ..\User\FreeRTOS\include\FreeRTOS.h
-.\objects\detect_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects\detect_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\objects\detect_task.o: ..\User\FreeRTOS\include\projdefs.h
 .\objects\detect_task.o: ..\User\FreeRTOS\include\portable.h
 .\objects\detect_task.o: ..\User\FreeRTOS\include\deprecated_definitions.h

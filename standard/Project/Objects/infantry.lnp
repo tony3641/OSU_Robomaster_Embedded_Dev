@@ -76,6 +76,7 @@
 ".\objects\spi.o"
 ".\objects\sys.o"
 ".\objects\timer.o"
+".\objects\gpio.o"
 ".\objects\calibrate_task.o"
 ".\objects\can_receive.o"
 ".\objects\chassis_behaviour.o"

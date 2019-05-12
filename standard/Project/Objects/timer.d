@@ -3,7 +3,7 @@
 .\objects\timer.o: ..\User\main.h
 .\objects\timer.o: ..\CMSIS\stm32f4xx.h
 .\objects\timer.o: ..\CMSIS\core_cm4.h
-.\objects\timer.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\timer.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\timer.o: ..\CMSIS\core_cmInstr.h
 .\objects\timer.o: ..\CMSIS\core_cmFunc.h
 .\objects\timer.o: ..\CMSIS\core_cmSimd.h
