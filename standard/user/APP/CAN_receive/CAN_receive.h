@@ -67,45 +67,14 @@ typedef struct
     int16_t last_ecd;
 } motor_measure_t;
 
-////Enumerate TX2 data package type
-////枚举声明TX2通信数据包类型
-//typedef enum{
-//	pitch_package=1,
-//	yaw_package=2,
-//	aim_package=3,
-//} tx2_package_type_e;
-
-////TX2 to Gimbal Motor PID data package
-////TX2到云台电机PID数据包
-//typedef struct{
-//	uint8_t kp;
-//	uint8_t ki;
-//	uint8_t kd;
-//	uint16_t error;
-//	uint16_t err_last;
-//	uint16_t power;
-//} tx2_gimbal_package_t;
-
 //TX2 to Gimbal Motor aim coordinate location data package
 //TX2到云台电机瞄准坐标数据包
 typedef struct{
-//	uint16_t horizontal_pixel_buffer;
-//	uint16_t vertical_pixel_buffer;
+	uint32_t raw_horizontal_pixel;
+	uint32_t raw_vertical_pixel;
 	uint32_t horizontal_pixel;
 	uint32_t vertical_pixel;
 } tx2_aim_package_t;
-
-////TX2 data receive struct
-////TX2数据接收结构体
-//typedef struct
-//{
-//	uint16_t package_type;
-////  tx2_gimbal_package_t yaw_pid_package;
-////	tx2_gimbal_package_t pitch_pid_package;
-//	tx2_aim_package_t aim_data_package;
-//} tx2_measure_t;
-
-
 
 //云台陀螺仪绝对角度结构体
 typedef struct
@@ -136,8 +105,8 @@ extern const motor_measure_t *get_Pitch_Gimbal_Motor_Measure_Point(void);
 extern const motor_measure_t *get_Trigger_Motor_Measure_Point(void);
 //返回底盘电机变量地址，通过指针方式获取原始数据,i的范围是0-3，对应0x201-0x204,
 extern const motor_measure_t *get_Chassis_Motor_Measure_Point(uint8_t i);
-
-
+//自瞄数据
+extern tx2_aim_package_t tx2;
 #if GIMBAL_MOTOR_6020_CAN_LOSE_SLOVE
 extern void GIMBAL_lose_slove(void);
 #endif

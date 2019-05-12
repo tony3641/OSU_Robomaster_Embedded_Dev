@@ -57,18 +57,11 @@
 //}Blackman_Filter_t;
 
 
-#define DELAY_MS 100//170 TPU  300 tx2&nano
+#define DELAY_MS 170//170 TPU  300 tx2&nano
 typedef struct{
 	double group_delay_raw_value;
 	double group_delay_buffer[DELAY_MS];
 }Group_Delay_t;
-
-//#define CHASSIS_DELAY_MS 1//µ×ÅÌÒ¡°Ú£¿
-//typedef struct{
-//	double group_delay_chassis_raw_value;
-//	double group_delay_chassis_buffer[CHASSIS_DELAY_MS];
-//}Group_Delay_Chassis_t;
-
 
 #define mat         arm_matrix_instance_f32 
 #define mat_init    arm_mat_init_f32

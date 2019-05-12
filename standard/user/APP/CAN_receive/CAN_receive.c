@@ -31,6 +31,21 @@
 #include "Detect_Task.h"
 #include "pid.h"
 
+
+void CAN_CMD_GIMBAL(int16_t yaw, int16_t pitch, int16_t shoot, int16_t rev);
+
+
+
+
+
+
+
+
+
+
+
+
+
 //Read Chassis Motor data
 //底盘电机数据读取
 //"ecd" represents "encoder"
@@ -55,65 +70,13 @@
 		(ptr)->temperate = (rx_message)->Data[6];                                              \
 }
 
-////TX2 Data Receive
-////TX2数据读取
-////Data[0] is used to determine the type of package, pitch_package & yaw_package are used to adjust PID, aim_package is used to transmit the pixel coordinates
-//#define get_tx2_measure(ptr,rx_message)                                                        												\
-//{																																																											\
-//	   if(rx_message->Data[0]==0xff) buzzer_on(150,10000);                                                              \
-//		(ptr)->package_type=(uint16_t)(rx_message->Data[0]);																	 														\
-//		tx2_package_type_e tx2_package_type;                                                   														\
-//		switch(tx2_package_type){                                                              														\
-//			case pitch_package:       																													 														\
-//				(ptr)->pitch_pid_package.error=0;																									 														\
-//				(ptr)->pitch_pid_package.err_last=(ptr)->pitch_pid_package.error;                  														\
-//				(ptr)->pitch_pid_package.kp=(uint8_t)(rx_message->Data[1]);																										\
-//				(ptr)->pitch_pid_package.ki=(uint8_t)(rx_message->Data[2]);                                   								\
-//				(ptr)->pitch_pid_package.kd=(uint8_t)(rx_message->Data[3]);                                   								\
-//				(ptr)->pitch_pid_package.error=(uint16_t)((rx_message->Data[4]<<8)|(rx_message)->Data[5]);   									\
-//				(ptr)->pitch_pid_package.power=(uint16_t)((rx_message->Data[6]<<8)|(rx_message)->Data[7]);	 									\
-//				break;																																						 														\
-//			case yaw_package:																																		 														\
-//				(ptr)->yaw_pid_package.error=0;																									 															\
-//				(ptr)->yaw_pid_package.err_last=(ptr)->pitch_pid_package.error;                  															\
-//				(ptr)->yaw_pid_package.kp=(uint8_t)(rx_message->Data[1]);																					 						\
-//				(ptr)->yaw_pid_package.ki=(uint8_t)(rx_message->Data[2]);                                          						\
-//				(ptr)->yaw_pid_package.kd=(uint8_t)(rx_message->Data[3]);                                          						\
-//				(ptr)->yaw_pid_package.error=(uint16_t)((rx_message->Data[4]<<8)|(rx_message)->Data[5]);   										\
-//				(ptr)->yaw_pid_package.power=(uint16_t)((rx_message->Data[6]<<8)|(rx_message)->Data[7]);	 										\
-//				break;																																						 														\
-//			case aim_package:																																		 														\
-//				(ptr)->aim_data_package.horizontal_pixel=(uint16_t)((rx_message->Data[1]<<8)|(rx_message)->Data[2]);		\
-//				(ptr)->aim_data_package.vertical_pixel=(uint16_t)((rx_message->Data[3]<<8)|(rx_message)->Data[4]);			\
-//				(ptr)->aim_data_package.horizontal_pixel-=640;																																	\
-//				(ptr)->aim_data_package.vertical_pixel-=320;																																		\
-//				break;																																						 														\
-//																																																											\
-//		}\
-//}		\
-////////////////////////////////		tx2自瞄数据包		////////////////////////////////
+////////////////////////////////		自瞄数据包		////////////////////////////////
 #define get_aim_data(ptr,rx_message)																																							\
-{ 																																																							  \
-	(ptr)->horizontal_pixel=(uint16_t)((rx_message->Data[0]<<8)|(rx_message->Data[1]));						\
-	if((ptr)->horizontal_pixel>=1700.0f)																														\
-		{																																																							\
-			(ptr)->horizontal_pixel=1700.0f;																														\
-		}																																																							\
-	if((ptr)->horizontal_pixel<=100.0f)																														\
-		{																																																							\
-			(ptr)->horizontal_pixel=100.0f;																														\
-		}																																																							\
-	(ptr)->vertical_pixel=(uint16_t)((rx_message->Data[2]<<8)|((rx_message)->Data[3]));            \
-	if((ptr)->vertical_pixel>=400.0f)																															\
-		{																																																							\
-			(ptr)->vertical_pixel=400.0f;																															\
-		}																																																							\
-	if((ptr)->vertical_pixel<=100.0f)																															\
-		{																																																							\
-			(ptr)->vertical_pixel=100.0f;																															\
-		}																																																							\
+{ \
+	(ptr)->raw_horizontal_pixel=(uint16_t)((rx_message->Data[0]<<8)|(rx_message->Data[1]));						\
+	(ptr)->raw_vertical_pixel=(uint16_t)((rx_message->Data[2]<<8)|((rx_message)->Data[3]));            \
 }
-////////////////////////////////		tx2自瞄数据包		////////////////////////////////
+////////////////////////////////		自瞄数据包		////////////////////////////////
 
 ////陀螺仪数据获取
 //#define get_gyro_data(ptr,rx_message)																												\

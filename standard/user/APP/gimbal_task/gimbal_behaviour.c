@@ -419,6 +419,8 @@ static void gimbal_behaviour_set(Gimbal_Control_t *gimbal_mode_set)
         {
             gimbal_behaviour = GIMBAL_MOTIONLESS;
         }
+			
+				
     }
     else
     {

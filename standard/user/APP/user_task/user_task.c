@@ -159,7 +159,7 @@ void UserTask(void *pvParameters)
 {
 
 		const volatile fp32 *angle;
-		const fp32 dt=0.001;//572.9577951f*0.000;//运行频率？
+		const fp32 dt=0.000f;//572.9577951f*0.000;//运行频率？
 		//获取姿态角指针
 		angle = get_INS_angle_point();
 	
@@ -189,8 +189,8 @@ void UserTask(void *pvParameters)
 	
 	
 		//Observation Model Matrix H
-		kalman_initial.H_data[0]	= 1;			kalman_initial.H_data[1]	=	0;			kalman_initial.H_data[2]	=	-10*dt;			kalman_initial.H_data[3]	=	0;
-		kalman_initial.H_data[4]	= 0;			kalman_initial.H_data[5]	=	1;			kalman_initial.H_data[6]	=	0;			kalman_initial.H_data[7]	=	-10*dt;
+		kalman_initial.H_data[0]	= 1;			kalman_initial.H_data[1]	=	0;			kalman_initial.H_data[2]	=	-0.1*dt;			kalman_initial.H_data[3]	=	0;
+		kalman_initial.H_data[4]	= 0;			kalman_initial.H_data[5]	=	1;			kalman_initial.H_data[6]	=	0;			kalman_initial.H_data[7]	=	-0.1*dt;
 		kalman_initial.H_data[8]	= 0;			kalman_initial.H_data[9]	=	0;			kalman_initial.H_data[10]	=	1;			kalman_initial.H_data[11]	=	0;
 		kalman_initial.H_data[12]	=	0;			kalman_initial.H_data[13]	=	0;			kalman_initial.H_data[14]	=	0;			kalman_initial.H_data[15]	=	1;
 		
