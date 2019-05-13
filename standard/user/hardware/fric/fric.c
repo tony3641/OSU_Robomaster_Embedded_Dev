@@ -4,16 +4,17 @@
 
 void fric_PWM_configuration(void) //
 {
-
+		//定义类型
     GPIO_InitTypeDef GPIO_InitStructure;
     TIM_TimeBaseInitTypeDef TIM_TimeBaseInitStructure;
     TIM_OCInitTypeDef TIM_OCInitStructure;
-
-    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
+		
+		//启用GPIO引脚
+    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE); 
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOE, ENABLE);
-
+		//启用计时器
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);
-
+	
     GPIO_PinAFConfig(GPIOA, GPIO_PinSource8, GPIO_AF_TIM1);
     GPIO_PinAFConfig(GPIOE, GPIO_PinSource14, GPIO_AF_TIM1);
 
