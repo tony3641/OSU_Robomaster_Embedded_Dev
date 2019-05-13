@@ -1,7 +1,7 @@
 #include "stm32f4xx.h"
 #include "gpio.h"
 #include "main.h"
-
+#include "stm32f4xx_gpio.h"
 
 void PC_Init(void){
   GPIO_InitTypeDef GPIO_InitStructure;
@@ -17,12 +17,8 @@ void PC_Init(void){
   GPIO_Init(GPIOC, &GPIO_InitStructure);//PC4 init->N1 on board
 }
 
-void Set_PC0_Low(void){
-    GPIO_WriteBit(GPIOC,GPIO_Pin_0,0);
-}
-
-void Set_PC0_High(void){
-    GPIO_WriteBit(GPIOC,GPIO_Pin_0,1);
+void Set_GPIO_PC(GPIO_TypeDef* GPIOx, uint16_t Pin, unsigned short voltage_value){
+    GPIO_WriteBit(GPIOx,Pin,voltage_value);
 }
 
 
