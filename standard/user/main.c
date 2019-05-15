@@ -41,7 +41,12 @@
 #include "remote_control.h"
 #include "start_task.h"
 
+
+#include "gpio.h"
+
 void BSP_init(void);
+User_GPIO_X user_gpio;
+User_PWM_X user_pwm;
 
 int main(void)
 {
@@ -74,8 +79,45 @@ void BSP_init(void)
 #endif
     //24输出控制口 初始化
     power_ctrl_configuration();
-    //摩擦轮电机PWM初始化
+    //17mm摩擦轮电机PWM初始化
     fric_PWM_configuration();
+		
+///////////////////////////////////////////////////////////////////////////////
+		//初始化配置GPIO
+		GPIO_ID_E GPIO_ID_LIST[17]={I1,I2,J1,J2,K1,K2,L1,L2,M1,M2,N1,N2,O1,O2,P1,P2,Q2};//输入想要初始化配置的端口
+		int i;
+		for (i=0;i<17;i++)
+		{	
+			if(GPIO_ID_LIST[i]==NULL)//若端口未指定
+			{
+				;//则什么也不做，跳过
+			}
+			else
+			{
+				user_gpio.GPIO_ID=GPIO_ID_LIST[i];//设置GPIO_ID为指定端口
+				User_GPIO_Init(&user_gpio);//初始化配置GPIO
+			}
+		}
+///////////////////////////////////////////////////////////////////////////////
+		
+///////////////////////////////////////////////////////////////////////////////
+		//初始化配置PWM
+		PWM_ID_E PWM_ID_LIST[16]={A,B,C,D,E,F,G,H,S,T,U,V,W,X,Y,Z};//输入想要初始化配置的端口
+		int k;
+		for (k=0;k<16;k++)
+		{	
+			if(PWM_ID_LIST[k]==NULL)//若端口未指定
+			{
+				;//则什么也不做，跳过
+			}
+			else
+			{
+				user_pwm.PWM_ID=PWM_ID_LIST[k];//设置GPIO_ID为指定端口
+				User_PWM_Init(&user_pwm);//初始化配置GPIO
+			}
+		}
+////////////////////////////////////////////////////////////////////////////////
+
     //蜂鸣器初始化
     buzzer_init(30000, 90);
     //激光IO初始化

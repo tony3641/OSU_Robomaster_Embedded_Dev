@@ -29,18 +29,17 @@
 #include "INS_Task.h"
 
 
-
 //自定义
 #include "gimbal_task.h"
 #include "filter.h"
 #include "CAN_Receive.h"
 #include "chassis_task.h"
+#include "gpio.h"
 
 //软件复位Trigger
 #include "stm32f4xx.h"
 #include "core_cm4.h"
 #include "core_cmFunc.h"
-
 
 
 #define user_is_error() toe_is_error(errorListLength)
@@ -52,12 +51,10 @@ uint32_t UserTaskStack;
 //姿态角 单位度
 fp32 angle_degree[3] = {0.0f, 0.0f, 0.0f};
 
-
 ////自定义内容
 //定义结构体
 Gimbal_Control_t gimbal_control;
 tx2_aim_package_t tx2;
-
 
 //声明filter类型
 Group_Delay_t group_delay_ecd_aim;
@@ -65,10 +62,11 @@ Group_Delay_t group_delay_gyro_aim;
 kalman_filter_t kalman;
 kalman_filter_init_t kalman_initial;
 
-
 //定义filter
 double Group_Delay(Group_Delay_t *GD);
 float *kalman_filter_calc(kalman_filter_t *F, float x, float y, float vx, float vy);
+
+
 
 //初始化Kalman
 void kalman_filter_init(kalman_filter_t *F, kalman_filter_init_t *I);
@@ -234,9 +232,18 @@ void UserTask(void *pvParameters)
 		kalman_initial.P_data[4]	= 0;			kalman_initial.P_data[5]	=	0;			kalman_initial.P_data[6]	=	0;				kalman_initial.P_data[7]	=	0;
 		kalman_initial.P_data[8]	= 0;			kalman_initial.P_data[9]	=	0;			kalman_initial.P_data[10] =	0;				kalman_initial.P_data[11] =	0;
 		kalman_initial.P_data[12] =	0;			kalman_initial.P_data[13] =	0;			kalman_initial.P_data[14] =	0;				kalman_initial.P_data[15] =	0;
-	
+
+
+
+
+
+
 		//初始化Kalman Filter
 		kalman_filter_init(&kalman,&kalman_initial);
+
+
+
+
     while (1)
     {
 
@@ -250,9 +257,6 @@ void UserTask(void *pvParameters)
             led_green_on();
         }
 				
-				
-				
-				
 				//定义filter的输入
 				//group delay，输入为陀螺仪YAW轴的角度
 				group_delay_gyro_aim.group_delay_raw_value=gimbal_control.gimbal_yaw_motor.absolute_angle;
@@ -261,13 +265,23 @@ void UserTask(void *pvParameters)
 				
 				Filter_Running(&gimbal_control);//filter进行计算
 				
+				//开启GPIO
+				GPIO_ID_E GPIO_ID_LIST[17]={I1,I2,J1,J2,K1,K2,L1,L2,M1,M2,N1,N2,O1,O2,P1,P2,Q2};//输入想要开启的端口
+				int i;
+				for (i=0;i<17;i++)
+				{	
+					if(GPIO_ID_LIST[i]==NULL)//若端口未指定
+					{
+						;//则什么也不做，跳过
+					}
+					else
+					{
+					user_gpio.GPIO_ID=GPIO_ID_LIST[i];//设置GPIO_ID为指定端口
+					Set_User_GPIO(&user_gpio,ENABLE);//ENABLE开启GPIO端口
+					}
+				}
 				
-				
-				
-				
-				
-				
-				
+								
 				vTaskDelay(1);//每隔1ms循环一次
 //        led_green_off();
 //        vTaskDelay(500);

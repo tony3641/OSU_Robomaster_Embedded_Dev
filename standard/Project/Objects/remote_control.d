@@ -4,7 +4,7 @@
 .\objects\remote_control.o: ..\User\hardware\RC\rc.h
 .\objects\remote_control.o: ..\CMSIS\stm32f4xx.h
 .\objects\remote_control.o: ..\CMSIS\core_cm4.h
-.\objects\remote_control.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\remote_control.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\remote_control.o: ..\CMSIS\core_cmInstr.h
 .\objects\remote_control.o: ..\CMSIS\core_cmFunc.h
 .\objects\remote_control.o: ..\CMSIS\core_cmSimd.h

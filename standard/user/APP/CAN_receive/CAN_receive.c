@@ -34,18 +34,6 @@
 
 void CAN_CMD_GIMBAL(int16_t yaw, int16_t pitch, int16_t shoot, int16_t rev);
 
-
-
-
-
-
-
-
-
-
-
-
-
 //Read Chassis Motor data
 //底盘电机数据读取
 //"ecd" represents "encoder"

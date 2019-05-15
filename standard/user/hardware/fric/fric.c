@@ -1,18 +1,17 @@
 #include "fric.h"
-
 #include "stm32f4xx.h"
 
 void fric_PWM_configuration(void) //
 {
-		//定义类型
+		//定义结构体类型变量
     GPIO_InitTypeDef GPIO_InitStructure;
     TIM_TimeBaseInitTypeDef TIM_TimeBaseInitStructure;
     TIM_OCInitTypeDef TIM_OCInitStructure;
 		
-		//启用GPIO引脚
+		//配置GPIO管脚
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE); 
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOE, ENABLE);
-		//启用计时器
+		//配置计时器
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);
 	
     GPIO_PinAFConfig(GPIOA, GPIO_PinSource8, GPIO_AF_TIM1);
@@ -45,7 +44,7 @@ void fric_PWM_configuration(void) //
     TIM_OCInitStructure.TIM_OutputNState = TIM_OutputNState_Disable;
     TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_Low;
     TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Set;
-    TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCIdleState_Reset;
+    TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCNIdleState_Reset;
     TIM_OCInitStructure.TIM_Pulse = 1000;
 
     TIM_OC1Init(TIM1, &TIM_OCInitStructure);
@@ -61,7 +60,8 @@ void fric_PWM_configuration(void) //
     TIM_Cmd(TIM1, ENABLE);
 
     fric_off();
-
+		
+		//微动开关配置
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOF, ENABLE);
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;

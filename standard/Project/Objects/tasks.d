@@ -1,9 +1,9 @@
 .\objects\tasks.o: ..\user\FreeRTOS\tasks.c
-.\objects\tasks.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-.\objects\tasks.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\tasks.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\tasks.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\objects\tasks.o: ..\User\FreeRTOS\include\FreeRTOS.h
-.\objects\tasks.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
-.\objects\tasks.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\tasks.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects\tasks.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\tasks.o: ..\User\FreeRTOS\include\FreeRTOSConfig.h
 .\objects\tasks.o: ..\User\main.h
 .\objects\tasks.o: ..\User\FreeRTOS\include\projdefs.h
@@ -15,4 +15,4 @@
 .\objects\tasks.o: ..\User\FreeRTOS\include\list.h
 .\objects\tasks.o: ..\User\FreeRTOS\include\timers.h
 .\objects\tasks.o: ..\User\FreeRTOS\include\StackMacros.h
-.\objects\tasks.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\tasks.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

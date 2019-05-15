@@ -1016,7 +1016,7 @@ static void gimbal_motor_aim_control_gyro_yaw(Gimbal_Motor_t *gimbal_motor)
 
 		
 		//判断是否跟丢
-		if (tx2.raw_horizontal_pixel==9999)//如果原始自瞄数据返回跟丢
+		if (tx2.raw_horizontal_pixel==9999 || tx2.raw_horizontal_pixel==0)//如果原始自瞄数据返回跟丢
 		{		
 			final_absolute_yaw_angle_set=gimbal_motor->absolute_angle;//set设为当前角度使云台停止移动
 		}
@@ -1084,7 +1084,7 @@ static void gimbal_motor_aim_control_pitch(Gimbal_Motor_t *gimbal_motor)
 		
 		
 		//判断是否跟丢
-		if (tx2.raw_vertical_pixel==9999)//如果原始自瞄数据返回跟丢
+		if (tx2.raw_vertical_pixel==9999 || tx2.raw_vertical_pixel==0)//如果原始自瞄数据返回跟丢
 		{		
 			final_relative_pitch_angle_set=gimbal_motor->relative_angle;//set设为当前角度使云台停止移动
 		}

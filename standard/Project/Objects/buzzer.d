@@ -3,7 +3,7 @@
 .\objects\buzzer.o: ..\User\main.h
 .\objects\buzzer.o: ..\CMSIS\stm32f4xx.h
 .\objects\buzzer.o: ..\CMSIS\core_cm4.h
-.\objects\buzzer.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\buzzer.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\buzzer.o: ..\CMSIS\core_cmInstr.h
 .\objects\buzzer.o: ..\CMSIS\core_cmFunc.h
 .\objects\buzzer.o: ..\CMSIS\core_cmSimd.h
