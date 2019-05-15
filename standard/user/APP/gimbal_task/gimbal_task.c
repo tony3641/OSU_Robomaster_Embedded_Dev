@@ -1007,7 +1007,7 @@ static void gimbal_motor_aim_control_gyro_yaw(Gimbal_Motor_t *gimbal_motor)
 		static fp32 final_absolute_yaw_angle_set; //yaw电机最终相对目标角度
 
 		
-		delta_yaw=(fp32)((filtered_final_angle_set[0]-0.20f*572.9577951f*filtered_aim_data[2])//预测
+		delta_yaw=(fp32)((filtered_final_angle_set[0]-0.10f*572.9577951f*filtered_aim_data[2])//预测
 										*-data_to_deg_ratio*1);
 
 		//用摇杆/鼠标更改absolute_angle_set的值，在一定范围内临时手动调整准心
@@ -1074,7 +1074,7 @@ static void gimbal_motor_aim_control_pitch(Gimbal_Motor_t *gimbal_motor)
 		
 
 		delta_pitch=(fp32)(filtered_final_angle_set[1])
-											*-data_to_deg_ratio*1.0f;
+											*-data_to_deg_ratio*0.0f;
     
 //		//更改relative_angle_set的值来达到锁定位置环
 //		gimbal_motor->relative_angle_set+=delta_pitch;

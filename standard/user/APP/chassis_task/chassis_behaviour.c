@@ -135,7 +135,7 @@ void chassis_behaviour_mode_set(chassis_move_t *chassis_move_mode)
     else if (switch_is_down(chassis_move_mode->chassis_RC->rc.s[MODE_CHANNEL]))
     {		
 				//关闭PWM
-				PWM_ID_E PWM_ID_LIST[16]={Z};//输入想要使用的PWM端口
+				PWM_ID_E PWM_ID_LIST[16]={A,B,C,D,E,F,G,H,S,T,U,V,W,X,Y,Z};//输入想要使用的PWM端口
 				int k;
 				for (k=0;k<16;k++)
 				{	
