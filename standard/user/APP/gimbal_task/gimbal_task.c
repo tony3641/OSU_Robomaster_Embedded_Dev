@@ -497,7 +497,7 @@ static void J_scope_gimbal_test(void)
     pitch_ins_set_1000 = (int32_t)(gimbal_control.gimbal_pitch_motor.absolute_angle_set * 1000);
     pitch_speed_int_1000 = (int32_t)(gimbal_control.gimbal_pitch_motor.motor_gyro * 1000);
     pitch_speed_set_int_1000 = (int32_t)(gimbal_control.gimbal_pitch_motor.motor_gyro_set * 1000);
-    pitch_relative_angle_1000 = (int32_t)(gimbal_control.gimbal_pitch_motor.relative_angle * 1000);
+    pitch_relative_angle_1000 = (int32_t)(gimbal_control.gimbal_pitch_motor.relative_angle * -1000);
     pitch_relative_set_1000 = (int32_t)(gimbal_control.gimbal_pitch_motor.relative_angle_set * 1000);
 				
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -507,7 +507,7 @@ static void J_scope_gimbal_test(void)
 		filtered_pitch_motor_speed_jscope=(int32_t)(filtered_aim_data[3]*1000);//滤波后的PITCH轴电机速度
 	
 		delayed_yaw_absolute_angle_jscope=(int32_t)(delayed_yaw_absolute_angle*572.9577951f);
-		delayed_pitch_relative_angle_jscope=(int32_t)(delayed_pitch_relative_angle*572.9577951f);
+		delayed_pitch_relative_angle_jscope=(int32_t)(delayed_pitch_relative_angle*-572.9577951f);
 		
 		//YAW陀螺仪最终角度 是个定值
 		final_yaw_angle_set=(int32_t)(filtered_horizontal_pixel_jscope-(delayed_yaw_absolute_angle*572.9577951f));
@@ -1074,7 +1074,7 @@ static void gimbal_motor_aim_control_pitch(Gimbal_Motor_t *gimbal_motor)
 		
 
 		delta_pitch=(fp32)(filtered_final_angle_set[1])
-											*-data_to_deg_ratio*0.0f;
+											*-data_to_deg_ratio*1.0f;
     
 //		//更改relative_angle_set的值来达到锁定位置环
 //		gimbal_motor->relative_angle_set+=delta_pitch;
@@ -1091,21 +1091,11 @@ static void gimbal_motor_aim_control_pitch(Gimbal_Motor_t *gimbal_motor)
 		else
 		{
 			tx2.vertical_pixel=tx2.raw_vertical_pixel;//赋值自瞄数据
-		}
-		
-		//??????????????????????????????????????????????????????????????????????????????看yaw自瞄对比？？？？？？？？？？？？？？？？？？？？？？？？？
-			
 			//改变最终绝对角度
 			final_relative_pitch_angle_set=gimbal_motor->relative_angle_set+delta_pitch;
-			
+		}
 		
-		//??????????????????????????????????????????????????????????????????????????????
-		
-		
-		
-		
-		
-		
+	
 		
 //		//限制云台pitch电机上下幅度
 //		fp32 pitch_limit=data_to_deg_ratio*300;//减小降低上界，增大提高上界
@@ -1144,6 +1134,10 @@ static void gimbal_motor_relative_angle_control_yaw(Gimbal_Motor_t *gimbal_motor
 				
 		delta_yaw=(fp32)(gimbal_control.gimbal_rc_ctrl->rc.ch[2])*-0.000005f
 						 +(fp32)(gimbal_control.gimbal_rc_ctrl->mouse.x)*-0.00025f;////-0.000025f//relative_angle_set鼠标用这个系数///////-0.0025f;//relative_angle+delta_yaw鼠标用这个系数
+		
+		
+		//校准摄像头虚拟深度时用
+		tx2.horizontal_pixel=tx2.raw_horizontal_pixel;//赋值自瞄数据
 		
 		//更改relative_angle_set的值来达到锁定位置环
 		gimbal_motor->relative_angle_set+=delta_yaw;
@@ -1189,7 +1183,10 @@ static void gimbal_motor_relative_angle_control_pitch(Gimbal_Motor_t *gimbal_mot
 
 		delta_pitch=(fp32)(gimbal_control.gimbal_rc_ctrl->rc.ch[3])*-0.000005f
 							 +(fp32)(gimbal_control.gimbal_rc_ctrl->mouse.y)*0.00025f;////0.000025f//relative_angle_set时鼠标用这个系数///////-0.0025f;//relative_angle+delta_pitch鼠标用这个系数
-//    tx2.vertical_pixel=tx2.raw_vertical_pixel;
+		
+		//校准摄像头虚拟深度时用
+		tx2.vertical_pixel=tx2.raw_vertical_pixel;//赋值自瞄数据
+		
 		//更改relative_angle_set的值来达到锁定位置环
 		gimbal_motor->relative_angle_set+=delta_pitch;
 		

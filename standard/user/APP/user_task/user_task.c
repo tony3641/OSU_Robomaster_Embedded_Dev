@@ -170,7 +170,7 @@ void UserTask(void *pvParameters)
 		
 		//Covariance of the Measurement Noise Matrix R
 		kalman_initial.R_data[0]	= 8000;		kalman_initial.R_data[1]	=	0;			kalman_initial.R_data[2]	=	0;			kalman_initial.R_data[3]	=	0;
-		kalman_initial.R_data[4]	= 0;			kalman_initial.R_data[5]	=	8000;		kalman_initial.R_data[6]	=	0;			kalman_initial.R_data[7]	=	0;
+		kalman_initial.R_data[4]	= 0;			kalman_initial.R_data[5]	=	2000;		kalman_initial.R_data[6]	=	0;			kalman_initial.R_data[7]	=	0;
 		kalman_initial.R_data[8]	= 0;			kalman_initial.R_data[9]	=	0;			kalman_initial.R_data[10]	=	60000;	kalman_initial.R_data[11]	=	0;
 		kalman_initial.R_data[12]	=	0;			kalman_initial.R_data[13]	=	0;			kalman_initial.R_data[14]	=	0;			kalman_initial.R_data[15]	=	60000;
 		

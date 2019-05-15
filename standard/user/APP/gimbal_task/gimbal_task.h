@@ -26,7 +26,7 @@
 #include "remote_control.h"
 
 //pitch 速度环 PID参数以及 PID最大输出，积分输出
-#define PITCH_SPEED_PID_KP 1000.0f
+#define PITCH_SPEED_PID_KP 2000.0f
 #define PITCH_SPEED_PID_KI 10.0f
 #define PITCH_SPEED_PID_KD 0.0f
 #define PITCH_SPEED_PID_MAX_OUT 10000.0f//30000.0f
@@ -40,7 +40,7 @@
 #define YAW_SPEED_PID_MAX_IOUT 5000.0f
 
 //pitch 角度环 角度由陀螺仪解算 PID参数以及 PID最大输出，积分输出
-#define PITCH_GYRO_ABSOLUTE_PID_KP 15.0f
+#define PITCH_GYRO_ABSOLUTE_PID_KP 10.0f
 #define PITCH_GYRO_ABSOLUTE_PID_KI 0.0f
 #define PITCH_GYRO_ABSOLUTE_PID_KD 0.0f
 
@@ -50,12 +50,12 @@
 //yaw 角度环 角度由陀螺仪解算 PID参数以及 PID最大输出，积分输出
 #define YAW_GYRO_ABSOLUTE_PID_KP 10.0f//10.0f
 #define YAW_GYRO_ABSOLUTE_PID_KI 1.0f
-#define YAW_GYRO_ABSOLUTE_PID_KD 0.0f//0.3f
+#define YAW_GYRO_ABSOLUTE_PID_KD 0.3f//0.3f
 #define YAW_GYRO_ABSOLUTE_PID_MAX_OUT 10.0f
 #define YAW_GYRO_ABSOLUTE_PID_MAX_IOUT 0.0f
 
 //pitch 角度环 角度由编码器 PID参数以及 PID最大输出，积分输出
-#define PITCH_ENCODE_RELATIVE_PID_KP 3.0f
+#define PITCH_ENCODE_RELATIVE_PID_KP 8.0f
 #define PITCH_ENCODE_RELATIVE_PID_KI 0.00f
 #define PITCH_ENCODE_RELATIVE_PID_KD 0.0f//0.0f
 
