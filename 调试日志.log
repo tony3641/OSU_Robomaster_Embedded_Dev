@@ -1,3 +1,11 @@
+May 18, 2019
+完成工程车机械臂控制程序，待调用
+完成英雄车程序气动炮GPIO，待测试
+完成防止自瞄开启时抖动，通过加一个delay
+完成软件复位
+完成开机时云台保持在原位，通过在while(1)loop前的   GIMBAL_Feedback_Update(&gimbal_control);             //云台数据反馈   前增加delay
+GroupDelayTable.xlsx没用了，想删就删
+
 May 14, 2019
 完成所有GPIO及PWM配置和封装
 
@@ -6,6 +14,7 @@ May 11, 2019
 完成GPIO初步调用
 目标：	自瞄开启时会抖动
 	Erase Full Chip时发现小bug，待修复
+
 May 9, 2019
 由于陀螺仪范围是（-π，π），将自瞄开启时的陀螺仪读值设为0以免启动时因为超出范围而晃飞
 目标：	Native Prediction
