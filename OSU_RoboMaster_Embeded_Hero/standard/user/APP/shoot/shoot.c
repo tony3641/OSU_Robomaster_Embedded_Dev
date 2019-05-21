@@ -144,9 +144,22 @@ int16_t shoot_control_loop(void)
     {
         trigger_motor_pid.max_out = TRIGGER_BULLET_PID_MAX_OUT;
         trigger_motor_pid.max_iout = TRIGGER_BULLET_PID_MAX_IOUT;
-        shoot_bullet_control();
-//气动炮GPIO
-				Set_User_GPIO(&pneumatic_gun_gpio, ENABLE);
+        shoot_bullet_control();//子弹射出后拨弹轮的行为
+				//气动炮GPIO
+//				Set_User_GPIO(&pneumatic_gun_gpio, ENABLE);
+//				vTaskDelay(50);
+//				Set_User_GPIO(&pneumatic_gun_gpio, DISABLE);
+//			if(trigger_motor.rc_s_time == RC_S_LONG_TIME)//连发？
+//			{
+				int i;
+				for(i=0;i<3;i++)
+				{
+					Set_User_GPIO(&pneumatic_gun_gpio, ENABLE);
+					vTaskDelay(33);
+					Set_User_GPIO(&pneumatic_gun_gpio, DISABLE);
+					vTaskDelay(34);
+				}
+//			}
     }
     //发射完成状态控制
     else if (shoot_mode == SHOOT_DONE)
@@ -160,8 +173,6 @@ int16_t shoot_control_loop(void)
         trigger_motor_pid.max_out = TRIGGER_READY_PID_MAX_OUT;
         trigger_motor_pid.max_iout = TRIGGER_READY_PID_MAX_IOUT;
         shoot_ready_control();
-				//气动炮GPIO
-				Set_User_GPIO(&pneumatic_gun_gpio, ENABLE);
     }
 
     if (shoot_mode == SHOOT_STOP)

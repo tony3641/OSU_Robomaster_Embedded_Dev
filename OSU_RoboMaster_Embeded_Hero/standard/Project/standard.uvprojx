@@ -828,11 +828,6 @@
               <FilePath>..\user\APP\CAN_receive\CAN_receive.c</FilePath>
             </File>
             <File>
-              <FileName>chassis_behaviour.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\user\APP\chassis_task\chassis_behaviour.c</FilePath>
-            </File>
-            <File>
               <FileName>chassis_task.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\user\APP\chassis_task\chassis_task.c</FilePath>
@@ -846,6 +841,11 @@
               <FileName>FreeRTOS_middleware.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\user\APP\FreeRTOS_middleware\FreeRTOS_middleware.c</FilePath>
+            </File>
+            <File>
+              <FileName>chassis_behaviour.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\user\APP\chassis_task\chassis_behaviour.c</FilePath>
             </File>
             <File>
               <FileName>filter.c</FileName>

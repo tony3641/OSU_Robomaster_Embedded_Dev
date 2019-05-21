@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\infantry.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\infantry.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon May 20 19:02:48 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon May 20 21:49:02 2019
 <BR><P>
 <H3>Maximum Stack Usage =        280 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -2686,10 +2686,11 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cali_gimbal_hook
 </UL>
 
-<P><STRONG><a name="[106]"></a>shoot_control_loop</STRONG> (Thumb, 394 bytes, Stack size 8 bytes, shoot.o(i.shoot_control_loop))
-<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = shoot_control_loop &rArr; shoot_ready_control &rArr; __aeabi_cdcmple
+<P><STRONG><a name="[106]"></a>shoot_control_loop</STRONG> (Thumb, 416 bytes, Stack size 16 bytes, shoot.o(i.shoot_control_loop))
+<BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = shoot_control_loop &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ramp_calc
+<BR>[Calls]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
+<LI><a href="#[1f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ramp_calc
 <LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_User_GPIO
 <LI><a href="#[1b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;laser_on
 <LI><a href="#[1b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;laser_off
@@ -2939,6 +2940,7 @@ Global Symbols
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_task
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UserTask
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;INSTask
+<LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shoot_control_loop
 <LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_task
 </UL>
 
