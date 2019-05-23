@@ -457,10 +457,10 @@ int32_t filtered_horizontal_pixel_jscope;
 int32_t filtered_yaw_motor_speed_jscope;
 int32_t filtered_vertical_pixel_jscope;
 int32_t filtered_pitch_motor_speed_jscope;
-
 int32_t temp_absolute_angle_reference_jscope;
-
 int32_t prediciton_filtered_final_yaw_angle_set_jscope;
+int32_t given_current_yaw_jscope;
+int32_t given_current_pitch_jscope;
 
 //传出数据
 extern int32_t final_yaw_angle_set;//最终改变的YAW轴角度值
@@ -489,7 +489,13 @@ static void J_scope_gimbal_test(void)
     pitch_speed_set_int_1000 = (int32_t)(gimbal_control.gimbal_pitch_motor.motor_gyro_set * 1000);
     pitch_relative_angle_1000 = (int32_t)(gimbal_control.gimbal_pitch_motor.relative_angle * -1000);
     pitch_relative_set_1000 = (int32_t)(gimbal_control.gimbal_pitch_motor.relative_angle_set * 1000);
-				
+		
+	
+		given_current_yaw_jscope=(int32_t)(gimbal_control.gimbal_yaw_motor.given_current*1000);
+		given_current_pitch_jscope=(int32_t)(gimbal_control.gimbal_pitch_motor.given_current*1000);
+	
+	
+		
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		filtered_horizontal_pixel_jscope=(int32_t)(filtered_aim_data[0]-YAW_MID);//相对 相机坐标系x轴 中点的角度 = 滤波后的x轴自瞄数据 - x轴中心点
 		filtered_vertical_pixel_jscope=(int32_t)(filtered_aim_data[1]-PITCH_MID);//相对 相机坐标系y轴 中点的角度 = 滤波后的y轴自瞄数据 - y轴中心点	
@@ -894,7 +900,7 @@ static void gimbal_motor_relative_angle_control_yaw(Gimbal_Motor_t *gimbal_motor
 		tx2.horizontal_pixel=tx2.raw_horizontal_pixel;//赋值自瞄数据
 		
 		//更改relative_angle_set的值来达到锁定位置环
-		gimbal_motor->relative_angle_set+=delta_yaw*0;
+		gimbal_motor->relative_angle_set+=delta_yaw;
 
 //		//限制云台yaw电机左右幅度
 //		fp32 yaw_limit=data_to_deg_ratio*900;//增大扩展左右界，减小收缩左右界
@@ -941,7 +947,7 @@ static void gimbal_motor_relative_angle_control_pitch(Gimbal_Motor_t *gimbal_mot
 		tx2.vertical_pixel=tx2.raw_vertical_pixel;//赋值自瞄数据
 		
 		//更改relative_angle_set的值来达到锁定位置环
-		gimbal_motor->relative_angle_set+=delta_pitch*0;
+		gimbal_motor->relative_angle_set+=delta_pitch;
 		
 //		//限制云台pitch电机左右幅度
 //		fp32 pitch_limit=data_to_deg_ratio*300;//减小降低上界，增大提高上界

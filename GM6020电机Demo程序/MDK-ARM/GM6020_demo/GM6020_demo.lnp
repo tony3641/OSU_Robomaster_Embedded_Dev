@@ -27,6 +27,6 @@
 "gm6020_demo\bsp_can.o"
 "gm6020_demo\bsp_pwm.o"
 --library_type=microlib --strict --scatter "GM6020_demo\GM6020_demo.sct"
---summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list "GM6020_demo.map" -o GM6020_demo\GM6020_demo.axf

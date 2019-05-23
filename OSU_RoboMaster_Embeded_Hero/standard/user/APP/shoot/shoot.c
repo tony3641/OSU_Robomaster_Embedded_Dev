@@ -144,28 +144,21 @@ int16_t shoot_control_loop(void)
     {
         trigger_motor_pid.max_out = TRIGGER_BULLET_PID_MAX_OUT;
         trigger_motor_pid.max_iout = TRIGGER_BULLET_PID_MAX_IOUT;
-        shoot_bullet_control();//子弹射出后拨弹轮的行为
-				//气动炮GPIO
-//				Set_User_GPIO(&pneumatic_gun_gpio, ENABLE);
-//				vTaskDelay(50);
-//				Set_User_GPIO(&pneumatic_gun_gpio, DISABLE);
-//			if(trigger_motor.rc_s_time == RC_S_LONG_TIME)//连发？
-//			{
-				int i;
-				for(i=0;i<3;i++)
+				//气动炮GPIO	
+			int i;
+				for(i=0;i<1;i++)
 				{
 					Set_User_GPIO(&pneumatic_gun_gpio, ENABLE);
-					vTaskDelay(33);
+					vTaskDelay(50);
 					Set_User_GPIO(&pneumatic_gun_gpio, DISABLE);
-					vTaskDelay(34);
-				}
-//			}
+					vTaskDelay(50);
+				}  
+			shoot_bullet_control();//子弹射出后拨弹轮的行为
     }
     //发射完成状态控制
     else if (shoot_mode == SHOOT_DONE)
     {
         shoot_done_control();
-//				Set_User_GPIO(&pneumatic_gun_gpio, DISABLE);
     }
     //发射准备状态控制
     else if (shoot_mode == SHOOT_READY)
@@ -182,7 +175,7 @@ int16_t shoot_control_loop(void)
         shoot_fric_off();
         shoot_laser_off();
         shoot_CAN_Set_Current = 0;
-//气动炮GPIO
+				//气动炮GPIO
 				Set_User_GPIO(&pneumatic_gun_gpio, DISABLE);
     }
     else
@@ -493,8 +486,6 @@ static void shoot_ready_control(void)
         trigger_motor.speed_set = 0.0f;
         trigger_motor.move_flag = 0;
         trigger_motor.key_time = 0;
-//				//气动炮GPIO停止
-//				Set_User_GPIO(&pneumatic_gun_gpio, DISABLE);
     }
     else if (trigger_motor.key == SWITCH_TRIGGER_OFF && trigger_motor.key_time < KEY_OFF_JUGUE_TIME)
     {
@@ -503,10 +494,10 @@ static void shoot_ready_control(void)
     }
     else if (trigger_motor.key == SWITCH_TRIGGER_OFF && trigger_motor.key_time == KEY_OFF_JUGUE_TIME)
     {
-        //微动开关一段时间没有子弹，进入拨弹，一次旋转 1/10PI的角度
+        //微动开关一段时间没有子弹，进入拨弹，一次旋转 PI/10的角度
         if (trigger_motor.move_flag == 0)
         {
-            trigger_motor.set_angle = rad_format(trigger_motor.set_angle + PI_Ten);
+            trigger_motor.set_angle = rad_format(trigger_motor.set_angle + PI_Ten);//PI_Ten
             trigger_motor.cmd_time = xTaskGetTickCount();
             trigger_motor.move_flag = 1;
         }

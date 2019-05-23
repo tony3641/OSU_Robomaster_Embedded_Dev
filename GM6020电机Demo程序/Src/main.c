@@ -144,9 +144,9 @@ int main(void)
     /* scan is key be pressd down to change target speed and pwm pulse */
     if (key_scan())
     {
-      target_speed += 60.0f;  // target speed increase 60rpm
+      target_speed += 90.0f;  // target speed increase 100rpm
       pwm_pulse    += 210;    // pulse  width increase 210us = (1920-1080)/4
-      if (target_speed > 180) // if current speed = 180, press key to stop motor
+      if (target_speed > 270) // if current speed = 180, press key to stop motor
       {
         target_speed = 0;
         pwm_pulse = 1080;

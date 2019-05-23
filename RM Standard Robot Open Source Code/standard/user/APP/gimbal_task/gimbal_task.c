@@ -113,7 +113,7 @@ void GIMBAL_task(void *pvParameters)
 //        vTaskDelay(GIMBAL_CONTROL_TIME);
 //        GIMBAL_Feedback_Update(&gimbal_control);             //云台数据反馈
 //    }
-		vTaskDelay(20);
+		vTaskDelay(2000);
 		GIMBAL_Feedback_Update(&gimbal_control);
     while (1)
     {

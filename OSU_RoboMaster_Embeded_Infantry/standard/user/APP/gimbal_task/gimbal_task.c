@@ -127,11 +127,11 @@ void GIMBAL_task(void *pvParameters)
     //射击初始化
     shoot_init();
     //判断电机是否都上线
-    while (toe_is_error(YawGimbalMotorTOE) || toe_is_error(PitchGimbalMotorTOE) || toe_is_error(TriggerMotorTOE))
-    {
+//    while (toe_is_error(YawGimbalMotorTOE) || toe_is_error(PitchGimbalMotorTOE) || toe_is_error(TriggerMotorTOE))
+//    {
         vTaskDelay(10*GIMBAL_CONTROL_TIME);
         GIMBAL_Feedback_Update(&gimbal_control);             //云台数据反馈
-    }
+//    }
 
 
     while (1)	
@@ -170,17 +170,17 @@ void GIMBAL_task(void *pvParameters)
 				
 				
         //云台在遥控器掉线状态即relax 状态，can指令为0，不使用current设置为零的方法，是保证遥控器掉线一定使得云台停止
-        if (!(toe_is_error(YawGimbalMotorTOE) && toe_is_error(PitchGimbalMotorTOE)&& toe_is_error(TriggerMotorTOE)))// 
-        {
-            if (toe_is_error(DBUSTOE))
-            {
-                CAN_CMD_GIMBAL(0, 0, 0, 0);
-            }
-            else
-            {
+//        if (!(toe_is_error(YawGimbalMotorTOE) && toe_is_error(PitchGimbalMotorTOE)&& toe_is_error(TriggerMotorTOE)))// 
+//        {
+//            if (toe_is_error(DBUSTOE))
+//            {
+//                CAN_CMD_GIMBAL(0, 0, 0, 0);
+//            }
+//            else
+//            {
                 CAN_CMD_GIMBAL(Yaw_Can_Set_Current, Pitch_Can_Set_Current, Shoot_Can_Set_Current, 0);
-            }
-        }
+//            }
+//        }
 
 
 				
@@ -944,23 +944,23 @@ static void gimbal_motor_relative_angle_control_pitch(Gimbal_Motor_t *gimbal_mot
 		//更改relative_angle_set的值来达到锁定位置环
 		gimbal_motor->relative_angle_set+=delta_pitch;
 		
-		//限制云台pitch电机左右幅度
-		fp32 pitch_limit=DEGREE_TO_RAD*300;//减小降低上界，增大提高上界
-		fp32 pitch_limit_offset=DEGREE_TO_RAD*100;//减小降低下界，增大提高下界
-		if(gimbal_motor->relative_angle_set>pitch_limit-pitch_limit_offset)//下界
-		{
-			gimbal_motor->relative_angle_set=pitch_limit-pitch_limit_offset;
-			buzzer_on(60,5000);
-		}
-		else if(gimbal_motor->relative_angle_set<-pitch_limit)//上界
-		{
-			gimbal_motor->relative_angle_set=-pitch_limit;
-			buzzer_on(60,5000);
-		}
-		else
-		{
-			//buzzer_off();
-		}
+//		//限制云台pitch电机上下幅度
+//		fp32 pitch_limit=DEGREE_TO_RAD*300;//减小降低上界，增大提高上界
+//		fp32 pitch_limit_offset=DEGREE_TO_RAD*100;//减小降低下界，增大提高下界
+//		if(gimbal_motor->relative_angle_set>pitch_limit-pitch_limit_offset)//下界
+//		{
+//			gimbal_motor->relative_angle_set=pitch_limit-pitch_limit_offset;
+//			buzzer_on(60,5000);
+//		}
+//		else if(gimbal_motor->relative_angle_set<-pitch_limit)//上界
+//		{
+//			gimbal_motor->relative_angle_set=-pitch_limit;
+//			buzzer_on(60,5000);
+//		}
+//		else
+//		{
+//			//buzzer_off();
+//		}
 		
 		//角度环，速度环串级pid调试
     gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_relative_angle_pid, gimbal_motor->relative_angle, gimbal_motor->relative_angle_set, gimbal_motor->motor_gyro);
