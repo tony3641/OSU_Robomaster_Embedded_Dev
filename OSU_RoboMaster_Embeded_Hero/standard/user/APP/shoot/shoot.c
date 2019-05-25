@@ -92,7 +92,36 @@ static void shoot_done_control(void);
   */
 static void shoot_ready_control(void);
 
+/**
+	*@brief						Fire control
+	*@author					OSU-RM
+	*@param[in]				void
+	*@retval					void
+	*/
+void shoot(void){
+	Set_User_GPIO(&pneumatic_gun_gpio, ENABLE);
+	vTaskDelay(1);
+	Set_User_GPIO(&pneumatic_gun_gpio, DISABLE);
+}
 
+int16_t shoot_ctrl(int16_t *time){
+	int16_t shoot_power=0;
+	if(*time<=150){
+		(*time)++;
+		shoot_power=2500;
+	}
+	else if((*time)>150&&(*time)<220){
+		(*time)++;
+		shoot_power=-2500;
+	if((*time)==215){
+			shoot();
+		}
+	}
+	else{
+		(*time)=0;
+	}
+	return shoot_power;
+}
 /**
   * @brief          射击初始化，初始化PID，遥控器指针，电机指针
   * @author         RM
@@ -126,6 +155,9 @@ void shoot_init(void)
 		pneumatic_gun_gpio.GPIO_ID=K1;
 		Set_User_GPIO(&pneumatic_gun_gpio, DISABLE);
 }
+
+
+
 /**
   * @brief          射击循环
   * @author         RM

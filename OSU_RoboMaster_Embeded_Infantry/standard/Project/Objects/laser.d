@@ -3,7 +3,7 @@
 .\objects\laser.o: ..\User\main.h
 .\objects\laser.o: ..\CMSIS\stm32f4xx.h
 .\objects\laser.o: ..\CMSIS\core_cm4.h
-.\objects\laser.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\laser.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\laser.o: ..\CMSIS\core_cmInstr.h
 .\objects\laser.o: ..\CMSIS\core_cmFunc.h
 .\objects\laser.o: ..\CMSIS\core_cmSimd.h

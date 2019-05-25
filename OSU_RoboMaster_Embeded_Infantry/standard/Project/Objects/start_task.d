@@ -2,9 +2,9 @@
 .\objects\start_task.o: ..\user\APP\start_task\Start_Task.h
 .\objects\start_task.o: ..\User\main.h
 .\objects\start_task.o: ..\User\FreeRTOS\include\FreeRTOSConfig.h
-.\objects\start_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\start_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\start_task.o: ..\User\FreeRTOS\include\FreeRTOS.h
-.\objects\start_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects\start_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\objects\start_task.o: ..\User\FreeRTOS\include\projdefs.h
 .\objects\start_task.o: ..\User\FreeRTOS\include\portable.h
 .\objects\start_task.o: ..\User\FreeRTOS\include\deprecated_definitions.h

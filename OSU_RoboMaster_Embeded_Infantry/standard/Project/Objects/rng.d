@@ -3,7 +3,7 @@
 .\objects\rng.o: ..\User\main.h
 .\objects\rng.o: ..\CMSIS\stm32f4xx.h
 .\objects\rng.o: ..\CMSIS\core_cm4.h
-.\objects\rng.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\rng.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\rng.o: ..\CMSIS\core_cmInstr.h
 .\objects\rng.o: ..\CMSIS\core_cmFunc.h
 .\objects\rng.o: ..\CMSIS\core_cmSimd.h

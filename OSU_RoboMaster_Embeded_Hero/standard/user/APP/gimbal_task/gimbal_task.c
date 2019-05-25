@@ -21,7 +21,7 @@
 #include "Gimbal_Task.h"
 
 #include "main.h"
-
+#include "stdlib.h"
 #include "arm_math.h"
 #include "gimbal_behaviour.h"
 #include "user_lib.h"
@@ -38,7 +38,7 @@
 #include "FreeRTOSConfig.h"
 #include "FreeRTOS.h"
 #include "task.h"
-
+#include "gpio.h"
 //软件复位Trigger
 void SoftReset(void);
 
@@ -68,8 +68,10 @@ uint32_t gimbal_high_water;
 
 //云台控制所有相关数据
 extern Gimbal_Control_t gimbal_control;
-
-
+static int64_t rpm_sum=0;
+static int16_t shoot_loop_time=0;
+static int shoot_power=0;		
+const motor_measure_t *trigger_motor_measure;
 //发送的can 指令
 static int16_t Yaw_Can_Set_Current = 0, Pitch_Can_Set_Current = 0, Shoot_Can_Set_Current = 0;
 
@@ -126,6 +128,7 @@ void GIMBAL_task(void *pvParameters)
     GIMBAL_Init(&gimbal_control);
     //射击初始化
     shoot_init();
+		shoot_loop_time=0;
     //判断电机是否都上线
 //关闭云台电机自检
 //    while (toe_is_error(YawGimbalMotorTOE) || toe_is_error(PitchGimbalMotorTOE || toe_is_error(TriggerMotorTOE))  )//
@@ -149,9 +152,30 @@ void GIMBAL_task(void *pvParameters)
 //        GIMBAL_Set_Contorl(&gimbal_control);                 //设置云台控制量
 			
         GIMBAL_Control_loop(&gimbal_control);                //云台控制PID计算
-
-        Shoot_Can_Set_Current = shoot_control_loop();        //射击任务控制循环
-				
+				trigger_motor_measure=get_Trigger_Motor_Measure_Point();
+				//shoot_power=shoot_ctrl(shoot_loop_time);
+				if(shoot_loop_time<=145){
+					(shoot_loop_time)++;
+					shoot_power=2500;
+					rpm_sum+=(*trigger_motor_measure).speed_rpm;
+				}
+				else if((shoot_loop_time)>145&&(shoot_loop_time)<200){
+					(shoot_loop_time)++;
+					shoot_power=-2500;
+					rpm_sum+=(*trigger_motor_measure).speed_rpm;
+				if((shoot_loop_time)==195){
+					shoot();
+					}
+				}
+				else{
+					(shoot_loop_time)=0;
+					rpm_sum=0;
+				}
+				if(rpm_sum>60000&&abs(shoot_power)>1000){
+					shoot_power=50;
+				}
+        //Shoot_Can_Set_Current = shoot_control_loop();        //射击任务控制循环
+				Shoot_Can_Set_Current=shoot_power;
 				Send_Gimbal_GYRO_Data(&gimbal_control);							 //发送云台陀螺仪数据
 			
 			

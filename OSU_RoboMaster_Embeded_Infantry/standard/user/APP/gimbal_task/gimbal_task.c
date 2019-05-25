@@ -19,7 +19,7 @@
   */
 
 #include "Gimbal_Task.h"
-
+#include "stdlib.h"
 #include "main.h"
 
 #include "arm_math.h"
@@ -781,8 +781,9 @@ static void gimbal_motor_aim_control_gyro_yaw(Gimbal_Motor_t *gimbal_motor)
 		else
 		{
 			tx2.horizontal_pixel=tx2.raw_horizontal_pixel;//赋值自瞄数据
-
+			
 			//改变最终绝对角度
+			
 			final_absolute_yaw_angle_set=gimbal_motor->absolute_angle_set+delta_yaw;
 			
 		}
@@ -810,9 +811,23 @@ static void gimbal_motor_aim_control_gyro_yaw(Gimbal_Motor_t *gimbal_motor)
 		
 	
     //角度环，速度环串级pid调试
-    gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_absolute_angle_pid, gimbal_motor->absolute_angle, final_absolute_yaw_angle_set, gimbal_motor->motor_gyro);
-    gimbal_motor->current_set = PID_Calc(&gimbal_motor->gimbal_motor_gyro_pid, gimbal_motor->motor_gyro, gimbal_motor->motor_gyro_set);
 
+/*******************************************************************/
+/*************当error大时手动target超前 已测试 效果好***************/
+/*******************************************************************/
+    if(abs((int)delta_yaw)>15){
+			if(delta_yaw>15){
+				gimbal_motor->motor_gyro*=10;
+			}
+			gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_absolute_angle_pid, gimbal_motor->absolute_angle, final_absolute_yaw_angle_set, gimbal_motor->motor_gyro*10);
+		}
+		else{	
+			gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_absolute_angle_pid, gimbal_motor->absolute_angle, final_absolute_yaw_angle_set, gimbal_motor->motor_gyro);
+		}
+/********************************************************************/
+/*************************不是玄学勿删！*****************************/
+/********************************************************************/
+			gimbal_motor->current_set = PID_Calc(&gimbal_motor->gimbal_motor_gyro_pid, gimbal_motor->motor_gyro, gimbal_motor->motor_gyro_set);
 		//控制值赋值
 		gimbal_motor->given_current = (int16_t)(gimbal_motor->current_set);
 		

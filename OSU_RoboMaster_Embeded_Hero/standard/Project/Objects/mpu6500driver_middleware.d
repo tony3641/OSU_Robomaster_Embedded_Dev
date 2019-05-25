@@ -3,7 +3,7 @@
 .\objects\mpu6500driver_middleware.o: ..\User\main.h
 .\objects\mpu6500driver_middleware.o: ..\CMSIS\stm32f4xx.h
 .\objects\mpu6500driver_middleware.o: ..\CMSIS\core_cm4.h
-.\objects\mpu6500driver_middleware.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\mpu6500driver_middleware.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\mpu6500driver_middleware.o: ..\CMSIS\core_cmInstr.h
 .\objects\mpu6500driver_middleware.o: ..\CMSIS\core_cmFunc.h
 .\objects\mpu6500driver_middleware.o: ..\CMSIS\core_cmSimd.h
