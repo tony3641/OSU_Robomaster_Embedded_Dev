@@ -15,13 +15,12 @@
   ****************************(C) COPYRIGHT 2016 DJI****************************
   */
 #include "chassis_task.h"
-
+#include "gpio.h"
 #include "rc.h"
-
+#include "buzzer.h"
 #include "FreeRTOSConfig.h"
 #include "FreeRTOS.h"
 #include "task.h"
-
 #include "arm_math.h"
 
 #include "CAN_Receive.h"
@@ -45,6 +44,11 @@
         }                                                \
     }
 
+User_GPIO_X power_limit;    
+uint8_t power_status;
+fp32 limit_coeff=0.95f;
+fp32 coeff=1.0f;
+int i;
 //底盘运动数据
 static chassis_move_t chassis_move;
 
@@ -91,7 +95,19 @@ void chassis_task(void *pvParameters)
         chassis_set_contorl(&chassis_move);
         //底盘控制PID计算
         chassis_control_loop(&chassis_move);
-			
+        //Power limit detection
+        power_status=GPIO_ReadInputDataBit(GPIOI,GPIO_Pin_9);
+        if(power_status==0){
+          coeff/=0.9;
+          if(coeff>1) coeff=1;
+        }
+        else{
+          i++;
+        }
+        if(i>10){
+          coeff*=0.85;
+          i=0;
+        }
 				J_scope_chassis_test();
 
 //        if (!(toe_is_error(ChassisMotor1TOE) || toe_is_error(ChassisMotor2TOE) || toe_is_error(ChassisMotor3TOE) || toe_is_error(ChassisMotor4TOE)))
@@ -103,8 +119,8 @@ void chassis_task(void *pvParameters)
 //            }
 //            else
 //            {
-                CAN_CMD_CHASSIS(chassis_move.motor_chassis[0].give_current, chassis_move.motor_chassis[1].give_current,
-                                chassis_move.motor_chassis[2].give_current, chassis_move.motor_chassis[3].give_current);
+                CAN_CMD_CHASSIS(chassis_move.motor_chassis[0].give_current*coeff, chassis_move.motor_chassis[1].give_current*coeff,
+                                chassis_move.motor_chassis[2].give_current*coeff, chassis_move.motor_chassis[3].give_current*coeff);
 //            }
 //        }
         //系统延时
@@ -118,6 +134,8 @@ void chassis_task(void *pvParameters)
 
 static void chassis_init(chassis_move_t *chassis_move_init)
 {
+    power_limit.GPIO_Pin_x=Q2;
+    GPIO_ReadInputDataBit(GPIOI,GPIO_Pin_9);
     if (chassis_move_init == NULL)
     {
         return;

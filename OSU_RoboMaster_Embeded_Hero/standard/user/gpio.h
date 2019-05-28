@@ -69,7 +69,8 @@ typedef struct
 	uint8_t GPIO_AF_TIMx;//GPIO复用计时器
 } User_PWM_X;
 
-extern void User_GPIO_Init(User_GPIO_X* gpio_x);//初始化自定义GPIO端口和管脚
+extern void User_GPIO_OUT_Init(User_GPIO_X* gpio_x);//初始化自定义GPIO端口和管脚
+extern void User_GPIO_IN_Init(User_GPIO_X* gpio_x);
 extern void User_PWM_Init(User_PWM_X* pwm_x);//初始化自定义PWM端口，管脚和时钟
 extern void Set_User_GPIO(User_GPIO_X* gpio_x, FunctionalState Status);//设置自定义GPIO状态
 extern void Set_User_PWM(User_PWM_X* pwm_x, uint32_t pulse_width);//设置自定义PWM脉宽
