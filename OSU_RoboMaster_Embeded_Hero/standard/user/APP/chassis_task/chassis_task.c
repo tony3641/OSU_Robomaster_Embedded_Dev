@@ -98,14 +98,14 @@ void chassis_task(void *pvParameters)
         //Power limit detection
         power_status=GPIO_ReadInputDataBit(GPIOI,GPIO_Pin_9);
         if(power_status==0){
-          coeff/=0.9;
+          coeff/=0.95f;
           if(coeff>1) coeff=1;
         }
         else{
           i++;
         }
-        if(i>10){
-          coeff*=0.85;
+        if(i>3){
+          coeff*=0.9f;
           i=0;
         }
 				J_scope_chassis_test();

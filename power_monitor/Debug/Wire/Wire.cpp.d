@@ -1,4 +1,4 @@
-C:\Users\tony3\AppData\Local\Temp\VMBuilds\power_monitor\uno\Debug\Wire\Wire.cpp.o: \
+C:\Users\tony3\AppData\Local\Temp\VMBuilds\power_monitor\nano_atmega328old\Debug\Wire\Wire.cpp.o: \
  E:\Arduino\hardware\arduino\avr\libraries\Wire\src\Wire.cpp \
  E:\Arduino\hardware\arduino\avr\libraries\Wire\src\utility/twi.h \
  E:\Arduino\hardware\arduino\avr\libraries\Wire\src\Wire.h \

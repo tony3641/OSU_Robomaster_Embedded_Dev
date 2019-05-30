@@ -1,4 +1,4 @@
-C:\Users\tony3\AppData\Local\Temp\VMBuilds\power_monitor\uno\Debug\SPI\SPI.cpp.o: \
+C:\Users\tony3\AppData\Local\Temp\VMBuilds\power_monitor\nano_atmega328old\Debug\SPI\SPI.cpp.o: \
  E:\Arduino\hardware\arduino\avr\libraries\SPI\src\SPI.cpp \
  E:\Arduino\hardware\arduino\avr\libraries\SPI\src\SPI.h \
  E:\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h \
@@ -11,4 +11,5 @@ C:\Users\tony3\AppData\Local\Temp\VMBuilds\power_monitor\uno\Debug\SPI\SPI.cpp.o
  E:\Arduino\hardware\arduino\avr\cores\arduino/Printable.h \
  E:\Arduino\hardware\arduino\avr\cores\arduino/USBAPI.h \
  E:\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h \
- E:\Arduino\hardware\arduino\avr\variants\standard/pins_arduino.h
+ E:\Arduino\hardware\arduino\avr\variants\eightanaloginputs/pins_arduino.h \
+ e:\arduino\hardware\arduino\avr\variants\standard\pins_arduino.h

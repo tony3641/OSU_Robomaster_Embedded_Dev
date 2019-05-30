@@ -84,7 +84,7 @@ void BSP_init(void)
 		
 ///////////////////////////////////////////////////////////////////////////////
 		//初始化配置GPIO (OUTPUT)
-		GPIO_ID_E GPIO_OUT_ID_LIST[17]={I1,I2,J1,J2,K2,L1,L2,M1,M2,N1,N2,O1,O2,P1,P2,Q2};//输入想要初始化配置的端口
+		GPIO_ID_E GPIO_OUT_ID_LIST[17]={I1,I2,J1,J2,K1,K2,L1,L2,M1,M2,N1,N2,O1,O2,P1,P2,Q2};//输入想要初始化配置的端口
 		for (int i=0;i<17;i++)
 		{	
 			if(GPIO_OUT_ID_LIST[i]==NULL)//若端口未指定

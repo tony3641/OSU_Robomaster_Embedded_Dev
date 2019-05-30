@@ -1,4 +1,4 @@
-C:\Users\tony3\AppData\Local\Temp\VMBuilds\power_monitor\uno\Debug\Adafruit_GFX_Library\Adafruit_GFX.cpp.o: \
+C:\Users\tony3\AppData\Local\Temp\VMBuilds\power_monitor\nano_atmega328old\Debug\Adafruit_GFX_Library\Adafruit_GFX.cpp.o: \
  C:\Users\tony3\Downloads\sketchbook\libraries\Adafruit_GFX_Library\Adafruit_GFX.cpp \
  C:\Users\tony3\Downloads\sketchbook\libraries\Adafruit_GFX_Library\Adafruit_GFX.h \
  E:\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h \
@@ -11,7 +11,8 @@ C:\Users\tony3\AppData\Local\Temp\VMBuilds\power_monitor\uno\Debug\Adafruit_GFX_
  E:\Arduino\hardware\arduino\avr\cores\arduino/Printable.h \
  E:\Arduino\hardware\arduino\avr\cores\arduino/USBAPI.h \
  E:\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h \
- E:\Arduino\hardware\arduino\avr\variants\standard/pins_arduino.h \
+ E:\Arduino\hardware\arduino\avr\variants\eightanaloginputs/pins_arduino.h \
+ e:\arduino\hardware\arduino\avr\variants\standard\pins_arduino.h \
  E:\Arduino\hardware\arduino\avr\cores\arduino/Print.h \
  C:\Users\tony3\Downloads\sketchbook\libraries\Adafruit_GFX_Library\gfxfont.h \
  C:\Users\tony3\Downloads\sketchbook\libraries\Adafruit_GFX_Library\glcdfont.c

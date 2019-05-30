@@ -66,15 +66,16 @@ void SoftReset(void);
 uint32_t gimbal_high_water;
 #endif
 
-//云台控制所有相关数据
+
 extern Gimbal_Control_t gimbal_control;
 static int64_t rpm_sum=0;
 static int16_t shoot_loop_time=0;
-static int shoot_power=0;		
+static int16_t shoot_power=0;		
+uint8_t mouse_l_clicked=0;
+//云台控制所有相关数据
 const motor_measure_t *trigger_motor_measure;
 //发送的can 指令
 static int16_t Yaw_Can_Set_Current = 0, Pitch_Can_Set_Current = 0, Shoot_Can_Set_Current = 0;
-
 //云台初始化
 static void GIMBAL_Init(Gimbal_Control_t *gimbal_init);
 //云台pid清零
@@ -152,28 +153,8 @@ void GIMBAL_task(void *pvParameters)
 //        GIMBAL_Set_Contorl(&gimbal_control);                 //设置云台控制量
 			
         GIMBAL_Control_loop(&gimbal_control);                //云台控制PID计算
-				trigger_motor_measure=get_Trigger_Motor_Measure_Point();
-				//shoot_power=shoot_ctrl(shoot_loop_time);
-				if(shoot_loop_time<=145){
-					(shoot_loop_time)++;
-					shoot_power=2500;
-					rpm_sum+=(*trigger_motor_measure).speed_rpm;
-				}
-				else if((shoot_loop_time)>145&&(shoot_loop_time)<200){
-					(shoot_loop_time)++;
-					shoot_power=-2500;
-					rpm_sum+=(*trigger_motor_measure).speed_rpm;
-				if((shoot_loop_time)==195){
-					shoot();
-					}
-				}
-				else{
-					(shoot_loop_time)=0;
-					rpm_sum=0;
-				}
-				if(rpm_sum>60000&&abs(shoot_power)>1000){
-					shoot_power=50;
-				}
+				
+				shoot_control();
         //Shoot_Can_Set_Current = shoot_control_loop();        //射击任务控制循环
 				Shoot_Can_Set_Current=shoot_power;
 				Send_Gimbal_GYRO_Data(&gimbal_control);							 //发送云台陀螺仪数据
@@ -1061,4 +1042,33 @@ static void Gimbal_PID_clear(Gimbal_PID_t *gimbal_pid_clear)
 static void Send_Gimbal_GYRO_Data(Gimbal_Control_t *gimbal_gyro_data){
 		
 		CAN_GIMBAL_GYRO_DATA((gimbal_gyro_data->gimbal_yaw_motor.absolute_angle)*1000,(gimbal_gyro_data->gimbal_pitch_motor.absolute_angle)*1000); //乘1000才能被读取出，yaw轴陀螺仪数据在reset后会清零，pitch轴陀螺仪数据只有在水平位置才会是0
+}
+
+void shoot_control(void){
+  //shoot_power=shoot_ctrl(shoot_loop_time);
+        trigger_motor_measure=get_Trigger_Motor_Measure_Point();
+				if(shoot_loop_time<=75){  //trigger motor forward
+					(shoot_loop_time)++;
+					shoot_power=5000;
+					rpm_sum+=(*trigger_motor_measure).speed_rpm;
+          if(gimbal_control.gimbal_rc_ctrl->mouse.press_l) mouse_l_clicked=1;
+				}
+				else if((shoot_loop_time)>75&&(shoot_loop_time)<100){ //trigger motor backward
+					(shoot_loop_time)++;
+					shoot_power=-4000;
+					rpm_sum+=(*trigger_motor_measure).speed_rpm;
+          if((shoot_loop_time)==99){
+            if(gimbal_control.gimbal_rc_ctrl->mouse.press_l||mouse_l_clicked){  
+              shoot();
+              mouse_l_clicked=0;
+            }
+					}
+				}
+				else{
+					(shoot_loop_time)=0;
+					rpm_sum=0;
+				}
+				if(rpm_sum>60000/200*100&&abs(shoot_power)>1000){ //reduce power when no load
+					shoot_power=50;
+				}
 }
