@@ -27,7 +27,134 @@ TIM_TimeBaseInitTypeDef TIM_TimeBaseInitStructure;
 TIM_OCInitTypeDef TIM_OCInitStructure;
 
 //初始化配置自定义GPIO
-void User_GPIO_Init(User_GPIO_X* gpio_x)
+void User_GPIO_IN_Init(User_GPIO_X* gpio_x){
+  if(gpio_x->GPIO_ID==I1)
+	{
+		gpio_x->GPIOX=GPIOF;
+		gpio_x->RCC_AHB1Periph_GPIOX=RCC_AHB1Periph_GPIOF;
+		gpio_x->GPIO_Pin_x=GPIO_Pin_1;
+	}
+	else if(gpio_x->GPIO_ID==I2)
+	{
+		gpio_x->GPIOX=GPIOF;
+		gpio_x->RCC_AHB1Periph_GPIOX=RCC_AHB1Periph_GPIOF;
+		gpio_x->GPIO_Pin_x=GPIO_Pin_0;
+	}
+	else if(gpio_x->GPIO_ID==J1)
+	{
+		gpio_x->GPIOX=GPIOE;
+		gpio_x->RCC_AHB1Periph_GPIOX=RCC_AHB1Periph_GPIOE;
+		gpio_x->GPIO_Pin_x=GPIO_Pin_5;
+	}
+	else if(gpio_x->GPIO_ID==J2)
+	{
+		gpio_x->GPIOX=GPIOE;
+		gpio_x->RCC_AHB1Periph_GPIOX=RCC_AHB1Periph_GPIOE;
+		gpio_x->GPIO_Pin_x=GPIO_Pin_4;
+	}
+	else if(gpio_x->GPIO_ID==K1)
+	{
+		gpio_x->GPIOX=GPIOE;
+		gpio_x->RCC_AHB1Periph_GPIOX=RCC_AHB1Periph_GPIOE;
+		gpio_x->GPIO_Pin_x=GPIO_Pin_6;
+	}
+	else if(gpio_x->GPIO_ID==K2)
+	{
+		gpio_x->GPIOX=GPIOE;
+		gpio_x->RCC_AHB1Periph_GPIOX=RCC_AHB1Periph_GPIOE;
+		gpio_x->GPIO_Pin_x=GPIO_Pin_12;
+	}
+	else if(gpio_x->GPIO_ID==L1)
+	{
+		gpio_x->GPIOX=GPIOC;
+		gpio_x->RCC_AHB1Periph_GPIOX=RCC_AHB1Periph_GPIOC;
+		gpio_x->GPIO_Pin_x=GPIO_Pin_2;
+	}
+	else if(gpio_x->GPIO_ID==L2)
+	{
+		gpio_x->GPIOX=GPIOB;
+		gpio_x->RCC_AHB1Periph_GPIOX=RCC_AHB1Periph_GPIOB;
+		gpio_x->GPIO_Pin_x=GPIO_Pin_0;
+	}
+	else if(gpio_x->GPIO_ID==M1)
+	{
+		gpio_x->GPIOX=GPIOC;
+		gpio_x->RCC_AHB1Periph_GPIOX=RCC_AHB1Periph_GPIOC;
+		gpio_x->GPIO_Pin_x=GPIO_Pin_3;
+	}
+	else if(gpio_x->GPIO_ID==M2)
+	{
+		gpio_x->GPIOX=GPIOB;
+		gpio_x->RCC_AHB1Periph_GPIOX=RCC_AHB1Periph_GPIOB;
+		gpio_x->GPIO_Pin_x=GPIO_Pin_1;
+	}
+	else if(gpio_x->GPIO_ID==N1)
+	{
+		gpio_x->GPIOX=GPIOC;
+		gpio_x->RCC_AHB1Periph_GPIOX=RCC_AHB1Periph_GPIOC;
+		gpio_x->GPIO_Pin_x=GPIO_Pin_4;
+	}
+	else if(gpio_x->GPIO_ID==N2)
+	{
+		gpio_x->GPIOX=GPIOC;
+		gpio_x->RCC_AHB1Periph_GPIOX=RCC_AHB1Periph_GPIOC;
+		gpio_x->GPIO_Pin_x=GPIO_Pin_0;
+	}
+	else if(gpio_x->GPIO_ID==O1)
+	{
+		gpio_x->GPIOX=GPIOC;
+		gpio_x->RCC_AHB1Periph_GPIOX=RCC_AHB1Periph_GPIOC;
+		gpio_x->GPIO_Pin_x=GPIO_Pin_5;
+	}
+	else if(gpio_x->GPIO_ID==O2)
+	{
+		gpio_x->GPIOX=GPIOC;
+		gpio_x->RCC_AHB1Periph_GPIOX=RCC_AHB1Periph_GPIOC;
+		gpio_x->GPIO_Pin_x=GPIO_Pin_1;
+	}
+	else if(gpio_x->GPIO_ID==P1)
+	{
+		gpio_x->GPIOX=GPIOA;
+		gpio_x->RCC_AHB1Periph_GPIOX=RCC_AHB1Periph_GPIOA;
+		gpio_x->GPIO_Pin_x=GPIO_Pin_5;
+	}
+	else if(gpio_x->GPIO_ID==P2)
+	{
+		gpio_x->GPIOX=GPIOA;
+		gpio_x->RCC_AHB1Periph_GPIOX=RCC_AHB1Periph_GPIOA;
+		gpio_x->GPIO_Pin_x=GPIO_Pin_4;
+	}
+////被17mm微动开关占用
+//	else if(gpio_x->GPIO_ID==Q1)
+//	{
+//		gpio_x->GPIOX=GPIOF;
+//		gpio_x->RCC_AHB1Periph_GPIOX=RCC_AHB1Periph_GPIOF;
+//		gpio_x->GPIO_Pin_x=GPIO_Pin_10;
+//	}
+	else if(gpio_x->GPIO_ID==Q2)
+	{
+		gpio_x->GPIOX=GPIOI;
+		gpio_x->RCC_AHB1Periph_GPIOX=RCC_AHB1Periph_GPIOI;
+		gpio_x->GPIO_Pin_x=GPIO_Pin_9;
+	}
+	//开启GPIO对应端口时钟
+  RCC_AHB1PeriphClockCmd(gpio_x->RCC_AHB1Periph_GPIOX, ENABLE);
+	//配置GPIO管脚
+  GPIO_InitStructure.GPIO_Pin = gpio_x->GPIO_Pin_x;
+	//设置GPIO模式
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;//输出模式
+  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//推挽输出模式
+  GPIO_InitStructure.GPIO_Speed = GPIO_Fast_Speed;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//上拉
+	//初始化结构体
+  GPIO_Init(gpio_x->GPIOX, &GPIO_InitStructure);
+	
+	//配置GPIO管脚
+	GPIO_InitStructure.GPIO_Pin = gpio_x->GPIO_Pin_x;
+	//初始化结构体
+  GPIO_Init(gpio_x->GPIOX, &GPIO_InitStructure);
+}
+void User_GPIO_OUT_Init(User_GPIO_X* gpio_x)
 	{
 	//判断GPIO端口
 	if(gpio_x->GPIO_ID==I1)

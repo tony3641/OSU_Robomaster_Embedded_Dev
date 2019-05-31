@@ -2,9 +2,9 @@
 .\objects\user_task.o: ..\user\APP\user_task\User_Task.h
 .\objects\user_task.o: ..\User\main.h
 .\objects\user_task.o: ..\User\FreeRTOS\include\FreeRTOSConfig.h
-.\objects\user_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\user_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\user_task.o: ..\User\FreeRTOS\include\FreeRTOS.h
-.\objects\user_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects\user_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\objects\user_task.o: ..\User\FreeRTOS\include\projdefs.h
 .\objects\user_task.o: ..\User\FreeRTOS\include\portable.h
 .\objects\user_task.o: ..\User\FreeRTOS\include\deprecated_definitions.h

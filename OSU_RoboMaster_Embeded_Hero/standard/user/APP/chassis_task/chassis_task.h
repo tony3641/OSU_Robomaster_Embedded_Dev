@@ -83,11 +83,11 @@
 #define CHASSIS_MOTOR_RPM_TO_VECTOR_SEN M3508_MOTOR_RPM_TO_VECTOR
 
 //底盘电机最大速度
-#define MAX_WHEEL_SPEED 1.5f
+#define MAX_WHEEL_SPEED 0.75f //1.5
 //底盘运动过程最大前进速度
-#define NORMAL_MAX_CHASSIS_SPEED_X 3.0f
+#define NORMAL_MAX_CHASSIS_SPEED_X 1.0f //3.0
 //底盘运动过程最大平移速度
-#define NORMAL_MAX_CHASSIS_SPEED_Y 2.9f
+#define NORMAL_MAX_CHASSIS_SPEED_Y 1.0f //2.9
 //底盘设置旋转速度，设置前后左右轮不同设定速度的比例分权 0为在几何中心，不需要补偿
 #define CHASSIS_WZ_SET_SCALE -0.20f //步兵0.10f 英雄-0.20f
 

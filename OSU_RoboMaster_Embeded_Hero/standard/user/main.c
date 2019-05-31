@@ -83,22 +83,36 @@ void BSP_init(void)
     fric_PWM_configuration();
 		
 ///////////////////////////////////////////////////////////////////////////////
-		//初始化配置GPIO
-		GPIO_ID_E GPIO_ID_LIST[17]={I1,I2,J1,J2,K1,K2,L1,L2,M1,M2,N1,N2,O1,O2,P1,P2,Q2};//输入想要初始化配置的端口
-		int i;
-		for (i=0;i<17;i++)
+		//初始化配置GPIO (OUTPUT)
+		GPIO_ID_E GPIO_OUT_ID_LIST[17]={I1,I2,J1,J2,K1,K2,L1,L2,M1,M2,N1,N2,O1,O2,P1,P2,Q2};//输入想要初始化配置的端口
+		for (int i=0;i<17;i++)
 		{	
-			if(GPIO_ID_LIST[i]==NULL)//若端口未指定
+			if(GPIO_OUT_ID_LIST[i]==NULL)//若端口未指定
 			{
 				;//则什么也不做，跳过
 			}
 			else
 			{
-				user_gpio.GPIO_ID=GPIO_ID_LIST[i];//设置GPIO_ID为指定端口
-				User_GPIO_Init(&user_gpio);//初始化配置GPIO
+				user_gpio.GPIO_ID=GPIO_OUT_ID_LIST[i];//设置GPIO_ID为指定端口
+				User_GPIO_OUT_Init(&user_gpio);//初始化配置GPIO
 			}
 		}
+    
+    //初始化配置GPIO (INPUT)
+    GPIO_ID_E GPIO_IN_ID_LIST[1]={Q2};
+    for(int i=0;i<1;i++){
+      if(GPIO_IN_ID_LIST[i]==NULL){
+        ;
+      }
+      else{
+        user_gpio.GPIO_ID=GPIO_IN_ID_LIST[i];
+        User_GPIO_OUT_Init(&user_gpio);
+      }
+    }
 ///////////////////////////////////////////////////////////////////////////////
+    
+    
+
 		
 ///////////////////////////////////////////////////////////////////////////////
 		//初始化配置PWM

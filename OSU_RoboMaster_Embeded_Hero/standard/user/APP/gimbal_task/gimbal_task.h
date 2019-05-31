@@ -235,7 +235,7 @@ typedef struct
 
 
 
-
+void shoot_control(void);
 extern void Gimbal_Send_TX2_Data(Gimbal_Control_t *Gimbal);
 extern const Gimbal_Motor_t *get_yaw_motor_point(void);
 extern const Gimbal_Motor_t *get_pitch_motor_point(void);
