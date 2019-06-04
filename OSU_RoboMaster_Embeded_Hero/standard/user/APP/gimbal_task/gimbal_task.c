@@ -1047,15 +1047,15 @@ static void Send_Gimbal_GYRO_Data(Gimbal_Control_t *gimbal_gyro_data){
 void shoot_control(void){
   //shoot_power=shoot_ctrl(shoot_loop_time);
         trigger_motor_measure=get_Trigger_Motor_Measure_Point();
-				if(shoot_loop_time<=75){  //trigger motor forward
+				if(shoot_loop_time<=73){  //trigger motor forward
 					(shoot_loop_time)++;
-					shoot_power=5000;
+					shoot_power=4800;
 					rpm_sum+=(*trigger_motor_measure).speed_rpm;
           if(gimbal_control.gimbal_rc_ctrl->mouse.press_l) mouse_l_clicked=1;
 				}
-				else if((shoot_loop_time)>75&&(shoot_loop_time)<100){ //trigger motor backward
+				else if((shoot_loop_time)>73&&(shoot_loop_time)<100){ //trigger motor backward
 					(shoot_loop_time)++;
-					shoot_power=-4000;
+					shoot_power=-5900;
 					rpm_sum+=(*trigger_motor_measure).speed_rpm;
           if((shoot_loop_time)==99){
             if(gimbal_control.gimbal_rc_ctrl->mouse.press_l||mouse_l_clicked){  
