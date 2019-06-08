@@ -854,12 +854,12 @@ static void gimbal_motor_aim_control_pitch(Gimbal_Motor_t *gimbal_motor)
 //		//更改relative_angle_set的值来达到锁定位置环
 //		gimbal_motor->relative_angle_set+=delta_pitch;
 		
-		/******************I THINK HERE IS A PROBLEM***********************/
+//		/******************I THINK HERE IS A PROBLEM***********************/
 		//改变最终绝对角度
-		//final_relative_pitch_angle_set=gimbal_motor->relative_angle_set+delta_pitch;
-		/******************************************************************/
-		//Micro adjustment by mousing when aiming assistant is on.
-		final_relative_pitch_angle_set=gimbal_control.gimbal_rc_ctrl->mouse.y*-0.0015;
+		final_relative_pitch_angle_set=gimbal_motor->relative_angle_set+delta_pitch;
+//		/******************************************************************/
+//		//Micro adjustment by mousing when aiming assistant is on.
+//		final_relative_pitch_angle_set=gimbal_control.gimbal_rc_ctrl->mouse.y*-0.0015;
 		
 		//判断是否跟丢
 		if (tx2.raw_vertical_pixel==9999 || tx2.raw_vertical_pixel==0)//如果原始自瞄数据返回跟丢
@@ -933,7 +933,7 @@ static void gimbal_motor_relative_angle_control_yaw(Gimbal_Motor_t *gimbal_motor
 		else
 		{
 			buzzer_off();
-		}
+//		}
 	
     //角度环，速度环串级pid调试
     gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_relative_angle_pid, gimbal_motor->relative_angle, gimbal_motor->relative_angle_set, gimbal_motor->motor_gyro);
