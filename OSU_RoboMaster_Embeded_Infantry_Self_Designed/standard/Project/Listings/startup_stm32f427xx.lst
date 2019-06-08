@@ -918,7 +918,7 @@ Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
 erwork --depend=.\objects\startup_stm32f427xx.d -o.\objects\startup_stm32f427xx
 .o -I.\RTE\_standard -IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CM
 SIS\Device\ST\STM32F4xx\Include -IC:\Keil_v5\ARM\CMSIS\Include --predefine="__U
-VISION_VERSION SETA 526" --predefine="STM32F427xx SETA 1" --list=.\listings\sta
+VISION_VERSION SETA 525" --predefine="STM32F427xx SETA 1" --list=.\listings\sta
 rtup_stm32f427xx.lst ..\startup\startup_stm32f427xx.s
 
 

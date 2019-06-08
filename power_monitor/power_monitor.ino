@@ -5,7 +5,7 @@
 #include <Wire.h>
 #include <eeprom.h>
 
-#define SCREEN_WIDTH 128 
+#define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 32 
 #define OLED_RESET     4 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
