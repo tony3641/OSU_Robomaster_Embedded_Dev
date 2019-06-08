@@ -3,7 +3,7 @@
 .\objects\freertos_middleware.o: ..\User\main.h
 .\objects\freertos_middleware.o: ..\CMSIS\stm32f4xx.h
 .\objects\freertos_middleware.o: ..\CMSIS\core_cm4.h
-.\objects\freertos_middleware.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\freertos_middleware.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\freertos_middleware.o: ..\CMSIS\core_cmInstr.h
 .\objects\freertos_middleware.o: ..\CMSIS\core_cmFunc.h
 .\objects\freertos_middleware.o: ..\CMSIS\core_cmSimd.h
@@ -40,7 +40,7 @@
 .\objects\freertos_middleware.o: ..\FWLIB\inc\stm32f4xx_sai.h
 .\objects\freertos_middleware.o: ..\User\FreeRTOS\include\FreeRTOSConfig.h
 .\objects\freertos_middleware.o: ..\User\FreeRTOS\include\FreeRTOS.h
-.\objects\freertos_middleware.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects\freertos_middleware.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\objects\freertos_middleware.o: ..\User\FreeRTOS\include\projdefs.h
 .\objects\freertos_middleware.o: ..\User\FreeRTOS\include\portable.h
 .\objects\freertos_middleware.o: ..\User\FreeRTOS\include\deprecated_definitions.h

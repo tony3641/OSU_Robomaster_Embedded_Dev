@@ -933,7 +933,7 @@ static void gimbal_motor_relative_angle_control_yaw(Gimbal_Motor_t *gimbal_motor
 		else
 		{
 			buzzer_off();
-//		}
+		}
 	
     //角度环，速度环串级pid调试
     gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_relative_angle_pid, gimbal_motor->relative_angle, gimbal_motor->relative_angle_set, gimbal_motor->motor_gyro);
