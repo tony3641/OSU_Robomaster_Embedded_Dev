@@ -144,7 +144,7 @@
 #define RAD_TO_DEGREE 572.9577951f
 
 //预测时间量
-#define PREDICTION_TIME 0.5f
+#define PREDICTION_TIME 0.3f
 
 //自瞄信号YAW中值
 #define YAW_MID 900.0f
