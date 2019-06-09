@@ -815,17 +815,19 @@ static void gimbal_motor_aim_control_gyro_yaw(Gimbal_Motor_t *gimbal_motor)
 /*******************************************************************/
 /*************当error大时手动target超前 已测试 效果好***************/
 /*******************************************************************/
-    if(abs((int)delta_yaw)>15){
-			if(delta_yaw>15){//If left to right, need faster?
-				gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_absolute_angle_pid, gimbal_motor->absolute_angle, final_absolute_yaw_angle_set, gimbal_motor->motor_gyro*0.85);
-			}
-			else if (delta_yaw<-15){//If right to left
-				gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_absolute_angle_pid, gimbal_motor->absolute_angle, final_absolute_yaw_angle_set, gimbal_motor->motor_gyro*0.85);
-			}
-		}
-		else{//If the pixel error is small(close to target)
+
+
+//    if(abs((int)delta_yaw)>15){
+//			if(delta_yaw>15){//If left to right, need faster?
+//				gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_absolute_angle_pid, gimbal_motor->absolute_angle, final_absolute_yaw_angle_set, gimbal_motor->motor_gyro*0.85);
+//			}
+//			else if (delta_yaw<-15){//If right to left
+//				gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_absolute_angle_pid, gimbal_motor->absolute_angle, final_absolute_yaw_angle_set, gimbal_motor->motor_gyro*0.85);
+//			}
+//		}
+//		else{//If the pixel error is small(close to target)
 			gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_absolute_angle_pid, gimbal_motor->absolute_angle, final_absolute_yaw_angle_set, gimbal_motor->motor_gyro);
-		}
+//		}
 /********************************************************************/
 /*************************不是玄学勿删！*****************************/
 /********************************************************************/
