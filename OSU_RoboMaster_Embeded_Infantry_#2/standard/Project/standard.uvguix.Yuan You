@@ -3602,9 +3602,9 @@
       <ActiveTab>0</ActiveTab>
       <Doc>
         <Name>..\user\APP\gimbal_task\gimbal_task.c</Name>
-        <ColumnNumber>8</ColumnNumber>
-        <TopLine>906</TopLine>
-        <CurrentLine>933</CurrentLine>
+        <ColumnNumber>192</ColumnNumber>
+        <TopLine>808</TopLine>
+        <CurrentLine>823</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>
@@ -3684,7 +3684,7 @@
       <Doc>
         <Name>..\user\APP\chassis_task\chassis_task.c</Name>
         <ColumnNumber>53</ColumnNumber>
-        <TopLine>118</TopLine>
+        <TopLine>40</TopLine>
         <CurrentLine>141</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>

@@ -127,11 +127,11 @@ void GIMBAL_task(void *pvParameters)
     //射击初始化
     shoot_init();
     //判断电机是否都上线
-//    while (toe_is_error(YawGimbalMotorTOE) || toe_is_error(PitchGimbalMotorTOE) || toe_is_error(TriggerMotorTOE))
-//    {
+    while (toe_is_error(YawGimbalMotorTOE) || toe_is_error(PitchGimbalMotorTOE) || toe_is_error(TriggerMotorTOE))
+    {
         vTaskDelay(10*GIMBAL_CONTROL_TIME);
         GIMBAL_Feedback_Update(&gimbal_control);             //云台数据反馈
-//    }
+    }
 
 
     while (1)	
@@ -170,17 +170,17 @@ void GIMBAL_task(void *pvParameters)
 				
 				
         //云台在遥控器掉线状态即relax 状态，can指令为0，不使用current设置为零的方法，是保证遥控器掉线一定使得云台停止
-//        if (!(toe_is_error(YawGimbalMotorTOE) && toe_is_error(PitchGimbalMotorTOE)&& toe_is_error(TriggerMotorTOE)))// 
-//        {
-//            if (toe_is_error(DBUSTOE))
-//            {
-//                CAN_CMD_GIMBAL(0, 0, 0, 0);
-//            }
-//            else
-//            {
+        if (!(toe_is_error(YawGimbalMotorTOE) && toe_is_error(PitchGimbalMotorTOE)&& toe_is_error(TriggerMotorTOE)))// 
+        {
+            if (toe_is_error(DBUSTOE))
+            {
+                CAN_CMD_GIMBAL(0, 0, 0, 0);
+            }
+            else
+            {
                 CAN_CMD_GIMBAL(Yaw_Can_Set_Current, Pitch_Can_Set_Current, Shoot_Can_Set_Current, 0);
-//            }
-//        }
+            }
+        }
 
 
 				
@@ -817,10 +817,10 @@ static void gimbal_motor_aim_control_gyro_yaw(Gimbal_Motor_t *gimbal_motor)
 /*******************************************************************/
     if(abs((int)delta_yaw)>15){
 			if(delta_yaw>15){//If left to right, need faster?
-				gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_absolute_angle_pid, gimbal_motor->absolute_angle, final_absolute_yaw_angle_set, gimbal_motor->motor_gyro*15);
+				gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_absolute_angle_pid, gimbal_motor->absolute_angle, final_absolute_yaw_angle_set, gimbal_motor->motor_gyro*0.95);
 			}
 			else{//If right to left
-				gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_absolute_angle_pid, gimbal_motor->absolute_angle, final_absolute_yaw_angle_set, gimbal_motor->motor_gyro*10);
+				gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_absolute_angle_pid, gimbal_motor->absolute_angle, final_absolute_yaw_angle_set, gimbal_motor->motor_gyro*0.95);
 			}
 		}
 		else{//If the pixel error is small(close to target)
