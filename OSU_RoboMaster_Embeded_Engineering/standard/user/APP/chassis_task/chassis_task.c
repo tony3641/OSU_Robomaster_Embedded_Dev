@@ -74,10 +74,10 @@ void chassis_task(void *pvParameters)
     //底盘初始化
     chassis_init(&chassis_move);
     //判断底盘电机是否都在线
-//    while (toe_is_error(ChassisMotor1TOE) || toe_is_error(ChassisMotor2TOE) || toe_is_error(ChassisMotor3TOE) || toe_is_error(ChassisMotor4TOE) || toe_is_error(DBUSTOE))
-//    {
+    while (toe_is_error(ChassisMotor1TOE) || toe_is_error(ChassisMotor2TOE) || toe_is_error(ChassisMotor3TOE) || toe_is_error(ChassisMotor4TOE) || toe_is_error(DBUSTOE))
+    {
         vTaskDelay(CHASSIS_CONTROL_TIME_MS);
-//    }
+    }
 
     while (1)
     {

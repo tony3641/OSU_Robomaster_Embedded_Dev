@@ -359,22 +359,6 @@ static void J_scope_chassis_test(void)
 {
 	wz_set_jscope=(int32_t)(chassis_move.wz_set*100);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 static void chassis_vector_to_mecanum_wheel_speed(const fp32 vx_set, const fp32 vy_set, const fp32 wz_set, fp32 wheel_speed[4])
 {
     //旋转的时候， 由于云台靠前，所以是前面两轮 0 ，1 旋转的速度变慢， 后面两轮 2,3 旋转的速度变快
