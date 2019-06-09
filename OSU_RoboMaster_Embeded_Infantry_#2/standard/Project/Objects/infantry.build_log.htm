@@ -27,14 +27,24 @@ Project File Date:  06/09/2019
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'D:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'standard'
+compiling start_task.c...
+compiling calibrate_task.c...
+compiling gimbal_behaviour.c...
+compiling chassis_task.c...
 compiling gimbal_task.c...
 ..\user\APP\gimbal_task\gimbal_task.c(820): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  				gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_absolute_angle_pid, gimbal_motor->absolute_angle, final_absolute_yaw_angle_set, gimbal_motor->motor_gyro*0.3);
+  				gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_absolute_angle_pid, gimbal_motor->absolute_angle, final_absolute_yaw_angle_set, gimbal_motor->motor_gyro*0.05);
 ..\user\APP\gimbal_task\gimbal_task.c: 1 warning, 0 errors
+compiling chassis_behaviour.c...
+..\user\APP\chassis_task\chassis_behaviour.c(401): warning:  #550-D: variable "swing_angle"  was set but never used
+      static fp32 swing_angle = 0.0f;
+..\user\APP\chassis_task\chassis_behaviour.c: 1 warning, 0 errors
+compiling user_task.c...
+compiling shoot.c...
 linking...
 Program Size: Code=58464 RO-data=2772 RW-data=732 ZI-data=139524  
 FromELF: creating hex file...
-".\Objects\infantry.axf" - 0 Error(s), 1 Warning(s).
+".\Objects\infantry.axf" - 0 Error(s), 2 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -48,7 +58,7 @@ Package Vendor: Keil
   D:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>
