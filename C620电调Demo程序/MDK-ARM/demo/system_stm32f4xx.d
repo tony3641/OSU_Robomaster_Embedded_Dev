@@ -1,6 +1,6 @@
 demo\system_stm32f4xx.o: ../Drivers/CMSIS//Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
 demo\system_stm32f4xx.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
-demo\system_stm32f4xx.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f427xx.h
+demo\system_stm32f4xx.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h
 demo\system_stm32f4xx.o: ../Drivers/CMSIS/Include/core_cm4.h
 demo\system_stm32f4xx.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 demo\system_stm32f4xx.o: ../Drivers/CMSIS/Include/core_cmInstr.h

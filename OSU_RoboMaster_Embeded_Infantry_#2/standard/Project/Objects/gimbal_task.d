@@ -25,6 +25,7 @@
 .\objects\gimbal_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\limits.h
 .\objects\gimbal_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\float.h
 .\objects\gimbal_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects\gimbal_task.o: ..\User\APP\User_Task\User_Task.h
 .\objects\gimbal_task.o: ..\User\FreeRTOS\include\FreeRTOSConfig.h
 .\objects\gimbal_task.o: ..\User\FreeRTOS\include\FreeRTOS.h
 .\objects\gimbal_task.o: ..\User\FreeRTOS\include\projdefs.h

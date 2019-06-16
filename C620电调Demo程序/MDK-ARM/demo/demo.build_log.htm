@@ -17,20 +17,1311 @@ Library Manager: ArmAr.exe V5.06 update 6 (build 750)
 Hex Converter:   FromElf.exe V5.06 update 6 (build 750)
 CPU DLL:         SARMCM3.DLL V5.26.2.0
 Dialog DLL:      DCM.DLL V1.17.2.0
-Target DLL:      Segger\JL2CM3.dll V2.99.31.0
+Target DLL:      UL2CM3.DLL V1.161.6.0
 Dialog DLL:      TCM.DLL V1.36.1.0
  
 <h2>Project:</h2>
-D:\OneDrive - The Ohio State University\RoboMaster\C620电调Demo程序\MDK-ARM\demo.uvprojx
-Project File Date:  05/12/2019
+D:\OneDrive - The Ohio State University\RoboMaster\OSU_RoboMaster_Embeded\C620电调Demo程序\MDK-ARM\demo.uvprojx
+Project File Date:  06/12/2019
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'D:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'demo'
+compiling stm32f4xx_hal.c...
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(390): error:  #256: invalid redeclaration of type name "RCC_PLLI2SInitTypeDef"  (declared at line 302)
+  }RCC_PLLI2SInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(409): error:  #256: invalid redeclaration of type name "RCC_PeriphCLKInitTypeDef"  (declared at line 365)
+  }RCC_PeriphCLKInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(495): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_RTC"  (declared at line 486)
+  #define RCC_PERIPHCLK_RTC             ((uint32_t)0x00000002U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(496): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_PLLI2S"  (declared at line 487)
+  #define RCC_PERIPHCLK_PLLI2S          ((uint32_t)0x00000004U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2105): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED"  (declared at line 1098)
+  #define __HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED() ((RCC->AHB1ENR & (RCC_AHB1ENR_OTGHSULPIEN))== RESET)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2504): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_ENABLED"  (declared at line 1569)
+  #define __HAL_RCC_TIM10_IS_CLK_ENABLED()   ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) != RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2511): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_DISABLED"  (declared at line 1573)
+  #define __HAL_RCC_TIM10_IS_CLK_DISABLED()  ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) == RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(6372): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PERIPHCLOCK"  (declared at line 6368)
+  #define IS_RCC_PERIPHCLOCK(SELECTION) ((1 <= (SELECTION)) && ((SELECTION) <= 0x00000007U))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(345): warning:  #47-D: incompatible redefinition of macro "GPIO_AF5_I2S3ext"  (declared at line 236)
+  #define GPIO_AF5_I2S3ext       ((uint8_t)0x05U)  /* I2S3ext_SD Alternate Function mapping  */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1162): warning:  #47-D: incompatible redefinition of macro "GPIO_GET_INDEX"  (declared at line 1150)
+  #define GPIO_GET_INDEX(__GPIOx__)    (uint8_t)(((__GPIOx__) == (GPIOA))? 0U :\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1262): warning:  #47-D: incompatible redefinition of macro "IS_GPIO_AF"  (declared at line 1235)
+  #define IS_GPIO_AF(AF)   (((AF) == GPIO_AF0_RTC_50Hz)   || ((AF) == GPIO_AF9_TIM14)      || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(365): warning:  #47-D: incompatible redefinition of macro "FLASH_MER_BIT"  (declared at line 358)
+  #define FLASH_MER_BIT     (FLASH_CR_MER) /*!< only 1 MER Bit */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(509): warning:  #47-D: incompatible redefinition of macro "OB_WRP_SECTOR_All"  (declared at line 490)
+  #define OB_WRP_SECTOR_All     ((uint32_t)0x00000FFFU) /*!< Write protection of all Sectors */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(716): warning:  #47-D: incompatible redefinition of macro "FLASH_SECTOR_TOTAL"  (declared at line 710)
+  #define FLASH_SECTOR_TOTAL  12U
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(828): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_LATENCY"  (declared at line 806)
+  #define IS_FLASH_LATENCY(LATENCY) (((LATENCY) == FLASH_LATENCY_0)  || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(849): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_BANK"  (declared at line 840)
+  #define IS_FLASH_BANK(BANK) (((BANK) == FLASH_BANK_1))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(870): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_SECTOR"  (declared at line 854)
+  #define IS_FLASH_SECTOR(SECTOR) (((SECTOR) == FLASH_SECTOR_0)   || ((SECTOR) == FLASH_SECTOR_1)   ||\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(905): warning:  #47-D: incompatible redefinition of macro "IS_OB_WRP_SECTOR"  (declared at line 901)
+  #define IS_OB_WRP_SECTOR(SECTOR)((((SECTOR) & (uint32_t)0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c(496): error:  #20: identifier "SYSCFG_MEMRMP_UFB_MODE" is undefined
+    *(__IO uint32_t *)UFB_MODE_BB = (uint32_t)ENABLE;
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c(512): error:  #20: identifier "SYSCFG_MEMRMP_UFB_MODE" is undefined
+    *(__IO uint32_t *)UFB_MODE_BB = (uint32_t)DISABLE;
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c: 16 warnings, 4 errors
+compiling stm32f4xx_hal_cortex.c...
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(390): error:  #256: invalid redeclaration of type name "RCC_PLLI2SInitTypeDef"  (declared at line 302)
+  }RCC_PLLI2SInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(409): error:  #256: invalid redeclaration of type name "RCC_PeriphCLKInitTypeDef"  (declared at line 365)
+  }RCC_PeriphCLKInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(495): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_RTC"  (declared at line 486)
+  #define RCC_PERIPHCLK_RTC             ((uint32_t)0x00000002U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(496): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_PLLI2S"  (declared at line 487)
+  #define RCC_PERIPHCLK_PLLI2S          ((uint32_t)0x00000004U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2105): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED"  (declared at line 1098)
+  #define __HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED() ((RCC->AHB1ENR & (RCC_AHB1ENR_OTGHSULPIEN))== RESET)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2504): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_ENABLED"  (declared at line 1569)
+  #define __HAL_RCC_TIM10_IS_CLK_ENABLED()   ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) != RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2511): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_DISABLED"  (declared at line 1573)
+  #define __HAL_RCC_TIM10_IS_CLK_DISABLED()  ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) == RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(6372): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PERIPHCLOCK"  (declared at line 6368)
+  #define IS_RCC_PERIPHCLOCK(SELECTION) ((1 <= (SELECTION)) && ((SELECTION) <= 0x00000007U))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(345): warning:  #47-D: incompatible redefinition of macro "GPIO_AF5_I2S3ext"  (declared at line 236)
+  #define GPIO_AF5_I2S3ext       ((uint8_t)0x05U)  /* I2S3ext_SD Alternate Function mapping  */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1162): warning:  #47-D: incompatible redefinition of macro "GPIO_GET_INDEX"  (declared at line 1150)
+  #define GPIO_GET_INDEX(__GPIOx__)    (uint8_t)(((__GPIOx__) == (GPIOA))? 0U :\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1262): warning:  #47-D: incompatible redefinition of macro "IS_GPIO_AF"  (declared at line 1235)
+  #define IS_GPIO_AF(AF)   (((AF) == GPIO_AF0_RTC_50Hz)   || ((AF) == GPIO_AF9_TIM14)      || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(365): warning:  #47-D: incompatible redefinition of macro "FLASH_MER_BIT"  (declared at line 358)
+  #define FLASH_MER_BIT     (FLASH_CR_MER) /*!< only 1 MER Bit */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(509): warning:  #47-D: incompatible redefinition of macro "OB_WRP_SECTOR_All"  (declared at line 490)
+  #define OB_WRP_SECTOR_All     ((uint32_t)0x00000FFFU) /*!< Write protection of all Sectors */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(716): warning:  #47-D: incompatible redefinition of macro "FLASH_SECTOR_TOTAL"  (declared at line 710)
+  #define FLASH_SECTOR_TOTAL  12U
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(828): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_LATENCY"  (declared at line 806)
+  #define IS_FLASH_LATENCY(LATENCY) (((LATENCY) == FLASH_LATENCY_0)  || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(849): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_BANK"  (declared at line 840)
+  #define IS_FLASH_BANK(BANK) (((BANK) == FLASH_BANK_1))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(870): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_SECTOR"  (declared at line 854)
+  #define IS_FLASH_SECTOR(SECTOR) (((SECTOR) == FLASH_SECTOR_0)   || ((SECTOR) == FLASH_SECTOR_1)   ||\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(905): warning:  #47-D: incompatible redefinition of macro "IS_OB_WRP_SECTOR"  (declared at line 901)
+  #define IS_OB_WRP_SECTOR(SECTOR)((((SECTOR) & (uint32_t)0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c: 16 warnings, 2 errors
+compiling stm32f4xx_hal_flash_ex.c...
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(390): error:  #256: invalid redeclaration of type name "RCC_PLLI2SInitTypeDef"  (declared at line 302)
+  }RCC_PLLI2SInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(409): error:  #256: invalid redeclaration of type name "RCC_PeriphCLKInitTypeDef"  (declared at line 365)
+  }RCC_PeriphCLKInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(495): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_RTC"  (declared at line 486)
+  #define RCC_PERIPHCLK_RTC             ((uint32_t)0x00000002U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(496): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_PLLI2S"  (declared at line 487)
+  #define RCC_PERIPHCLK_PLLI2S          ((uint32_t)0x00000004U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2105): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED"  (declared at line 1098)
+  #define __HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED() ((RCC->AHB1ENR & (RCC_AHB1ENR_OTGHSULPIEN))== RESET)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2504): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_ENABLED"  (declared at line 1569)
+  #define __HAL_RCC_TIM10_IS_CLK_ENABLED()   ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) != RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2511): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_DISABLED"  (declared at line 1573)
+  #define __HAL_RCC_TIM10_IS_CLK_DISABLED()  ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) == RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(6372): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PERIPHCLOCK"  (declared at line 6368)
+  #define IS_RCC_PERIPHCLOCK(SELECTION) ((1 <= (SELECTION)) && ((SELECTION) <= 0x00000007U))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(345): warning:  #47-D: incompatible redefinition of macro "GPIO_AF5_I2S3ext"  (declared at line 236)
+  #define GPIO_AF5_I2S3ext       ((uint8_t)0x05U)  /* I2S3ext_SD Alternate Function mapping  */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1162): warning:  #47-D: incompatible redefinition of macro "GPIO_GET_INDEX"  (declared at line 1150)
+  #define GPIO_GET_INDEX(__GPIOx__)    (uint8_t)(((__GPIOx__) == (GPIOA))? 0U :\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1262): warning:  #47-D: incompatible redefinition of macro "IS_GPIO_AF"  (declared at line 1235)
+  #define IS_GPIO_AF(AF)   (((AF) == GPIO_AF0_RTC_50Hz)   || ((AF) == GPIO_AF9_TIM14)      || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(365): warning:  #47-D: incompatible redefinition of macro "FLASH_MER_BIT"  (declared at line 358)
+  #define FLASH_MER_BIT     (FLASH_CR_MER) /*!< only 1 MER Bit */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(509): warning:  #47-D: incompatible redefinition of macro "OB_WRP_SECTOR_All"  (declared at line 490)
+  #define OB_WRP_SECTOR_All     ((uint32_t)0x00000FFFU) /*!< Write protection of all Sectors */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(716): warning:  #47-D: incompatible redefinition of macro "FLASH_SECTOR_TOTAL"  (declared at line 710)
+  #define FLASH_SECTOR_TOTAL  12U
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(828): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_LATENCY"  (declared at line 806)
+  #define IS_FLASH_LATENCY(LATENCY) (((LATENCY) == FLASH_LATENCY_0)  || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(849): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_BANK"  (declared at line 840)
+  #define IS_FLASH_BANK(BANK) (((BANK) == FLASH_BANK_1))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(870): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_SECTOR"  (declared at line 854)
+  #define IS_FLASH_SECTOR(SECTOR) (((SECTOR) == FLASH_SECTOR_0)   || ((SECTOR) == FLASH_SECTOR_1)   ||\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(905): warning:  #47-D: incompatible redefinition of macro "IS_OB_WRP_SECTOR"  (declared at line 901)
+  #define IS_OB_WRP_SECTOR(SECTOR)((((SECTOR) & (uint32_t)0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c(571): error:  #20: identifier "FLASH_CR_MER1" is undefined
+      FLASH->CR |= FLASH_CR_MER1;
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c(576): error:  #20: identifier "FLASH_CR_MER2" is undefined
+      FLASH->CR |= FLASH_CR_MER2;
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c(803): error:  #20: identifier "FLASH_OPTCR_BFB2" is undefined
+      *(__IO uint8_t *)OPTCR_BYTE0_ADDRESS &= (~FLASH_OPTCR_BFB2);
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c(964): error:  #247: function "FLASH_MassErase"  has already been defined
+  static void FLASH_MassErase(uint8_t VoltageRange, uint32_t Banks)
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c(993): error:  #247: function "FLASH_Erase_Sector"  has already been defined
+  void FLASH_Erase_Sector(uint32_t Sector, uint8_t VoltageRange)
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c(1043): error:  #247: function "FLASH_OB_EnableWRP"  has already been defined
+  static HAL_StatusTypeDef FLASH_OB_EnableWRP(uint32_t WRPSector, uint32_t Banks)
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c(1079): error:  #247: function "FLASH_OB_DisableWRP"  has already been defined
+  static HAL_StatusTypeDef FLASH_OB_DisableWRP(uint32_t WRPSector, uint32_t Banks)
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c: 16 warnings, 9 errors
+compiling stm32f4xx_hal_rcc_ex.c...
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(390): error:  #256: invalid redeclaration of type name "RCC_PLLI2SInitTypeDef"  (declared at line 302)
+  }RCC_PLLI2SInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(409): error:  #256: invalid redeclaration of type name "RCC_PeriphCLKInitTypeDef"  (declared at line 365)
+  }RCC_PeriphCLKInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(495): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_RTC"  (declared at line 486)
+  #define RCC_PERIPHCLK_RTC             ((uint32_t)0x00000002U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(496): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_PLLI2S"  (declared at line 487)
+  #define RCC_PERIPHCLK_PLLI2S          ((uint32_t)0x00000004U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2105): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED"  (declared at line 1098)
+  #define __HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED() ((RCC->AHB1ENR & (RCC_AHB1ENR_OTGHSULPIEN))== RESET)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2504): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_ENABLED"  (declared at line 1569)
+  #define __HAL_RCC_TIM10_IS_CLK_ENABLED()   ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) != RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2511): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_DISABLED"  (declared at line 1573)
+  #define __HAL_RCC_TIM10_IS_CLK_DISABLED()  ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) == RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(6372): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PERIPHCLOCK"  (declared at line 6368)
+  #define IS_RCC_PERIPHCLOCK(SELECTION) ((1 <= (SELECTION)) && ((SELECTION) <= 0x00000007U))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(345): warning:  #47-D: incompatible redefinition of macro "GPIO_AF5_I2S3ext"  (declared at line 236)
+  #define GPIO_AF5_I2S3ext       ((uint8_t)0x05U)  /* I2S3ext_SD Alternate Function mapping  */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1162): warning:  #47-D: incompatible redefinition of macro "GPIO_GET_INDEX"  (declared at line 1150)
+  #define GPIO_GET_INDEX(__GPIOx__)    (uint8_t)(((__GPIOx__) == (GPIOA))? 0U :\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1262): warning:  #47-D: incompatible redefinition of macro "IS_GPIO_AF"  (declared at line 1235)
+  #define IS_GPIO_AF(AF)   (((AF) == GPIO_AF0_RTC_50Hz)   || ((AF) == GPIO_AF9_TIM14)      || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(365): warning:  #47-D: incompatible redefinition of macro "FLASH_MER_BIT"  (declared at line 358)
+  #define FLASH_MER_BIT     (FLASH_CR_MER) /*!< only 1 MER Bit */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(509): warning:  #47-D: incompatible redefinition of macro "OB_WRP_SECTOR_All"  (declared at line 490)
+  #define OB_WRP_SECTOR_All     ((uint32_t)0x00000FFFU) /*!< Write protection of all Sectors */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(716): warning:  #47-D: incompatible redefinition of macro "FLASH_SECTOR_TOTAL"  (declared at line 710)
+  #define FLASH_SECTOR_TOTAL  12U
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(828): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_LATENCY"  (declared at line 806)
+  #define IS_FLASH_LATENCY(LATENCY) (((LATENCY) == FLASH_LATENCY_0)  || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(849): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_BANK"  (declared at line 840)
+  #define IS_FLASH_BANK(BANK) (((BANK) == FLASH_BANK_1))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(870): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_SECTOR"  (declared at line 854)
+  #define IS_FLASH_SECTOR(SECTOR) (((SECTOR) == FLASH_SECTOR_0)   || ((SECTOR) == FLASH_SECTOR_1)   ||\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(905): warning:  #47-D: incompatible redefinition of macro "IS_OB_WRP_SECTOR"  (declared at line 901)
+  #define IS_OB_WRP_SECTOR(SECTOR)((((SECTOR) & (uint32_t)0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c(1670): error:  #136: struct "<unnamed>"  has no field "PLLI2SQ"
+        __HAL_RCC_PLLI2S_SAICLK_CONFIG(PeriphClkInit->PLLI2S.PLLI2SN , PeriphClkInit->PLLI2S.PLLI2SQ , tmpreg1);
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c(1672): error:  #136: struct "<unnamed>"  has no field "DCKCFGR"
+        __HAL_RCC_PLLI2S_PLLSAICLKDIVQ_CONFIG(PeriphClkInit->PLLI2SDivQ);
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c(1672): error:  #136: struct "<unnamed>"  has no field "DCKCFGR"
+        __HAL_RCC_PLLI2S_PLLSAICLKDIVQ_CONFIG(PeriphClkInit->PLLI2SDivQ);
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c(1672): error:  #20: identifier "RCC_DCKCFGR_PLLI2SDIVQ" is undefined
+        __HAL_RCC_PLLI2S_PLLSAICLKDIVQ_CONFIG(PeriphClkInit->PLLI2SDivQ);
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c(1672): error:  #136: struct "<unnamed>"  has no field "PLLI2SDivQ"
+        __HAL_RCC_PLLI2S_PLLSAICLKDIVQ_CONFIG(PeriphClkInit->PLLI2SDivQ);
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c(1706): error:  #20: identifier "RCC_CR_PLLSAIRDY" is undefined
+      while(__HAL_RCC_PLLSAI_GET_FLAG() != RESET)
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c(1724): error:  #136: struct "<unnamed>"  has no field "PLLSAICFGR"
+        tmpreg1 = ((RCC->PLLSAICFGR & RCC_PLLSAICFGR_PLLSAIR) >> POSITION_VAL(RCC_PLLSAICFGR_PLLSAIR));
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c(1724): error:  #20: identifier "RCC_PLLSAICFGR_PLLSAIR" is undefined
+        tmpreg1 = ((RCC->PLLSAICFGR & RCC_PLLSAICFGR_PLLSAIR) >> POSITION_VAL(RCC_PLLSAICFGR_PLLSAIR));
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c(1728): error:  #136: struct "<unnamed>"  has no field "PLLSAICFGR"
+        __HAL_RCC_PLLSAI_CONFIG(PeriphClkInit->PLLSAI.PLLSAIN , PeriphClkInit->PLLSAI.PLLSAIQ, tmpreg1);
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c(1728): error:  #136: struct "<unnamed>"  has no field "PLLSAI"
+        __HAL_RCC_PLLSAI_CONFIG(PeriphClkInit->PLLSAI.PLLSAIN , PeriphClkInit->PLLSAI.PLLSAIQ, tmpreg1);
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c(1728): error:  #20: identifier "RCC_PLLSAICFGR_PLLSAIN" is undefined
+        __HAL_RCC_PLLSAI_CONFIG(PeriphClkInit->PLLSAI.PLLSAIN , PeriphClkInit->PLLSAI.PLLSAIQ, tmpreg1);
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c(1728): error:  #136: struct "<unnamed>"  has no field "PLLSAI"
+        __HAL_RCC_PLLSAI_CONFIG(PeriphClkInit->PLLSAI.PLLSAIN , PeriphClkInit->PLLSAI.PLLSAIQ, tmpreg1);
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c(1728): error:  #20: identifier "RCC_PLLSAICFGR_PLLSAIQ" is undefined
+        __HAL_RCC_PLLSAI_CONFIG(PeriphClkInit->PLLSAI.PLLSAIN , PeriphClkInit->PLLSAI.PLLSAIQ, tmpreg1);
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c(1730): error:  #136: struct "<unnamed>"  has no field "DCKCFGR"
+        __HAL_RCC_PLLSAI_PLLSAICLKDIVQ_CONFIG(PeriphClkInit->PLLSAIDivQ);
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c(1730): error:  #136: struct "<unnamed>"  has no field "DCKCFGR"
+        __HAL_RCC_PLLSAI_PLLSAICLKDIVQ_CONFIG(PeriphClkInit->PLLSAIDivQ);
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c(1730): error:  #20: identifier "RCC_DCKCFGR_PLLSAIDIVQ" is undefined
+        __HAL_RCC_PLLSAI_PLLSAICLKDIVQ_CONFIG(PeriphClkInit->PLLSAIDivQ);
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c(1730): error:  #136: struct "<unnamed>"  has no field "PLLSAIDivQ"
+        __HAL_RCC_PLLSAI_PLLSAICLKDIVQ_CONFIG(PeriphClkInit->PLLSAIDivQ);
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c(1740): error:  #136: struct "<unnamed>"  has no field "PLLSAICFGR"
+        tmpreg1 = ((RCC->PLLSAICFGR & RCC_PLLSAICFGR_PLLSAIQ) >> POSITION_VAL(RCC_PLLSAICFGR_PLLSAIQ));
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c(1740): error:  #20: identifier "RCC_PLLSAICFGR_PLLSAIQ" is undefined
+        tmpreg1 = ((RCC->PLLSAICFGR & RCC_PLLSAICFGR_PLLSAIQ) >> POSITION_VAL(RCC_PLLSAICFGR_PLLSAIQ));
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c(1744): error:  #136: struct "<unnamed>"  has no field "PLLSAICFGR"
+        __HAL_RCC_PLLSAI_CONFIG(PeriphClkInit->PLLSAI.PLLSAIN , tmpreg1, PeriphClkInit->PLLSAI.PLLSAIR);
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c(1744): error:  #136: struct "<unnamed>"  has no field "PLLSAI"
+        __HAL_RCC_PLLSAI_CONFIG(PeriphClkInit->PLLSAI.PLLSAIN , tmpreg1, PeriphClkInit->PLLSAI.PLLSAIR);
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c(1744): error:  #20: identifier "RCC_PLLSAICFGR_PLLSAIN" is undefined
+        __HAL_RCC_PLLSAI_CONFIG(PeriphClkInit->PLLSAI.PLLSAIN , tmpreg1, PeriphClkInit->PLLSAI.PLLSAIR);
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c(1744): error:  #136: struct "<unnamed>"  has no field "PLLSAI"
+        __HAL_RCC_PLLSAI_CONFIG(PeriphClkInit->PLLSAI.PLLSAIN , tmpreg1, PeriphClkInit->PLLSAI.PLLSAIR);
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c(1744): error:  #20: identifier "RCC_PLLSAICFGR_PLLSAIR" is undefined
+        __HAL_RCC_PLLSAI_CONFIG(PeriphClkInit->PLLSAI.PLLSAIN , tmpreg1, PeriphClkInit->PLLSAI.PLLSAIR);
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c(1746): error:  #136: struct "<unnamed>"  has no field "DCKCFGR"
+        __HAL_RCC_PLLSAI_PLLSAICLKDIVR_CONFIG(PeriphClkInit->PLLSAIDivR);
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c(1746): error:  #136: struct "<unnamed>"  has no field "DCKCFGR"
+        __HAL_RCC_PLLSAI_PLLSAICLKDIVR_CONFIG(PeriphClkInit->PLLSAIDivR);
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c(1746): error:  #20: identifier "RCC_DCKCFGR_PLLSAIDIVR" is undefined
+        __HAL_RCC_PLLSAI_PLLSAICLKDIVR_CONFIG(PeriphClkInit->PLLSAIDivR);
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c(1746): error:  #136: struct "<unnamed>"  has no field "PLLSAIDivR"
+        __HAL_RCC_PLLSAI_PLLSAICLKDIVR_CONFIG(PeriphClkInit->PLLSAIDivR);
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c: 16 warnings, 30 errors
+compiling stm32f4xx_hal_uart.c...
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(390): error:  #256: invalid redeclaration of type name "RCC_PLLI2SInitTypeDef"  (declared at line 302)
+  }RCC_PLLI2SInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(409): error:  #256: invalid redeclaration of type name "RCC_PeriphCLKInitTypeDef"  (declared at line 365)
+  }RCC_PeriphCLKInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(495): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_RTC"  (declared at line 486)
+  #define RCC_PERIPHCLK_RTC             ((uint32_t)0x00000002U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(496): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_PLLI2S"  (declared at line 487)
+  #define RCC_PERIPHCLK_PLLI2S          ((uint32_t)0x00000004U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2105): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED"  (declared at line 1098)
+  #define __HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED() ((RCC->AHB1ENR & (RCC_AHB1ENR_OTGHSULPIEN))== RESET)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2504): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_ENABLED"  (declared at line 1569)
+  #define __HAL_RCC_TIM10_IS_CLK_ENABLED()   ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) != RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2511): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_DISABLED"  (declared at line 1573)
+  #define __HAL_RCC_TIM10_IS_CLK_DISABLED()  ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) == RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(6372): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PERIPHCLOCK"  (declared at line 6368)
+  #define IS_RCC_PERIPHCLOCK(SELECTION) ((1 <= (SELECTION)) && ((SELECTION) <= 0x00000007U))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(345): warning:  #47-D: incompatible redefinition of macro "GPIO_AF5_I2S3ext"  (declared at line 236)
+  #define GPIO_AF5_I2S3ext       ((uint8_t)0x05U)  /* I2S3ext_SD Alternate Function mapping  */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1162): warning:  #47-D: incompatible redefinition of macro "GPIO_GET_INDEX"  (declared at line 1150)
+  #define GPIO_GET_INDEX(__GPIOx__)    (uint8_t)(((__GPIOx__) == (GPIOA))? 0U :\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1262): warning:  #47-D: incompatible redefinition of macro "IS_GPIO_AF"  (declared at line 1235)
+  #define IS_GPIO_AF(AF)   (((AF) == GPIO_AF0_RTC_50Hz)   || ((AF) == GPIO_AF9_TIM14)      || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(365): warning:  #47-D: incompatible redefinition of macro "FLASH_MER_BIT"  (declared at line 358)
+  #define FLASH_MER_BIT     (FLASH_CR_MER) /*!< only 1 MER Bit */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(509): warning:  #47-D: incompatible redefinition of macro "OB_WRP_SECTOR_All"  (declared at line 490)
+  #define OB_WRP_SECTOR_All     ((uint32_t)0x00000FFFU) /*!< Write protection of all Sectors */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(716): warning:  #47-D: incompatible redefinition of macro "FLASH_SECTOR_TOTAL"  (declared at line 710)
+  #define FLASH_SECTOR_TOTAL  12U
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(828): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_LATENCY"  (declared at line 806)
+  #define IS_FLASH_LATENCY(LATENCY) (((LATENCY) == FLASH_LATENCY_0)  || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(849): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_BANK"  (declared at line 840)
+  #define IS_FLASH_BANK(BANK) (((BANK) == FLASH_BANK_1))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(870): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_SECTOR"  (declared at line 854)
+  #define IS_FLASH_SECTOR(SECTOR) (((SECTOR) == FLASH_SECTOR_0)   || ((SECTOR) == FLASH_SECTOR_1)   ||\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(905): warning:  #47-D: incompatible redefinition of macro "IS_OB_WRP_SECTOR"  (declared at line 901)
+  #define IS_OB_WRP_SECTOR(SECTOR)((((SECTOR) & (uint32_t)0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c: 16 warnings, 2 errors
+compiling stm32f4xx_hal_flash.c...
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(390): error:  #256: invalid redeclaration of type name "RCC_PLLI2SInitTypeDef"  (declared at line 302)
+  }RCC_PLLI2SInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(409): error:  #256: invalid redeclaration of type name "RCC_PeriphCLKInitTypeDef"  (declared at line 365)
+  }RCC_PeriphCLKInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(495): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_RTC"  (declared at line 486)
+  #define RCC_PERIPHCLK_RTC             ((uint32_t)0x00000002U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(496): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_PLLI2S"  (declared at line 487)
+  #define RCC_PERIPHCLK_PLLI2S          ((uint32_t)0x00000004U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2105): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED"  (declared at line 1098)
+  #define __HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED() ((RCC->AHB1ENR & (RCC_AHB1ENR_OTGHSULPIEN))== RESET)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2504): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_ENABLED"  (declared at line 1569)
+  #define __HAL_RCC_TIM10_IS_CLK_ENABLED()   ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) != RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2511): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_DISABLED"  (declared at line 1573)
+  #define __HAL_RCC_TIM10_IS_CLK_DISABLED()  ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) == RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(6372): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PERIPHCLOCK"  (declared at line 6368)
+  #define IS_RCC_PERIPHCLOCK(SELECTION) ((1 <= (SELECTION)) && ((SELECTION) <= 0x00000007U))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(345): warning:  #47-D: incompatible redefinition of macro "GPIO_AF5_I2S3ext"  (declared at line 236)
+  #define GPIO_AF5_I2S3ext       ((uint8_t)0x05U)  /* I2S3ext_SD Alternate Function mapping  */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1162): warning:  #47-D: incompatible redefinition of macro "GPIO_GET_INDEX"  (declared at line 1150)
+  #define GPIO_GET_INDEX(__GPIOx__)    (uint8_t)(((__GPIOx__) == (GPIOA))? 0U :\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1262): warning:  #47-D: incompatible redefinition of macro "IS_GPIO_AF"  (declared at line 1235)
+  #define IS_GPIO_AF(AF)   (((AF) == GPIO_AF0_RTC_50Hz)   || ((AF) == GPIO_AF9_TIM14)      || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(365): warning:  #47-D: incompatible redefinition of macro "FLASH_MER_BIT"  (declared at line 358)
+  #define FLASH_MER_BIT     (FLASH_CR_MER) /*!< only 1 MER Bit */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(509): warning:  #47-D: incompatible redefinition of macro "OB_WRP_SECTOR_All"  (declared at line 490)
+  #define OB_WRP_SECTOR_All     ((uint32_t)0x00000FFFU) /*!< Write protection of all Sectors */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(716): warning:  #47-D: incompatible redefinition of macro "FLASH_SECTOR_TOTAL"  (declared at line 710)
+  #define FLASH_SECTOR_TOTAL  12U
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(828): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_LATENCY"  (declared at line 806)
+  #define IS_FLASH_LATENCY(LATENCY) (((LATENCY) == FLASH_LATENCY_0)  || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(849): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_BANK"  (declared at line 840)
+  #define IS_FLASH_BANK(BANK) (((BANK) == FLASH_BANK_1))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(870): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_SECTOR"  (declared at line 854)
+  #define IS_FLASH_SECTOR(SECTOR) (((SECTOR) == FLASH_SECTOR_0)   || ((SECTOR) == FLASH_SECTOR_1)   ||\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(905): warning:  #47-D: incompatible redefinition of macro "IS_OB_WRP_SECTOR"  (declared at line 901)
+  #define IS_OB_WRP_SECTOR(SECTOR)((((SECTOR) & (uint32_t)0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c: 16 warnings, 2 errors
+compiling stm32f4xx_hal_pwr.c...
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(390): error:  #256: invalid redeclaration of type name "RCC_PLLI2SInitTypeDef"  (declared at line 302)
+  }RCC_PLLI2SInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(409): error:  #256: invalid redeclaration of type name "RCC_PeriphCLKInitTypeDef"  (declared at line 365)
+  }RCC_PeriphCLKInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(495): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_RTC"  (declared at line 486)
+  #define RCC_PERIPHCLK_RTC             ((uint32_t)0x00000002U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(496): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_PLLI2S"  (declared at line 487)
+  #define RCC_PERIPHCLK_PLLI2S          ((uint32_t)0x00000004U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2105): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED"  (declared at line 1098)
+  #define __HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED() ((RCC->AHB1ENR & (RCC_AHB1ENR_OTGHSULPIEN))== RESET)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2504): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_ENABLED"  (declared at line 1569)
+  #define __HAL_RCC_TIM10_IS_CLK_ENABLED()   ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) != RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2511): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_DISABLED"  (declared at line 1573)
+  #define __HAL_RCC_TIM10_IS_CLK_DISABLED()  ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) == RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(6372): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PERIPHCLOCK"  (declared at line 6368)
+  #define IS_RCC_PERIPHCLOCK(SELECTION) ((1 <= (SELECTION)) && ((SELECTION) <= 0x00000007U))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(345): warning:  #47-D: incompatible redefinition of macro "GPIO_AF5_I2S3ext"  (declared at line 236)
+  #define GPIO_AF5_I2S3ext       ((uint8_t)0x05U)  /* I2S3ext_SD Alternate Function mapping  */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1162): warning:  #47-D: incompatible redefinition of macro "GPIO_GET_INDEX"  (declared at line 1150)
+  #define GPIO_GET_INDEX(__GPIOx__)    (uint8_t)(((__GPIOx__) == (GPIOA))? 0U :\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1262): warning:  #47-D: incompatible redefinition of macro "IS_GPIO_AF"  (declared at line 1235)
+  #define IS_GPIO_AF(AF)   (((AF) == GPIO_AF0_RTC_50Hz)   || ((AF) == GPIO_AF9_TIM14)      || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(365): warning:  #47-D: incompatible redefinition of macro "FLASH_MER_BIT"  (declared at line 358)
+  #define FLASH_MER_BIT     (FLASH_CR_MER) /*!< only 1 MER Bit */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(509): warning:  #47-D: incompatible redefinition of macro "OB_WRP_SECTOR_All"  (declared at line 490)
+  #define OB_WRP_SECTOR_All     ((uint32_t)0x00000FFFU) /*!< Write protection of all Sectors */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(716): warning:  #47-D: incompatible redefinition of macro "FLASH_SECTOR_TOTAL"  (declared at line 710)
+  #define FLASH_SECTOR_TOTAL  12U
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(828): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_LATENCY"  (declared at line 806)
+  #define IS_FLASH_LATENCY(LATENCY) (((LATENCY) == FLASH_LATENCY_0)  || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(849): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_BANK"  (declared at line 840)
+  #define IS_FLASH_BANK(BANK) (((BANK) == FLASH_BANK_1))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(870): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_SECTOR"  (declared at line 854)
+  #define IS_FLASH_SECTOR(SECTOR) (((SECTOR) == FLASH_SECTOR_0)   || ((SECTOR) == FLASH_SECTOR_1)   ||\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(905): warning:  #47-D: incompatible redefinition of macro "IS_OB_WRP_SECTOR"  (declared at line 901)
+  #define IS_OB_WRP_SECTOR(SECTOR)((((SECTOR) & (uint32_t)0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c: 16 warnings, 2 errors
+compiling stm32f4xx_hal_pwr_ex.c...
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(390): error:  #256: invalid redeclaration of type name "RCC_PLLI2SInitTypeDef"  (declared at line 302)
+  }RCC_PLLI2SInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(409): error:  #256: invalid redeclaration of type name "RCC_PeriphCLKInitTypeDef"  (declared at line 365)
+  }RCC_PeriphCLKInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(495): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_RTC"  (declared at line 486)
+  #define RCC_PERIPHCLK_RTC             ((uint32_t)0x00000002U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(496): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_PLLI2S"  (declared at line 487)
+  #define RCC_PERIPHCLK_PLLI2S          ((uint32_t)0x00000004U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2105): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED"  (declared at line 1098)
+  #define __HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED() ((RCC->AHB1ENR & (RCC_AHB1ENR_OTGHSULPIEN))== RESET)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2504): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_ENABLED"  (declared at line 1569)
+  #define __HAL_RCC_TIM10_IS_CLK_ENABLED()   ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) != RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2511): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_DISABLED"  (declared at line 1573)
+  #define __HAL_RCC_TIM10_IS_CLK_DISABLED()  ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) == RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(6372): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PERIPHCLOCK"  (declared at line 6368)
+  #define IS_RCC_PERIPHCLOCK(SELECTION) ((1 <= (SELECTION)) && ((SELECTION) <= 0x00000007U))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(345): warning:  #47-D: incompatible redefinition of macro "GPIO_AF5_I2S3ext"  (declared at line 236)
+  #define GPIO_AF5_I2S3ext       ((uint8_t)0x05U)  /* I2S3ext_SD Alternate Function mapping  */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1162): warning:  #47-D: incompatible redefinition of macro "GPIO_GET_INDEX"  (declared at line 1150)
+  #define GPIO_GET_INDEX(__GPIOx__)    (uint8_t)(((__GPIOx__) == (GPIOA))? 0U :\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1262): warning:  #47-D: incompatible redefinition of macro "IS_GPIO_AF"  (declared at line 1235)
+  #define IS_GPIO_AF(AF)   (((AF) == GPIO_AF0_RTC_50Hz)   || ((AF) == GPIO_AF9_TIM14)      || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(365): warning:  #47-D: incompatible redefinition of macro "FLASH_MER_BIT"  (declared at line 358)
+  #define FLASH_MER_BIT     (FLASH_CR_MER) /*!< only 1 MER Bit */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(509): warning:  #47-D: incompatible redefinition of macro "OB_WRP_SECTOR_All"  (declared at line 490)
+  #define OB_WRP_SECTOR_All     ((uint32_t)0x00000FFFU) /*!< Write protection of all Sectors */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(716): warning:  #47-D: incompatible redefinition of macro "FLASH_SECTOR_TOTAL"  (declared at line 710)
+  #define FLASH_SECTOR_TOTAL  12U
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(828): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_LATENCY"  (declared at line 806)
+  #define IS_FLASH_LATENCY(LATENCY) (((LATENCY) == FLASH_LATENCY_0)  || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(849): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_BANK"  (declared at line 840)
+  #define IS_FLASH_BANK(BANK) (((BANK) == FLASH_BANK_1))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(870): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_SECTOR"  (declared at line 854)
+  #define IS_FLASH_SECTOR(SECTOR) (((SECTOR) == FLASH_SECTOR_0)   || ((SECTOR) == FLASH_SECTOR_1)   ||\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(905): warning:  #47-D: incompatible redefinition of macro "IS_OB_WRP_SECTOR"  (declared at line 901)
+  #define IS_OB_WRP_SECTOR(SECTOR)((((SECTOR) & (uint32_t)0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c(454): error:  #20: identifier "PWR_CR_ODEN" is undefined
+    __HAL_PWR_OVERDRIVE_ENABLE();
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c(459): error:  #20: identifier "PWR_CSR_ODRDY" is undefined
+    while(!__HAL_PWR_GET_FLAG(PWR_FLAG_ODRDY))
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c(468): error:  #20: identifier "PWR_CR_ODSWEN" is undefined
+    __HAL_PWR_OVERDRIVESWITCHING_ENABLE();
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c(473): error:  #20: identifier "PWR_CSR_ODSWRDY" is undefined
+    while(!__HAL_PWR_GET_FLAG(PWR_FLAG_ODSWRDY))
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c(501): error:  #20: identifier "PWR_CR_ODSWEN" is undefined
+    __HAL_PWR_OVERDRIVESWITCHING_DISABLE();
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c(506): error:  #20: identifier "PWR_CSR_ODSWRDY" is undefined
+    while(__HAL_PWR_GET_FLAG(PWR_FLAG_ODSWRDY))
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c(515): error:  #20: identifier "PWR_CR_ODEN" is undefined
+    __HAL_PWR_OVERDRIVE_DISABLE();
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c(520): error:  #20: identifier "PWR_CSR_ODRDY" is undefined
+    while(__HAL_PWR_GET_FLAG(PWR_FLAG_ODRDY))
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c(583): error:  #20: identifier "PWR_CSR_UDSWRDY" is undefined
+    __HAL_PWR_CLEAR_ODRUDR_FLAG();
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c(586): error:  #20: identifier "PWR_CR_UDEN" is undefined
+    __HAL_PWR_UNDERDRIVE_ENABLE();
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c(603): error:  #20: identifier "PWR_CR_LPUDS" is undefined
+    tmpreg1 &= (uint32_t)~(PWR_CR_PDDS | PWR_CR_LPDS | PWR_CR_LPUDS | PWR_CR_MRUDS);
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c(603): error:  #20: identifier "PWR_CR_MRUDS" is undefined
+    tmpreg1 &= (uint32_t)~(PWR_CR_PDDS | PWR_CR_LPDS | PWR_CR_LPUDS | PWR_CR_MRUDS);
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c: 16 warnings, 14 errors
+compiling stm32f4xx_hal_flash_ramfunc.c...
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(390): error:  #256: invalid redeclaration of type name "RCC_PLLI2SInitTypeDef"  (declared at line 302)
+  }RCC_PLLI2SInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(409): error:  #256: invalid redeclaration of type name "RCC_PeriphCLKInitTypeDef"  (declared at line 365)
+  }RCC_PeriphCLKInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(495): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_RTC"  (declared at line 486)
+  #define RCC_PERIPHCLK_RTC             ((uint32_t)0x00000002U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(496): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_PLLI2S"  (declared at line 487)
+  #define RCC_PERIPHCLK_PLLI2S          ((uint32_t)0x00000004U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2105): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED"  (declared at line 1098)
+  #define __HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED() ((RCC->AHB1ENR & (RCC_AHB1ENR_OTGHSULPIEN))== RESET)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2504): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_ENABLED"  (declared at line 1569)
+  #define __HAL_RCC_TIM10_IS_CLK_ENABLED()   ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) != RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2511): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_DISABLED"  (declared at line 1573)
+  #define __HAL_RCC_TIM10_IS_CLK_DISABLED()  ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) == RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(6372): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PERIPHCLOCK"  (declared at line 6368)
+  #define IS_RCC_PERIPHCLOCK(SELECTION) ((1 <= (SELECTION)) && ((SELECTION) <= 0x00000007U))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(345): warning:  #47-D: incompatible redefinition of macro "GPIO_AF5_I2S3ext"  (declared at line 236)
+  #define GPIO_AF5_I2S3ext       ((uint8_t)0x05U)  /* I2S3ext_SD Alternate Function mapping  */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1162): warning:  #47-D: incompatible redefinition of macro "GPIO_GET_INDEX"  (declared at line 1150)
+  #define GPIO_GET_INDEX(__GPIOx__)    (uint8_t)(((__GPIOx__) == (GPIOA))? 0U :\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1262): warning:  #47-D: incompatible redefinition of macro "IS_GPIO_AF"  (declared at line 1235)
+  #define IS_GPIO_AF(AF)   (((AF) == GPIO_AF0_RTC_50Hz)   || ((AF) == GPIO_AF9_TIM14)      || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(365): warning:  #47-D: incompatible redefinition of macro "FLASH_MER_BIT"  (declared at line 358)
+  #define FLASH_MER_BIT     (FLASH_CR_MER) /*!< only 1 MER Bit */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(509): warning:  #47-D: incompatible redefinition of macro "OB_WRP_SECTOR_All"  (declared at line 490)
+  #define OB_WRP_SECTOR_All     ((uint32_t)0x00000FFFU) /*!< Write protection of all Sectors */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(716): warning:  #47-D: incompatible redefinition of macro "FLASH_SECTOR_TOTAL"  (declared at line 710)
+  #define FLASH_SECTOR_TOTAL  12U
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(828): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_LATENCY"  (declared at line 806)
+  #define IS_FLASH_LATENCY(LATENCY) (((LATENCY) == FLASH_LATENCY_0)  || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(849): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_BANK"  (declared at line 840)
+  #define IS_FLASH_BANK(BANK) (((BANK) == FLASH_BANK_1))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(870): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_SECTOR"  (declared at line 854)
+  #define IS_FLASH_SECTOR(SECTOR) (((SECTOR) == FLASH_SECTOR_0)   || ((SECTOR) == FLASH_SECTOR_1)   ||\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(905): warning:  #47-D: incompatible redefinition of macro "IS_OB_WRP_SECTOR"  (declared at line 901)
+  #define IS_OB_WRP_SECTOR(SECTOR)((((SECTOR) & (uint32_t)0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c: 16 warnings, 2 errors
+compiling stm32f4xx_hal_can.c...
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(390): error:  #256: invalid redeclaration of type name "RCC_PLLI2SInitTypeDef"  (declared at line 302)
+  }RCC_PLLI2SInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(409): error:  #256: invalid redeclaration of type name "RCC_PeriphCLKInitTypeDef"  (declared at line 365)
+  }RCC_PeriphCLKInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(495): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_RTC"  (declared at line 486)
+  #define RCC_PERIPHCLK_RTC             ((uint32_t)0x00000002U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(496): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_PLLI2S"  (declared at line 487)
+  #define RCC_PERIPHCLK_PLLI2S          ((uint32_t)0x00000004U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2105): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED"  (declared at line 1098)
+  #define __HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED() ((RCC->AHB1ENR & (RCC_AHB1ENR_OTGHSULPIEN))== RESET)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2504): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_ENABLED"  (declared at line 1569)
+  #define __HAL_RCC_TIM10_IS_CLK_ENABLED()   ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) != RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2511): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_DISABLED"  (declared at line 1573)
+  #define __HAL_RCC_TIM10_IS_CLK_DISABLED()  ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) == RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(6372): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PERIPHCLOCK"  (declared at line 6368)
+  #define IS_RCC_PERIPHCLOCK(SELECTION) ((1 <= (SELECTION)) && ((SELECTION) <= 0x00000007U))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(345): warning:  #47-D: incompatible redefinition of macro "GPIO_AF5_I2S3ext"  (declared at line 236)
+  #define GPIO_AF5_I2S3ext       ((uint8_t)0x05U)  /* I2S3ext_SD Alternate Function mapping  */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1162): warning:  #47-D: incompatible redefinition of macro "GPIO_GET_INDEX"  (declared at line 1150)
+  #define GPIO_GET_INDEX(__GPIOx__)    (uint8_t)(((__GPIOx__) == (GPIOA))? 0U :\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1262): warning:  #47-D: incompatible redefinition of macro "IS_GPIO_AF"  (declared at line 1235)
+  #define IS_GPIO_AF(AF)   (((AF) == GPIO_AF0_RTC_50Hz)   || ((AF) == GPIO_AF9_TIM14)      || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(365): warning:  #47-D: incompatible redefinition of macro "FLASH_MER_BIT"  (declared at line 358)
+  #define FLASH_MER_BIT     (FLASH_CR_MER) /*!< only 1 MER Bit */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(509): warning:  #47-D: incompatible redefinition of macro "OB_WRP_SECTOR_All"  (declared at line 490)
+  #define OB_WRP_SECTOR_All     ((uint32_t)0x00000FFFU) /*!< Write protection of all Sectors */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(716): warning:  #47-D: incompatible redefinition of macro "FLASH_SECTOR_TOTAL"  (declared at line 710)
+  #define FLASH_SECTOR_TOTAL  12U
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(828): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_LATENCY"  (declared at line 806)
+  #define IS_FLASH_LATENCY(LATENCY) (((LATENCY) == FLASH_LATENCY_0)  || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(849): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_BANK"  (declared at line 840)
+  #define IS_FLASH_BANK(BANK) (((BANK) == FLASH_BANK_1))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(870): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_SECTOR"  (declared at line 854)
+  #define IS_FLASH_SECTOR(SECTOR) (((SECTOR) == FLASH_SECTOR_0)   || ((SECTOR) == FLASH_SECTOR_1)   ||\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(905): warning:  #47-D: incompatible redefinition of macro "IS_OB_WRP_SECTOR"  (declared at line 901)
+  #define IS_OB_WRP_SECTOR(SECTOR)((((SECTOR) & (uint32_t)0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_can.c: 16 warnings, 2 errors
+compiling stm32f4xx_hal_gpio.c...
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(390): error:  #256: invalid redeclaration of type name "RCC_PLLI2SInitTypeDef"  (declared at line 302)
+  }RCC_PLLI2SInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(409): error:  #256: invalid redeclaration of type name "RCC_PeriphCLKInitTypeDef"  (declared at line 365)
+  }RCC_PeriphCLKInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(495): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_RTC"  (declared at line 486)
+  #define RCC_PERIPHCLK_RTC             ((uint32_t)0x00000002U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(496): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_PLLI2S"  (declared at line 487)
+  #define RCC_PERIPHCLK_PLLI2S          ((uint32_t)0x00000004U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2105): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED"  (declared at line 1098)
+  #define __HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED() ((RCC->AHB1ENR & (RCC_AHB1ENR_OTGHSULPIEN))== RESET)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2504): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_ENABLED"  (declared at line 1569)
+  #define __HAL_RCC_TIM10_IS_CLK_ENABLED()   ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) != RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2511): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_DISABLED"  (declared at line 1573)
+  #define __HAL_RCC_TIM10_IS_CLK_DISABLED()  ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) == RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(6372): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PERIPHCLOCK"  (declared at line 6368)
+  #define IS_RCC_PERIPHCLOCK(SELECTION) ((1 <= (SELECTION)) && ((SELECTION) <= 0x00000007U))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(345): warning:  #47-D: incompatible redefinition of macro "GPIO_AF5_I2S3ext"  (declared at line 236)
+  #define GPIO_AF5_I2S3ext       ((uint8_t)0x05U)  /* I2S3ext_SD Alternate Function mapping  */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1162): warning:  #47-D: incompatible redefinition of macro "GPIO_GET_INDEX"  (declared at line 1150)
+  #define GPIO_GET_INDEX(__GPIOx__)    (uint8_t)(((__GPIOx__) == (GPIOA))? 0U :\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1262): warning:  #47-D: incompatible redefinition of macro "IS_GPIO_AF"  (declared at line 1235)
+  #define IS_GPIO_AF(AF)   (((AF) == GPIO_AF0_RTC_50Hz)   || ((AF) == GPIO_AF9_TIM14)      || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(365): warning:  #47-D: incompatible redefinition of macro "FLASH_MER_BIT"  (declared at line 358)
+  #define FLASH_MER_BIT     (FLASH_CR_MER) /*!< only 1 MER Bit */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(509): warning:  #47-D: incompatible redefinition of macro "OB_WRP_SECTOR_All"  (declared at line 490)
+  #define OB_WRP_SECTOR_All     ((uint32_t)0x00000FFFU) /*!< Write protection of all Sectors */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(716): warning:  #47-D: incompatible redefinition of macro "FLASH_SECTOR_TOTAL"  (declared at line 710)
+  #define FLASH_SECTOR_TOTAL  12U
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(828): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_LATENCY"  (declared at line 806)
+  #define IS_FLASH_LATENCY(LATENCY) (((LATENCY) == FLASH_LATENCY_0)  || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(849): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_BANK"  (declared at line 840)
+  #define IS_FLASH_BANK(BANK) (((BANK) == FLASH_BANK_1))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(870): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_SECTOR"  (declared at line 854)
+  #define IS_FLASH_SECTOR(SECTOR) (((SECTOR) == FLASH_SECTOR_0)   || ((SECTOR) == FLASH_SECTOR_1)   ||\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(905): warning:  #47-D: incompatible redefinition of macro "IS_OB_WRP_SECTOR"  (declared at line 901)
+  #define IS_OB_WRP_SECTOR(SECTOR)((((SECTOR) & (uint32_t)0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c(265): error:  #20: identifier "GPIOJ" is undefined
+          temp |= ((uint32_t)(GPIO_GET_INDEX(GPIOx)) << (4U * (position & 0x03U)));
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c(353): error:  #20: identifier "GPIOJ" is undefined
+        if(tmp == ((uint32_t)(GPIO_GET_INDEX(GPIOx)) << (4U * (position & 0x03U))))
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c: 16 warnings, 4 errors
+compiling timers.c...
+compiling tasks.c...
+compiling croutine.c...
+compiling queue.c...
+compiling list.c...
+compiling event_groups.c...
+compiling heap_4.c...
+compiling port.c...
+assembling startup_stm32f427xx.s...
+compiling cmsis_os.c...
+compiling stm32f4xx_hal_dma.c...
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(390): error:  #256: invalid redeclaration of type name "RCC_PLLI2SInitTypeDef"  (declared at line 302)
+  }RCC_PLLI2SInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(409): error:  #256: invalid redeclaration of type name "RCC_PeriphCLKInitTypeDef"  (declared at line 365)
+  }RCC_PeriphCLKInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(495): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_RTC"  (declared at line 486)
+  #define RCC_PERIPHCLK_RTC             ((uint32_t)0x00000002U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(496): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_PLLI2S"  (declared at line 487)
+  #define RCC_PERIPHCLK_PLLI2S          ((uint32_t)0x00000004U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2105): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED"  (declared at line 1098)
+  #define __HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED() ((RCC->AHB1ENR & (RCC_AHB1ENR_OTGHSULPIEN))== RESET)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2504): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_ENABLED"  (declared at line 1569)
+  #define __HAL_RCC_TIM10_IS_CLK_ENABLED()   ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) != RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2511): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_DISABLED"  (declared at line 1573)
+  #define __HAL_RCC_TIM10_IS_CLK_DISABLED()  ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) == RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(6372): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PERIPHCLOCK"  (declared at line 6368)
+  #define IS_RCC_PERIPHCLOCK(SELECTION) ((1 <= (SELECTION)) && ((SELECTION) <= 0x00000007U))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(345): warning:  #47-D: incompatible redefinition of macro "GPIO_AF5_I2S3ext"  (declared at line 236)
+  #define GPIO_AF5_I2S3ext       ((uint8_t)0x05U)  /* I2S3ext_SD Alternate Function mapping  */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1162): warning:  #47-D: incompatible redefinition of macro "GPIO_GET_INDEX"  (declared at line 1150)
+  #define GPIO_GET_INDEX(__GPIOx__)    (uint8_t)(((__GPIOx__) == (GPIOA))? 0U :\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1262): warning:  #47-D: incompatible redefinition of macro "IS_GPIO_AF"  (declared at line 1235)
+  #define IS_GPIO_AF(AF)   (((AF) == GPIO_AF0_RTC_50Hz)   || ((AF) == GPIO_AF9_TIM14)      || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(365): warning:  #47-D: incompatible redefinition of macro "FLASH_MER_BIT"  (declared at line 358)
+  #define FLASH_MER_BIT     (FLASH_CR_MER) /*!< only 1 MER Bit */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(509): warning:  #47-D: incompatible redefinition of macro "OB_WRP_SECTOR_All"  (declared at line 490)
+  #define OB_WRP_SECTOR_All     ((uint32_t)0x00000FFFU) /*!< Write protection of all Sectors */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(716): warning:  #47-D: incompatible redefinition of macro "FLASH_SECTOR_TOTAL"  (declared at line 710)
+  #define FLASH_SECTOR_TOTAL  12U
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(828): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_LATENCY"  (declared at line 806)
+  #define IS_FLASH_LATENCY(LATENCY) (((LATENCY) == FLASH_LATENCY_0)  || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(849): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_BANK"  (declared at line 840)
+  #define IS_FLASH_BANK(BANK) (((BANK) == FLASH_BANK_1))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(870): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_SECTOR"  (declared at line 854)
+  #define IS_FLASH_SECTOR(SECTOR) (((SECTOR) == FLASH_SECTOR_0)   || ((SECTOR) == FLASH_SECTOR_1)   ||\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(905): warning:  #47-D: incompatible redefinition of macro "IS_OB_WRP_SECTOR"  (declared at line 901)
+  #define IS_OB_WRP_SECTOR(SECTOR)((((SECTOR) & (uint32_t)0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c: 16 warnings, 2 errors
+compiling system_stm32f4xx.c...
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(390): error:  #256: invalid redeclaration of type name "RCC_PLLI2SInitTypeDef"  (declared at line 302)
+  }RCC_PLLI2SInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(409): error:  #256: invalid redeclaration of type name "RCC_PeriphCLKInitTypeDef"  (declared at line 365)
+  }RCC_PeriphCLKInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(495): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_RTC"  (declared at line 486)
+  #define RCC_PERIPHCLK_RTC             ((uint32_t)0x00000002U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(496): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_PLLI2S"  (declared at line 487)
+  #define RCC_PERIPHCLK_PLLI2S          ((uint32_t)0x00000004U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2105): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED"  (declared at line 1098)
+  #define __HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED() ((RCC->AHB1ENR & (RCC_AHB1ENR_OTGHSULPIEN))== RESET)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2504): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_ENABLED"  (declared at line 1569)
+  #define __HAL_RCC_TIM10_IS_CLK_ENABLED()   ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) != RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2511): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_DISABLED"  (declared at line 1573)
+  #define __HAL_RCC_TIM10_IS_CLK_DISABLED()  ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) == RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(6372): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PERIPHCLOCK"  (declared at line 6368)
+  #define IS_RCC_PERIPHCLOCK(SELECTION) ((1 <= (SELECTION)) && ((SELECTION) <= 0x00000007U))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(345): warning:  #47-D: incompatible redefinition of macro "GPIO_AF5_I2S3ext"  (declared at line 236)
+  #define GPIO_AF5_I2S3ext       ((uint8_t)0x05U)  /* I2S3ext_SD Alternate Function mapping  */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1162): warning:  #47-D: incompatible redefinition of macro "GPIO_GET_INDEX"  (declared at line 1150)
+  #define GPIO_GET_INDEX(__GPIOx__)    (uint8_t)(((__GPIOx__) == (GPIOA))? 0U :\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1262): warning:  #47-D: incompatible redefinition of macro "IS_GPIO_AF"  (declared at line 1235)
+  #define IS_GPIO_AF(AF)   (((AF) == GPIO_AF0_RTC_50Hz)   || ((AF) == GPIO_AF9_TIM14)      || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(365): warning:  #47-D: incompatible redefinition of macro "FLASH_MER_BIT"  (declared at line 358)
+  #define FLASH_MER_BIT     (FLASH_CR_MER) /*!< only 1 MER Bit */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(509): warning:  #47-D: incompatible redefinition of macro "OB_WRP_SECTOR_All"  (declared at line 490)
+  #define OB_WRP_SECTOR_All     ((uint32_t)0x00000FFFU) /*!< Write protection of all Sectors */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(716): warning:  #47-D: incompatible redefinition of macro "FLASH_SECTOR_TOTAL"  (declared at line 710)
+  #define FLASH_SECTOR_TOTAL  12U
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(828): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_LATENCY"  (declared at line 806)
+  #define IS_FLASH_LATENCY(LATENCY) (((LATENCY) == FLASH_LATENCY_0)  || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(849): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_BANK"  (declared at line 840)
+  #define IS_FLASH_BANK(BANK) (((BANK) == FLASH_BANK_1))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(870): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_SECTOR"  (declared at line 854)
+  #define IS_FLASH_SECTOR(SECTOR) (((SECTOR) == FLASH_SECTOR_0)   || ((SECTOR) == FLASH_SECTOR_1)   ||\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(905): warning:  #47-D: incompatible redefinition of macro "IS_OB_WRP_SECTOR"  (declared at line 901)
+  #define IS_OB_WRP_SECTOR(SECTOR)((((SECTOR) & (uint32_t)0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+../Drivers/CMSIS//Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c: 16 warnings, 2 errors
+compiling stm32f4xx_hal_tim_ex.c...
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(390): error:  #256: invalid redeclaration of type name "RCC_PLLI2SInitTypeDef"  (declared at line 302)
+  }RCC_PLLI2SInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(409): error:  #256: invalid redeclaration of type name "RCC_PeriphCLKInitTypeDef"  (declared at line 365)
+  }RCC_PeriphCLKInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(495): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_RTC"  (declared at line 486)
+  #define RCC_PERIPHCLK_RTC             ((uint32_t)0x00000002U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(496): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_PLLI2S"  (declared at line 487)
+  #define RCC_PERIPHCLK_PLLI2S          ((uint32_t)0x00000004U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2105): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED"  (declared at line 1098)
+  #define __HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED() ((RCC->AHB1ENR & (RCC_AHB1ENR_OTGHSULPIEN))== RESET)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2504): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_ENABLED"  (declared at line 1569)
+  #define __HAL_RCC_TIM10_IS_CLK_ENABLED()   ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) != RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2511): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_DISABLED"  (declared at line 1573)
+  #define __HAL_RCC_TIM10_IS_CLK_DISABLED()  ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) == RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(6372): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PERIPHCLOCK"  (declared at line 6368)
+  #define IS_RCC_PERIPHCLOCK(SELECTION) ((1 <= (SELECTION)) && ((SELECTION) <= 0x00000007U))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(345): warning:  #47-D: incompatible redefinition of macro "GPIO_AF5_I2S3ext"  (declared at line 236)
+  #define GPIO_AF5_I2S3ext       ((uint8_t)0x05U)  /* I2S3ext_SD Alternate Function mapping  */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1162): warning:  #47-D: incompatible redefinition of macro "GPIO_GET_INDEX"  (declared at line 1150)
+  #define GPIO_GET_INDEX(__GPIOx__)    (uint8_t)(((__GPIOx__) == (GPIOA))? 0U :\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1262): warning:  #47-D: incompatible redefinition of macro "IS_GPIO_AF"  (declared at line 1235)
+  #define IS_GPIO_AF(AF)   (((AF) == GPIO_AF0_RTC_50Hz)   || ((AF) == GPIO_AF9_TIM14)      || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(365): warning:  #47-D: incompatible redefinition of macro "FLASH_MER_BIT"  (declared at line 358)
+  #define FLASH_MER_BIT     (FLASH_CR_MER) /*!< only 1 MER Bit */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(509): warning:  #47-D: incompatible redefinition of macro "OB_WRP_SECTOR_All"  (declared at line 490)
+  #define OB_WRP_SECTOR_All     ((uint32_t)0x00000FFFU) /*!< Write protection of all Sectors */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(716): warning:  #47-D: incompatible redefinition of macro "FLASH_SECTOR_TOTAL"  (declared at line 710)
+  #define FLASH_SECTOR_TOTAL  12U
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(828): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_LATENCY"  (declared at line 806)
+  #define IS_FLASH_LATENCY(LATENCY) (((LATENCY) == FLASH_LATENCY_0)  || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(849): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_BANK"  (declared at line 840)
+  #define IS_FLASH_BANK(BANK) (((BANK) == FLASH_BANK_1))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(870): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_SECTOR"  (declared at line 854)
+  #define IS_FLASH_SECTOR(SECTOR) (((SECTOR) == FLASH_SECTOR_0)   || ((SECTOR) == FLASH_SECTOR_1)   ||\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(905): warning:  #47-D: incompatible redefinition of macro "IS_OB_WRP_SECTOR"  (declared at line 901)
+  #define IS_OB_WRP_SECTOR(SECTOR)((((SECTOR) & (uint32_t)0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c: 16 warnings, 2 errors
+compiling stm32f4xx_hal_spi.c...
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(390): error:  #256: invalid redeclaration of type name "RCC_PLLI2SInitTypeDef"  (declared at line 302)
+  }RCC_PLLI2SInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(409): error:  #256: invalid redeclaration of type name "RCC_PeriphCLKInitTypeDef"  (declared at line 365)
+  }RCC_PeriphCLKInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(495): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_RTC"  (declared at line 486)
+  #define RCC_PERIPHCLK_RTC             ((uint32_t)0x00000002U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(496): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_PLLI2S"  (declared at line 487)
+  #define RCC_PERIPHCLK_PLLI2S          ((uint32_t)0x00000004U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2105): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED"  (declared at line 1098)
+  #define __HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED() ((RCC->AHB1ENR & (RCC_AHB1ENR_OTGHSULPIEN))== RESET)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2504): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_ENABLED"  (declared at line 1569)
+  #define __HAL_RCC_TIM10_IS_CLK_ENABLED()   ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) != RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2511): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_DISABLED"  (declared at line 1573)
+  #define __HAL_RCC_TIM10_IS_CLK_DISABLED()  ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) == RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(6372): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PERIPHCLOCK"  (declared at line 6368)
+  #define IS_RCC_PERIPHCLOCK(SELECTION) ((1 <= (SELECTION)) && ((SELECTION) <= 0x00000007U))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(345): warning:  #47-D: incompatible redefinition of macro "GPIO_AF5_I2S3ext"  (declared at line 236)
+  #define GPIO_AF5_I2S3ext       ((uint8_t)0x05U)  /* I2S3ext_SD Alternate Function mapping  */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1162): warning:  #47-D: incompatible redefinition of macro "GPIO_GET_INDEX"  (declared at line 1150)
+  #define GPIO_GET_INDEX(__GPIOx__)    (uint8_t)(((__GPIOx__) == (GPIOA))? 0U :\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1262): warning:  #47-D: incompatible redefinition of macro "IS_GPIO_AF"  (declared at line 1235)
+  #define IS_GPIO_AF(AF)   (((AF) == GPIO_AF0_RTC_50Hz)   || ((AF) == GPIO_AF9_TIM14)      || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(365): warning:  #47-D: incompatible redefinition of macro "FLASH_MER_BIT"  (declared at line 358)
+  #define FLASH_MER_BIT     (FLASH_CR_MER) /*!< only 1 MER Bit */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(509): warning:  #47-D: incompatible redefinition of macro "OB_WRP_SECTOR_All"  (declared at line 490)
+  #define OB_WRP_SECTOR_All     ((uint32_t)0x00000FFFU) /*!< Write protection of all Sectors */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(716): warning:  #47-D: incompatible redefinition of macro "FLASH_SECTOR_TOTAL"  (declared at line 710)
+  #define FLASH_SECTOR_TOTAL  12U
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(828): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_LATENCY"  (declared at line 806)
+  #define IS_FLASH_LATENCY(LATENCY) (((LATENCY) == FLASH_LATENCY_0)  || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(849): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_BANK"  (declared at line 840)
+  #define IS_FLASH_BANK(BANK) (((BANK) == FLASH_BANK_1))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(870): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_SECTOR"  (declared at line 854)
+  #define IS_FLASH_SECTOR(SECTOR) (((SECTOR) == FLASH_SECTOR_0)   || ((SECTOR) == FLASH_SECTOR_1)   ||\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(905): warning:  #47-D: incompatible redefinition of macro "IS_OB_WRP_SECTOR"  (declared at line 901)
+  #define IS_OB_WRP_SECTOR(SECTOR)((((SECTOR) & (uint32_t)0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c: 16 warnings, 2 errors
+compiling stm32f4xx_hal_tim.c...
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(390): error:  #256: invalid redeclaration of type name "RCC_PLLI2SInitTypeDef"  (declared at line 302)
+  }RCC_PLLI2SInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(409): error:  #256: invalid redeclaration of type name "RCC_PeriphCLKInitTypeDef"  (declared at line 365)
+  }RCC_PeriphCLKInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(495): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_RTC"  (declared at line 486)
+  #define RCC_PERIPHCLK_RTC             ((uint32_t)0x00000002U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(496): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_PLLI2S"  (declared at line 487)
+  #define RCC_PERIPHCLK_PLLI2S          ((uint32_t)0x00000004U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2105): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED"  (declared at line 1098)
+  #define __HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED() ((RCC->AHB1ENR & (RCC_AHB1ENR_OTGHSULPIEN))== RESET)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2504): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_ENABLED"  (declared at line 1569)
+  #define __HAL_RCC_TIM10_IS_CLK_ENABLED()   ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) != RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2511): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_DISABLED"  (declared at line 1573)
+  #define __HAL_RCC_TIM10_IS_CLK_DISABLED()  ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) == RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(6372): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PERIPHCLOCK"  (declared at line 6368)
+  #define IS_RCC_PERIPHCLOCK(SELECTION) ((1 <= (SELECTION)) && ((SELECTION) <= 0x00000007U))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(345): warning:  #47-D: incompatible redefinition of macro "GPIO_AF5_I2S3ext"  (declared at line 236)
+  #define GPIO_AF5_I2S3ext       ((uint8_t)0x05U)  /* I2S3ext_SD Alternate Function mapping  */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1162): warning:  #47-D: incompatible redefinition of macro "GPIO_GET_INDEX"  (declared at line 1150)
+  #define GPIO_GET_INDEX(__GPIOx__)    (uint8_t)(((__GPIOx__) == (GPIOA))? 0U :\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1262): warning:  #47-D: incompatible redefinition of macro "IS_GPIO_AF"  (declared at line 1235)
+  #define IS_GPIO_AF(AF)   (((AF) == GPIO_AF0_RTC_50Hz)   || ((AF) == GPIO_AF9_TIM14)      || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(365): warning:  #47-D: incompatible redefinition of macro "FLASH_MER_BIT"  (declared at line 358)
+  #define FLASH_MER_BIT     (FLASH_CR_MER) /*!< only 1 MER Bit */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(509): warning:  #47-D: incompatible redefinition of macro "OB_WRP_SECTOR_All"  (declared at line 490)
+  #define OB_WRP_SECTOR_All     ((uint32_t)0x00000FFFU) /*!< Write protection of all Sectors */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(716): warning:  #47-D: incompatible redefinition of macro "FLASH_SECTOR_TOTAL"  (declared at line 710)
+  #define FLASH_SECTOR_TOTAL  12U
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(828): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_LATENCY"  (declared at line 806)
+  #define IS_FLASH_LATENCY(LATENCY) (((LATENCY) == FLASH_LATENCY_0)  || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(849): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_BANK"  (declared at line 840)
+  #define IS_FLASH_BANK(BANK) (((BANK) == FLASH_BANK_1))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(870): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_SECTOR"  (declared at line 854)
+  #define IS_FLASH_SECTOR(SECTOR) (((SECTOR) == FLASH_SECTOR_0)   || ((SECTOR) == FLASH_SECTOR_1)   ||\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(905): warning:  #47-D: incompatible redefinition of macro "IS_OB_WRP_SECTOR"  (declared at line 901)
+  #define IS_OB_WRP_SECTOR(SECTOR)((((SECTOR) & (uint32_t)0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c: 16 warnings, 2 errors
+compiling stm32f4xx_hal_rcc.c...
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(390): error:  #256: invalid redeclaration of type name "RCC_PLLI2SInitTypeDef"  (declared at line 302)
+  }RCC_PLLI2SInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(409): error:  #256: invalid redeclaration of type name "RCC_PeriphCLKInitTypeDef"  (declared at line 365)
+  }RCC_PeriphCLKInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(495): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_RTC"  (declared at line 486)
+  #define RCC_PERIPHCLK_RTC             ((uint32_t)0x00000002U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(496): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_PLLI2S"  (declared at line 487)
+  #define RCC_PERIPHCLK_PLLI2S          ((uint32_t)0x00000004U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2105): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED"  (declared at line 1098)
+  #define __HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED() ((RCC->AHB1ENR & (RCC_AHB1ENR_OTGHSULPIEN))== RESET)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2504): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_ENABLED"  (declared at line 1569)
+  #define __HAL_RCC_TIM10_IS_CLK_ENABLED()   ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) != RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2511): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_DISABLED"  (declared at line 1573)
+  #define __HAL_RCC_TIM10_IS_CLK_DISABLED()  ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) == RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(6372): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PERIPHCLOCK"  (declared at line 6368)
+  #define IS_RCC_PERIPHCLOCK(SELECTION) ((1 <= (SELECTION)) && ((SELECTION) <= 0x00000007U))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(345): warning:  #47-D: incompatible redefinition of macro "GPIO_AF5_I2S3ext"  (declared at line 236)
+  #define GPIO_AF5_I2S3ext       ((uint8_t)0x05U)  /* I2S3ext_SD Alternate Function mapping  */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1162): warning:  #47-D: incompatible redefinition of macro "GPIO_GET_INDEX"  (declared at line 1150)
+  #define GPIO_GET_INDEX(__GPIOx__)    (uint8_t)(((__GPIOx__) == (GPIOA))? 0U :\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1262): warning:  #47-D: incompatible redefinition of macro "IS_GPIO_AF"  (declared at line 1235)
+  #define IS_GPIO_AF(AF)   (((AF) == GPIO_AF0_RTC_50Hz)   || ((AF) == GPIO_AF9_TIM14)      || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(365): warning:  #47-D: incompatible redefinition of macro "FLASH_MER_BIT"  (declared at line 358)
+  #define FLASH_MER_BIT     (FLASH_CR_MER) /*!< only 1 MER Bit */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(509): warning:  #47-D: incompatible redefinition of macro "OB_WRP_SECTOR_All"  (declared at line 490)
+  #define OB_WRP_SECTOR_All     ((uint32_t)0x00000FFFU) /*!< Write protection of all Sectors */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(716): warning:  #47-D: incompatible redefinition of macro "FLASH_SECTOR_TOTAL"  (declared at line 710)
+  #define FLASH_SECTOR_TOTAL  12U
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(828): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_LATENCY"  (declared at line 806)
+  #define IS_FLASH_LATENCY(LATENCY) (((LATENCY) == FLASH_LATENCY_0)  || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(849): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_BANK"  (declared at line 840)
+  #define IS_FLASH_BANK(BANK) (((BANK) == FLASH_BANK_1))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(870): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_SECTOR"  (declared at line 854)
+  #define IS_FLASH_SECTOR(SECTOR) (((SECTOR) == FLASH_SECTOR_0)   || ((SECTOR) == FLASH_SECTOR_1)   ||\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(905): warning:  #47-D: incompatible redefinition of macro "IS_OB_WRP_SECTOR"  (declared at line 901)
+  #define IS_OB_WRP_SECTOR(SECTOR)((((SECTOR) & (uint32_t)0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c: 16 warnings, 2 errors
+compiling stm32f4xx_hal_dma_ex.c...
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(390): error:  #256: invalid redeclaration of type name "RCC_PLLI2SInitTypeDef"  (declared at line 302)
+  }RCC_PLLI2SInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(409): error:  #256: invalid redeclaration of type name "RCC_PeriphCLKInitTypeDef"  (declared at line 365)
+  }RCC_PeriphCLKInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(495): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_RTC"  (declared at line 486)
+  #define RCC_PERIPHCLK_RTC             ((uint32_t)0x00000002U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(496): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_PLLI2S"  (declared at line 487)
+  #define RCC_PERIPHCLK_PLLI2S          ((uint32_t)0x00000004U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2105): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED"  (declared at line 1098)
+  #define __HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED() ((RCC->AHB1ENR & (RCC_AHB1ENR_OTGHSULPIEN))== RESET)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2504): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_ENABLED"  (declared at line 1569)
+  #define __HAL_RCC_TIM10_IS_CLK_ENABLED()   ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) != RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2511): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_DISABLED"  (declared at line 1573)
+  #define __HAL_RCC_TIM10_IS_CLK_DISABLED()  ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) == RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(6372): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PERIPHCLOCK"  (declared at line 6368)
+  #define IS_RCC_PERIPHCLOCK(SELECTION) ((1 <= (SELECTION)) && ((SELECTION) <= 0x00000007U))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(345): warning:  #47-D: incompatible redefinition of macro "GPIO_AF5_I2S3ext"  (declared at line 236)
+  #define GPIO_AF5_I2S3ext       ((uint8_t)0x05U)  /* I2S3ext_SD Alternate Function mapping  */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1162): warning:  #47-D: incompatible redefinition of macro "GPIO_GET_INDEX"  (declared at line 1150)
+  #define GPIO_GET_INDEX(__GPIOx__)    (uint8_t)(((__GPIOx__) == (GPIOA))? 0U :\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1262): warning:  #47-D: incompatible redefinition of macro "IS_GPIO_AF"  (declared at line 1235)
+  #define IS_GPIO_AF(AF)   (((AF) == GPIO_AF0_RTC_50Hz)   || ((AF) == GPIO_AF9_TIM14)      || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(365): warning:  #47-D: incompatible redefinition of macro "FLASH_MER_BIT"  (declared at line 358)
+  #define FLASH_MER_BIT     (FLASH_CR_MER) /*!< only 1 MER Bit */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(509): warning:  #47-D: incompatible redefinition of macro "OB_WRP_SECTOR_All"  (declared at line 490)
+  #define OB_WRP_SECTOR_All     ((uint32_t)0x00000FFFU) /*!< Write protection of all Sectors */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(828): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_LATENCY"  (declared at line 806)
+  #define IS_FLASH_LATENCY(LATENCY) (((LATENCY) == FLASH_LATENCY_0)  || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(849): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_BANK"  (declared at line 840)
+  #define IS_FLASH_BANK(BANK) (((BANK) == FLASH_BANK_1))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(870): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_SECTOR"  (declared at line 854)
+  #define IS_FLASH_SECTOR(SECTOR) (((SECTOR) == FLASH_SECTOR_0)   || ((SECTOR) == FLASH_SECTOR_1)   ||\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(905): warning:  #47-D: incompatible redefinition of macro "IS_OB_WRP_SECTOR"  (declared at line 901)
+  #define IS_OB_WRP_SECTOR(SECTOR)((((SECTOR) & (uint32_t)0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c: 16 warnings, 2 errors
+compiling stm32f4xx_hal_msp.c...
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(390): error:  #256: invalid redeclaration of type name "RCC_PLLI2SInitTypeDef"  (declared at line 302)
+  }RCC_PLLI2SInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(409): error:  #256: invalid redeclaration of type name "RCC_PeriphCLKInitTypeDef"  (declared at line 365)
+  }RCC_PeriphCLKInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(495): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_RTC"  (declared at line 486)
+  #define RCC_PERIPHCLK_RTC             ((uint32_t)0x00000002U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(496): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_PLLI2S"  (declared at line 487)
+  #define RCC_PERIPHCLK_PLLI2S          ((uint32_t)0x00000004U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2105): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED"  (declared at line 1098)
+  #define __HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED() ((RCC->AHB1ENR & (RCC_AHB1ENR_OTGHSULPIEN))== RESET)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2504): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_ENABLED"  (declared at line 1569)
+  #define __HAL_RCC_TIM10_IS_CLK_ENABLED()   ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) != RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2511): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_DISABLED"  (declared at line 1573)
+  #define __HAL_RCC_TIM10_IS_CLK_DISABLED()  ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) == RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(6372): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PERIPHCLOCK"  (declared at line 6368)
+  #define IS_RCC_PERIPHCLOCK(SELECTION) ((1 <= (SELECTION)) && ((SELECTION) <= 0x00000007U))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(345): warning:  #47-D: incompatible redefinition of macro "GPIO_AF5_I2S3ext"  (declared at line 236)
+  #define GPIO_AF5_I2S3ext       ((uint8_t)0x05U)  /* I2S3ext_SD Alternate Function mapping  */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1162): warning:  #47-D: incompatible redefinition of macro "GPIO_GET_INDEX"  (declared at line 1150)
+  #define GPIO_GET_INDEX(__GPIOx__)    (uint8_t)(((__GPIOx__) == (GPIOA))? 0U :\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1262): warning:  #47-D: incompatible redefinition of macro "IS_GPIO_AF"  (declared at line 1235)
+  #define IS_GPIO_AF(AF)   (((AF) == GPIO_AF0_RTC_50Hz)   || ((AF) == GPIO_AF9_TIM14)      || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(365): warning:  #47-D: incompatible redefinition of macro "FLASH_MER_BIT"  (declared at line 358)
+  #define FLASH_MER_BIT     (FLASH_CR_MER) /*!< only 1 MER Bit */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(509): warning:  #47-D: incompatible redefinition of macro "OB_WRP_SECTOR_All"  (declared at line 490)
+  #define OB_WRP_SECTOR_All     ((uint32_t)0x00000FFFU) /*!< Write protection of all Sectors */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(716): warning:  #47-D: incompatible redefinition of macro "FLASH_SECTOR_TOTAL"  (declared at line 710)
+  #define FLASH_SECTOR_TOTAL  12U
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(828): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_LATENCY"  (declared at line 806)
+  #define IS_FLASH_LATENCY(LATENCY) (((LATENCY) == FLASH_LATENCY_0)  || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(849): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_BANK"  (declared at line 840)
+  #define IS_FLASH_BANK(BANK) (((BANK) == FLASH_BANK_1))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(870): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_SECTOR"  (declared at line 854)
+  #define IS_FLASH_SECTOR(SECTOR) (((SECTOR) == FLASH_SECTOR_0)   || ((SECTOR) == FLASH_SECTOR_1)   ||\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(905): warning:  #47-D: incompatible redefinition of macro "IS_OB_WRP_SECTOR"  (declared at line 901)
+  #define IS_OB_WRP_SECTOR(SECTOR)((((SECTOR) & (uint32_t)0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+../Src/stm32f4xx_hal_msp.c: 16 warnings, 2 errors
+compiling tim.c...
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(390): error:  #256: invalid redeclaration of type name "RCC_PLLI2SInitTypeDef"  (declared at line 302)
+  }RCC_PLLI2SInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(409): error:  #256: invalid redeclaration of type name "RCC_PeriphCLKInitTypeDef"  (declared at line 365)
+  }RCC_PeriphCLKInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(495): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_RTC"  (declared at line 486)
+  #define RCC_PERIPHCLK_RTC             ((uint32_t)0x00000002U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(496): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_PLLI2S"  (declared at line 487)
+  #define RCC_PERIPHCLK_PLLI2S          ((uint32_t)0x00000004U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2105): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED"  (declared at line 1098)
+  #define __HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED() ((RCC->AHB1ENR & (RCC_AHB1ENR_OTGHSULPIEN))== RESET)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2504): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_ENABLED"  (declared at line 1569)
+  #define __HAL_RCC_TIM10_IS_CLK_ENABLED()   ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) != RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2511): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_DISABLED"  (declared at line 1573)
+  #define __HAL_RCC_TIM10_IS_CLK_DISABLED()  ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) == RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(6372): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PERIPHCLOCK"  (declared at line 6368)
+  #define IS_RCC_PERIPHCLOCK(SELECTION) ((1 <= (SELECTION)) && ((SELECTION) <= 0x00000007U))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(345): warning:  #47-D: incompatible redefinition of macro "GPIO_AF5_I2S3ext"  (declared at line 236)
+  #define GPIO_AF5_I2S3ext       ((uint8_t)0x05U)  /* I2S3ext_SD Alternate Function mapping  */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1162): warning:  #47-D: incompatible redefinition of macro "GPIO_GET_INDEX"  (declared at line 1150)
+  #define GPIO_GET_INDEX(__GPIOx__)    (uint8_t)(((__GPIOx__) == (GPIOA))? 0U :\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1262): warning:  #47-D: incompatible redefinition of macro "IS_GPIO_AF"  (declared at line 1235)
+  #define IS_GPIO_AF(AF)   (((AF) == GPIO_AF0_RTC_50Hz)   || ((AF) == GPIO_AF9_TIM14)      || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(365): warning:  #47-D: incompatible redefinition of macro "FLASH_MER_BIT"  (declared at line 358)
+  #define FLASH_MER_BIT     (FLASH_CR_MER) /*!< only 1 MER Bit */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(509): warning:  #47-D: incompatible redefinition of macro "OB_WRP_SECTOR_All"  (declared at line 490)
+  #define OB_WRP_SECTOR_All     ((uint32_t)0x00000FFFU) /*!< Write protection of all Sectors */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(716): warning:  #47-D: incompatible redefinition of macro "FLASH_SECTOR_TOTAL"  (declared at line 710)
+  #define FLASH_SECTOR_TOTAL  12U
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(828): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_LATENCY"  (declared at line 806)
+  #define IS_FLASH_LATENCY(LATENCY) (((LATENCY) == FLASH_LATENCY_0)  || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(849): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_BANK"  (declared at line 840)
+  #define IS_FLASH_BANK(BANK) (((BANK) == FLASH_BANK_1))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(870): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_SECTOR"  (declared at line 854)
+  #define IS_FLASH_SECTOR(SECTOR) (((SECTOR) == FLASH_SECTOR_0)   || ((SECTOR) == FLASH_SECTOR_1)   ||\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(905): warning:  #47-D: incompatible redefinition of macro "IS_OB_WRP_SECTOR"  (declared at line 901)
+  #define IS_OB_WRP_SECTOR(SECTOR)((((SECTOR) & (uint32_t)0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+../Src/tim.c: 16 warnings, 2 errors
+compiling usart.c...
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(390): error:  #256: invalid redeclaration of type name "RCC_PLLI2SInitTypeDef"  (declared at line 302)
+  }RCC_PLLI2SInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(409): error:  #256: invalid redeclaration of type name "RCC_PeriphCLKInitTypeDef"  (declared at line 365)
+  }RCC_PeriphCLKInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(495): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_RTC"  (declared at line 486)
+  #define RCC_PERIPHCLK_RTC             ((uint32_t)0x00000002U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(496): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_PLLI2S"  (declared at line 487)
+  #define RCC_PERIPHCLK_PLLI2S          ((uint32_t)0x00000004U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2105): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED"  (declared at line 1098)
+  #define __HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED() ((RCC->AHB1ENR & (RCC_AHB1ENR_OTGHSULPIEN))== RESET)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2504): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_ENABLED"  (declared at line 1569)
+  #define __HAL_RCC_TIM10_IS_CLK_ENABLED()   ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) != RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2511): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_DISABLED"  (declared at line 1573)
+  #define __HAL_RCC_TIM10_IS_CLK_DISABLED()  ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) == RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(6372): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PERIPHCLOCK"  (declared at line 6368)
+  #define IS_RCC_PERIPHCLOCK(SELECTION) ((1 <= (SELECTION)) && ((SELECTION) <= 0x00000007U))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(345): warning:  #47-D: incompatible redefinition of macro "GPIO_AF5_I2S3ext"  (declared at line 236)
+  #define GPIO_AF5_I2S3ext       ((uint8_t)0x05U)  /* I2S3ext_SD Alternate Function mapping  */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1162): warning:  #47-D: incompatible redefinition of macro "GPIO_GET_INDEX"  (declared at line 1150)
+  #define GPIO_GET_INDEX(__GPIOx__)    (uint8_t)(((__GPIOx__) == (GPIOA))? 0U :\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1262): warning:  #47-D: incompatible redefinition of macro "IS_GPIO_AF"  (declared at line 1235)
+  #define IS_GPIO_AF(AF)   (((AF) == GPIO_AF0_RTC_50Hz)   || ((AF) == GPIO_AF9_TIM14)      || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(365): warning:  #47-D: incompatible redefinition of macro "FLASH_MER_BIT"  (declared at line 358)
+  #define FLASH_MER_BIT     (FLASH_CR_MER) /*!< only 1 MER Bit */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(509): warning:  #47-D: incompatible redefinition of macro "OB_WRP_SECTOR_All"  (declared at line 490)
+  #define OB_WRP_SECTOR_All     ((uint32_t)0x00000FFFU) /*!< Write protection of all Sectors */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(716): warning:  #47-D: incompatible redefinition of macro "FLASH_SECTOR_TOTAL"  (declared at line 710)
+  #define FLASH_SECTOR_TOTAL  12U
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(828): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_LATENCY"  (declared at line 806)
+  #define IS_FLASH_LATENCY(LATENCY) (((LATENCY) == FLASH_LATENCY_0)  || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(849): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_BANK"  (declared at line 840)
+  #define IS_FLASH_BANK(BANK) (((BANK) == FLASH_BANK_1))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(870): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_SECTOR"  (declared at line 854)
+  #define IS_FLASH_SECTOR(SECTOR) (((SECTOR) == FLASH_SECTOR_0)   || ((SECTOR) == FLASH_SECTOR_1)   ||\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(905): warning:  #47-D: incompatible redefinition of macro "IS_OB_WRP_SECTOR"  (declared at line 901)
+  #define IS_OB_WRP_SECTOR(SECTOR)((((SECTOR) & (uint32_t)0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+../Src/usart.c: 16 warnings, 2 errors
+compiling spi.c...
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(390): error:  #256: invalid redeclaration of type name "RCC_PLLI2SInitTypeDef"  (declared at line 302)
+  }RCC_PLLI2SInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(409): error:  #256: invalid redeclaration of type name "RCC_PeriphCLKInitTypeDef"  (declared at line 365)
+  }RCC_PeriphCLKInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(495): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_RTC"  (declared at line 486)
+  #define RCC_PERIPHCLK_RTC             ((uint32_t)0x00000002U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(496): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_PLLI2S"  (declared at line 487)
+  #define RCC_PERIPHCLK_PLLI2S          ((uint32_t)0x00000004U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2105): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED"  (declared at line 1098)
+  #define __HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED() ((RCC->AHB1ENR & (RCC_AHB1ENR_OTGHSULPIEN))== RESET)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2504): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_ENABLED"  (declared at line 1569)
+  #define __HAL_RCC_TIM10_IS_CLK_ENABLED()   ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) != RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2511): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_DISABLED"  (declared at line 1573)
+  #define __HAL_RCC_TIM10_IS_CLK_DISABLED()  ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) == RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(6372): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PERIPHCLOCK"  (declared at line 6368)
+  #define IS_RCC_PERIPHCLOCK(SELECTION) ((1 <= (SELECTION)) && ((SELECTION) <= 0x00000007U))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(345): warning:  #47-D: incompatible redefinition of macro "GPIO_AF5_I2S3ext"  (declared at line 236)
+  #define GPIO_AF5_I2S3ext       ((uint8_t)0x05U)  /* I2S3ext_SD Alternate Function mapping  */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1162): warning:  #47-D: incompatible redefinition of macro "GPIO_GET_INDEX"  (declared at line 1150)
+  #define GPIO_GET_INDEX(__GPIOx__)    (uint8_t)(((__GPIOx__) == (GPIOA))? 0U :\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1262): warning:  #47-D: incompatible redefinition of macro "IS_GPIO_AF"  (declared at line 1235)
+  #define IS_GPIO_AF(AF)   (((AF) == GPIO_AF0_RTC_50Hz)   || ((AF) == GPIO_AF9_TIM14)      || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(365): warning:  #47-D: incompatible redefinition of macro "FLASH_MER_BIT"  (declared at line 358)
+  #define FLASH_MER_BIT     (FLASH_CR_MER) /*!< only 1 MER Bit */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(509): warning:  #47-D: incompatible redefinition of macro "OB_WRP_SECTOR_All"  (declared at line 490)
+  #define OB_WRP_SECTOR_All     ((uint32_t)0x00000FFFU) /*!< Write protection of all Sectors */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(716): warning:  #47-D: incompatible redefinition of macro "FLASH_SECTOR_TOTAL"  (declared at line 710)
+  #define FLASH_SECTOR_TOTAL  12U
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(828): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_LATENCY"  (declared at line 806)
+  #define IS_FLASH_LATENCY(LATENCY) (((LATENCY) == FLASH_LATENCY_0)  || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(849): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_BANK"  (declared at line 840)
+  #define IS_FLASH_BANK(BANK) (((BANK) == FLASH_BANK_1))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(870): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_SECTOR"  (declared at line 854)
+  #define IS_FLASH_SECTOR(SECTOR) (((SECTOR) == FLASH_SECTOR_0)   || ((SECTOR) == FLASH_SECTOR_1)   ||\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(905): warning:  #47-D: incompatible redefinition of macro "IS_OB_WRP_SECTOR"  (declared at line 901)
+  #define IS_OB_WRP_SECTOR(SECTOR)((((SECTOR) & (uint32_t)0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+../Src/spi.c(50): error:  #20: identifier "SPI5" is undefined
+    hspi5.Instance = SPI5;
+../Src/spi.c(73): error:  #20: identifier "SPI5" is undefined
+    if(spiHandle->Instance==SPI5)
+../Src/spi.c(102): error:  #20: identifier "SPI5" is undefined
+    if(spiHandle->Instance==SPI5)
+../Src/spi.c: 16 warnings, 5 errors
+compiling can.c...
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(390): error:  #256: invalid redeclaration of type name "RCC_PLLI2SInitTypeDef"  (declared at line 302)
+  }RCC_PLLI2SInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(409): error:  #256: invalid redeclaration of type name "RCC_PeriphCLKInitTypeDef"  (declared at line 365)
+  }RCC_PeriphCLKInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(495): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_RTC"  (declared at line 486)
+  #define RCC_PERIPHCLK_RTC             ((uint32_t)0x00000002U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(496): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_PLLI2S"  (declared at line 487)
+  #define RCC_PERIPHCLK_PLLI2S          ((uint32_t)0x00000004U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2105): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED"  (declared at line 1098)
+  #define __HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED() ((RCC->AHB1ENR & (RCC_AHB1ENR_OTGHSULPIEN))== RESET)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2504): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_ENABLED"  (declared at line 1569)
+  #define __HAL_RCC_TIM10_IS_CLK_ENABLED()   ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) != RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2511): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_DISABLED"  (declared at line 1573)
+  #define __HAL_RCC_TIM10_IS_CLK_DISABLED()  ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) == RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(6372): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PERIPHCLOCK"  (declared at line 6368)
+  #define IS_RCC_PERIPHCLOCK(SELECTION) ((1 <= (SELECTION)) && ((SELECTION) <= 0x00000007U))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(345): warning:  #47-D: incompatible redefinition of macro "GPIO_AF5_I2S3ext"  (declared at line 236)
+  #define GPIO_AF5_I2S3ext       ((uint8_t)0x05U)  /* I2S3ext_SD Alternate Function mapping  */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1162): warning:  #47-D: incompatible redefinition of macro "GPIO_GET_INDEX"  (declared at line 1150)
+  #define GPIO_GET_INDEX(__GPIOx__)    (uint8_t)(((__GPIOx__) == (GPIOA))? 0U :\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1262): warning:  #47-D: incompatible redefinition of macro "IS_GPIO_AF"  (declared at line 1235)
+  #define IS_GPIO_AF(AF)   (((AF) == GPIO_AF0_RTC_50Hz)   || ((AF) == GPIO_AF9_TIM14)      || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(365): warning:  #47-D: incompatible redefinition of macro "FLASH_MER_BIT"  (declared at line 358)
+  #define FLASH_MER_BIT     (FLASH_CR_MER) /*!< only 1 MER Bit */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(509): warning:  #47-D: incompatible redefinition of macro "OB_WRP_SECTOR_All"  (declared at line 490)
+  #define OB_WRP_SECTOR_All     ((uint32_t)0x00000FFFU) /*!< Write protection of all Sectors */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(716): warning:  #47-D: incompatible redefinition of macro "FLASH_SECTOR_TOTAL"  (declared at line 710)
+  #define FLASH_SECTOR_TOTAL  12U
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(828): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_LATENCY"  (declared at line 806)
+  #define IS_FLASH_LATENCY(LATENCY) (((LATENCY) == FLASH_LATENCY_0)  || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(849): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_BANK"  (declared at line 840)
+  #define IS_FLASH_BANK(BANK) (((BANK) == FLASH_BANK_1))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(870): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_SECTOR"  (declared at line 854)
+  #define IS_FLASH_SECTOR(SECTOR) (((SECTOR) == FLASH_SECTOR_0)   || ((SECTOR) == FLASH_SECTOR_1)   ||\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(905): warning:  #47-D: incompatible redefinition of macro "IS_OB_WRP_SECTOR"  (declared at line 901)
+  #define IS_OB_WRP_SECTOR(SECTOR)((((SECTOR) & (uint32_t)0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+../Src/can.c: 16 warnings, 2 errors
+compiling stm32f4xx_hal_timebase_TIM.c...
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(390): error:  #256: invalid redeclaration of type name "RCC_PLLI2SInitTypeDef"  (declared at line 302)
+  }RCC_PLLI2SInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(409): error:  #256: invalid redeclaration of type name "RCC_PeriphCLKInitTypeDef"  (declared at line 365)
+  }RCC_PeriphCLKInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(495): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_RTC"  (declared at line 486)
+  #define RCC_PERIPHCLK_RTC             ((uint32_t)0x00000002U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(496): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_PLLI2S"  (declared at line 487)
+  #define RCC_PERIPHCLK_PLLI2S          ((uint32_t)0x00000004U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2105): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED"  (declared at line 1098)
+  #define __HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED() ((RCC->AHB1ENR & (RCC_AHB1ENR_OTGHSULPIEN))== RESET)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2504): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_ENABLED"  (declared at line 1569)
+  #define __HAL_RCC_TIM10_IS_CLK_ENABLED()   ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) != RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2511): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_DISABLED"  (declared at line 1573)
+  #define __HAL_RCC_TIM10_IS_CLK_DISABLED()  ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) == RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(6372): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PERIPHCLOCK"  (declared at line 6368)
+  #define IS_RCC_PERIPHCLOCK(SELECTION) ((1 <= (SELECTION)) && ((SELECTION) <= 0x00000007U))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(345): warning:  #47-D: incompatible redefinition of macro "GPIO_AF5_I2S3ext"  (declared at line 236)
+  #define GPIO_AF5_I2S3ext       ((uint8_t)0x05U)  /* I2S3ext_SD Alternate Function mapping  */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1162): warning:  #47-D: incompatible redefinition of macro "GPIO_GET_INDEX"  (declared at line 1150)
+  #define GPIO_GET_INDEX(__GPIOx__)    (uint8_t)(((__GPIOx__) == (GPIOA))? 0U :\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1262): warning:  #47-D: incompatible redefinition of macro "IS_GPIO_AF"  (declared at line 1235)
+  #define IS_GPIO_AF(AF)   (((AF) == GPIO_AF0_RTC_50Hz)   || ((AF) == GPIO_AF9_TIM14)      || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(365): warning:  #47-D: incompatible redefinition of macro "FLASH_MER_BIT"  (declared at line 358)
+  #define FLASH_MER_BIT     (FLASH_CR_MER) /*!< only 1 MER Bit */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(509): warning:  #47-D: incompatible redefinition of macro "OB_WRP_SECTOR_All"  (declared at line 490)
+  #define OB_WRP_SECTOR_All     ((uint32_t)0x00000FFFU) /*!< Write protection of all Sectors */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(716): warning:  #47-D: incompatible redefinition of macro "FLASH_SECTOR_TOTAL"  (declared at line 710)
+  #define FLASH_SECTOR_TOTAL  12U
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(828): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_LATENCY"  (declared at line 806)
+  #define IS_FLASH_LATENCY(LATENCY) (((LATENCY) == FLASH_LATENCY_0)  || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(849): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_BANK"  (declared at line 840)
+  #define IS_FLASH_BANK(BANK) (((BANK) == FLASH_BANK_1))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(870): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_SECTOR"  (declared at line 854)
+  #define IS_FLASH_SECTOR(SECTOR) (((SECTOR) == FLASH_SECTOR_0)   || ((SECTOR) == FLASH_SECTOR_1)   ||\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(905): warning:  #47-D: incompatible redefinition of macro "IS_OB_WRP_SECTOR"  (declared at line 901)
+  #define IS_OB_WRP_SECTOR(SECTOR)((((SECTOR) & (uint32_t)0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+../Src/stm32f4xx_hal_timebase_TIM.c: 16 warnings, 2 errors
+compiling main.c...
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(390): error:  #256: invalid redeclaration of type name "RCC_PLLI2SInitTypeDef"  (declared at line 302)
+  }RCC_PLLI2SInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(409): error:  #256: invalid redeclaration of type name "RCC_PeriphCLKInitTypeDef"  (declared at line 365)
+  }RCC_PeriphCLKInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(495): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_RTC"  (declared at line 486)
+  #define RCC_PERIPHCLK_RTC             ((uint32_t)0x00000002U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(496): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_PLLI2S"  (declared at line 487)
+  #define RCC_PERIPHCLK_PLLI2S          ((uint32_t)0x00000004U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2105): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED"  (declared at line 1098)
+  #define __HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED() ((RCC->AHB1ENR & (RCC_AHB1ENR_OTGHSULPIEN))== RESET)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2504): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_ENABLED"  (declared at line 1569)
+  #define __HAL_RCC_TIM10_IS_CLK_ENABLED()   ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) != RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2511): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_DISABLED"  (declared at line 1573)
+  #define __HAL_RCC_TIM10_IS_CLK_DISABLED()  ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) == RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(6372): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PERIPHCLOCK"  (declared at line 6368)
+  #define IS_RCC_PERIPHCLOCK(SELECTION) ((1 <= (SELECTION)) && ((SELECTION) <= 0x00000007U))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(345): warning:  #47-D: incompatible redefinition of macro "GPIO_AF5_I2S3ext"  (declared at line 236)
+  #define GPIO_AF5_I2S3ext       ((uint8_t)0x05U)  /* I2S3ext_SD Alternate Function mapping  */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1162): warning:  #47-D: incompatible redefinition of macro "GPIO_GET_INDEX"  (declared at line 1150)
+  #define GPIO_GET_INDEX(__GPIOx__)    (uint8_t)(((__GPIOx__) == (GPIOA))? 0U :\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1262): warning:  #47-D: incompatible redefinition of macro "IS_GPIO_AF"  (declared at line 1235)
+  #define IS_GPIO_AF(AF)   (((AF) == GPIO_AF0_RTC_50Hz)   || ((AF) == GPIO_AF9_TIM14)      || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(365): warning:  #47-D: incompatible redefinition of macro "FLASH_MER_BIT"  (declared at line 358)
+  #define FLASH_MER_BIT     (FLASH_CR_MER) /*!< only 1 MER Bit */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(509): warning:  #47-D: incompatible redefinition of macro "OB_WRP_SECTOR_All"  (declared at line 490)
+  #define OB_WRP_SECTOR_All     ((uint32_t)0x00000FFFU) /*!< Write protection of all Sectors */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(716): warning:  #47-D: incompatible redefinition of macro "FLASH_SECTOR_TOTAL"  (declared at line 710)
+  #define FLASH_SECTOR_TOTAL  12U
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(828): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_LATENCY"  (declared at line 806)
+  #define IS_FLASH_LATENCY(LATENCY) (((LATENCY) == FLASH_LATENCY_0)  || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(849): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_BANK"  (declared at line 840)
+  #define IS_FLASH_BANK(BANK) (((BANK) == FLASH_BANK_1))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(870): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_SECTOR"  (declared at line 854)
+  #define IS_FLASH_SECTOR(SECTOR) (((SECTOR) == FLASH_SECTOR_0)   || ((SECTOR) == FLASH_SECTOR_1)   ||\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(905): warning:  #47-D: incompatible redefinition of macro "IS_OB_WRP_SECTOR"  (declared at line 901)
+  #define IS_OB_WRP_SECTOR(SECTOR)((((SECTOR) & (uint32_t)0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+../Src/main.c: 16 warnings, 2 errors
 compiling freertos.c...
-linking...
-Program Size: Code=16136 RO-data=516 RW-data=120 ZI-data=18696  
-"demo\demo.axf" - 0 Error(s), 0 Warning(s).
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(390): error:  #256: invalid redeclaration of type name "RCC_PLLI2SInitTypeDef"  (declared at line 302)
+  }RCC_PLLI2SInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(409): error:  #256: invalid redeclaration of type name "RCC_PeriphCLKInitTypeDef"  (declared at line 365)
+  }RCC_PeriphCLKInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(495): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_RTC"  (declared at line 486)
+  #define RCC_PERIPHCLK_RTC             ((uint32_t)0x00000002U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(496): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_PLLI2S"  (declared at line 487)
+  #define RCC_PERIPHCLK_PLLI2S          ((uint32_t)0x00000004U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2105): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED"  (declared at line 1098)
+  #define __HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED() ((RCC->AHB1ENR & (RCC_AHB1ENR_OTGHSULPIEN))== RESET)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2504): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_ENABLED"  (declared at line 1569)
+  #define __HAL_RCC_TIM10_IS_CLK_ENABLED()   ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) != RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2511): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_DISABLED"  (declared at line 1573)
+  #define __HAL_RCC_TIM10_IS_CLK_DISABLED()  ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) == RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(6372): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PERIPHCLOCK"  (declared at line 6368)
+  #define IS_RCC_PERIPHCLOCK(SELECTION) ((1 <= (SELECTION)) && ((SELECTION) <= 0x00000007U))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(345): warning:  #47-D: incompatible redefinition of macro "GPIO_AF5_I2S3ext"  (declared at line 236)
+  #define GPIO_AF5_I2S3ext       ((uint8_t)0x05U)  /* I2S3ext_SD Alternate Function mapping  */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1162): warning:  #47-D: incompatible redefinition of macro "GPIO_GET_INDEX"  (declared at line 1150)
+  #define GPIO_GET_INDEX(__GPIOx__)    (uint8_t)(((__GPIOx__) == (GPIOA))? 0U :\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1262): warning:  #47-D: incompatible redefinition of macro "IS_GPIO_AF"  (declared at line 1235)
+  #define IS_GPIO_AF(AF)   (((AF) == GPIO_AF0_RTC_50Hz)   || ((AF) == GPIO_AF9_TIM14)      || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(365): warning:  #47-D: incompatible redefinition of macro "FLASH_MER_BIT"  (declared at line 358)
+  #define FLASH_MER_BIT     (FLASH_CR_MER) /*!< only 1 MER Bit */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(509): warning:  #47-D: incompatible redefinition of macro "OB_WRP_SECTOR_All"  (declared at line 490)
+  #define OB_WRP_SECTOR_All     ((uint32_t)0x00000FFFU) /*!< Write protection of all Sectors */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(716): warning:  #47-D: incompatible redefinition of macro "FLASH_SECTOR_TOTAL"  (declared at line 710)
+  #define FLASH_SECTOR_TOTAL  12U
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(828): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_LATENCY"  (declared at line 806)
+  #define IS_FLASH_LATENCY(LATENCY) (((LATENCY) == FLASH_LATENCY_0)  || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(849): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_BANK"  (declared at line 840)
+  #define IS_FLASH_BANK(BANK) (((BANK) == FLASH_BANK_1))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(870): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_SECTOR"  (declared at line 854)
+  #define IS_FLASH_SECTOR(SECTOR) (((SECTOR) == FLASH_SECTOR_0)   || ((SECTOR) == FLASH_SECTOR_1)   ||\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(905): warning:  #47-D: incompatible redefinition of macro "IS_OB_WRP_SECTOR"  (declared at line 901)
+  #define IS_OB_WRP_SECTOR(SECTOR)((((SECTOR) & (uint32_t)0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+../Src/freertos.c: 16 warnings, 2 errors
+compiling dma.c...
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(390): error:  #256: invalid redeclaration of type name "RCC_PLLI2SInitTypeDef"  (declared at line 302)
+  }RCC_PLLI2SInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(409): error:  #256: invalid redeclaration of type name "RCC_PeriphCLKInitTypeDef"  (declared at line 365)
+  }RCC_PeriphCLKInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(495): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_RTC"  (declared at line 486)
+  #define RCC_PERIPHCLK_RTC             ((uint32_t)0x00000002U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(496): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_PLLI2S"  (declared at line 487)
+  #define RCC_PERIPHCLK_PLLI2S          ((uint32_t)0x00000004U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2105): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED"  (declared at line 1098)
+  #define __HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED() ((RCC->AHB1ENR & (RCC_AHB1ENR_OTGHSULPIEN))== RESET)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2504): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_ENABLED"  (declared at line 1569)
+  #define __HAL_RCC_TIM10_IS_CLK_ENABLED()   ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) != RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2511): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_DISABLED"  (declared at line 1573)
+  #define __HAL_RCC_TIM10_IS_CLK_DISABLED()  ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) == RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(6372): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PERIPHCLOCK"  (declared at line 6368)
+  #define IS_RCC_PERIPHCLOCK(SELECTION) ((1 <= (SELECTION)) && ((SELECTION) <= 0x00000007U))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(345): warning:  #47-D: incompatible redefinition of macro "GPIO_AF5_I2S3ext"  (declared at line 236)
+  #define GPIO_AF5_I2S3ext       ((uint8_t)0x05U)  /* I2S3ext_SD Alternate Function mapping  */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1162): warning:  #47-D: incompatible redefinition of macro "GPIO_GET_INDEX"  (declared at line 1150)
+  #define GPIO_GET_INDEX(__GPIOx__)    (uint8_t)(((__GPIOx__) == (GPIOA))? 0U :\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1262): warning:  #47-D: incompatible redefinition of macro "IS_GPIO_AF"  (declared at line 1235)
+  #define IS_GPIO_AF(AF)   (((AF) == GPIO_AF0_RTC_50Hz)   || ((AF) == GPIO_AF9_TIM14)      || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(365): warning:  #47-D: incompatible redefinition of macro "FLASH_MER_BIT"  (declared at line 358)
+  #define FLASH_MER_BIT     (FLASH_CR_MER) /*!< only 1 MER Bit */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(509): warning:  #47-D: incompatible redefinition of macro "OB_WRP_SECTOR_All"  (declared at line 490)
+  #define OB_WRP_SECTOR_All     ((uint32_t)0x00000FFFU) /*!< Write protection of all Sectors */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(716): warning:  #47-D: incompatible redefinition of macro "FLASH_SECTOR_TOTAL"  (declared at line 710)
+  #define FLASH_SECTOR_TOTAL  12U
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(828): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_LATENCY"  (declared at line 806)
+  #define IS_FLASH_LATENCY(LATENCY) (((LATENCY) == FLASH_LATENCY_0)  || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(849): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_BANK"  (declared at line 840)
+  #define IS_FLASH_BANK(BANK) (((BANK) == FLASH_BANK_1))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(870): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_SECTOR"  (declared at line 854)
+  #define IS_FLASH_SECTOR(SECTOR) (((SECTOR) == FLASH_SECTOR_0)   || ((SECTOR) == FLASH_SECTOR_1)   ||\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(905): warning:  #47-D: incompatible redefinition of macro "IS_OB_WRP_SECTOR"  (declared at line 901)
+  #define IS_OB_WRP_SECTOR(SECTOR)((((SECTOR) & (uint32_t)0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+../Src/dma.c: 16 warnings, 2 errors
+compiling gpio.c...
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(390): error:  #256: invalid redeclaration of type name "RCC_PLLI2SInitTypeDef"  (declared at line 302)
+  }RCC_PLLI2SInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(409): error:  #256: invalid redeclaration of type name "RCC_PeriphCLKInitTypeDef"  (declared at line 365)
+  }RCC_PeriphCLKInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(495): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_RTC"  (declared at line 486)
+  #define RCC_PERIPHCLK_RTC             ((uint32_t)0x00000002U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(496): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_PLLI2S"  (declared at line 487)
+  #define RCC_PERIPHCLK_PLLI2S          ((uint32_t)0x00000004U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2105): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED"  (declared at line 1098)
+  #define __HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED() ((RCC->AHB1ENR & (RCC_AHB1ENR_OTGHSULPIEN))== RESET)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2504): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_ENABLED"  (declared at line 1569)
+  #define __HAL_RCC_TIM10_IS_CLK_ENABLED()   ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) != RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2511): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_DISABLED"  (declared at line 1573)
+  #define __HAL_RCC_TIM10_IS_CLK_DISABLED()  ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) == RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(6372): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PERIPHCLOCK"  (declared at line 6368)
+  #define IS_RCC_PERIPHCLOCK(SELECTION) ((1 <= (SELECTION)) && ((SELECTION) <= 0x00000007U))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(345): warning:  #47-D: incompatible redefinition of macro "GPIO_AF5_I2S3ext"  (declared at line 236)
+  #define GPIO_AF5_I2S3ext       ((uint8_t)0x05U)  /* I2S3ext_SD Alternate Function mapping  */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1162): warning:  #47-D: incompatible redefinition of macro "GPIO_GET_INDEX"  (declared at line 1150)
+  #define GPIO_GET_INDEX(__GPIOx__)    (uint8_t)(((__GPIOx__) == (GPIOA))? 0U :\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1262): warning:  #47-D: incompatible redefinition of macro "IS_GPIO_AF"  (declared at line 1235)
+  #define IS_GPIO_AF(AF)   (((AF) == GPIO_AF0_RTC_50Hz)   || ((AF) == GPIO_AF9_TIM14)      || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(365): warning:  #47-D: incompatible redefinition of macro "FLASH_MER_BIT"  (declared at line 358)
+  #define FLASH_MER_BIT     (FLASH_CR_MER) /*!< only 1 MER Bit */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(509): warning:  #47-D: incompatible redefinition of macro "OB_WRP_SECTOR_All"  (declared at line 490)
+  #define OB_WRP_SECTOR_All     ((uint32_t)0x00000FFFU) /*!< Write protection of all Sectors */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(716): warning:  #47-D: incompatible redefinition of macro "FLASH_SECTOR_TOTAL"  (declared at line 710)
+  #define FLASH_SECTOR_TOTAL  12U
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(828): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_LATENCY"  (declared at line 806)
+  #define IS_FLASH_LATENCY(LATENCY) (((LATENCY) == FLASH_LATENCY_0)  || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(849): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_BANK"  (declared at line 840)
+  #define IS_FLASH_BANK(BANK) (((BANK) == FLASH_BANK_1))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(870): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_SECTOR"  (declared at line 854)
+  #define IS_FLASH_SECTOR(SECTOR) (((SECTOR) == FLASH_SECTOR_0)   || ((SECTOR) == FLASH_SECTOR_1)   ||\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(905): warning:  #47-D: incompatible redefinition of macro "IS_OB_WRP_SECTOR"  (declared at line 901)
+  #define IS_OB_WRP_SECTOR(SECTOR)((((SECTOR) & (uint32_t)0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+../Src/gpio.c: 16 warnings, 2 errors
+compiling bsp_can.c...
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(390): error:  #256: invalid redeclaration of type name "RCC_PLLI2SInitTypeDef"  (declared at line 302)
+  }RCC_PLLI2SInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(409): error:  #256: invalid redeclaration of type name "RCC_PeriphCLKInitTypeDef"  (declared at line 365)
+  }RCC_PeriphCLKInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(495): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_RTC"  (declared at line 486)
+  #define RCC_PERIPHCLK_RTC             ((uint32_t)0x00000002U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(496): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_PLLI2S"  (declared at line 487)
+  #define RCC_PERIPHCLK_PLLI2S          ((uint32_t)0x00000004U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2105): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED"  (declared at line 1098)
+  #define __HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED() ((RCC->AHB1ENR & (RCC_AHB1ENR_OTGHSULPIEN))== RESET)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2504): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_ENABLED"  (declared at line 1569)
+  #define __HAL_RCC_TIM10_IS_CLK_ENABLED()   ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) != RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2511): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_DISABLED"  (declared at line 1573)
+  #define __HAL_RCC_TIM10_IS_CLK_DISABLED()  ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) == RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(6372): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PERIPHCLOCK"  (declared at line 6368)
+  #define IS_RCC_PERIPHCLOCK(SELECTION) ((1 <= (SELECTION)) && ((SELECTION) <= 0x00000007U))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(345): warning:  #47-D: incompatible redefinition of macro "GPIO_AF5_I2S3ext"  (declared at line 236)
+  #define GPIO_AF5_I2S3ext       ((uint8_t)0x05U)  /* I2S3ext_SD Alternate Function mapping  */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1162): warning:  #47-D: incompatible redefinition of macro "GPIO_GET_INDEX"  (declared at line 1150)
+  #define GPIO_GET_INDEX(__GPIOx__)    (uint8_t)(((__GPIOx__) == (GPIOA))? 0U :\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1262): warning:  #47-D: incompatible redefinition of macro "IS_GPIO_AF"  (declared at line 1235)
+  #define IS_GPIO_AF(AF)   (((AF) == GPIO_AF0_RTC_50Hz)   || ((AF) == GPIO_AF9_TIM14)      || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(365): warning:  #47-D: incompatible redefinition of macro "FLASH_MER_BIT"  (declared at line 358)
+  #define FLASH_MER_BIT     (FLASH_CR_MER) /*!< only 1 MER Bit */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(509): warning:  #47-D: incompatible redefinition of macro "OB_WRP_SECTOR_All"  (declared at line 490)
+  #define OB_WRP_SECTOR_All     ((uint32_t)0x00000FFFU) /*!< Write protection of all Sectors */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(716): warning:  #47-D: incompatible redefinition of macro "FLASH_SECTOR_TOTAL"  (declared at line 710)
+  #define FLASH_SECTOR_TOTAL  12U
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(828): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_LATENCY"  (declared at line 806)
+  #define IS_FLASH_LATENCY(LATENCY) (((LATENCY) == FLASH_LATENCY_0)  || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(849): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_BANK"  (declared at line 840)
+  #define IS_FLASH_BANK(BANK) (((BANK) == FLASH_BANK_1))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(870): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_SECTOR"  (declared at line 854)
+  #define IS_FLASH_SECTOR(SECTOR) (((SECTOR) == FLASH_SECTOR_0)   || ((SECTOR) == FLASH_SECTOR_1)   ||\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(905): warning:  #47-D: incompatible redefinition of macro "IS_OB_WRP_SECTOR"  (declared at line 901)
+  #define IS_OB_WRP_SECTOR(SECTOR)((((SECTOR) & (uint32_t)0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+bsp\bsp_can.c: 16 warnings, 2 errors
+compiling pid.c...
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(390): error:  #256: invalid redeclaration of type name "RCC_PLLI2SInitTypeDef"  (declared at line 302)
+  }RCC_PLLI2SInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(409): error:  #256: invalid redeclaration of type name "RCC_PeriphCLKInitTypeDef"  (declared at line 365)
+  }RCC_PeriphCLKInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(495): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_RTC"  (declared at line 486)
+  #define RCC_PERIPHCLK_RTC             ((uint32_t)0x00000002U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(496): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_PLLI2S"  (declared at line 487)
+  #define RCC_PERIPHCLK_PLLI2S          ((uint32_t)0x00000004U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2105): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED"  (declared at line 1098)
+  #define __HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED() ((RCC->AHB1ENR & (RCC_AHB1ENR_OTGHSULPIEN))== RESET)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2504): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_ENABLED"  (declared at line 1569)
+  #define __HAL_RCC_TIM10_IS_CLK_ENABLED()   ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) != RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2511): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_DISABLED"  (declared at line 1573)
+  #define __HAL_RCC_TIM10_IS_CLK_DISABLED()  ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) == RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(6372): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PERIPHCLOCK"  (declared at line 6368)
+  #define IS_RCC_PERIPHCLOCK(SELECTION) ((1 <= (SELECTION)) && ((SELECTION) <= 0x00000007U))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(345): warning:  #47-D: incompatible redefinition of macro "GPIO_AF5_I2S3ext"  (declared at line 236)
+  #define GPIO_AF5_I2S3ext       ((uint8_t)0x05U)  /* I2S3ext_SD Alternate Function mapping  */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1162): warning:  #47-D: incompatible redefinition of macro "GPIO_GET_INDEX"  (declared at line 1150)
+  #define GPIO_GET_INDEX(__GPIOx__)    (uint8_t)(((__GPIOx__) == (GPIOA))? 0U :\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1262): warning:  #47-D: incompatible redefinition of macro "IS_GPIO_AF"  (declared at line 1235)
+  #define IS_GPIO_AF(AF)   (((AF) == GPIO_AF0_RTC_50Hz)   || ((AF) == GPIO_AF9_TIM14)      || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(365): warning:  #47-D: incompatible redefinition of macro "FLASH_MER_BIT"  (declared at line 358)
+  #define FLASH_MER_BIT     (FLASH_CR_MER) /*!< only 1 MER Bit */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(509): warning:  #47-D: incompatible redefinition of macro "OB_WRP_SECTOR_All"  (declared at line 490)
+  #define OB_WRP_SECTOR_All     ((uint32_t)0x00000FFFU) /*!< Write protection of all Sectors */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(716): warning:  #47-D: incompatible redefinition of macro "FLASH_SECTOR_TOTAL"  (declared at line 710)
+  #define FLASH_SECTOR_TOTAL  12U
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(828): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_LATENCY"  (declared at line 806)
+  #define IS_FLASH_LATENCY(LATENCY) (((LATENCY) == FLASH_LATENCY_0)  || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(849): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_BANK"  (declared at line 840)
+  #define IS_FLASH_BANK(BANK) (((BANK) == FLASH_BANK_1))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(870): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_SECTOR"  (declared at line 854)
+  #define IS_FLASH_SECTOR(SECTOR) (((SECTOR) == FLASH_SECTOR_0)   || ((SECTOR) == FLASH_SECTOR_1)   ||\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(905): warning:  #47-D: incompatible redefinition of macro "IS_OB_WRP_SECTOR"  (declared at line 901)
+  #define IS_OB_WRP_SECTOR(SECTOR)((((SECTOR) & (uint32_t)0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+bsp\pid.c: 16 warnings, 2 errors
+compiling stm32f4xx_it.c...
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(390): error:  #256: invalid redeclaration of type name "RCC_PLLI2SInitTypeDef"  (declared at line 302)
+  }RCC_PLLI2SInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(409): error:  #256: invalid redeclaration of type name "RCC_PeriphCLKInitTypeDef"  (declared at line 365)
+  }RCC_PeriphCLKInitTypeDef;
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(495): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_RTC"  (declared at line 486)
+  #define RCC_PERIPHCLK_RTC             ((uint32_t)0x00000002U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(496): warning:  #47-D: incompatible redefinition of macro "RCC_PERIPHCLK_PLLI2S"  (declared at line 487)
+  #define RCC_PERIPHCLK_PLLI2S          ((uint32_t)0x00000004U)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2105): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED"  (declared at line 1098)
+  #define __HAL_RCC_USB_OTG_HS_ULPI_IS_CLK_DISABLED() ((RCC->AHB1ENR & (RCC_AHB1ENR_OTGHSULPIEN))== RESET)
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2504): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_ENABLED"  (declared at line 1569)
+  #define __HAL_RCC_TIM10_IS_CLK_ENABLED()   ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) != RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(2511): warning:  #47-D: incompatible redefinition of macro "__HAL_RCC_TIM10_IS_CLK_DISABLED"  (declared at line 1573)
+  #define __HAL_RCC_TIM10_IS_CLK_DISABLED()  ((RCC->APB2ENR & (RCC_APB2ENR_TIM10EN)) == RESET) 
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h(6372): warning:  #47-D: incompatible redefinition of macro "IS_RCC_PERIPHCLOCK"  (declared at line 6368)
+  #define IS_RCC_PERIPHCLOCK(SELECTION) ((1 <= (SELECTION)) && ((SELECTION) <= 0x00000007U))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(345): warning:  #47-D: incompatible redefinition of macro "GPIO_AF5_I2S3ext"  (declared at line 236)
+  #define GPIO_AF5_I2S3ext       ((uint8_t)0x05U)  /* I2S3ext_SD Alternate Function mapping  */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1162): warning:  #47-D: incompatible redefinition of macro "GPIO_GET_INDEX"  (declared at line 1150)
+  #define GPIO_GET_INDEX(__GPIOx__)    (uint8_t)(((__GPIOx__) == (GPIOA))? 0U :\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h(1262): warning:  #47-D: incompatible redefinition of macro "IS_GPIO_AF"  (declared at line 1235)
+  #define IS_GPIO_AF(AF)   (((AF) == GPIO_AF0_RTC_50Hz)   || ((AF) == GPIO_AF9_TIM14)      || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(365): warning:  #47-D: incompatible redefinition of macro "FLASH_MER_BIT"  (declared at line 358)
+  #define FLASH_MER_BIT     (FLASH_CR_MER) /*!< only 1 MER Bit */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(509): warning:  #47-D: incompatible redefinition of macro "OB_WRP_SECTOR_All"  (declared at line 490)
+  #define OB_WRP_SECTOR_All     ((uint32_t)0x00000FFFU) /*!< Write protection of all Sectors */
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(716): warning:  #47-D: incompatible redefinition of macro "FLASH_SECTOR_TOTAL"  (declared at line 710)
+  #define FLASH_SECTOR_TOTAL  12U
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(828): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_LATENCY"  (declared at line 806)
+  #define IS_FLASH_LATENCY(LATENCY) (((LATENCY) == FLASH_LATENCY_0)  || \
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(849): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_BANK"  (declared at line 840)
+  #define IS_FLASH_BANK(BANK) (((BANK) == FLASH_BANK_1))
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(870): warning:  #47-D: incompatible redefinition of macro "IS_FLASH_SECTOR"  (declared at line 854)
+  #define IS_FLASH_SECTOR(SECTOR) (((SECTOR) == FLASH_SECTOR_0)   || ((SECTOR) == FLASH_SECTOR_1)   ||\
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h(905): warning:  #47-D: incompatible redefinition of macro "IS_OB_WRP_SECTOR"  (declared at line 901)
+  #define IS_OB_WRP_SECTOR(SECTOR)((((SECTOR) & (uint32_t)0xFFFFF000U) == 0x00000000U) && ((SECTOR) != 0x00000000U))
+../Src/stm32f4xx_it.c: 16 warnings, 2 errors
+"demo\demo.axf" - 116 Error(s), 495 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -53,7 +1344,8 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.2.0
-Build Time Elapsed:  00:00:02
+Target not created.
+Build Time Elapsed:  00:00:12
 </pre>
 </body>
 </html>

@@ -898,7 +898,7 @@ erwork --depend=demo\startup_stm32f427xx.d -odemo\startup_stm32f427xx.o -I..\In
 c -I.\RTE\_demo -ID:\Keil_v5\ARM\PACK\ARM\CMSIS\5.5.1\CMSIS\Core\Include -ID:\K
 eil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Inc
 lude --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 526" -
--predefine="_RTE_ SETA 1" --predefine="STM32F427xx SETA 1" --list=startup_stm32
+-predefine="_RTE_ SETA 1" --predefine="STM32F407xx SETA 1" --list=startup_stm32
 f427xx.lst startup_stm32f427xx.s
 
 

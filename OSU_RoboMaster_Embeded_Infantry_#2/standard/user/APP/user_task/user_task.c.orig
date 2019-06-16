@@ -111,7 +111,7 @@ static void Filter_Running(Gimbal_Control_t *gimbal_data)
 		
 		//是否对视觉发来的自瞄数据进行滤波
 		if(filter_aim_data_flag==1)
-		{ 	
+		{
 			*filtered_aim_data=kalman_filter_calc(&kalman,
 																						tx2.horizontal_pixel,
 																						tx2.vertical_pixel,
@@ -256,9 +256,8 @@ void UserTask(void *pvParameters)
 			Set_User_GPIO(&user_gpio,ENABLE);//ENABLE开启GPIO端口
 			}
 		}
-		yaw_mid_offset=0;
-		pitch_mid_offset=0;
 		
+
 		
     while (1)
     {
@@ -281,23 +280,23 @@ void UserTask(void *pvParameters)
 				
 				Filter_Running(&gimbal_control);//filter进行计算
 				
-				//调整准心
-				if (gimbal_control.gimbal_rc_ctrl->key.v & KEY_PRESSED_OFFSET_F)
-				{
-						pitch_mid_offset -=1;
-				}
-				if (gimbal_control.gimbal_rc_ctrl->key.v & KEY_PRESSED_OFFSET_V)
-				{
-						pitch_mid_offset +=1;
-				}
-				if (gimbal_control.gimbal_rc_ctrl->key.v & KEY_PRESSED_OFFSET_C)
-				{
-						yaw_mid_offset -=1;
-				}
-				if (gimbal_control.gimbal_rc_ctrl->key.v & KEY_PRESSED_OFFSET_B)
-				{
-						yaw_mid_offset +=1;
-				}
+						//调整准心
+if (gimbal_control.gimbal_rc_ctrl->key.v & KEY_PRESSED_OFFSET_F)
+    {
+        pitch_mid_offset -=1;
+    }
+		if (gimbal_control.gimbal_rc_ctrl->key.v & KEY_PRESSED_OFFSET_V)
+    {
+        pitch_mid_offset +=1;
+    }
+		if (gimbal_control.gimbal_rc_ctrl->key.v & KEY_PRESSED_OFFSET_C)
+    {
+        yaw_mid_offset -=1;
+    }
+		if (gimbal_control.gimbal_rc_ctrl->key.v & KEY_PRESSED_OFFSET_B)
+    {
+        yaw_mid_offset +=1;
+    }
 
 				vTaskDelay(1);//每隔1ms循环一次
 //        led_green_off();

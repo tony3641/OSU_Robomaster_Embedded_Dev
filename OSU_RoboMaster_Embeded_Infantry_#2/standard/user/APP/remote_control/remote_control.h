@@ -72,7 +72,6 @@ typedef __packed struct
         __packed struct
         {
                 uint16_t v;
-								uint16_t f;//随便加的，不知道有什么用
         } key;
 
 } RC_ctrl_t;

@@ -8,11 +8,11 @@ void power_ctrl_configuration(void)
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOH, ENABLE);
 
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2 | GPIO_Pin_3 | GPIO_Pin_4 | GPIO_Pin_5;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;      //��ͨ���ģʽ
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;      //输出模式
     GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;     //�������
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz; //100MHz
-    GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;       //����
-    GPIO_Init(GPIOH, &GPIO_InitStructure);             //��ʼ��
+		GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;       //上拉
+    GPIO_Init(GPIOH, &GPIO_InitStructure);             //初始化
 
     for (uint8_t i = POWER1_CTRL_SWITCH; i < POWER4_CTRL_SWITCH + 1; i++)
     {

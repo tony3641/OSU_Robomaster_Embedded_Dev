@@ -6,7 +6,7 @@ demo\spi.o: ../Inc/mxconstants.h
 demo\spi.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h
 demo\spi.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h
 demo\spi.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
-demo\spi.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f427xx.h
+demo\spi.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h
 demo\spi.o: ../Drivers/CMSIS/Include/core_cm4.h
 demo\spi.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 demo\spi.o: ../Drivers/CMSIS/Include/core_cmInstr.h

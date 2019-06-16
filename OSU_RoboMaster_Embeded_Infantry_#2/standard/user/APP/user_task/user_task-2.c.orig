@@ -3,7 +3,7 @@
   * @file       user_task.c/h
   * @brief      *一个普通心跳程序，如果设备无错误，绿灯1Hz闪烁,然后获取姿态角*
   *             现用与filter计算线程
-  * @note
+  * @note       
   * @history
   *  Version    Date            Author          Modification
   *  V1.0.0     Dec-26-2018     RM              1. 完成
@@ -91,54 +91,54 @@ static int filter_final_angle_set_flag;
 void kalman_filter_init(kalman_filter_t *F, kalman_filter_init_t *I);
 
 static void Filter_Running(Gimbal_Control_t *gimbal_data)
-{
+	{
 
-
-    filter_tx2_yaw_data_flag=1;
-    filter_final_angle_set_flag=0;//没什么效果
-
-
-
-
-    //是否对tx2发来的yaw轴自瞄数据进行滤波
-    if(filter_tx2_yaw_data_flag==1)
-    {
-        filtered_horizontal_pixel=kalman_filter_calc(&kalman, tx2.horizontal_pixel, 0);
+		
+		filter_tx2_yaw_data_flag=1;
+		filter_final_angle_set_flag=0;//没什么效果
+		
+		
+		
+		
+		//是否对tx2发来的yaw轴自瞄数据进行滤波
+		if(filter_tx2_yaw_data_flag==1)
+		{
+			filtered_horizontal_pixel=kalman_filter_calc(&kalman, tx2.horizontal_pixel, 0);
 //			filtered_horizontal_pixel=Butterworth_Filter(&butterworth_aim_yaw);//Blackman_Filter(&blackman);
-    }
-    else if(filter_tx2_yaw_data_flag==0)
-    {
-        filtered_horizontal_pixel=tx2.horizontal_pixel;
-    }
-
-    //是否对tx2发来的pitch轴自瞄数据进行滤波，pitch轴数据无需平滑及预测
+		}
+		else if(filter_tx2_yaw_data_flag==0)
+		{
+			filtered_horizontal_pixel=tx2.horizontal_pixel;
+		}
+		
+		//是否对tx2发来的pitch轴自瞄数据进行滤波，pitch轴数据无需平滑及预测
 //		if(filter_tx2_yaw_data_flag==1)
 //		{
 //			filtered_horizontal_pixel=Butterworth_Filter(&butterworth_aim_yaw);//Blackman_Filter(&blackman);
 //		}
 //		else if(filter_tx2_yaw_data_flag==0)
 //		{
-    filtered_vertical_pixel=tx2.vertical_pixel;
+			filtered_vertical_pixel=tx2.vertical_pixel;
 //		}
-
-
-    //是否对最终角度进行滤波
-    if(filter_final_angle_set_flag==1)
-    {
-        filtered_final_angle_set=Butterworth_Filter(&butterworth_final_angle);
-    }
-    else if(filter_final_angle_set_flag==0)
-    {
-        filtered_final_angle_set=final_angle_set;
-    }
-
-
-
-
-
-    delayed_relative_angle=Group_Delay(&group_delay_aim);//经过x ms delay后的编码器的值
-    delayed_wz_set=Group_Delay(&group_delay_chassis_speed);
-}
+		
+		
+		//是否对最终角度进行滤波
+		if(filter_final_angle_set_flag==1)
+		{
+			filtered_final_angle_set=Butterworth_Filter(&butterworth_final_angle);
+		}
+		else if(filter_final_angle_set_flag==0)
+		{
+			filtered_final_angle_set=final_angle_set;
+		}		
+		
+		
+		
+		
+		
+		delayed_relative_angle=Group_Delay(&group_delay_aim);//经过x ms delay后的编码器的值
+		delayed_wz_set=Group_Delay(&group_delay_chassis_speed);
+	}
 
 
 void UserTask(void *pvParameters)
@@ -147,61 +147,61 @@ void UserTask(void *pvParameters)
     const volatile fp32 *angle;
     //获取姿态角指针
     angle = get_INS_angle_point();
-
+		
 //		//Initialize First Esitimate Value
 //		kalman_initial.xhat_data[0]=900;
 //		kalman_initial.xhat_data[1]=0;
-//
+//		
 //		//Initialize Last State of Prior Estimate Value
 //		kalman_initial.xhatminus_data[0]=0;
 //		kalman_initial.xhatminus_data[1]=0;
-//
+//		
 //		//Initialize Actual Measurement
 //		kalman_initial.z_data[0]=0;
 //		kalman_initial.z_data[1]=0;
-//
+//		
 //		//Initialize Kalman Gain Matrix K
 //		kalman_initial.K_data[0]=0;
 //		kalman_initial.K_data[1]=0;
 //		kalman_initial.K_data[2]=0;
 //		kalman_initial.K_data[3]=0;
-//
+//		
 //		//Initialize Observation Matrix H
 //		kalman_initial.H_data[0]=1;
 //		kalman_initial.H_data[1]=0;
 //		kalman_initial.H_data[2]=0;
 //		kalman_initial.H_data[3]=1;
-//
+//					
 //		//Initialize System Matrix A
 //		kalman_initial.A_data[0]=1;
 //		kalman_initial.A_data[1]=0;
 //		kalman_initial.A_data[2]=0;
 //		kalman_initial.A_data[3]=0;
-//
+//		
 //		//Initialize Covariance of the Estimation-Error Matrix P-
 //		kalman_initial.Pminus_data[0]=0;
 //		kalman_initial.Pminus_data[1]=0;
 //		kalman_initial.Pminus_data[2]=0;
 //		kalman_initial.Pminus_data[3]=0;
-//
+//		
 //		//Initialize Initial Covariance of the Estimation-Error Matrix P
 //		kalman_initial.P_data[0]=0;
 //		kalman_initial.P_data[1]=0;
 //		kalman_initial.P_data[2]=0;
 //		kalman_initial.P_data[3]=0;
-//
+//			
 //		//Initialize Covariance of the Process Noise Matrix Q
 //		kalman_initial.Q_data[0]=1;
 //		kalman_initial.Q_data[1]=0;
 //		kalman_initial.Q_data[2]=0;
 //		kalman_initial.Q_data[3]=1;
-//
+//		
 //		//Initialize Covariance of the Measurement Noise Matrix R
 //		kalman_initial.R_data[0]=2000;
 //		kalman_initial.R_data[1]=0;
 //		kalman_initial.R_data[2]=0;
 //		kalman_initial.R_data[3]=10000;
-//
+//		
 //		kalman_filter_init(&kalman,&kalman_initial);
     while (1)
     {
@@ -215,27 +215,27 @@ void UserTask(void *pvParameters)
         {
             led_green_on();
         }
-
-
-
-
-        //filter的输入
-        group_delay_aim.group_delay_raw_value=gimbal_control.gimbal_yaw_motor.relative_angle;//group delay fir filter输入为编码器相对ecd_offset的角度(-pi/2,pi/2)
-        group_delay_chassis_speed.group_delay_raw_value=chassis_move.wz_set;
+				
+				
+				
+				
+				//filter的输入
+				group_delay_aim.group_delay_raw_value=gimbal_control.gimbal_yaw_motor.relative_angle;//group delay fir filter输入为编码器相对ecd_offset的角度(-pi/2,pi/2)
+				group_delay_chassis_speed.group_delay_raw_value=chassis_move.wz_set;
 //				butterworth_aim_yaw.raw_value=tx2.horizontal_pixel;
 //				butterworth_final_angle.raw_value=final_angle_set;
 
-
-        Filter_Running(&gimbal_control);//filter进行计算
-
-
-
-
-
-
-
-
-        vTaskDelay(1);//每隔1ms循环一次
+				
+				Filter_Running(&gimbal_control);//filter进行计算
+				
+				
+				
+				
+				
+				
+				
+				
+				vTaskDelay(1);//每隔1ms循环一次
 //        led_green_off();
 //        vTaskDelay(500);
 #if INCLUDE_uxTaskGetStackHighWaterMark

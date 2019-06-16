@@ -34,13 +34,12 @@
 
 #include "buzzer.h"//加入蜂鸣器用于测试
 #include "filter.h"
+#include "User_Task.h"
 
 #include "FreeRTOSConfig.h"
 #include "FreeRTOS.h"
 #include "task.h"
 
-//软件复位Trigger
-void SoftReset(void);
 
 //电机编码值规整 0—8191
 #define ECD_Format(ecd)         \
@@ -470,6 +469,8 @@ fp32 *filtered_final_angle_set;
 fp32 *filtered_aim_data;
 fp32 delayed_yaw_absolute_angle;
 fp32 delayed_pitch_relative_angle;//定义从user_task.c extern的group delay后的relative angle的值
+int32_t yaw_mid_offset;
+int32_t pitch_mid_offset;
 /////////////////////////////////////////////////
 
 static void J_scope_gimbal_test(void)
@@ -489,8 +490,8 @@ static void J_scope_gimbal_test(void)
     pitch_relative_set_1000 = (int32_t)(gimbal_control.gimbal_pitch_motor.relative_angle_set * 1000);
 				
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		filtered_horizontal_pixel_jscope=(int32_t)(filtered_aim_data[0]-YAW_MID);//相对 相机坐标系x轴 中点的角度 = 滤波后的x轴自瞄数据 - x轴中心点
-		filtered_vertical_pixel_jscope=(int32_t)(filtered_aim_data[1]-PITCH_MID);//相对 相机坐标系y轴 中点的角度 = 滤波后的y轴自瞄数据 - y轴中心点	
+		filtered_horizontal_pixel_jscope=(int32_t)(filtered_aim_data[0]-(YAW_MID+yaw_mid_offset));//相对 相机坐标系x轴 中点的角度 = 滤波后的x轴自瞄数据 - x轴中心点
+		filtered_vertical_pixel_jscope=(int32_t)(filtered_aim_data[1]-(PITCH_MID+pitch_mid_offset));//相对 相机坐标系y轴 中点的角度 = 滤波后的y轴自瞄数据 - y轴中心点	
 		filtered_yaw_motor_speed_jscope=(int32_t)(filtered_aim_data[2]*1000);//滤波后的YAW轴电机速度
 		filtered_pitch_motor_speed_jscope=(int32_t)(filtered_aim_data[3]*1000);//滤波后的PITCH轴电机速度
 	

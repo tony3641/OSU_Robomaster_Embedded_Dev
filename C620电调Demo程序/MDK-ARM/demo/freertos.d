@@ -24,7 +24,7 @@ demo\freertos.o: ../Inc/stm32f4xx_hal_conf.h
 demo\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h
 demo\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h
 demo\freertos.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
-demo\freertos.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f427xx.h
+demo\freertos.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h
 demo\freertos.o: ../Drivers/CMSIS/Include/core_cm4.h
 demo\freertos.o: ../Drivers/CMSIS/Include/core_cmInstr.h
 demo\freertos.o: ../Drivers/CMSIS/Include/core_cmFunc.h
