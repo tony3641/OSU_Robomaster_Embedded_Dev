@@ -671,12 +671,12 @@ static void GIMBAL_Control_loop(Gimbal_Control_t *gimbal_control_loop)
 			
 			
 			
-			//软件复位程序
-			if (switch_is_down(gimbal_control_loop->gimbal_rc_ctrl->rc.s[1]))
-			{
-        SoftReset();
-			}
-			//软件复位程序
+//			//软件复位程序
+//			if (switch_is_down(gimbal_control_loop->gimbal_rc_ctrl->rc.s[1]))
+//			{
+//        SoftReset();
+//			}
+//			//软件复位程序
 			
 			
 			
