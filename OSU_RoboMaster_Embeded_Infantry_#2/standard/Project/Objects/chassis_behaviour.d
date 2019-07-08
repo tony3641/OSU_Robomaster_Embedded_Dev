@@ -50,4 +50,4 @@
 .\objects\chassis_behaviour.o: ..\FWLIB\inc\stm32f4xx_fmc.h
 .\objects\chassis_behaviour.o: ..\FWLIB\inc\stm32f4xx_sai.h
 .\objects\chassis_behaviour.o: ..\User\APP\Gimbal_Task\gimbal_behaviour.h
-.\objects\chassis_behaviour.o: ..\User\gpio.h
+.\objects\chassis_behaviour.o: ..\User\hardware\gpio\gpio.h

@@ -72,8 +72,14 @@
 //任务初始化 空闲一段时间
 #define GIMBAL_TASK_INIT_TIME 201
 //yaw,pitch控制通道以及状态开关通道
-#define YawChannel 2
-#define PitchChannel 3
+//0：右摇杆左右
+//1：右摇杆上下
+//2：左摇杆左右
+//3：左摇杆上下
+#define YawChannel 0
+#define PitchChannel 1
+//0：右拨片
+//1：左拨片
 #define ModeChannel 0
 //掉头180 按键
 #define TurnKeyBoard KEY_PRESSED_OFFSET_B

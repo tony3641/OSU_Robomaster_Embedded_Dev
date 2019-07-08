@@ -35,6 +35,7 @@
 #include "CAN_Receive.h"
 #include "chassis_task.h"
 #include "gpio.h"
+#include "buzzer.h"
 
 //软件复位Trigger
 #include "stm32f4xx.h"
@@ -111,7 +112,7 @@ static void Filter_Running(Gimbal_Control_t *gimbal_data)
 		
 		//是否对视觉发来的自瞄数据进行滤波
 		if(filter_aim_data_flag==1)
-		{
+		{ 	
 			*filtered_aim_data=kalman_filter_calc(&kalman,
 																						tx2.horizontal_pixel,
 																						tx2.vertical_pixel,
@@ -256,12 +257,18 @@ void UserTask(void *pvParameters)
 			Set_User_GPIO(&user_gpio,ENABLE);//ENABLE开启GPIO端口
 			}
 		}
+		yaw_mid_offset=0;
+		pitch_mid_offset=0;
 		
-
 		
     while (1)
     {
-
+			//软件复位程序
+			if (switch_is_down(gimbal_control_loop->gimbal_rc_ctrl->rc.s[1]))
+			{
+        SoftReset();
+			}
+			//软件复位程序
         //姿态角 将rad 变成 度，除这里的姿态角的单位为度，其他地方的姿态角，单位均为弧度
         angle_degree[0] = (*(angle + INS_YAW_ADDRESS_OFFSET)) * 57.3f;
         angle_degree[1] = (*(angle + INS_PITCH_ADDRESS_OFFSET)) * 57.3f;
@@ -280,23 +287,23 @@ void UserTask(void *pvParameters)
 				
 				Filter_Running(&gimbal_control);//filter进行计算
 				
-						//调整准心
-if (gimbal_control.gimbal_rc_ctrl->key.v & KEY_PRESSED_OFFSET_F)
-    {
-        pitch_mid_offset -=1;
-    }
-		if (gimbal_control.gimbal_rc_ctrl->key.v & KEY_PRESSED_OFFSET_V)
-    {
-        pitch_mid_offset +=1;
-    }
-		if (gimbal_control.gimbal_rc_ctrl->key.v & KEY_PRESSED_OFFSET_C)
-    {
-        yaw_mid_offset -=1;
-    }
-		if (gimbal_control.gimbal_rc_ctrl->key.v & KEY_PRESSED_OFFSET_B)
-    {
-        yaw_mid_offset +=1;
-    }
+				//调整准心
+				if (gimbal_control.gimbal_rc_ctrl->key.v & KEY_PRESSED_OFFSET_F)
+				{
+						pitch_mid_offset -=1;
+				}
+				if (gimbal_control.gimbal_rc_ctrl->key.v & KEY_PRESSED_OFFSET_V)
+				{
+						pitch_mid_offset +=1;
+				}
+				if (gimbal_control.gimbal_rc_ctrl->key.v & KEY_PRESSED_OFFSET_C)
+				{
+						yaw_mid_offset -=1;
+				}
+				if (gimbal_control.gimbal_rc_ctrl->key.v & KEY_PRESSED_OFFSET_B)
+				{
+						yaw_mid_offset +=1;
+				}
 
 				vTaskDelay(1);//每隔1ms循环一次
 //        led_green_off();

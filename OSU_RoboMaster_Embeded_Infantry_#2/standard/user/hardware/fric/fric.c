@@ -58,7 +58,7 @@ void fric_PWM_configuration(void) //
     TIM_CtrlPWMOutputs(TIM1, ENABLE);
 
     TIM_Cmd(TIM1, ENABLE);
-
+		
     fric_off();
 		
 		//Œ¢∂Øø™πÿ≈‰÷√

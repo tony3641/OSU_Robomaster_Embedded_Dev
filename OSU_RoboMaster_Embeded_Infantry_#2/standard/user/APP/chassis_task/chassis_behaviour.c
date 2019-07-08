@@ -106,22 +106,6 @@ void chassis_behaviour_mode_set(chassis_move_t *chassis_move_mode)
     //遥控器设置行为模式
 		if (switch_is_mid(chassis_move_mode->chassis_RC->rc.s[MODE_CHANNEL]))
     {
-		    //开启PWM
-				PWM_ID_E PWM_ID_LIST[16]={A,B,C,D,E,F,G,H,S,T,U,V,W,X,Y,Z};//输入想要使用的PWM端口
-				int k;
-				for (k=0;k<16;k++)
-				{	
-					if(PWM_ID_LIST[k]==NULL)//若端口未指定
-					{
-						;//则什么也不做，跳过
-					}
-					else
-					{
-					user_pwm.PWM_ID=PWM_ID_LIST[k];//设置PWM_ID为指定端口
-					Set_User_PWM(&user_pwm, 1200);
-					}
-				}
-
 				if(chassis_move_mode->chassis_RC->key.v & SWTICH_MODE)//按键切换模式，松开取消 在gimbal_behaviour.c中一起更改
 				{
 					chassis_behaviour_mode = CHASSIS_NO_FOLLOW_YAW;//CHASSIS_INFANTRY_FOLLOW_GIMBAL_YAW;//底盘跟随云台模式
@@ -134,21 +118,6 @@ void chassis_behaviour_mode_set(chassis_move_t *chassis_move_mode)
     }
     else if (switch_is_down(chassis_move_mode->chassis_RC->rc.s[MODE_CHANNEL]))
     {		
-				//关闭PWM
-				PWM_ID_E PWM_ID_LIST[16]={A,B,C,D,E,F,G,H,S,T,U,V,W,X,Y,Z};//输入想要使用的PWM端口
-				int k;
-				for (k=0;k<16;k++)
-				{	
-					if(PWM_ID_LIST[k]==NULL)//若端口未指定
-					{
-						;//则什么也不做，跳过
-					}
-					else
-					{
-					user_pwm.PWM_ID=PWM_ID_LIST[k];//设置PWM_ID为指定端口
-					Set_User_PWM(&user_pwm, 1000);
-					}
-				}
         chassis_behaviour_mode = CHASSIS_NO_MOVE;
     }
     else if (switch_is_up(chassis_move_mode->chassis_RC->rc.s[MODE_CHANNEL]))

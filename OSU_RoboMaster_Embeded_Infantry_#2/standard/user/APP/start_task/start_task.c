@@ -41,7 +41,7 @@ TaskHandle_t GIMBALTask_Handler;
 TaskHandle_t ChassisTask_Handler;
 
 #define User_TASK_PRIO 4
-#define User_STK_SIZE 512
+#define User_STK_SIZE 256
 static TaskHandle_t UserTask_Handler;
 
 #define START_TASK_PRIO 1
@@ -106,7 +106,7 @@ void start_task(void *pvParameters)
     taskEXIT_CRITICAL();            //退出临界区
 }
 
-void startTast(void)
+void startTask(void)
 {
     xTaskCreate((TaskFunction_t)start_task,          //任务函数
                 (const char *)"start_task",          //任务名称

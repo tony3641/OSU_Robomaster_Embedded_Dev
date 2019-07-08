@@ -85,7 +85,7 @@ static void GIMBAL_Mode_Change_Control_Transit(Gimbal_Control_t *gimbal_mode_cha
 //¼ÆËãÔÆÌ¨µç»úÏà¶ÔÖÐÖµµÄÏà¶Ô½Ç¶È
 static fp32 motor_ecd_to_angle_change(uint16_t ecd, uint16_t offset_ecd);
 //ÉèÖÃÔÆÌ¨¿ØÖÆÁ¿
-//static void GIMBAL_Set_Contorl(Gimbal_Control_t *gimbal_set_control);
+static void GIMBAL_Set_Contorl(Gimbal_Control_t *gimbal_set_control);
 //ÔÆÌ¨¿ØÖÆpid¼ÆËã
 static void GIMBAL_Control_loop(Gimbal_Control_t *gimbal_control_loop);
 
@@ -100,7 +100,8 @@ static void gimbal_motor_aim_control_pitch(Gimbal_Motor_t *gimbal_motor);//×ÔÃéÄ
 static void gimbal_motor_raw_angle_control(Gimbal_Motor_t *gimbal_motor);
 
 //ÔÚÍÓÂÝÒÇ½Ç¶È¿ØÖÆÏÂ£¬¶Ô¿ØÖÆµÄÄ¿±êÖµ½øÏÞÖÆÒÔ·À³¬×î´óÏà¶Ô½Ç¶È
-//static void GIMBAL_angle_limit(Gimbal_Motor_t *gimbal_motor, fp32 add);
+static void GIMBAL_relative_angle_limit(Gimbal_Motor_t *gimbal_motor, fp32 add);//½öÐ£×¼ÓÃ
+static void GIMBAL_absolute_angle_limit(Gimbal_Motor_t *gimbal_motor, fp32 add);//½öÐ£×¼ÓÃ
 //static void GIMBAL_relative_angle_limit_yaw(Gimbal_Motor_t *gimbal_motor, fp32 add);
 //static void GIMBAL_relative_angle_limit_pitch(Gimbal_Motor_t *gimbal_motor, fp32 add);
 static void GIMBAL_PID_Init(Gimbal_PID_t *pid, fp32 maxout, fp32 intergral_limit, fp32 kp, fp32 ki, fp32 kd);
@@ -135,16 +136,14 @@ void GIMBAL_task(void *pvParameters)
 
     while (1)	
     {
-				
-				
-				
+
         GIMBAL_Set_Mode(&gimbal_control);                    //ÉèÖÃÔÆÌ¨¿ØÖÆÄ£Ê½
 
         GIMBAL_Mode_Change_Control_Transit(&gimbal_control); //¿ØÖÆÄ£Ê½ÇÐ»» ¿ØÖÆÊý¾Ý¹ý¶É
 						
         GIMBAL_Feedback_Update(&gimbal_control);             //ÔÆÌ¨Êý¾Ý·´À¡
 				
-//        GIMBAL_Set_Contorl(&gimbal_control);                 //ÉèÖÃÔÆÌ¨¿ØÖÆÁ¿
+        GIMBAL_Set_Contorl(&gimbal_control);                 //ÉèÖÃÔÆÌ¨¿ØÖÆÁ¿
 			
         GIMBAL_Control_loop(&gimbal_control);                //ÔÆÌ¨¿ØÖÆPID¼ÆËã
 
@@ -601,9 +600,6 @@ static void GIMBAL_Mode_Change_Control_Transit(Gimbal_Control_t *gimbal_mode_cha
     else if (gimbal_mode_change->gimbal_yaw_motor.last_gimbal_motor_mode != GIMBAL_MOTOR_ENCONDE && gimbal_mode_change->gimbal_yaw_motor.gimbal_motor_mode == GIMBAL_MOTOR_ENCONDE)
     {
         gimbal_mode_change->gimbal_yaw_motor.relative_angle_set = gimbal_mode_change->gimbal_yaw_motor.relative_angle;
-				
-			
-//				temp_absolute_angle_reference=gimbal_mode_change->gimbal_yaw_motor.absolute_angle_raw;
 		}
 		//ÐÂ¼ÓÈë×ÔÃé¿ØÖÆÄ£Ê½
 		else if (gimbal_mode_change->gimbal_yaw_motor.last_gimbal_motor_mode != GIMBAL_MOTOR_AIM && gimbal_mode_change->gimbal_yaw_motor.gimbal_motor_mode == GIMBAL_MOTOR_AIM)
@@ -638,12 +634,107 @@ static void GIMBAL_Mode_Change_Control_Transit(Gimbal_Control_t *gimbal_mode_cha
 				gimbal_mode_change->gimbal_pitch_motor.relative_angle=0;
 				gimbal_mode_change->gimbal_pitch_motor.offset_ecd=gimbal_mode_change->gimbal_pitch_motor.gimbal_motor_measure->ecd;
 				gimbal_mode_change->gimbal_pitch_motor.relative_angle_set = 0;
-//			gimbal_mode_change->gimbal_pitch_motor.relative_angle_set = gimbal_mode_change->gimbal_pitch_motor.relative_angle;
     }
 
     gimbal_mode_change->gimbal_pitch_motor.last_gimbal_motor_mode = gimbal_mode_change->gimbal_pitch_motor.gimbal_motor_mode;
 }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//ÔÆÌ¨¿ØÖÆÁ¿ÉèÖÃ
+static void GIMBAL_Set_Contorl(Gimbal_Control_t *gimbal_set_control)
+{
+    if (gimbal_set_control == NULL)
+    {
+        return;
+    }
 
+    fp32 add_yaw_angle = 0.0f;
+    fp32 add_pitch_angle = 0.0f;
+
+    gimbal_behaviour_control_set(&add_yaw_angle, &add_pitch_angle, gimbal_set_control);
+    //yawµç»úÄ£Ê½¿ØÖÆ
+    if (gimbal_set_control->gimbal_yaw_motor.gimbal_motor_mode == GIMBAL_MOTOR_RAW)
+    {
+        //rawÄ£Ê½ÏÂ£¬Ö±½Ó·¢ËÍ¿ØÖÆÖµ
+        gimbal_set_control->gimbal_yaw_motor.raw_cmd_current = add_yaw_angle;
+    }
+    else if (gimbal_set_control->gimbal_yaw_motor.gimbal_motor_mode == GIMBAL_MOTOR_GYRO)
+    {
+        //gyroÄ£Ê½ÏÂ£¬ÍÓÂÝÒÇ½Ç¶È¿ØÖÆ
+        GIMBAL_absolute_angle_limit(&gimbal_set_control->gimbal_yaw_motor, add_yaw_angle);
+    }
+    else if (gimbal_set_control->gimbal_yaw_motor.gimbal_motor_mode == GIMBAL_MOTOR_ENCONDE)
+    {
+        //encondeÄ£Ê½ÏÂ£¬µç»ú±àÂë½Ç¶È¿ØÖÆ
+        GIMBAL_relative_angle_limit(&gimbal_set_control->gimbal_yaw_motor, add_yaw_angle);
+    }
+
+    //pitchµç»úÄ£Ê½¿ØÖÆ
+    if (gimbal_set_control->gimbal_pitch_motor.gimbal_motor_mode == GIMBAL_MOTOR_RAW)
+    {
+        //rawÄ£Ê½ÏÂ£¬Ö±½Ó·¢ËÍ¿ØÖÆÖµ
+        gimbal_set_control->gimbal_pitch_motor.raw_cmd_current = add_pitch_angle;
+    }
+    else if (gimbal_set_control->gimbal_pitch_motor.gimbal_motor_mode == GIMBAL_MOTOR_GYRO)
+    {
+        //gyroÄ£Ê½ÏÂ£¬ÍÓÂÝÒÇ½Ç¶È¿ØÖÆ
+        GIMBAL_absolute_angle_limit(&gimbal_set_control->gimbal_pitch_motor, add_pitch_angle);
+    }
+    else if (gimbal_set_control->gimbal_pitch_motor.gimbal_motor_mode == GIMBAL_MOTOR_ENCONDE)
+    {
+        //encondeÄ£Ê½ÏÂ£¬µç»ú±àÂë½Ç¶È¿ØÖÆ
+        GIMBAL_relative_angle_limit(&gimbal_set_control->gimbal_pitch_motor, add_pitch_angle);
+    }
+}
+//ÍÓÂÝÒÇ ¿ØÖÆÁ¿ÏÞÖÆ
+static void GIMBAL_absolute_angle_limit(Gimbal_Motor_t *gimbal_motor, fp32 add)
+{
+    static fp32 bias_angle;
+    static fp32 angle_set;
+    if (gimbal_motor == NULL)
+    {
+        return;
+    }
+    //µ±Ç°¿ØÖÆÎó²î½Ç¶È
+    bias_angle = rad_format(gimbal_motor->absolute_angle_set - gimbal_motor->absolute_angle);
+    //ÔÆÌ¨Ïà¶Ô½Ç¶È+ Îó²î½Ç¶È + ÐÂÔö½Ç¶È Èç¹û´óÓÚ ×î´ó»úÐµ½Ç¶È
+    if (gimbal_motor->relative_angle + bias_angle + add > gimbal_motor->max_relative_angle)
+    {
+        //Èç¹ûÊÇÍù×î´ó»úÐµ½Ç¶È¿ØÖÆ·½Ïò
+        if (add > 0.0f)
+        {
+            //¼ÆËã³öÒ»¸ö×î´óµÄÌí¼Ó½Ç¶È£¬
+            add = gimbal_motor->max_relative_angle - gimbal_motor->relative_angle - bias_angle;
+        }
+    }
+    else if (gimbal_motor->relative_angle + bias_angle + add < gimbal_motor->min_relative_angle)
+    {
+        if (add < 0.0f)
+        {
+            add = gimbal_motor->min_relative_angle - gimbal_motor->relative_angle - bias_angle;
+        }
+    }
+    angle_set = gimbal_motor->absolute_angle_set;
+    gimbal_motor->absolute_angle_set = rad_format(angle_set + add);
+}
+
+static void GIMBAL_relative_angle_limit(Gimbal_Motor_t *gimbal_motor, fp32 add)
+{
+    if (gimbal_motor == NULL)
+    {
+        return;
+    }
+    gimbal_motor->relative_angle_set += add;
+    //ÊÇ·ñ³¬¹ý×î´ó ×îÐ¡Öµ
+    if (gimbal_motor->relative_angle_set > gimbal_motor->max_relative_angle)
+    {
+        gimbal_motor->relative_angle_set = gimbal_motor->max_relative_angle;
+    }
+    else if (gimbal_motor->relative_angle_set < gimbal_motor->min_relative_angle)
+    {
+        gimbal_motor->relative_angle_set = gimbal_motor->min_relative_angle;
+    }
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //ÔÆÌ¨¿ØÖÆ×´Ì¬Ê¹ÓÃ²»Í¬¿ØÖÆpid
 static void GIMBAL_Control_loop(Gimbal_Control_t *gimbal_control_loop)
@@ -667,21 +758,6 @@ static void GIMBAL_Control_loop(Gimbal_Control_t *gimbal_control_loop)
     {
         //enconde½Ç¶È¿ØÖÆ
         gimbal_motor_relative_angle_control_yaw(&gimbal_control_loop->gimbal_yaw_motor);//ÆÕÍ¨Ä£Ê½-ÔÆÌ¨¿ØÖÆ
-			
-			
-			
-			
-//			//Èí¼þ¸´Î»³ÌÐò
-//			if (switch_is_down(gimbal_control_loop->gimbal_rc_ctrl->rc.s[1]))
-//			{
-//        SoftReset();
-//			}
-//			//Èí¼þ¸´Î»³ÌÐò
-			
-			
-			
-			
-
     }
 		//ÐÂ¼ÓÈë×ÔÃé¿ØÖÆ
     else if (gimbal_control_loop->gimbal_yaw_motor.gimbal_motor_mode == GIMBAL_MOTOR_AIM)
@@ -821,7 +897,7 @@ static void gimbal_motor_aim_control_gyro_yaw(Gimbal_Motor_t *gimbal_motor)
 				gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_absolute_angle_pid, gimbal_motor->absolute_angle, final_absolute_yaw_angle_set, gimbal_motor->motor_gyro*0.2);
 			}
 		else
-			{//If the pixel error is small(close to target)
+			{
 				gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_absolute_angle_pid, gimbal_motor->absolute_angle, final_absolute_yaw_angle_set, gimbal_motor->motor_gyro);
 			}
 /********************************************************************/
@@ -852,12 +928,9 @@ static void gimbal_motor_aim_control_pitch(Gimbal_Motor_t *gimbal_motor)
 //		//¸ü¸Ärelative_angle_setµÄÖµÀ´´ïµ½Ëø¶¨Î»ÖÃ»·
 //		gimbal_motor->relative_angle_set+=delta_pitch;
 		
-//		/******************I THINK HERE IS A PROBLEM***********************/
+
 		//¸Ä±ä×îÖÕ¾ø¶Ô½Ç¶È
 		final_relative_pitch_angle_set=gimbal_motor->relative_angle_set+delta_pitch;
-//		/******************************************************************/
-//		//Micro adjustment by mousing when aiming assistant is on.
-//		final_relative_pitch_angle_set=gimbal_control.gimbal_rc_ctrl->mouse.y*-0.0015;
 		
 		//ÅÐ¶ÏÊÇ·ñ¸ú¶ª
 		if (tx2.raw_vertical_pixel==9999 || tx2.raw_vertical_pixel==0)//Èç¹ûÔ­Ê¼×ÔÃéÊý¾Ý·µ»Ø¸ú¶ª
@@ -906,7 +979,7 @@ static void gimbal_motor_relative_angle_control_yaw(Gimbal_Motor_t *gimbal_motor
 				
 		static fp32 delta_yaw;//yawµç»ú½Ç¶ÈÄ¿±ê±äÁ¿
 				
-		delta_yaw=(fp32)(gimbal_control.gimbal_rc_ctrl->rc.ch[2])*-0.000005f
+		delta_yaw=(fp32)(gimbal_control.gimbal_rc_ctrl->rc.ch[YawChannel])*-0.000005f
 						 +(fp32)(gimbal_control.gimbal_rc_ctrl->mouse.x)*-0.00025f;////-0.000025f//relative_angle_setÊó±êÓÃÕâ¸öÏµÊý///////-0.0025f;//relative_angle+delta_yawÊó±êÓÃÕâ¸öÏµÊý
 		
 		
@@ -954,7 +1027,7 @@ static void gimbal_motor_relative_angle_control_pitch(Gimbal_Motor_t *gimbal_mot
 
 		static fp32 delta_pitch;//pitchµç»ú½Ç¶ÈÄ¿±ê±äÁ¿
 
-		delta_pitch=(fp32)(gimbal_control.gimbal_rc_ctrl->rc.ch[3])*-0.000005f
+		delta_pitch=(fp32)(gimbal_control.gimbal_rc_ctrl->rc.ch[PitchChannel])*-0.000005f
 							 +(fp32)(gimbal_control.gimbal_rc_ctrl->mouse.y)*0.00025f;////0.000025f//relative_angle_setÊ±Êó±êÓÃÕâ¸öÏµÊý///////-0.0025f;//relative_angle+delta_pitchÊó±êÓÃÕâ¸öÏµÊý
 		
 		//Ð£×¼ÉãÏñÍ·ÐéÄâÉî¶ÈÊ±ÓÃ
@@ -963,23 +1036,23 @@ static void gimbal_motor_relative_angle_control_pitch(Gimbal_Motor_t *gimbal_mot
 		//¸ü¸Ärelative_angle_setµÄÖµÀ´´ïµ½Ëø¶¨Î»ÖÃ»·
 		gimbal_motor->relative_angle_set+=delta_pitch;
 		
-//		//ÏÞÖÆÔÆÌ¨pitchµç»úÉÏÏÂ·ù¶È
-//		fp32 pitch_limit=DEGREE_TO_RAD*300;//¼õÐ¡½µµÍÉÏ½ç£¬Ôö´óÌá¸ßÉÏ½ç
-//		fp32 pitch_limit_offset=DEGREE_TO_RAD*100;//¼õÐ¡½µµÍÏÂ½ç£¬Ôö´óÌá¸ßÏÂ½ç
-//		if(gimbal_motor->relative_angle_set>pitch_limit-pitch_limit_offset)//ÏÂ½ç
-//		{
-//			gimbal_motor->relative_angle_set=pitch_limit-pitch_limit_offset;
-//			buzzer_on(60,5000);
-//		}
-//		else if(gimbal_motor->relative_angle_set<-pitch_limit)//ÉÏ½ç
-//		{
-//			gimbal_motor->relative_angle_set=-pitch_limit;
-//			buzzer_on(60,5000);
-//		}
-//		else
-//		{
-//			//buzzer_off();
-//		}
+		//ÏÞÖÆÔÆÌ¨pitchµç»úÉÏÏÂ·ù¶È
+		fp32 pitch_limit=DEGREE_TO_RAD*300;//¼õÐ¡½µµÍÉÏ½ç£¬Ôö´óÌá¸ßÉÏ½ç
+//		fp32 pitch_limit_offset=DEGREE_TO_RAD*0;//¼õÐ¡½µµÍÏÂ½ç£¬Ôö´óÌá¸ßÏÂ½ç
+		if(gimbal_motor->relative_angle_set>pitch_limit)//ÏÂ½ç
+		{
+			gimbal_motor->relative_angle_set=pitch_limit;
+			buzzer_on(60,5000);
+		}
+		else if(gimbal_motor->relative_angle_set<-pitch_limit)//ÉÏ½ç
+		{
+			gimbal_motor->relative_angle_set=-pitch_limit;
+			buzzer_on(60,5000);
+		}
+		else
+		{
+			//buzzer_off();
+		}
 		
 		//½Ç¶È»·£¬ËÙ¶È»·´®¼¶pidµ÷ÊÔ
     gimbal_motor->motor_gyro_set = GIMBAL_PID_Calc(&gimbal_motor->gimbal_motor_relative_angle_pid, gimbal_motor->relative_angle, gimbal_motor->relative_angle_set, gimbal_motor->motor_gyro);

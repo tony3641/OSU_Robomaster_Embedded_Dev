@@ -130,7 +130,7 @@ void shoot_init(void)
   */
 int16_t shoot_control_loop(void)
 {
-    int16_t shoot_CAN_Set_Current; //返回的can值
+    int16_t shoot_CAN_Set_Current=0; //返回的can值
 
     Shoot_Set_Mode();        //设置状态机
     Shoot_Feedback_Update(); //更新数据

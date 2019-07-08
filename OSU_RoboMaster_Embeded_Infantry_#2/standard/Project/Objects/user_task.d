@@ -33,7 +33,7 @@
 .\objects\user_task.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\objects\user_task.o: ..\User\APP\Chassis_Task\chassis_task.h
 .\objects\user_task.o: ..\user\user_lib\user_lib.h
-.\objects\user_task.o: ..\User\gpio.h
+.\objects\user_task.o: ..\User\hardware\gpio\gpio.h
 .\objects\user_task.o: ..\FWLIB\inc\stm32f4xx_gpio.h
 .\objects\user_task.o: ..\CMSIS\stm32f4xx.h
 .\objects\user_task.o: ..\CMSIS\core_cm4.h
@@ -68,4 +68,6 @@
 .\objects\user_task.o: ..\FWLIB\inc\stm32f4xx_dma2d.h
 .\objects\user_task.o: ..\FWLIB\inc\stm32f4xx_fmc.h
 .\objects\user_task.o: ..\FWLIB\inc\stm32f4xx_sai.h
+.\objects\user_task.o: ..\User\hardware\BUZZER\buzzer.h
+.\objects\user_task.o: ..\User\hardware\FRIC\fric.h
 .\objects\user_task.o: ..\CMSIS\core_cm4.h

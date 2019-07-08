@@ -52,7 +52,7 @@ int main(void)
 {
     BSP_init();
     delay_ms(100);
-    startTast();
+    startTask();
     vTaskStartScheduler();
     while (1)
     {
@@ -79,8 +79,7 @@ void BSP_init(void)
 #endif
     //24输出控制口 初始化
     power_ctrl_configuration();
-    //17mm摩擦轮电机PWM初始化
-    fric_PWM_configuration();
+
 		
 ///////////////////////////////////////////////////////////////////////////////
 		//初始化配置GPIO
@@ -112,12 +111,14 @@ void BSP_init(void)
 			}
 			else
 			{
-				user_pwm.PWM_ID=PWM_ID_LIST[k];//设置GPIO_ID为指定端口
-				User_PWM_Init(&user_pwm);//初始化配置GPIO
+				user_pwm.PWM_ID=PWM_ID_LIST[k];//设置PWM_ID为指定端口
+				User_PWM_Init(&user_pwm);//初始化配置PWM
 			}
 		}
 ////////////////////////////////////////////////////////////////////////////////
 
+		//17mm摩擦轮电机PWM初始化
+    fric_PWM_configuration();
     //蜂鸣器初始化
     buzzer_init(30000, 90);
     //激光IO初始化

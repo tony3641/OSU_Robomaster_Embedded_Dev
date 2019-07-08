@@ -83,8 +83,7 @@ void calibrate_task(void *pvParameters)
 
     while (1)
     {
-
-        //遥控器操作校准步骤
+			//遥控器操作校准步骤
         RC_cmd_to_calibrate();
 
         for (i = 0; i < CALI_LIST_LENGHT; i++)

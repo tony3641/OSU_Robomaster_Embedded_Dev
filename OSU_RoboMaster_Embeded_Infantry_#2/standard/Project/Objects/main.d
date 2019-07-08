@@ -63,4 +63,4 @@
 .\objects\main.o: ..\User\APP\Calibrate_Task\calibrate_task.h
 .\objects\main.o: ..\User\APP\Remote_Control\remote_control.h
 .\objects\main.o: ..\User\APP\Start_Task\start_task.h
-.\objects\main.o: ..\user\gpio.h
+.\objects\main.o: ..\User\hardware\gpio\gpio.h

@@ -25,14 +25,20 @@
 //任务开始空闲一段时间
 #define CHASSIS_TASK_INIT_TIME 357
 
+//0：右摇杆左右
+//1：右摇杆上下
+//2：左摇杆左右
+//3：左摇杆上下
 //前后的遥控器通道号码
-#define CHASSIS_X_CHANNEL 1
+#define CHASSIS_X_CHANNEL 3
 //左右的遥控器通道号码
-#define CHASSIS_Y_CHANNEL 0
+#define CHASSIS_Y_CHANNEL 2
 //在特殊模式下，可以通过遥控器控制旋转
-#define CHASSIS_WZ_CHANNEL 2
+#define CHASSIS_WZ_CHANNEL 0
 
 //选择底盘状态 开关通道号
+//0：右拨片
+//1：左拨片
 #define MODE_CHANNEL 0
 //遥控器前进摇杆（max 660）转化成车体前进速度（m/s）的比例
 #define CHASSIS_VX_RC_SEN 0.006f

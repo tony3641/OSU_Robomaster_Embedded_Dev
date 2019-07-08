@@ -36,5 +36,5 @@
 .\objects\gpio.o: ..\FWLIB\inc\stm32f4xx_dma2d.h
 .\objects\gpio.o: ..\FWLIB\inc\stm32f4xx_fmc.h
 .\objects\gpio.o: ..\FWLIB\inc\stm32f4xx_sai.h
-.\objects\gpio.o: ..\User\gpio.h
+.\objects\gpio.o: ..\user\hardware\gpio\gpio.h
 .\objects\gpio.o: ..\User\main.h
