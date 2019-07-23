@@ -5,7 +5,7 @@
   *             故而设置目标角度均为范围，存在许多对角度计算的函数。云台主要分为2种
   *             状态，陀螺仪控制状态是利用板载陀螺仪解算的姿态角进行控制，编码器控制
   *             状态是通过电机反馈的编码值控制的校准，此外还有校准状态，停止状态等。
-  * @note       
+  * @note
   * @history
   *  Version    Date            Author          Modification
   *  V1.0.0     Dec-26-2018     RM              1. 完成
@@ -25,10 +25,17 @@
 #include "Detect_Task.h"
 #include "CAN_receive.h"
 #include "user_lib.h"
+#include "user_task.h"
+//加入库
+#include "Shoot.h"
 
 ////云台校准蜂鸣器响声
 //#define GIMBALWarnBuzzerOn() buzzer_on(31, 20000)
 //#define GIMBALWarnBuzzerOFF() buzzer_off()
+
+//声明射击结构体 调用鼠标
+static Shoot_Motor_t mouse_trigger;
+
 
 #define int_abs(x) ((x) > 0 ? (x) : (-x))
 
@@ -180,12 +187,12 @@ void gimbal_behaviour_mode_set(Gimbal_Control_t *gimbal_mode_set)
         gimbal_mode_set->gimbal_pitch_motor.gimbal_motor_mode = GIMBAL_MOTOR_RAW;
     }
     //新加入自瞄控制模式
-		else if (gimbal_behaviour == GIMBAL_AIM)
+    else if (gimbal_behaviour == GIMBAL_AIM)
     {
         gimbal_mode_set->gimbal_yaw_motor.gimbal_motor_mode = GIMBAL_MOTOR_AIM;
-        gimbal_mode_set->gimbal_pitch_motor.gimbal_motor_mode = GIMBAL_MOTOR_AIM;			
-		}
-		else if (gimbal_behaviour == GIMBAL_ABSOLUTE_ANGLE)
+        gimbal_mode_set->gimbal_pitch_motor.gimbal_motor_mode = GIMBAL_MOTOR_AIM;
+    }
+    else if (gimbal_behaviour == GIMBAL_ABSOLUTE_ANGLE)
     {
         gimbal_mode_set->gimbal_yaw_motor.gimbal_motor_mode = GIMBAL_MOTOR_GYRO;
         gimbal_mode_set->gimbal_pitch_motor.gimbal_motor_mode = GIMBAL_MOTOR_GYRO;
@@ -227,28 +234,28 @@ void gimbal_behaviour_control_set(fp32 *add_yaw, fp32 *add_pitch, Gimbal_Control
     rc_deadline_limit(gimbal_control_set->gimbal_rc_ctrl->rc.ch[YawChannel], yaw_channel, RC_deadband);
     rc_deadline_limit(gimbal_control_set->gimbal_rc_ctrl->rc.ch[PitchChannel], pitch_channel, RC_deadband);
 
-    
+
     rc_add_yaw = yaw_channel * Yaw_RC_SEN - gimbal_control_set->gimbal_rc_ctrl->mouse.x * Yaw_Mouse_Sen;
     rc_add_pit = pitch_channel * Pitch_RC_SEN + gimbal_control_set->gimbal_rc_ctrl->mouse.y * Pitch_Mouse_Sen;
-		
-		
+
+
     if (gimbal_behaviour == GIMBAL_ZERO_FORCE)
     {
         gimbal_zero_force_control(&rc_add_yaw, &rc_add_pit, gimbal_control_set);
     }
     else if (gimbal_behaviour == GIMBAL_INIT)
     {
-        gimbal_init_control(&rc_add_yaw, &rc_add_pit, gimbal_control_set);
+//        gimbal_init_control(&rc_add_yaw, &rc_add_pit, gimbal_control_set);
     }
     else if (gimbal_behaviour == GIMBAL_CALI)
     {
         gimbal_cali_control(&rc_add_yaw, &rc_add_pit, gimbal_control_set);
     }
-		//新加入自瞄控制模式
-		else if (gimbal_behaviour == GIMBAL_AIM)
-		{
-				gimbal_absolute_angle_control(&rc_add_yaw, &rc_add_pit, gimbal_control_set);
-		}
+    //新加入自瞄控制模式
+    else if (gimbal_behaviour == GIMBAL_AIM)
+    {
+        gimbal_absolute_angle_control(&rc_add_yaw, &rc_add_pit, gimbal_control_set);
+    }
     else if (gimbal_behaviour == GIMBAL_ABSOLUTE_ANGLE)
     {
         gimbal_absolute_angle_control(&rc_add_yaw, &rc_add_pit, gimbal_control_set);
@@ -262,11 +269,11 @@ void gimbal_behaviour_control_set(fp32 *add_yaw, fp32 *add_pitch, Gimbal_Control
     {
         gimbal_motionless_control(&rc_add_yaw, &rc_add_pit, gimbal_control_set);
     }
-    
-		//将控制增加量赋值
+
+    //将控制增加量赋值
     *add_yaw = rc_add_yaw;
     *add_pitch = rc_add_pit;
-		
+
 }
 
 /**
@@ -339,7 +346,7 @@ static void gimbal_behaviour_set(Gimbal_Control_t *gimbal_mode_set)
         init_time++;
         //到达中值 计时
         if ((fabs(gimbal_mode_set->gimbal_yaw_motor.relative_angle - INIT_YAW_SET) < GIMBAL_INIT_ANGLE_ERROR &&
-             fabs(gimbal_mode_set->gimbal_pitch_motor.absolute_angle - INIT_PITCH_SET) < GIMBAL_INIT_ANGLE_ERROR))
+                fabs(gimbal_mode_set->gimbal_pitch_motor.absolute_angle - INIT_PITCH_SET) < GIMBAL_INIT_ANGLE_ERROR))
         {
             //到达初始化位置
             if (init_stop_time < GIMBAL_INIT_STOP_TIME)
@@ -358,7 +365,7 @@ static void gimbal_behaviour_set(Gimbal_Control_t *gimbal_mode_set)
 
         //超过初始化最大时间，或者已经稳定到中值一段时间，退出初始化状态开关打下档，或者掉线
         if (init_time < GIMBAL_INIT_TIME && init_stop_time < GIMBAL_INIT_STOP_TIME &&
-            !switch_is_down(gimbal_mode_set->gimbal_rc_ctrl->rc.s[ModeChannel]) && !toe_is_error(DBUSTOE))
+                !switch_is_down(gimbal_mode_set->gimbal_rc_ctrl->rc.s[ModeChannel]) && !toe_is_error(DBUSTOE))
         {
             return;
         }
@@ -369,20 +376,31 @@ static void gimbal_behaviour_set(Gimbal_Control_t *gimbal_mode_set)
         }
     }
 
+    //更新鼠标右键状态
+		mouse_trigger.last_press_r = mouse_trigger.press_r;
+    mouse_trigger.press_r = gimbal_mode_set->gimbal_rc_ctrl->mouse.press_r;
+    
+
     //开关控制 云台状态
     if (switch_is_down(gimbal_mode_set->gimbal_rc_ctrl->rc.s[ModeChannel]))
     {
         gimbal_behaviour = GIMBAL_ZERO_FORCE;
-		}
+    }
     else if (switch_is_mid(gimbal_mode_set->gimbal_rc_ctrl->rc.s[ModeChannel]))
     {
-				gimbal_behaviour = GIMBAL_RELATIVE_ANGLE;//相对角度模式
-		}
+        if(mouse_trigger.press_r && mouse_trigger.last_press_r==0 && gimbal_behaviour == GIMBAL_RELATIVE_ANGLE)
+        {
+            gimbal_behaviour = GIMBAL_AIM;//右键切换自瞄模式
+        }
+        else if(mouse_trigger.press_r && mouse_trigger.last_press_r==0 && gimbal_behaviour != GIMBAL_RELATIVE_ANGLE)
+        {    
+						gimbal_behaviour = GIMBAL_RELATIVE_ANGLE;//右键切换相对角度模式
+        }
+    }
     else if (switch_is_up(gimbal_mode_set->gimbal_rc_ctrl->rc.s[ModeChannel]))
     {
-        gimbal_behaviour = GIMBAL_AIM;//上拨自瞄模式
+				gimbal_behaviour = GIMBAL_ABSOLUTE_ANGLE;//上拨驾驶模式
     }
-
     if( toe_is_error(DBUSTOE))
     {
 
@@ -419,8 +437,8 @@ static void gimbal_behaviour_set(Gimbal_Control_t *gimbal_mode_set)
         {
             gimbal_behaviour = GIMBAL_MOTIONLESS;
         }
-			
-				
+
+
     }
     else
     {
@@ -558,7 +576,7 @@ static void gimbal_absolute_angle_control(fp32 *yaw, fp32 *pitch, Gimbal_Control
 
 //        if ((gimbal_control_set->gimbal_rc_ctrl->key.v & TurnKeyBoard) && !(last_turn_keyboard & TurnKeyBoard))//测试测试
 //        {
-//					
+//
 //            if (gimbal_turn_flag == 0)
 //            {
 //                gimbal_turn_flag = 1;
@@ -579,7 +597,7 @@ static void gimbal_absolute_angle_control(fp32 *yaw, fp32 *pitch, Gimbal_Control
 //            else
 //            {
 //                *yaw -= TurnSpeed;
-//							
+//
 //            }
 //        }
 //        //到达pi （180°）后停止
@@ -588,9 +606,9 @@ static void gimbal_absolute_angle_control(fp32 *yaw, fp32 *pitch, Gimbal_Control
 //            gimbal_turn_flag = 0;
 //					buzzer_off();
 //        }
-//			
+//
 //			}
-			
+
 }
 /**
   * @brief          云台编码值控制，电机是相对角度控制，

@@ -17,3 +17,5 @@
 .\objects\gimbal_behaviour.o: ..\User\hardware\BUZZER\buzzer.h
 .\objects\gimbal_behaviour.o: ..\User\APP\Detect_Task\Detect_Task.h
 .\objects\gimbal_behaviour.o: ..\user\user_lib\user_lib.h
+.\objects\gimbal_behaviour.o: ..\User\APP\User_Task\user_task.h
+.\objects\gimbal_behaviour.o: ..\User\APP\Shoot\Shoot.h

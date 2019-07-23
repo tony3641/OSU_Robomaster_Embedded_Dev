@@ -57,7 +57,7 @@
 //}Blackman_Filter_t;
 
 
-#define DELAY_MS 200//200 TPU  300 tx2&nano
+#define DELAY_MS 160//200 TPU
 typedef struct{
 	double group_delay_raw_value;
 	double group_delay_buffer[DELAY_MS];

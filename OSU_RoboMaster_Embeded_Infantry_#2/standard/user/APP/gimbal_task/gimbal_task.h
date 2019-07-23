@@ -27,14 +27,14 @@
 
 //pitch 速度环 PID参数以及 PID最大输出，积分输出
 #define PITCH_SPEED_PID_KP 2000.0f
-#define PITCH_SPEED_PID_KI 10.0f
+#define PITCH_SPEED_PID_KI 20.0f
 #define PITCH_SPEED_PID_KD 0.0f
 #define PITCH_SPEED_PID_MAX_OUT 10000.0f//30000.0f
 #define PITCH_SPEED_PID_MAX_IOUT 5000.0f
 
 //yaw 速度环 PID参数以及 PID最大输出，积分输出
 #define YAW_SPEED_PID_KP 2200.0f//2200.0f
-#define YAW_SPEED_PID_KI 10.0f
+#define YAW_SPEED_PID_KI 20.0f
 #define YAW_SPEED_PID_KD 0.0f
 #define YAW_SPEED_PID_MAX_OUT 10000.0f//30000.0f
 #define YAW_SPEED_PID_MAX_IOUT 5000.0f
@@ -48,7 +48,7 @@
 #define PITCH_GYRO_ABSOLUTE_PID_MAX_IOUT 0.0f
 
 //yaw 角度环 角度由陀螺仪解算 PID参数以及 PID最大输出，积分输出
-#define YAW_GYRO_ABSOLUTE_PID_KP 15.0f//10.0f
+#define YAW_GYRO_ABSOLUTE_PID_KP 10.0f//10.0f
 #define YAW_GYRO_ABSOLUTE_PID_KI 0.0f
 #define YAW_GYRO_ABSOLUTE_PID_KD 0.3f//0.3f
 #define YAW_GYRO_ABSOLUTE_PID_MAX_OUT 10.0f
@@ -82,7 +82,7 @@
 //1：左拨片
 #define ModeChannel 0
 //掉头180 按键
-#define TurnKeyBoard KEY_PRESSED_OFFSET_B
+#define TurnKeyBoard KEY_PRESSED_OFFSET_G
 //掉头云台速度
 #define TurnSpeed 0.04f
 //测试按键尚未使用
@@ -150,13 +150,13 @@
 #define RAD_TO_DEGREE 572.9577951f
 
 //预测时间量
-#define PREDICTION_TIME 0.3f
+#define PREDICTION_TIME 0.1f
 
 //自瞄信号YAW中值
 #define YAW_MID 900.0f
 
 //自瞄信号PITCH中值
-#define PITCH_MID 300.0f
+#define PITCH_MID 360.0f
 typedef enum
 {
     GIMBAL_MOTOR_RAW = 0, //电机原始值控制
@@ -203,8 +203,8 @@ typedef struct
 	
 	
 		fp32 absolute_angle_raw; //rad 陀螺仪中直接读取的数值
-	
-	
+		fp32 final_absolute_angle_set; //rad 经过滤波及预测及计算之后自瞄模式陀螺仪最终的角度
+		fp32 final_relative_angle_set; //rad 经过滤波及预测及计算之后自瞄模式编码器最终的角度
 	
     fp32 absolute_angle_set; //rad
     fp32 motor_gyro;         //rad/s

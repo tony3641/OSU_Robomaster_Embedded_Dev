@@ -188,23 +188,23 @@ int16_t shoot_control_loop(void)
 
 
 //鼠标右键按下加速摩擦轮，使得左键低速射击， 右键高速射击
-        static uint16_t up_time = 0;
-        if (trigger_motor.press_r)
-        {
-            up_time = UP_ADD_TIME;
-        }
+//        static uint16_t up_time = 0;
+//        if (trigger_motor.press_r)
+//        {
+//            up_time = UP_ADD_TIME;
+//        }
 
-        if (up_time > 0)
-        {
-            trigger_motor.fric1_ramp.max_value = Fric_UP;
-            trigger_motor.fric2_ramp.max_value = Fric_UP;
-            up_time--;
-        }
-        else
-        {
+//        if (up_time > 0)
+//        {
+//            trigger_motor.fric1_ramp.max_value = Fric_UP;
+//            trigger_motor.fric2_ramp.max_value = Fric_UP;
+//            up_time--;
+//        }
+//        else
+//        {
             trigger_motor.fric1_ramp.max_value = Fric_DOWN;
             trigger_motor.fric2_ramp.max_value = Fric_DOWN;
-        }
+//        }
 
         fric_pwm1 = (uint16_t)(trigger_motor.fric1_ramp.out);
         fric_pwm2 = (uint16_t)(trigger_motor.fric2_ramp.out);
@@ -262,13 +262,13 @@ static void Shoot_Set_Mode(void)
     if (shoot_mode == SHOOT_READY)
     {
         //下拨一次或者鼠标按下一次，进入射击状态
-        if ((switch_is_down(shoot_rc->rc.s[Shoot_RC_Channel]) && !switch_is_down(last_s)) || (trigger_motor.press_l && trigger_motor.last_press_l == 0) || (trigger_motor.press_r && trigger_motor.last_press_r == 0))
+        if ((switch_is_down(shoot_rc->rc.s[Shoot_RC_Channel]) && !switch_is_down(last_s)) || (trigger_motor.press_l && trigger_motor.last_press_l == 0))
         {
             shoot_mode = SHOOT_BULLET;
             trigger_motor.last_butter_count = trigger_motor.BulletShootCnt;
         }
         //鼠标长按一直进入射击状态 保持连发
-        if ((trigger_motor.press_l_time == PRESS_LONG_TIME) || (trigger_motor.press_r_time == PRESS_LONG_TIME) || (trigger_motor.rc_s_time == RC_S_LONG_TIME))
+        if ((trigger_motor.press_l_time == PRESS_LONG_TIME) || (trigger_motor.rc_s_time == RC_S_LONG_TIME))
         {
             if (shoot_mode != SHOOT_DONE && trigger_motor.key == SWITCH_TRIGGER_ON)
             {
@@ -326,9 +326,9 @@ static void Shoot_Feedback_Update(void)
     trigger_motor.key = Butten_Trig_Pin;
     //鼠标按键
     trigger_motor.last_press_l = trigger_motor.press_l;
-    trigger_motor.last_press_r = trigger_motor.press_r;
+//    trigger_motor.last_press_r = trigger_motor.press_r;
     trigger_motor.press_l = shoot_rc->mouse.press_l;
-    trigger_motor.press_r = shoot_rc->mouse.press_r;
+//    trigger_motor.press_r = shoot_rc->mouse.press_r;
     //长按计时
     if (trigger_motor.press_l)
     {
@@ -342,17 +342,17 @@ static void Shoot_Feedback_Update(void)
         trigger_motor.press_l_time = 0;
     }
 
-    if (trigger_motor.press_r)
-    {
-        if (trigger_motor.press_r_time < PRESS_LONG_TIME)
-        {
-            trigger_motor.press_r_time++;
-        }
-    }
-    else
-    {
-        trigger_motor.press_r_time = 0;
-    }
+//    if (trigger_motor.press_r)
+//    {
+//        if (trigger_motor.press_r_time < PRESS_LONG_TIME)
+//        {
+//            trigger_motor.press_r_time++;
+//        }
+//    }
+//    else
+//    {
+//        trigger_motor.press_r_time = 0;
+//    }
 
     //射击开关下档时间计时
     if (shoot_mode != SHOOT_STOP && switch_is_down(shoot_rc->rc.s[Shoot_RC_Channel]))

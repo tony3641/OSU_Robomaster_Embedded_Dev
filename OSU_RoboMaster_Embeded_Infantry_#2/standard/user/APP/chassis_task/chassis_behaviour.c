@@ -106,15 +106,7 @@ void chassis_behaviour_mode_set(chassis_move_t *chassis_move_mode)
     //遥控器设置行为模式
 		if (switch_is_mid(chassis_move_mode->chassis_RC->rc.s[MODE_CHANNEL]))
     {
-				if(chassis_move_mode->chassis_RC->key.v & SWTICH_MODE)//按键切换模式，松开取消 在gimbal_behaviour.c中一起更改
-				{
-					chassis_behaviour_mode = CHASSIS_NO_FOLLOW_YAW;//CHASSIS_INFANTRY_FOLLOW_GIMBAL_YAW;//底盘跟随云台模式
-				}
-				else
-				{
-					chassis_behaviour_mode = CHASSIS_NO_FOLLOW_YAW;//底盘不跟随模式
-				}
-				
+					chassis_behaviour_mode = CHASSIS_NO_FOLLOW_YAW;//底盘不跟随模式				
     }
     else if (switch_is_down(chassis_move_mode->chassis_RC->rc.s[MODE_CHANNEL]))
     {		
@@ -122,7 +114,7 @@ void chassis_behaviour_mode_set(chassis_move_t *chassis_move_mode)
     }
     else if (switch_is_up(chassis_move_mode->chassis_RC->rc.s[MODE_CHANNEL]))
     {
-        chassis_behaviour_mode = CHASSIS_NO_FOLLOW_YAW;//测试中，上拨进入自瞄，所以不跟随云台；CHASSIS_INFANTRY_FOLLOW_GIMBAL_YAW; 上拨跟随云台
+        chassis_behaviour_mode = CHASSIS_INFANTRY_FOLLOW_GIMBAL_YAW; //上拨跟随云台
     }
 
     //云台进入某些状态的时候，底盘保持不动
@@ -271,7 +263,7 @@ static void chassis_infantry_follow_gimbal_yaw_control(fp32 *vx_set, fp32 *vy_se
     //计算遥控器的原始输入信号
 
     //判断是否要摇摆
-    if (chassis_move_rc_to_vector->chassis_RC->key.v & SWING_KEY)//按一下进入摇摆模式
+    if (chassis_move_rc_to_vector->chassis_RC->key.v & SWING_KEY)//按住进入摇摆模式
     {
         if (swing_flag == 0)
         {

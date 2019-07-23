@@ -57,6 +57,7 @@ fp32 angle_degree[3] = {0.0f, 0.0f, 0.0f};
 //定义结构体
 Gimbal_Control_t gimbal_control;
 tx2_aim_package_t tx2;
+Keyboard_t keyboard;
 
 //声明filter类型
 Group_Delay_t group_delay_ecd_aim;
@@ -93,7 +94,6 @@ int32_t final_pitch_angle_set;
 //声明flag
 static int filter_aim_data_flag;
 static int filter_final_angle_set_flag;
-
 
 //软件复位Trigger
 void SoftReset(void)
@@ -174,7 +174,7 @@ void UserTask(void *pvParameters)
     kalman_initial.Q_data[12]	=	0;    kalman_initial.Q_data[13]	=	0;    kalman_initial.Q_data[14]	=	0;    kalman_initial.Q_data[15]	=	1;
 
     //Covariance of the Measurement Noise Matrix R
-    kalman_initial.R_data[0]	= 8000; kalman_initial.R_data[1]	=	0;    kalman_initial.R_data[2]	=	0;    kalman_initial.R_data[3]	=	0;
+    kalman_initial.R_data[0]	= 2000; kalman_initial.R_data[1]	=	0;    kalman_initial.R_data[2]	=	0;    kalman_initial.R_data[3]	=	0;
     kalman_initial.R_data[4]	= 0;    kalman_initial.R_data[5]	=	2000; kalman_initial.R_data[6]	=	0;    kalman_initial.R_data[7]	=	0;
     kalman_initial.R_data[8]	= 0;    kalman_initial.R_data[9]	=	0;    kalman_initial.R_data[10]	=	60000;kalman_initial.R_data[11]	=	0;
     kalman_initial.R_data[12]	=	0;    kalman_initial.R_data[13]	=	0;    kalman_initial.R_data[14]	=	0;    kalman_initial.R_data[15]	=	60000;
@@ -258,7 +258,7 @@ void UserTask(void *pvParameters)
         }
     }
 		//开启PWM
-		PWM_ID_E PWM_ID_LIST[16]={Z};//输入想要使用的PWM端口
+		PWM_ID_E PWM_ID_LIST[16]={B};//输入想要使用的PWM端口
 		for (int k=0;k<16;k++)
 		{	
 			if(PWM_ID_LIST[k]==NULL)//若端口未指定
@@ -278,12 +278,6 @@ void UserTask(void *pvParameters)
 
     while (1)
     {
-//        //软件复位程序
-//        if (switch_is_down(gimbal_control.gimbal_rc_ctrl->rc.s[1]))
-//        {
-//            SoftReset();
-//        }
-//        //软件复位程序
 				
         //姿态角 将rad 变成 度，除这里的姿态角的单位为度，其他地方的姿态角，单位均为弧度
         angle_degree[0] = (*(angle + INS_YAW_ADDRESS_OFFSET)) * 57.3f;
@@ -294,7 +288,7 @@ void UserTask(void *pvParameters)
         {
             led_green_on();
         }
-
+				
         //定义filter的输入
         //group delay，输入为陀螺仪YAW轴的角度
         group_delay_gyro_aim.group_delay_raw_value=gimbal_control.gimbal_yaw_motor.absolute_angle;
@@ -303,24 +297,42 @@ void UserTask(void *pvParameters)
 
         Filter_Running(&gimbal_control);//filter进行计算
 
+				//键盘按键更新
+				keyboard.last_f_pressed=keyboard.f_pressed;
+				keyboard.last_v_pressed=keyboard.v_pressed;
+				keyboard.last_c_pressed=keyboard.c_pressed;
+				keyboard.last_b_pressed=keyboard.b_pressed;
+				keyboard.last_r_pressed=keyboard.r_pressed;
+				keyboard.f_pressed=gimbal_control.gimbal_rc_ctrl->key.v & KEY_PRESSED_OFFSET_F;
+				keyboard.v_pressed=gimbal_control.gimbal_rc_ctrl->key.v & KEY_PRESSED_OFFSET_V;
+				keyboard.b_pressed=gimbal_control.gimbal_rc_ctrl->key.v & KEY_PRESSED_OFFSET_B;
+				keyboard.c_pressed=gimbal_control.gimbal_rc_ctrl->key.v & KEY_PRESSED_OFFSET_C;
+				keyboard.r_pressed=gimbal_control.gimbal_rc_ctrl->key.v & KEY_PRESSED_OFFSET_R;
+				
+				//按下R软重启主板
+				if(keyboard.r_pressed && keyboard.last_r_pressed==0)
+				{
+						SoftReset();
+				}
+				
         //调整准心
-        if (gimbal_control.gimbal_rc_ctrl->key.v & KEY_PRESSED_OFFSET_F)
+        if (keyboard.f_pressed && keyboard.last_f_pressed==0)
         {
-            pitch_mid_offset -=1;
-        }
-        if (gimbal_control.gimbal_rc_ctrl->key.v & KEY_PRESSED_OFFSET_V)
+						pitch_mid_offset +=5;
+				}
+        else if (keyboard.v_pressed && keyboard.last_v_pressed==0)
         {
-            pitch_mid_offset +=1;
-        }
-        if (gimbal_control.gimbal_rc_ctrl->key.v & KEY_PRESSED_OFFSET_C)
+						pitch_mid_offset -=5;
+				}
+        else if (keyboard.c_pressed && keyboard.last_c_pressed==0)
         {
-            yaw_mid_offset -=1;
+						yaw_mid_offset +=5;
         }
-        if (gimbal_control.gimbal_rc_ctrl->key.v & KEY_PRESSED_OFFSET_B)
+        else if (keyboard.b_pressed && keyboard.last_b_pressed==0)
         {
-            yaw_mid_offset +=1;
+						yaw_mid_offset -=5;
         }
-
+				
         vTaskDelay(1);//每隔1ms循环一次
 //        led_green_off();
 //        vTaskDelay(500);
