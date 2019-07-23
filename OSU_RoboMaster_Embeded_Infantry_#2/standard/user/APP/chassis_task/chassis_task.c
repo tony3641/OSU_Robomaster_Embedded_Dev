@@ -231,6 +231,8 @@ static void chassis_feedback_update(chassis_move_t *chassis_move_update)
 }
 
 //遥控器的数据处理成底盘的前进vx速度，vy速度
+int32_t accelerate_counter=0;
+int32_t decelerate_counter=0;
 void chassis_rc_to_control_vector(fp32 *vx_set, fp32 *vy_set, chassis_move_t *chassis_move_rc_to_vector)
 {
     if (chassis_move_rc_to_vector == NULL || vx_set == NULL || vy_set == NULL)
@@ -249,7 +251,17 @@ void chassis_rc_to_control_vector(fp32 *vx_set, fp32 *vy_set, chassis_move_t *ch
 
     if (chassis_move_rc_to_vector->chassis_RC->key.v & CHASSIS_FRONT_KEY)
     {
-        vx_set_channel = chassis_move_rc_to_vector->vx_max_speed;
+			accelerate_counter++;
+			if(accelerate_counter<950)
+			{
+        vx_set_channel = (fp32)((accelerate_counter+50)/1000.0f)*chassis_move_rc_to_vector->vx_max_speed;
+			}
+			else
+			{
+				accelerate_counter=950;
+				vx_set_channel = chassis_move_rc_to_vector->vx_max_speed;
+			}
+			
     }
     else if (chassis_move_rc_to_vector->chassis_RC->key.v & CHASSIS_BACK_KEY)
     {
@@ -272,13 +284,27 @@ void chassis_rc_to_control_vector(fp32 *vx_set, fp32 *vy_set, chassis_move_t *ch
     //停止信号，不需要缓慢加速，直接减速到零
     if (vx_set_channel < CHASSIS_RC_DEADLINE * CHASSIS_VX_RC_SEN && vx_set_channel > -CHASSIS_RC_DEADLINE * CHASSIS_VX_RC_SEN)
     {
-        chassis_move_rc_to_vector->chassis_cmd_slow_set_vx.out = 0.0f;
+				
+				
+				if(accelerate_counter>0)
+				{
+					accelerate_counter--;
+					chassis_move_rc_to_vector->chassis_cmd_slow_set_vx.out = accelerate_counter/1000.0f*chassis_move_rc_to_vector->vx_max_speed;
+				}
+				else
+				{
+					accelerate_counter=0;
+					chassis_move_rc_to_vector->chassis_cmd_slow_set_vx.out = 0.0f;
+				}
+				
     }
 
     if (vy_set_channel < CHASSIS_RC_DEADLINE * CHASSIS_VY_RC_SEN && vy_set_channel > -CHASSIS_RC_DEADLINE * CHASSIS_VY_RC_SEN)
     {
+//				accelerate_counter=0;
         chassis_move_rc_to_vector->chassis_cmd_slow_set_vy.out = 0.0f;
     }
+		
 
     *vx_set = chassis_move_rc_to_vector->chassis_cmd_slow_set_vx.out;
     *vy_set = chassis_move_rc_to_vector->chassis_cmd_slow_set_vy.out;

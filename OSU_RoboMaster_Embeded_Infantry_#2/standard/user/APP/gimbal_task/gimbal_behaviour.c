@@ -388,14 +388,14 @@ static void gimbal_behaviour_set(Gimbal_Control_t *gimbal_mode_set)
     }
     else if (switch_is_mid(gimbal_mode_set->gimbal_rc_ctrl->rc.s[ModeChannel]))
     {
-        if(mouse_trigger.press_r && mouse_trigger.last_press_r==0 && gimbal_behaviour == GIMBAL_RELATIVE_ANGLE)
-        {
-            gimbal_behaviour = GIMBAL_AIM;//右键切换自瞄模式
-        }
-        else if(mouse_trigger.press_r && mouse_trigger.last_press_r==0 && gimbal_behaviour != GIMBAL_RELATIVE_ANGLE)
-        {    
+//        if(mouse_trigger.press_r && mouse_trigger.last_press_r==0 && gimbal_behaviour == GIMBAL_RELATIVE_ANGLE)
+//        {
+//            gimbal_behaviour = GIMBAL_AIM;//右键切换自瞄模式
+//        }
+//        else if(mouse_trigger.press_r && mouse_trigger.last_press_r==0 && gimbal_behaviour != GIMBAL_RELATIVE_ANGLE)
+//        {    
 						gimbal_behaviour = GIMBAL_RELATIVE_ANGLE;//右键切换相对角度模式
-        }
+//        }
     }
     else if (switch_is_up(gimbal_mode_set->gimbal_rc_ctrl->rc.s[ModeChannel]))
     {
