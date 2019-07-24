@@ -2,7 +2,7 @@
   ****************************(C) COPYRIGHT 2016 DJI****************************
   * @file       chassis.c/h
   * @brief      完成底盘控制任务。
-  * @note
+  * @note       
   * @history
   *  Version    Date            Author          Modification
   *  V1.0.0     Dec-26-2018     RM              1. 完成
@@ -91,8 +91,8 @@ void chassis_task(void *pvParameters)
         chassis_set_contorl(&chassis_move);
         //底盘控制PID计算
         chassis_control_loop(&chassis_move);
-
-        J_scope_chassis_test();
+			
+				J_scope_chassis_test();
 
         if (!(toe_is_error(ChassisMotor1TOE) || toe_is_error(ChassisMotor2TOE) || toe_is_error(ChassisMotor3TOE) || toe_is_error(ChassisMotor4TOE)))
         {
@@ -253,74 +253,62 @@ void chassis_rc_to_control_vector(fp32 *vx_set, fp32 *vy_set, chassis_move_t *ch
 
     if (chassis_move_rc_to_vector->chassis_RC->key.v & CHASSIS_FRONT_KEY)
     {
-        //前进，自定义缓速起步
-        forward_accelerate_counter++;
-				backward_accelerate_counter=0;
-				leftward_accelerate_counter=0;
-				rightward_accelerate_counter=0;
-        if(forward_accelerate_counter<ACCELERATE_TIME-50)
-        {
-            vx_set_channel = (fp32)((forward_accelerate_counter+50)/ACCELERATE_TIME)*chassis_move_rc_to_vector->vx_max_speed;
-        }
-        else
-        {
-            forward_accelerate_counter=ACCELERATE_TIME-50;
-            vx_set_channel = chassis_move_rc_to_vector->vx_max_speed;
-        }
-
+			//前进，自定义缓速起步
+			forward_accelerate_counter++;
+			if(forward_accelerate_counter<ACCELERATE_TIME-50)
+			{
+        vx_set_channel = (fp32)((forward_accelerate_counter+50)/ACCELERATE_TIME)*chassis_move_rc_to_vector->vx_max_speed;
+			}
+			else
+			{
+				forward_accelerate_counter=ACCELERATE_TIME-50;
+				vx_set_channel = chassis_move_rc_to_vector->vx_max_speed;
+			}
+			
     }
     else if (chassis_move_rc_to_vector->chassis_RC->key.v & CHASSIS_BACK_KEY)
     {
-        //后退，自定义缓速起步
-				forward_accelerate_counter=0;
-        backward_accelerate_counter++;
-				leftward_accelerate_counter=0;
-				rightward_accelerate_counter=0;
-        if(backward_accelerate_counter<ACCELERATE_TIME-50)
-        {
-            vx_set_channel = (fp32)((backward_accelerate_counter+50)/ACCELERATE_TIME)*chassis_move_rc_to_vector->vx_min_speed;
-        }
-        else
-        {
-            backward_accelerate_counter=ACCELERATE_TIME-50;
-            vx_set_channel = chassis_move_rc_to_vector->vx_min_speed;
-        }
+			//后退，自定义缓速起步
+			backward_accelerate_counter++;
+			if(backward_accelerate_counter<ACCELERATE_TIME-50)
+			{
+        vx_set_channel = (fp32)((backward_accelerate_counter+50)/ACCELERATE_TIME)*chassis_move_rc_to_vector->vx_min_speed;
+			}
+			else
+			{
+				backward_accelerate_counter=ACCELERATE_TIME-50;
+				vx_set_channel = chassis_move_rc_to_vector->vx_min_speed;
+			}
     }
 
     if (chassis_move_rc_to_vector->chassis_RC->key.v & CHASSIS_LEFT_KEY)
     {
-        //左移，自定义缓速起步
-				forward_accelerate_counter=0;
-        backward_accelerate_counter=0;
-				leftward_accelerate_counter++;
-				rightward_accelerate_counter=0;
-        if(leftward_accelerate_counter<ACCELERATE_TIME-50)
-        {
-            vy_set_channel = (fp32)((leftward_accelerate_counter+50)/ACCELERATE_TIME)*chassis_move_rc_to_vector->vy_max_speed;
-        }
-        else
-        {
-            leftward_accelerate_counter=ACCELERATE_TIME-50;
-            vy_set_channel = chassis_move_rc_to_vector->vy_max_speed;
-        }
+			//左移，自定义缓速起步
+			leftward_accelerate_counter++;
+			if(leftward_accelerate_counter<ACCELERATE_TIME-50)
+			{
+        vy_set_channel = (fp32)((leftward_accelerate_counter+50)/ACCELERATE_TIME)*chassis_move_rc_to_vector->vy_max_speed;
+			}
+			else
+			{
+				leftward_accelerate_counter=ACCELERATE_TIME-50;
+				vy_set_channel = chassis_move_rc_to_vector->vy_max_speed;
+			}
     }
-
+   
     else if (chassis_move_rc_to_vector->chassis_RC->key.v & CHASSIS_RIGHT_KEY)
     {
-        //右移，自定义缓速起步
-        forward_accelerate_counter=0;
-        backward_accelerate_counter=0;
-				leftward_accelerate_counter=0;
-				rightward_accelerate_counter++;
-        if(rightward_accelerate_counter<ACCELERATE_TIME-50)
-        {
-            vy_set_channel = (fp32)((rightward_accelerate_counter+50)/ACCELERATE_TIME)*chassis_move_rc_to_vector->vy_min_speed;
-        }
-        else
-        {
-            rightward_accelerate_counter=ACCELERATE_TIME-50;
-            vy_set_channel = chassis_move_rc_to_vector->vy_min_speed;
-        }
+      //右移，自定义缓速起步
+			rightward_accelerate_counter++;
+			if(rightward_accelerate_counter<ACCELERATE_TIME-50)
+			{
+        vy_set_channel = (fp32)((rightward_accelerate_counter+50)/ACCELERATE_TIME)*chassis_move_rc_to_vector->vy_min_speed;
+			}
+			else
+			{
+				rightward_accelerate_counter=ACCELERATE_TIME-50;
+				vy_set_channel = chassis_move_rc_to_vector->vy_min_speed;
+			}
     }
 
     //一阶低通滤波代替斜波作为底盘速度输入
@@ -330,61 +318,52 @@ void chassis_rc_to_control_vector(fp32 *vx_set, fp32 *vy_set, chassis_move_t *ch
     //停止信号，需要自定义缓慢减速到零
     if (vx_set_channel < CHASSIS_RC_DEADLINE * CHASSIS_VX_RC_SEN && vx_set_channel > -CHASSIS_RC_DEADLINE * CHASSIS_VX_RC_SEN)
     {
-
-        //前进，自定义缓速减速
-        if(forward_accelerate_counter>0)
-        {
-            forward_accelerate_counter--;
-            chassis_move_rc_to_vector->chassis_cmd_slow_set_vx.out = forward_accelerate_counter/ACCELERATE_TIME*chassis_move_rc_to_vector->vx_max_speed;
-        }
+				
+				//前进，自定义缓速减速
+				if(forward_accelerate_counter>0)
+				{
+					forward_accelerate_counter--;
+					chassis_move_rc_to_vector->chassis_cmd_slow_set_vx.out = forward_accelerate_counter/ACCELERATE_TIME*chassis_move_rc_to_vector->vx_max_speed;
+				}
+				//后退，自定义缓速减速
+				else if(backward_accelerate_counter>0)
+				{
+					backward_accelerate_counter--;
+					chassis_move_rc_to_vector->chassis_cmd_slow_set_vx.out = backward_accelerate_counter/ACCELERATE_TIME*chassis_move_rc_to_vector->vx_min_speed;
+				}
 				//清零计数器
-        else
-        {
-            forward_accelerate_counter=0;
-//            chassis_move_rc_to_vector->chassis_cmd_slow_set_vx.out = 0.0f;
-        }
-        //后退，自定义缓速减速
-        if(backward_accelerate_counter>0)
-        {
-            backward_accelerate_counter--;
-            chassis_move_rc_to_vector->chassis_cmd_slow_set_vx.out = backward_accelerate_counter/ACCELERATE_TIME*chassis_move_rc_to_vector->vx_min_speed;
-        }
-        //清零计数器
-        else
-        {
-            backward_accelerate_counter=0;
-//            chassis_move_rc_to_vector->chassis_cmd_slow_set_vx.out = 0.0f;
-        }
-
+				else
+				{
+					forward_accelerate_counter=0;
+					backward_accelerate_counter=0;
+					chassis_move_rc_to_vector->chassis_cmd_slow_set_vx.out = 0.0f;
+				}
+				
     }
 
     if (vy_set_channel < CHASSIS_RC_DEADLINE * CHASSIS_VY_RC_SEN && vy_set_channel > -CHASSIS_RC_DEADLINE * CHASSIS_VY_RC_SEN)
     {
-        //左移，自定义缓速减速
-        if(leftward_accelerate_counter>0)
-        {
-            leftward_accelerate_counter--;
-            chassis_move_rc_to_vector->chassis_cmd_slow_set_vy.out = leftward_accelerate_counter/ACCELERATE_TIME*chassis_move_rc_to_vector->vy_max_speed;
-        }
+				//左移，自定义缓速减速
+				if(leftward_accelerate_counter>0)
+				{
+					leftward_accelerate_counter--;
+					chassis_move_rc_to_vector->chassis_cmd_slow_set_vy.out = leftward_accelerate_counter/ACCELERATE_TIME*chassis_move_rc_to_vector->vy_max_speed;
+				}
+				//右移，自定义缓速减速
+				else if(rightward_accelerate_counter>0)
+				{
+					rightward_accelerate_counter--;
+					chassis_move_rc_to_vector->chassis_cmd_slow_set_vy.out = rightward_accelerate_counter/ACCELERATE_TIME*chassis_move_rc_to_vector->vy_min_speed;
+				}
+				//清零计数器
 				else
 				{
-						leftward_accelerate_counter=0;
-//						chassis_move_rc_to_vector->chassis_cmd_slow_set_vy.out = 0.0f;
+					leftward_accelerate_counter=0;
+					rightward_accelerate_counter=0;
+					chassis_move_rc_to_vector->chassis_cmd_slow_set_vy.out = 0.0f;
 				}
-        //右移，自定义缓速减速
-        if(rightward_accelerate_counter>0)
-        {
-            rightward_accelerate_counter--;
-            chassis_move_rc_to_vector->chassis_cmd_slow_set_vy.out = rightward_accelerate_counter/ACCELERATE_TIME*chassis_move_rc_to_vector->vy_min_speed;
-        }
-        //清零计数器
-        else
-        {
-            rightward_accelerate_counter=0;
-//            chassis_move_rc_to_vector->chassis_cmd_slow_set_vy.out = 0.0f;
-        }
     }
-
+		
 
     *vx_set = chassis_move_rc_to_vector->chassis_cmd_slow_set_vx.out;
     *vy_set = chassis_move_rc_to_vector->chassis_cmd_slow_set_vy.out;
@@ -407,8 +386,8 @@ static void chassis_set_contorl(chassis_move_t *chassis_move_control)
     if (chassis_move_control->chassis_mode == CHASSIS_VECTOR_FOLLOW_GIMBAL_YAW)
     {
         fp32 sin_yaw = 0.0f, cos_yaw = 0.0f;
-        //jscope
-
+				//jscope
+				
         //旋转控制底盘速度方向，保证前进方向是云台方向，有利于运动平稳
         sin_yaw = arm_sin_f32(-chassis_move_control->chassis_yaw_motor->relative_angle);
         cos_yaw = arm_cos_f32(-chassis_move_control->chassis_yaw_motor->relative_angle);
@@ -418,8 +397,8 @@ static void chassis_set_contorl(chassis_move_t *chassis_move_control)
         chassis_move_control->chassis_relative_angle_set = rad_format(angle_set);
         //计算旋转PID角速度
         chassis_move_control->wz_set = -PID_Calc(&chassis_move_control->chassis_angle_pid, chassis_move_control->chassis_yaw_motor->relative_angle, chassis_move_control->chassis_relative_angle_set);
-
-        //速度限幅
+        
+				//速度限幅
         chassis_move_control->vx_set = fp32_constrain(chassis_move_control->vx_set, chassis_move_control->vx_min_speed, chassis_move_control->vx_max_speed);
         chassis_move_control->vy_set = fp32_constrain(chassis_move_control->vy_set, chassis_move_control->vy_min_speed, chassis_move_control->vy_max_speed);
     }
@@ -463,7 +442,7 @@ static void chassis_set_contorl(chassis_move_t *chassis_move_control)
 int32_t wz_set_jscope;
 static void J_scope_chassis_test(void)
 {
-    wz_set_jscope=(int32_t)(chassis_move.wz_set*100);
+	wz_set_jscope=(int32_t)(chassis_move.wz_set*100);
 }
 static void chassis_vector_to_mecanum_wheel_speed(const fp32 vx_set, const fp32 vy_set, const fp32 wz_set, fp32 wheel_speed[4])
 {
@@ -473,8 +452,7 @@ static void chassis_vector_to_mecanum_wheel_speed(const fp32 vx_set, const fp32 
     wheel_speed[2] = vx_set + vy_set + (-CHASSIS_WZ_SET_SCALE - 1.0f) * MOTOR_DISTANCE_TO_CENTER * wz_set;
     wheel_speed[3] = -vx_set + vy_set + (-CHASSIS_WZ_SET_SCALE - 1.0f) * MOTOR_DISTANCE_TO_CENTER * wz_set;
 }
-int32_t chassis_current[4];
-int32_t chassis_current_total;
+
 static void chassis_control_loop(chassis_move_t *chassis_move_control_loop)
 {
     fp32 max_vector = 0.0f, vector_rate = 0.0f;
@@ -527,7 +505,5 @@ static void chassis_control_loop(chassis_move_t *chassis_move_control_loop)
     for (i = 0; i < 4; i++)
     {
         chassis_move_control_loop->motor_chassis[i].give_current = (int16_t)(chassis_move_control_loop->motor_speed_pid[i].out);
-				chassis_current[i]=chassis_move_control_loop->motor_chassis[i].give_current;
     }
-    chassis_current_total=chassis_current[0]+chassis_current[1]+chassis_current[2]+chassis_current[3];
 }
