@@ -1,0 +1,65 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¦ÌVision V5.26.2.0
+Copyright (C) 2018 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: Yuan You, The Ohio State University, LIC=9WSKP-MVB5H-63WMB-2M8JT-GF985-PWIT3
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Plus  Version: 5.26.2.0
+Toolchain Path:  D:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 6 (build 750)
+Assembler:       Armasm.exe V5.06 update 6 (build 750)
+Linker/Locator:  ArmLink.exe V5.06 update 6 (build 750)
+Library Manager: ArmAr.exe V5.06 update 6 (build 750)
+Hex Converter:   FromElf.exe V5.06 update 6 (build 750)
+CPU DLL:         SARMCM3.DLL V5.26.2.0
+Dialog DLL:      DCM.DLL V1.17.2.0
+Target DLL:      Segger\JL2CM3.dll V2.99.31.0
+Dialog DLL:      TCM.DLL V1.36.1.0
+ 
+<h2>Project:</h2>
+D:\OneDrive - The Ohio State University\RoboMaster\OSU_RoboMaster_Embeded\OSU_RoboMaster_Embeded_Hero_#1\standard\Project\standard.uvprojx
+Project File Date:  07/07/2019
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 6 (build 750)', folder: 'D:\Keil_v5\ARM\ARMCC\Bin'
+Build target 'standard'
+compiling gimbal_task.c...
+..\user\APP\gimbal_task\gimbal_task.c(74): warning:  #177-D: variable "Shoot_Can_Set_Current"  was declared but never referenced
+  static int16_t Yaw_Can_Set_Current = 0, Pitch_Can_Set_Current = 0, Shoot_Can_Set_Current = 0;
+..\user\APP\gimbal_task\gimbal_task.c: 1 warning, 0 errors
+compiling fric.c...
+compiling main.c...
+compiling shoot.c...
+compiling user_task.c...
+..\user\APP\user_task\user_task.c(434): warning:  #550-D: variable "last_s"  was set but never used
+  				static int8_t last_s = RC_SW_UP;
+..\user\APP\user_task\user_task.c(435): warning:  #177-D: variable "last_mouse_pressed_l"  was declared but never referenced
+  				bool_t last_mouse_pressed_l=gimbal_control.gimbal_rc_ctrl->mouse.press_l;
+..\user\APP\user_task\user_task.c(109): warning:  #177-D: function "Filter_Running"  was declared but never referenced
+  static void Filter_Running(Gimbal_Control_t *gimbal_data)
+..\user\APP\user_task\user_task.c: 3 warnings, 0 errors
+linking...
+Program Size: Code=57324 RO-data=2788 RW-data=816 ZI-data=139264  
+FromELF: creating hex file...
+".\Objects\infantry.axf" - 0 Error(s), 4 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32F4xx_DFP.2.13.0.pack
+                Keil.STM32F4xx_DFP.2.13.0
+                STMicroelectronics STM32F4 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_standard
+  D:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+
+<h2>Collection of Component Files used:</h2>
+Build Time Elapsed:  00:00:05
+</pre>
+</body>
+</html>
