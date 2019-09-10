@@ -59,10 +59,12 @@ void CAN_CMD_GIMBAL(int16_t yaw, int16_t pitch, int16_t shoot, int16_t rev);
 }
 
 ////////////////////////////////		自瞄数据包		////////////////////////////////
-#define get_aim_data(ptr,rx_message)																																							\
-{ \
-	(ptr)->raw_horizontal_pixel=(uint16_t)((rx_message->Data[0]<<8)|(rx_message->Data[1]));						\
-	(ptr)->raw_vertical_pixel=(uint16_t)((rx_message->Data[2]<<8)|((rx_message)->Data[3]));            \
+#define get_aim_data(ptr,rx_message)																											\
+{ 																																												\
+	(ptr)->last_raw_horizontal_pixel=(ptr)->raw_horizontal_pixel;														\
+	(ptr)->last_raw_vertical_pixel=(ptr)->raw_vertical_pixel;            										\
+	(ptr)->raw_horizontal_pixel=(uint16_t)((rx_message->Data[0]<<8)|(rx_message->Data[1]));	\
+	(ptr)->raw_vertical_pixel=(uint16_t)((rx_message->Data[2]<<8)|((rx_message)->Data[3])); \
 }
 ////////////////////////////////		自瞄数据包		////////////////////////////////
 

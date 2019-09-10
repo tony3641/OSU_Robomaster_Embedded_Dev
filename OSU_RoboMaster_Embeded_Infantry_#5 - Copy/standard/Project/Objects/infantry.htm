@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\infantry.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\infantry.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon Sep 02 20:07:20 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon Sep 09 21:15:57 2019
 <BR><P>
 <H3>Maximum Stack Usage =        280 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -3856,7 +3856,7 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> calibrate_task.o(.data)
 </UL>
-<P><STRONG><a name="[c1]"></a>CAN_hook</STRONG> (Thumb, 472 bytes, Stack size 8 bytes, can_receive.o(i.CAN_hook))
+<P><STRONG><a name="[c1]"></a>CAN_hook</STRONG> (Thumb, 486 bytes, Stack size 8 bytes, can_receive.o(i.CAN_hook))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = CAN_hook &rArr; CAN_GIMBAL_ENCODE_DATA &rArr; CAN_Transmit
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DetectHook
@@ -4140,7 +4140,7 @@ Local Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_Init
 </UL>
 
-<P><STRONG><a name="[10d]"></a>J_scope_gimbal_test</STRONG> (Thumb, 658 bytes, Stack size 0 bytes, gimbal_task.o(i.J_scope_gimbal_test))
+<P><STRONG><a name="[10d]"></a>J_scope_gimbal_test</STRONG> (Thumb, 618 bytes, Stack size 0 bytes, gimbal_task.o(i.J_scope_gimbal_test))
 <BR><BR>[Called By]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_task
 </UL>
 
@@ -4152,7 +4152,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[17c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cmd_cali_gimbal_hook
 </UL>
 
-<P><STRONG><a name="[ef]"></a>gimbal_motor_aim_control_gyro_yaw</STRONG> (Thumb, 348 bytes, Stack size 8 bytes, gimbal_task.o(i.gimbal_motor_aim_control_gyro_yaw))
+<P><STRONG><a name="[ef]"></a>gimbal_motor_aim_control_gyro_yaw</STRONG> (Thumb, 264 bytes, Stack size 8 bytes, gimbal_task.o(i.gimbal_motor_aim_control_gyro_yaw))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = gimbal_motor_aim_control_gyro_yaw &rArr; GIMBAL_PID_Calc
 </UL>
 <BR>[Calls]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_PID_Calc
@@ -4161,7 +4161,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_Control_loop
 </UL>
 
-<P><STRONG><a name="[f2]"></a>gimbal_motor_aim_control_pitch</STRONG> (Thumb, 194 bytes, Stack size 8 bytes, gimbal_task.o(i.gimbal_motor_aim_control_pitch))
+<P><STRONG><a name="[f2]"></a>gimbal_motor_aim_control_pitch</STRONG> (Thumb, 222 bytes, Stack size 8 bytes, gimbal_task.o(i.gimbal_motor_aim_control_pitch))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = gimbal_motor_aim_control_pitch &rArr; GIMBAL_PID_Calc
 </UL>
 <BR>[Calls]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_PID_Calc
@@ -4194,7 +4194,7 @@ Local Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_Control_loop
 </UL>
 
-<P><STRONG><a name="[f1]"></a>gimbal_motor_relative_angle_control_pitch</STRONG> (Thumb, 220 bytes, Stack size 16 bytes, gimbal_task.o(i.gimbal_motor_relative_angle_control_pitch))
+<P><STRONG><a name="[f1]"></a>gimbal_motor_relative_angle_control_pitch</STRONG> (Thumb, 266 bytes, Stack size 16 bytes, gimbal_task.o(i.gimbal_motor_relative_angle_control_pitch))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = gimbal_motor_relative_angle_control_pitch &rArr; GIMBAL_PID_Calc
 </UL>
 <BR>[Calls]<UL><LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_on
@@ -4205,7 +4205,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GIMBAL_Control_loop
 </UL>
 
-<P><STRONG><a name="[ee]"></a>gimbal_motor_relative_angle_control_yaw</STRONG> (Thumb, 198 bytes, Stack size 16 bytes, gimbal_task.o(i.gimbal_motor_relative_angle_control_yaw))
+<P><STRONG><a name="[ee]"></a>gimbal_motor_relative_angle_control_yaw</STRONG> (Thumb, 244 bytes, Stack size 16 bytes, gimbal_task.o(i.gimbal_motor_relative_angle_control_yaw))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = gimbal_motor_relative_angle_control_yaw &rArr; GIMBAL_PID_Calc
 </UL>
 <BR>[Calls]<UL><LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_on
@@ -4282,7 +4282,7 @@ Local Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shoot_control_loop
 </UL>
 
-<P><STRONG><a name="[e7]"></a>Filter_Running</STRONG> (Thumb, 324 bytes, Stack size 16 bytes, user_task.o(i.Filter_Running))
+<P><STRONG><a name="[e7]"></a>Filter_Running</STRONG> (Thumb, 332 bytes, Stack size 16 bytes, user_task.o(i.Filter_Running))
 <BR><BR>[Stack]<UL><LI>Max Depth = 196<LI>Call Chain = Filter_Running &rArr; kalman_filter_calc &rArr; arm_mat_inverse_f32
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kalman_filter_calc

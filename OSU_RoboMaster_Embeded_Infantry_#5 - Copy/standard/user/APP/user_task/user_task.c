@@ -108,8 +108,8 @@ static void Filter_Running(Gimbal_Control_t *gimbal_data)
 {
 
 
-    filter_aim_data_flag=1;
-    filter_final_angle_set_flag=0;
+    filter_aim_data_flag=0;
+    filter_final_angle_set_flag=1;
 
 
     //是否对视觉发来的自瞄数据进行滤波
@@ -118,7 +118,7 @@ static void Filter_Running(Gimbal_Control_t *gimbal_data)
         *filtered_aim_data=kalman_filter_calc(&kalman,
                                               tx2.horizontal_pixel,
                                               tx2.vertical_pixel,
-                                              gimbal_control.gimbal_yaw_motor.motor_gyro,
+                                              gimbal_control.gimbal_yaw_motor.motor_gyro,//gimbal_control.gimbal_yaw_motor.motor_gyro,
                                               gimbal_control.gimbal_pitch_motor.motor_gyro);
 
 
@@ -140,8 +140,8 @@ static void Filter_Running(Gimbal_Control_t *gimbal_data)
         *filtered_final_angle_set=kalman_filter_calc(&kalman,
                                   final_yaw_angle_set,
                                   final_pitch_angle_set,
-                                  gimbal_control.gimbal_yaw_motor.motor_gyro,
-                                  gimbal_control.gimbal_pitch_motor.motor_gyro);
+                                  -gimbal_control.gimbal_yaw_motor.motor_gyro,
+                                  -gimbal_control.gimbal_pitch_motor.motor_gyro);
     }
     else if(filter_final_angle_set_flag==0)
     {
@@ -175,14 +175,14 @@ void UserTask(void *pvParameters)
     kalman_initial.Q_data[12]	=	0;    kalman_initial.Q_data[13]	=	0;    kalman_initial.Q_data[14]	=	0;    kalman_initial.Q_data[15]	=	1;
 
     //Covariance of the Measurement Noise Matrix R
-    kalman_initial.R_data[0]	= 1000; kalman_initial.R_data[1]	=	0;    kalman_initial.R_data[2]	=	0;    kalman_initial.R_data[3]	=	0;
-    kalman_initial.R_data[4]	= 0;    kalman_initial.R_data[5]	=	1000; kalman_initial.R_data[6]	=	0;    kalman_initial.R_data[7]	=	0;
-    kalman_initial.R_data[8]	= 0;    kalman_initial.R_data[9]	=	0;    kalman_initial.R_data[10]	=	5000;		kalman_initial.R_data[11]	=	0;
-    kalman_initial.R_data[12]	=	0;    kalman_initial.R_data[13]	=	0;    kalman_initial.R_data[14]	=	0;    kalman_initial.R_data[15]	=	5000;
+    kalman_initial.R_data[0]	= 2000; kalman_initial.R_data[1]	=	0;    kalman_initial.R_data[2]	=	0;    kalman_initial.R_data[3]	=	0;
+    kalman_initial.R_data[4]	= 0;    kalman_initial.R_data[5]	=	2000; kalman_initial.R_data[6]	=	0;    kalman_initial.R_data[7]	=	0;
+    kalman_initial.R_data[8]	= 0;    kalman_initial.R_data[9]	=	0;    kalman_initial.R_data[10]	=	1;		kalman_initial.R_data[11]	=	0;
+    kalman_initial.R_data[12]	=	0;    kalman_initial.R_data[13]	=	0;    kalman_initial.R_data[14]	=	0;    kalman_initial.R_data[15]	=	1;
 
     //System Term Matrix A
-    kalman_initial.A_data[0]	= 1;    kalman_initial.A_data[1]	=	0;    kalman_initial.A_data[2]	=	0.001;    kalman_initial.A_data[3]	=	0;
-    kalman_initial.A_data[4]	= 0;    kalman_initial.A_data[5]	=	1;    kalman_initial.A_data[6]	=	0;    kalman_initial.A_data[7]	=	0.001;
+    kalman_initial.A_data[0]	= 1;    kalman_initial.A_data[1]	=	0;    kalman_initial.A_data[2]	=	0.1;    kalman_initial.A_data[3]	=	0;
+    kalman_initial.A_data[4]	= 0;    kalman_initial.A_data[5]	=	1;    kalman_initial.A_data[6]	=	0;    kalman_initial.A_data[7]	=	0.1;
     kalman_initial.A_data[8]	= 0;    kalman_initial.A_data[9]	=	0;    kalman_initial.A_data[10]	=	1;    kalman_initial.A_data[11]	=	0;
     kalman_initial.A_data[12]	=	0;    kalman_initial.A_data[13]	=	0;    kalman_initial.A_data[14]	=	0;    kalman_initial.A_data[15]	=	1;
 
@@ -193,10 +193,10 @@ void UserTask(void *pvParameters)
 
 
     //Observation Model Matrix H
-    kalman_initial.H_data[0]	= 1;    kalman_initial.H_data[1]	=	0;    kalman_initial.H_data[2]	=	0;    kalman_initial.H_data[3]	=	0;
-    kalman_initial.H_data[4]	= 0;    kalman_initial.H_data[5]	=	1;    kalman_initial.H_data[6]	=	0;    kalman_initial.H_data[7]	=	0;
-    kalman_initial.H_data[8]	= 0;    kalman_initial.H_data[9]	=	0;    kalman_initial.H_data[10]	=	0;    kalman_initial.H_data[11]	=	0;
-    kalman_initial.H_data[12]	=	0;    kalman_initial.H_data[13]	=	0;    kalman_initial.H_data[14]	=	0;    kalman_initial.H_data[15]	=	0;
+    kalman_initial.H_data[0]	= 1;    kalman_initial.H_data[1]	=	0;    kalman_initial.H_data[2]	=	-70;    kalman_initial.H_data[3]	=	0;
+    kalman_initial.H_data[4]	= 0;    kalman_initial.H_data[5]	=	1;    kalman_initial.H_data[6]	=	0;    kalman_initial.H_data[7]	=	-5;
+    kalman_initial.H_data[8]	= 0;    kalman_initial.H_data[9]	=	0;    kalman_initial.H_data[10]	=	1;    kalman_initial.H_data[11]	=	0;
+    kalman_initial.H_data[12]	=	0;    kalman_initial.H_data[13]	=	0;    kalman_initial.H_data[14]	=	0;    kalman_initial.H_data[15]	=	1;
 
     kalman_initial.HT_data[0]	= 0;    kalman_initial.HT_data[1]	=	0;    kalman_initial.HT_data[2]	=	0;    kalman_initial.HT_data[3]	=	0;
     kalman_initial.HT_data[4]	= 0;    kalman_initial.HT_data[5]	=	0;    kalman_initial.HT_data[6]	=	0;    kalman_initial.HT_data[7]	=	0;

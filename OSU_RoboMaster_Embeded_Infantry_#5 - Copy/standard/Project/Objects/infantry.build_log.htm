@@ -27,8 +27,8 @@ Project File Date:  07/07/2019
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'D:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'standard'
-compiling start_task.c...
 compiling calibrate_task.c...
+compiling start_task.c...
 compiling chassis_task.c...
 compiling gimbal_behaviour.c...
 ..\user\APP\gimbal_task\gimbal_behaviour.c(488): warning:  #177-D: function "gimbal_init_control"  was declared but never referenced
@@ -39,15 +39,21 @@ compiling gimbal_task.c...
   static void gimbal_motor_absolute_angle_control(Gimbal_Motor_t *gimbal_motor);
 ..\user\APP\gimbal_task\gimbal_task.c: 1 warning, 0 errors
 compiling chassis_behaviour.c...
+..\user\APP\chassis_task\chassis_behaviour.c(352): warning:  #175-D: subscript out of range
+      *angle_set = rad_format(chassis_move_rc_to_vector->chassis_yaw_set - CHASSIS_ANGLE_Z_RC_SEN * chassis_move_rc_to_vector->chassis_RC->rc.ch[CHASSIS_WZ_CHANNEL]);
+..\user\APP\chassis_task\chassis_behaviour.c(449): warning:  #175-D: subscript out of range
+      *wz_set = -CHASSIS_WZ_RC_SEN * chassis_move_rc_to_vector->chassis_RC->rc.ch[CHASSIS_WZ_CHANNEL];//²âÊÔ²âÊÔ
 ..\user\APP\chassis_task\chassis_behaviour.c(379): warning:  #550-D: variable "swing_angle"  was set but never used
       static fp32 swing_angle = 0.0f;
-..\user\APP\chassis_task\chassis_behaviour.c: 1 warning, 0 errors
+..\user\APP\chassis_task\chassis_behaviour.c(472): warning:  #175-D: subscript out of range
+      *wz_set = -chassis_move_rc_to_vector->chassis_RC->rc.ch[CHASSIS_WZ_CHANNEL] * CHASSIS_OPEN_RC_SCALE;
+..\user\APP\chassis_task\chassis_behaviour.c: 4 warnings, 0 errors
 compiling shoot.c...
 compiling user_task.c...
 linking...
-Program Size: Code=61328 RO-data=2788 RW-data=816 ZI-data=138336  
+Program Size: Code=61324 RO-data=2788 RW-data=816 ZI-data=137624  
 FromELF: creating hex file...
-".\Objects\infantry.axf" - 0 Error(s), 3 Warning(s).
+".\Objects\infantry.axf" - 0 Error(s), 6 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -61,7 +67,7 @@ Package Vendor: Keil
   D:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:04
+Build Time Elapsed:  00:00:05
 </pre>
 </body>
 </html>

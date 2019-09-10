@@ -402,15 +402,15 @@ static void gimbal_behaviour_set(Gimbal_Control_t *gimbal_mode_set)
     }
     else if (switch_is_up(gimbal_mode_set->gimbal_rc_ctrl->rc.s[ModeChannel]))
 		{
-			//按住右键进入自瞄模式，松开手动模式
-				if(mouse_trigger.press_r)
-				{
-					gimbal_behaviour = GIMBAL_AIM;
-				}
-				else
-				{    
-				gimbal_behaviour = GIMBAL_ABSOLUTE_ANGLE;//上拨驾驶模式
-				}
+//			//按住右键进入自瞄模式，松开手动模式
+//				if(mouse_trigger.press_r)
+//				{
+//					gimbal_behaviour = GIMBAL_AIM;
+//				}
+//				else
+//				{    
+				gimbal_behaviour = GIMBAL_AIM;//上拨驾驶模式
+//				}
     }
     if( toe_is_error(DBUSTOE))
     {

@@ -68,10 +68,16 @@ typedef struct
 //TX2 to Gimbal Motor aim coordinate location data package
 //TX2到云台电机瞄准坐标数据包
 typedef struct{
-	uint32_t raw_horizontal_pixel;
-	uint32_t raw_vertical_pixel;
-	uint32_t horizontal_pixel;
-	uint32_t vertical_pixel;
+	//接收的数据
+	int32_t raw_horizontal_pixel;
+	int32_t raw_vertical_pixel;
+	int32_t last_raw_horizontal_pixel;
+	int32_t last_raw_vertical_pixel;
+	//分析的数据
+	int32_t horizontal_pixel;
+	int32_t vertical_pixel;
+	int32_t horizontal_pixel_difference;
+	int32_t vertical_pixel_difference;
 } tx2_aim_package_t;
 
 //云台陀螺仪绝对角度结构体

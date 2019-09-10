@@ -34,7 +34,7 @@
 
 //yaw 速度环 PID参数以及 PID最大输出，积分输出
 #define YAW_SPEED_PID_KP 4200.0f//2200.0f
-#define YAW_SPEED_PID_KI 20.0f
+#define YAW_SPEED_PID_KI 5.0f
 #define YAW_SPEED_PID_KD 0.3f
 #define YAW_SPEED_PID_MAX_OUT 10000.0f//30000.0f
 #define YAW_SPEED_PID_MAX_IOUT 5000.0f
@@ -50,7 +50,7 @@
 //yaw 角度环 角度由陀螺仪解算 PID参数以及 PID最大输出，积分输出
 #define YAW_GYRO_ABSOLUTE_PID_KP 12.0f//10.0f
 #define YAW_GYRO_ABSOLUTE_PID_KI 0.0f
-#define YAW_GYRO_ABSOLUTE_PID_KD 0.0f//0.3f
+#define YAW_GYRO_ABSOLUTE_PID_KD -0.5f//0.3f
 #define YAW_GYRO_ABSOLUTE_PID_MAX_OUT 10.0f
 #define YAW_GYRO_ABSOLUTE_PID_MAX_IOUT 0.0f
 
@@ -150,13 +150,13 @@
 #define RAD_TO_DEGREE 572.9577951f
 
 //预测时间量
-#define PREDICTION_TIME 0.001f*75
+#define PREDICTION_TIME 0.0f
 
 //自瞄信号YAW中值
 #define YAW_MID 900.0f-4*5.0f
 
 //自瞄信号PITCH中值
-#define PITCH_MID 300.0f+20*5.0f
+#define PITCH_MID 300.0f+22*5.0f
 typedef enum
 {
     GIMBAL_MOTOR_RAW = 0, //电机原始值控制
@@ -201,9 +201,7 @@ typedef struct
     fp32 relative_angle_set; //rad
     fp32 absolute_angle;     //rad 经过计算后的数值
 	
-	
-		fp32 absolute_angle_raw; //rad 陀螺仪中直接读取的数值
-		fp32 final_absolute_angle_set; //rad 经过滤波及预测及计算之后自瞄模式陀螺仪最终的角度
+			fp32 final_absolute_angle_set; //rad 经过滤波及预测及计算之后自瞄模式陀螺仪最终的角度
 		fp32 final_relative_angle_set; //rad 经过滤波及预测及计算之后自瞄模式编码器最终的角度
 	
     fp32 absolute_angle_set; //rad
